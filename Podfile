@@ -7,6 +7,7 @@ target 'Twibu' do
 
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
   pod 'TwitterKit'
 
   target 'TwibuTests' do

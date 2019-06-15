@@ -16,6 +16,8 @@
 		4D11151922B5160F000817BA /* TwibuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11151822B5160F000817BA /* TwibuTests.swift */; };
 		4D11152A22B528AE000817BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D11152922B528AE000817BA /* GoogleService-Info.plist */; };
 		4D11152C22B531E8000817BA /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11152B22B531E8000817BA /* Device.swift */; };
+		4D11152F22B545FF000817BA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11152E22B545FF000817BA /* User.swift */; };
+		4D11153222B547F8000817BA /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153122B547F8000817BA /* Result.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,8 @@
 		4D11152722B524C0000817BA /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		4D11152922B528AE000817BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4D11152B22B531E8000817BA /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		4D11152E22B545FF000817BA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4D11153122B547F8000817BA /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +112,8 @@
 		4D11150222B5160E000817BA /* Twibu */ = {
 			isa = PBXGroup;
 			children = (
+				4D11153022B547E8000817BA /* util */,
+				4D11152D22B545F2000817BA /* model */,
 				4D11152922B528AE000817BA /* GoogleService-Info.plist */,
 				4D11150322B5160E000817BA /* AppDelegate.swift */,
 				4D11150522B5160E000817BA /* ViewController.swift */,
@@ -115,7 +121,6 @@
 				4D11150A22B5160F000817BA /* Assets.xcassets */,
 				4D11150C22B5160F000817BA /* LaunchScreen.storyboard */,
 				4D11150F22B5160F000817BA /* Info.plist */,
-				4D11152B22B531E8000817BA /* Device.swift */,
 			);
 			path = Twibu;
 			sourceTree = "<group>";
@@ -127,6 +132,23 @@
 				4D11151A22B5160F000817BA /* Info.plist */,
 			);
 			path = TwibuTests;
+			sourceTree = "<group>";
+		};
+		4D11152D22B545F2000817BA /* model */ = {
+			isa = PBXGroup;
+			children = (
+				4D11152E22B545FF000817BA /* User.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		4D11153022B547E8000817BA /* util */ = {
+			isa = PBXGroup;
+			children = (
+				4D11152B22B531E8000817BA /* Device.swift */,
+				4D11153122B547F8000817BA /* Result.swift */,
+			);
+			path = util;
 			sourceTree = "<group>";
 		};
 		BE96F5C735459C2F19058E09 /* Pods */ = {
@@ -327,6 +349,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D11152F22B545FF000817BA /* User.swift in Sources */,
+				4D11153222B547F8000817BA /* Result.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
 				4D11150622B5160E000817BA /* ViewController.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,

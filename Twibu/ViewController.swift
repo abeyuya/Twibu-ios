@@ -28,7 +28,7 @@ final class ViewController: UIViewController {
                     message += "\n 何故かシミュレータではTwitterログインできない..."
                 }
 
-                self?.showErrorMessage(message: message)
+                self?.showAlert(title: "Error", message: message)
                 return
             }
 
@@ -39,8 +39,25 @@ final class ViewController: UIViewController {
 
             Auth.auth().signIn(with: cred) { result, error in
                 if let error = error {
-                    self?.showErrorMessage(message: error.localizedDescription)
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
                     return
+                }
+                guard let result = result else {
+                    self?.showAlert(title: "Error", message: "ログインユーザが取得できませんでした")
+                    return
+                }
+
+                User.add(
+                    user: result.user,
+                    accessToken: session.authToken,
+                    secretToken: session.authTokenSecret
+                ) { result in
+                    switch result {
+                    case .success:
+                        self?.showAlert(title: nil, message: "DBに登録しました！")
+                    case .failure(let error):
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
+                    }
                 }
             }
         }
@@ -48,9 +65,9 @@ final class ViewController: UIViewController {
         return loginButton
     }
 
-    private func showErrorMessage(message: String) {
+    private func showAlert(title: String?, message: String) {
         let alert = UIAlertController(
-            title: "Error",
+            title: title,
             message: message,
             preferredStyle: .alert
         )
