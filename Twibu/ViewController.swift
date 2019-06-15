@@ -10,25 +10,28 @@ import UIKit
 import FirebaseAuth
 import TwitterKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        let button: UIButton = {
-//            let b = UIButton()
-//            b.setTitle("認証する", for: .normal)
-//            b.translatesAutoresizingMaskIntoConstraints = false
-//            b.addTarget(self, action: #selector(tapAuthButton), for: .touchUpInside)
-//            return b
-//        }()
+        let button = buildLoginButton()
+        button.center = view.center
+        view.addSubview(button)
+    }
 
-        let button = TWTRLogInButton() { session, error in
+    private func buildLoginButton() -> UIView {
+        let loginButton = TWTRLogInButton() { [weak self] session, error in
             guard let session = session else {
-                // TODO: error
-                print(error)
+                var message = error?.localizedDescription ?? "ログインに失敗しました"
+                if DeviceType.current == .simulator {
+                    message += "\n 何故かシミュレータではTwitterログインできない..."
+                }
+
+                self?.showErrorMessage(message: message)
                 return
             }
+
             let cred = TwitterAuthProvider.credential(
                 withToken: session.authToken,
                 secret: session.authTokenSecret
@@ -36,21 +39,23 @@ class ViewController: UIViewController {
 
             Auth.auth().signIn(with: cred) { result, error in
                 if let error = error {
-                    // TODO: error
-                    print(error)
+                    self?.showErrorMessage(message: error.localizedDescription)
                     return
                 }
-                print(result)
-                print(result)
             }
         }
 
-        button.center = view.center
-        view.addSubview(button)
+        return loginButton
     }
 
-    @objc
-    private func tapAuthButton() {
-//        present(authUI.authViewController(), animated: true)
+    private func showErrorMessage(message: String) {
+        let alert = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
