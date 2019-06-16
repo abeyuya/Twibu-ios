@@ -9,6 +9,7 @@ target 'Twibu' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'TwitterKit'
+  pod 'Parchment'
 
   target 'TwibuTests' do
     inherit! :search_paths
