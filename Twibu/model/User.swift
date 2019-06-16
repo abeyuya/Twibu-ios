@@ -16,19 +16,23 @@ final class User {
     private static let path = "users"
 
     static func add(
-        user: FirebaseAuth.User,
+        uid: String,
+        userName: String,
+        userId: String,
         accessToken: String,
         secretToken: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         let data: [String: String] = [
-            "uid": user.uid,
+            "uid": uid,
+            "user_id": userId,
+            "user_name": userName,
             "access_token": accessToken,
             "secret_token": secretToken
         ]
 
         db.collection(path)
-            .document(user.uid)
+            .document(uid)
             .setData(data, merge: true) { error in
                 if let error = error {
                     completion(.failure(error))
@@ -39,7 +43,7 @@ final class User {
     }
 
     static func kickScrapeTimeline(uid: String, completion: @escaping (Result<HTTPSCallableResult?, Error>) -> Void) {
-        let data = ["uid": uid]
+        let data: [String: Any] = ["uid": uid]
         functions.httpsCallable("execFetchUserTimeline").call(data) { result, error in
             if let error = error {
                 completion(.failure(error))

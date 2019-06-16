@@ -8,11 +8,14 @@
 
 import UIKit
 import FirebaseAuth
+import Parchment
 
 final class TimelineViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    var item: PagingIndexItem?
+    weak var delegate: PagingRootViewControllerDelegate?
     private let refreshControll = UIRefreshControl()
     private let dummyData = [
         "あいうえお",
@@ -22,14 +25,28 @@ final class TimelineViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
+        setupLogoutButton()
+    }
 
+    private func setupLogoutButton() {
+        let b = UIButton()
+        b.addTarget(self, action: #selector(tapLogoutButton), for: .touchUpInside)
+        b.setTitle("Logout", for: .normal)
+        b.setTitleColor(.orange, for: .normal)
+        view.addSubview(b)
+        b.sizeToFit()
+        b.center = view.center
+    }
+
+    private func setupTableView() {
         tableView.register(
             UINib.init(nibName: "TimelineCell", bundle: nil),
             forCellReuseIdentifier: "TimelineCell"
         )
         tableView.delegate = self
         tableView.dataSource = self
-        refreshControll.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        refreshControll.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.refreshControl = refreshControll
     }
 
@@ -49,6 +66,28 @@ final class TimelineViewController: UIViewController {
                 self?.showAlert(title: "Success", message: result.debugDescription)
             }
         }
+    }
+
+    @objc
+    private func tapLogoutButton() {
+        let alert = UIAlertController(
+            title: "",
+            message: "ログアウトしますか？",
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
+            do {
+                try Auth.auth().signOut()
+            } catch let signOutError as NSError {
+                self.showAlert(title: "Error", message: signOutError.localizedDescription)
+                return
+            }
+            self.delegate?.reload(item: self.item)
+        }
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
 
     private func showAlert(title: String?, message: String) {
@@ -76,4 +115,7 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = dummyData[indexPath.row]
         return cell
     }
+}
+
+extension TimelineViewController: UIPageViewControllerDelegate {
 }

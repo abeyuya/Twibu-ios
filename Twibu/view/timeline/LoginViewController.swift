@@ -9,8 +9,12 @@
 import UIKit
 import FirebaseAuth
 import TwitterKit
+import Parchment
 
 final class LoginViewController: UIViewController {
+
+    var item: PagingIndexItem?
+    weak var delegate: PagingRootViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +48,15 @@ final class LoginViewController: UIViewController {
                 }
 
                 User.add(
-                    user: result.user,
+                    uid: result.user.uid,
+                    userName: session.userName,
+                    userId: session.userID,
                     accessToken: session.authToken,
                     secretToken: session.authTokenSecret
                 ) { result in
                     switch result {
                     case .success:
-                        self?.showAlert(title: nil, message: "DBに登録しました！")
+                        self?.delegate?.reload(item: self?.item)
                     case .failure(let error):
                         self?.showAlert(title: "Error", message: error.localizedDescription)
                     }

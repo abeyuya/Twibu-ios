@@ -10,6 +10,10 @@ import UIKit
 import FirebaseAuth
 import Parchment
 
+protocol PagingRootViewControllerDelegate: class {
+    func reload(item: PagingIndexItem?)
+}
+
 final class PagingRootViewController: UIViewController {
 
     enum Category: String, CaseIterable {
@@ -83,13 +87,17 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
 
         switch category {
         case .timeline:
-            if let user = Auth.auth().currentUser {
+            if Auth.auth().currentUser != nil {
                 let storyboard = UIStoryboard(name: "TimelineViewController", bundle: nil)
                 let vc = storyboard.instantiateInitialViewController() as! TimelineViewController
+                vc.delegate = self
+                vc.item = item
                 return vc
             } else {
                 let storyboard = UIStoryboard(name: "LoginViewController", bundle: nil)
                 let vc = storyboard.instantiateInitialViewController() as! LoginViewController
+                vc.delegate = self
+                vc.item = item
                 return vc
             }
         default:
@@ -116,5 +124,14 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
 }
 
 extension PagingRootViewController: PagingViewControllerDelegate {
+}
 
+extension PagingRootViewController: PagingRootViewControllerDelegate {
+    func reload(item: PagingIndexItem?) {
+        if let item = item {
+            pagingViewController.reloadData(around: item)
+        } else {
+            pagingViewController.reloadMenu()
+        }
+    }
 }
