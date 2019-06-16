@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import TwitterKit
 
-final class ViewController: UIViewController {
+final class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +23,7 @@ final class ViewController: UIViewController {
     private func buildLoginButton() -> UIView {
         let loginButton = TWTRLogInButton() { [weak self] session, error in
             guard let session = session else {
-                var message = error?.localizedDescription ?? "ログインに失敗しました"
-                if DeviceType.current == .simulator {
-                    message += "\n 何故かシミュレータではTwitterログインできない..."
-                }
-
+                let message = error?.localizedDescription ?? "ログインに失敗しました"
                 self?.showAlert(title: "Error", message: message)
                 return
             }

@@ -16,6 +16,7 @@ class CategoryViewController: UIViewController {
         super.viewDidLoad()
 
         let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
         l.text = category?.rawValue
         view.addSubview(l)
         l.center = view.center

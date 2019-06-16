@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		35E166CFD0ADCCD6A243D389 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */; };
 		4D11150422B5160E000817BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150322B5160E000817BA /* AppDelegate.swift */; };
-		4D11150622B5160E000817BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150522B5160E000817BA /* ViewController.swift */; };
+		4D11150622B5160E000817BA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150522B5160E000817BA /* LoginViewController.swift */; };
 		4D11150922B5160E000817BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150722B5160E000817BA /* Main.storyboard */; };
 		4D11150B22B5160F000817BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150A22B5160F000817BA /* Assets.xcassets */; };
 		4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150C22B5160F000817BA /* LaunchScreen.storyboard */; };
@@ -21,6 +21,11 @@
 		4D11153522B570A3000817BA /* PagingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153422B570A3000817BA /* PagingRootViewController.swift */; };
 		4D11153922B57697000817BA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153722B57697000817BA /* CategoryViewController.swift */; };
 		4D11153D22B58091000817BA /* CategoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11153C22B58091000817BA /* CategoryViewController.storyboard */; };
+		4D11153F22B5FFD0000817BA /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11153E22B5FFD0000817BA /* LoginViewController.storyboard */; };
+		4D11154122B60118000817BA /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154022B60118000817BA /* TimelineViewController.swift */; };
+		4D11154322B60131000817BA /* TimelineViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154222B60131000817BA /* TimelineViewController.storyboard */; };
+		4D11154622B60298000817BA /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154422B60298000817BA /* TimelineCell.swift */; };
+		4D11154722B60298000817BA /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154522B60298000817BA /* TimelineCell.xib */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +44,7 @@
 		3593C26586AEB83E34BB3A20 /* Pods-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
 		4D11150022B5160E000817BA /* Twibu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twibu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D11150322B5160E000817BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4D11150522B5160E000817BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D11150522B5160E000817BA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4D11150822B5160E000817BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D11150A22B5160F000817BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D11150D22B5160F000817BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -57,6 +62,11 @@
 		4D11153422B570A3000817BA /* PagingRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingRootViewController.swift; sourceTree = "<group>"; };
 		4D11153722B57697000817BA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		4D11153C22B58091000817BA /* CategoryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoryViewController.storyboard; sourceTree = "<group>"; };
+		4D11153E22B5FFD0000817BA /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		4D11154022B60118000817BA /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
+		4D11154222B60131000817BA /* TimelineViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TimelineViewController.storyboard; sourceTree = "<group>"; };
+		4D11154422B60298000817BA /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
+		4D11154522B60298000817BA /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,7 +189,12 @@
 		4D11153B22B576A6000817BA /* timeline */ = {
 			isa = PBXGroup;
 			children = (
-				4D11150522B5160E000817BA /* ViewController.swift */,
+				4D11150522B5160E000817BA /* LoginViewController.swift */,
+				4D11153E22B5FFD0000817BA /* LoginViewController.storyboard */,
+				4D11154022B60118000817BA /* TimelineViewController.swift */,
+				4D11154222B60131000817BA /* TimelineViewController.storyboard */,
+				4D11154422B60298000817BA /* TimelineCell.swift */,
+				4D11154522B60298000817BA /* TimelineCell.xib */,
 			);
 			path = timeline;
 			sourceTree = "<group>";
@@ -280,9 +295,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D11154722B60298000817BA /* TimelineCell.xib in Resources */,
 				4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */,
 				4D11152A22B528AE000817BA /* GoogleService-Info.plist in Resources */,
+				4D11154322B60131000817BA /* TimelineViewController.storyboard in Resources */,
 				4D11150B22B5160F000817BA /* Assets.xcassets in Resources */,
+				4D11153F22B5FFD0000817BA /* LoginViewController.storyboard in Resources */,
 				4D11153D22B58091000817BA /* CategoryViewController.storyboard in Resources */,
 				4D11150922B5160E000817BA /* Main.storyboard in Resources */,
 			);
@@ -388,7 +406,9 @@
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4D11153222B547F8000817BA /* Result.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
-				4D11150622B5160E000817BA /* ViewController.swift in Sources */,
+				4D11154122B60118000817BA /* TimelineViewController.swift in Sources */,
+				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
+				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 import Parchment
 
 final class PagingRootViewController: UIViewController {
@@ -46,6 +47,11 @@ final class PagingRootViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupPagingView()
+    }
+
+    private func setupPagingView() {
         addChild(pagingViewController)
         view.addSubview(pagingViewController.view)
         pagingViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +63,7 @@ final class PagingRootViewController: UIViewController {
 
         pagingViewController.infiniteDataSource = self
         pagingViewController.delegate = self
+        pagingViewController.menuItemSize = .sizeToFit(minWidth: 120, height: 40)
 
         let c = Category.sougou
         pagingViewController.select(pagingItem: PagingIndexItem(index: c.index, title: c.rawValue))
@@ -65,18 +72,32 @@ final class PagingRootViewController: UIViewController {
 
 extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForPagingItem pagingItem: T) -> UIViewController {
-        let storyboard = UIStoryboard(name: "CategoryViewController", bundle: nil)
-        guard let vc = storyboard.instantiateInitialViewController() as? CategoryViewController else {
-            return UIViewController()
-        }
-
         guard let item = pagingItem as? PagingIndexItem else {
             return UIViewController()
         }
 
         let i = Category.calcLogicalIndex(physicalIndex: item.index)
-        vc.category = Category(index: i)
-        return vc
+        guard let category = Category(index: i) else {
+            return UIViewController()
+        }
+
+        switch category {
+        case .timeline:
+            if let user = Auth.auth().currentUser {
+                let storyboard = UIStoryboard(name: "TimelineViewController", bundle: nil)
+                let vc = storyboard.instantiateInitialViewController() as! TimelineViewController
+                return vc
+            } else {
+                let storyboard = UIStoryboard(name: "LoginViewController", bundle: nil)
+                let vc = storyboard.instantiateInitialViewController() as! LoginViewController
+                return vc
+            }
+        default:
+            let storyboard = UIStoryboard(name: "CategoryViewController", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController() as! CategoryViewController
+            vc.category = category
+            return vc
+        }
     }
 
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemBeforePagingItem pagingItem: T) -> T? {
