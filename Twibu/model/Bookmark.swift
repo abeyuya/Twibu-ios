@@ -18,9 +18,10 @@ struct Bookmark {
         return ogp?["title"] as? String
     }
 
-//    var url: String? {
-//        return rawData["ogp"]?["url"] as? String
-//    }
+    var url: String? {
+        let ogp = rawData["ogp"] as? [String: Any]
+        return ogp?["url"] as? String
+    }
 }
 
 final class BookmarkUtil {
