@@ -6,8 +6,10 @@ target 'Twibu' do
   use_frameworks!
 
   pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Functions'
   pod 'TwitterKit'
   pod 'Parchment'
 

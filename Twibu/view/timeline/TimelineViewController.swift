@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class TimelineViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    private let refreshControll = UIRefreshControl()
     private let dummyData = [
         "あいうえお",
         "かきくけこ",
@@ -27,6 +29,37 @@ final class TimelineViewController: UIViewController {
         )
         tableView.delegate = self
         tableView.dataSource = self
+        refreshControll.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        tableView.refreshControl = refreshControll
+    }
+
+    @objc
+    private func refresh() {
+        guard let user = Auth.auth().currentUser else {
+            showAlert(title: "Error", message: "ログインしてください")
+            return
+        }
+
+        User.kickScrapeTimeline(uid: user.uid) { [weak self] result in
+            self?.refreshControll.endRefreshing()
+            switch result {
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            case .success(let result):
+                self?.showAlert(title: "Success", message: result.debugDescription)
+            }
+        }
+    }
+
+    private func showAlert(title: String?, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
 
