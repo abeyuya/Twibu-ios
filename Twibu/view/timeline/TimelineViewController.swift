@@ -23,10 +23,13 @@ final class TimelineViewController: UIViewController {
         "さしすせそ"
     ]
 
+    private var bookmarks: [Bookmark] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupLogoutButton()
+        fetchBookmark()
     }
 
     private func setupLogoutButton() {
@@ -48,6 +51,18 @@ final class TimelineViewController: UIViewController {
         tableView.dataSource = self
         refreshControll.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.refreshControl = refreshControll
+    }
+
+    private func fetchBookmark() {
+        BookmarkUtil.fetchBookmark() { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            case .success(let bookmarks):
+                self?.bookmarks = bookmarks
+                self?.tableView.reloadData()
+            }
+        }
     }
 
     @objc
@@ -104,7 +119,7 @@ final class TimelineViewController: UIViewController {
 
 extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
+        return bookmarks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,7 +127,8 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.titleLabel.text = dummyData[indexPath.row]
+        let b = bookmarks[indexPath.row]
+        cell.titleLabel.text = b.title
         return cell
     }
 }

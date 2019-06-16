@@ -26,6 +26,7 @@
 		4D11154322B60131000817BA /* TimelineViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154222B60131000817BA /* TimelineViewController.storyboard */; };
 		4D11154622B60298000817BA /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154422B60298000817BA /* TimelineCell.swift */; };
 		4D11154722B60298000817BA /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154522B60298000817BA /* TimelineCell.xib */; };
+		4D11154922B69E15000817BA /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154822B69E15000817BA /* Bookmark.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		4D11154222B60131000817BA /* TimelineViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TimelineViewController.storyboard; sourceTree = "<group>"; };
 		4D11154422B60298000817BA /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		4D11154522B60298000817BA /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
+		4D11154822B69E15000817BA /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				4D11152E22B545FF000817BA /* User.swift */,
+				4D11154822B69E15000817BA /* Bookmark.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4D11153222B547F8000817BA /* Result.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
+				4D11154922B69E15000817BA /* Bookmark.swift in Sources */,
 				4D11154122B60118000817BA /* TimelineViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
