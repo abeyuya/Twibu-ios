@@ -23,17 +23,18 @@ final class User {
         secretToken: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        let data: [String: String] = [
+        let data: [String: Any] = [
             "uid": uid,
             "user_id": userId,
             "user_name": userName,
             "access_token": accessToken,
-            "secret_token": secretToken
+            "secret_token": secretToken,
+            "created_at": FieldValue.serverTimestamp()
         ]
 
         db.collection(path)
             .document(uid)
-            .setData(data, merge: true) { error in
+            .setData(data, mergeFields: ["access_token", "secret_token"]) { error in
                 if let error = error {
                     completion(.failure(error))
                     return
