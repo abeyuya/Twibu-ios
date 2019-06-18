@@ -44,9 +44,13 @@ final class User {
     }
 
     static func kickScrapeTimeline(uid: String, completion: @escaping (Result<HTTPSCallableResult?, Error>) -> Void) {
-        let data: [String: Any] = ["uid": uid]
+//        let data: [String: String] = ["uid": uid]
+        let data = ["data": ["uid": uid]]
         functions.httpsCallable("execFetchUserTimeline").call(data) { result, error in
             if let error = error {
+//                let code = FunctionsErrorCode(rawValue: error.code)
+//                let message = error.localizedDescription
+//                let details = error.userInfo[FunctionsErrorDetailsKey]
                 completion(.failure(error))
                 return
             }

@@ -11,16 +11,33 @@ import FirebaseFirestore
 import FirebaseFunctions
 
 struct Bookmark {
-    var rawData: [String: Any]
+    let uid: String
+    let title: String?
+    let image_url: String?
+    let description: String?
+    let created_at: Int?
+    let url: Url
 
-    var title: String? {
-        let ogp = rawData["ogp"] as? [String: Any]
-        return ogp?["title"] as? String
+    struct Url: Codable {
+        let url: String?
+        let expanded_url: String?
+        let display_url: String?
     }
+}
 
-    var url: String? {
-        let ogp = rawData["ogp"] as? [String: Any]
-        return ogp?["url"] as? String
+extension Bookmark: Codable {
+    init(dictionary: [String: Any]) throws {
+        let dict: [String: Any] = {
+            guard let createdAt = dictionary["created_at"] as? Timestamp else { return dictionary }
+            var newDict = dictionary
+            newDict["created_at"] = createdAt.seconds
+            return newDict
+        }()
+
+        self = try JSONDecoder().decode(
+            Bookmark.self,
+            from: JSONSerialization.data(withJSONObject: dict)
+        )
     }
 }
 
@@ -33,18 +50,18 @@ final class BookmarkUtil {
             return
         }
 
-        db.collection("bookmarks").getDocuments() { documents, error in
+        db.collection("bookmarks").getDocuments() { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
 
-            guard let documents = documents else {
+            guard let snapshot = snapshot else {
                 completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "no result"])))
                 return
             }
 
-            let bookmarks = documents.documents.map { Bookmark(rawData: $0.data()) }
+            let bookmarks = snapshot.documents.compactMap { try? Bookmark(dictionary: $0.data()) }
             completion(.success(bookmarks))
         }
     }

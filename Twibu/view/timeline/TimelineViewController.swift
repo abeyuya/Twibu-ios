@@ -44,7 +44,7 @@ final class TimelineViewController: UIViewController {
 
     private func setupTableView() {
         tableView.register(
-            UINib.init(nibName: "TimelineCell", bundle: nil),
+            UINib(nibName: "TimelineCell", bundle: nil),
             forCellReuseIdentifier: "TimelineCell"
         )
         tableView.delegate = self
@@ -134,7 +134,7 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let b = bookmarks[indexPath.row]
-        guard let urlString = b.url, let url = URL(string: urlString) else { return }
+        guard let urlString = b.url.expanded_url, let url = URL(string: urlString) else { return }
         let storyboard = UIStoryboard(name: "WebViewController", bundle: nil)
         let vc = storyboard.instantiateInitialViewController() as! WebViewController
         vc.load(url: url)
