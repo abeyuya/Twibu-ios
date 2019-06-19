@@ -16,6 +16,7 @@ struct Bookmark {
     let image_url: String?
     let description: String?
     let created_at: Int?
+    let updated_at: Int?
     let url: Url
 
     struct Url: Codable {
@@ -28,9 +29,13 @@ struct Bookmark {
 extension Bookmark: Codable {
     init(dictionary: [String: Any]) throws {
         let dict: [String: Any] = {
-            guard let createdAt = dictionary["created_at"] as? Timestamp else { return dictionary }
+            guard let createdAt = dictionary["created_at"] as? Timestamp,
+                let updatedAt = dictionary["updated_at"] as? Timestamp else {
+                    return dictionary
+            }
             var newDict = dictionary
             newDict["created_at"] = createdAt.seconds
+            newDict["updated_at"] = updatedAt.seconds
             return newDict
         }()
 

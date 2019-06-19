@@ -12,7 +12,7 @@ import FirebaseFunctions
 
 final class User {
     private static let db = Firestore.firestore()
-    private static let functions = Functions.functions()
+    private static let functions = Functions.functions(region: "asia-northeast1")
     private static let path = "users"
 
     static func add(
@@ -44,13 +44,9 @@ final class User {
     }
 
     static func kickScrapeTimeline(uid: String, completion: @escaping (Result<HTTPSCallableResult?, Error>) -> Void) {
-//        let data: [String: String] = ["uid": uid]
-        let data = ["data": ["uid": uid]]
+        let data: [String: String] = ["uid": uid]
         functions.httpsCallable("execFetchUserTimeline").call(data) { result, error in
             if let error = error {
-//                let code = FunctionsErrorCode(rawValue: error.code)
-//                let message = error.localizedDescription
-//                let details = error.userInfo[FunctionsErrorDetailsKey]
                 completion(.failure(error))
                 return
             }
