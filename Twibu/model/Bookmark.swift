@@ -46,8 +46,29 @@ extension Bookmark: Codable {
     }
 }
 
+struct Comment {
+    let id: String
+    let text: String
+
+    struct User: Codable {
+        let twitter_user_id: String
+        let name: String
+        let profile_image_url: String
+    }
+}
+
+extension Comment: Codable {
+    init(dictionary: [String: Any]) throws {
+        self = try JSONDecoder().decode(
+            Comment.self,
+            from: JSONSerialization.data(withJSONObject: dictionary)
+        )
+    }
+}
+
 final class BookmarkUtil {
     private static let db = Firestore.firestore()
+    private static let functions = Functions.functions(region: "asia-northeast1")
 
     static func fetchBookmark(completion: @escaping (Result<[Bookmark], Error>) -> Void) {
         guard Auth.auth().currentUser != nil else {
@@ -68,6 +89,44 @@ final class BookmarkUtil {
 
             let bookmarks = snapshot.documents.compactMap { try? Bookmark(dictionary: $0.data()) }
             completion(.success(bookmarks))
+        }
+    }
+
+    static func execUpdateBookmarkComment(bookmarkUid: String, completion: @escaping (Result<HTTPSCallableResult?, Error>) -> Void) {
+        guard Auth.auth().currentUser != nil else {
+            completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "need login"])))
+            return
+        }
+
+        let data: [String: String] = ["bookmark_uid": bookmarkUid]
+        functions.httpsCallable("execUpdateBookmarkComment").call(data) { result, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            completion(.success(result))
+        }
+    }
+
+    static func fetchBookmarkComment(bookmarkUid: String, completion: @escaping (Result<[Comment], Error>) -> Void) {
+        guard Auth.auth().currentUser != nil else {
+            completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "need login"])))
+            return
+        }
+
+        db.collection("bookmarks").document(bookmarkUid).collection("comments").getDocuments() { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let snapshot = snapshot else {
+                completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "no result"])))
+                return
+            }
+
+            let comments = snapshot.documents.compactMap { try? Comment(dictionary: $0.data()) }
+            completion(.success(comments))
         }
     }
 }

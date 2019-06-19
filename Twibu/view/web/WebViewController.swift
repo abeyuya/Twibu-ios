@@ -12,10 +12,16 @@ import WebKit
 class WebViewController: UIViewController {
 
     private let webview = WKWebView()
+    private var bookmark: Bookmark!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupWebview()
+        setupCommentLoadButton()
+    }
+
+    private func setupWebview() {
         webview.navigationDelegate = self
         webview.translatesAutoresizingMaskIntoConstraints = false
 
@@ -26,9 +32,60 @@ class WebViewController: UIViewController {
         webview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
-    func load(url: URL) {
+    private func setupCommentLoadButton() {
+        let b = UIButton()
+        b.addTarget(self, action: #selector(tapLoadButton), for: .touchUpInside)
+        b.setTitle("load comment", for: .normal)
+        b.setTitleColor(.orange, for: .normal)
+        view.addSubview(b)
+        b.sizeToFit()
+        b.center = view.center
+    }
+
+    @objc
+    private func tapLoadButton() {
+        BookmarkUtil.execUpdateBookmarkComment(bookmarkUid: bookmark.uid) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            case .success(_):
+                guard let buid = self?.bookmark.uid else {
+                    return
+                }
+                BookmarkUtil.fetchBookmarkComment(bookmarkUid: buid) { [weak self] result in
+                    switch result {
+                    case .failure(let error):
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
+                    case .success(let comments):
+                        print(comments)
+                        self?.showAlert(title: "Success", message: "\(comments.count)")
+                    }
+                }
+            }
+        }
+    }
+
+    func set(bookmark: Bookmark) {
+        self.bookmark = bookmark
+
+        guard let displayUrl = bookmark.url.expanded_url, let url = URL(string: displayUrl) else {
+            assert(false)
+            return
+        }
+
         let request = URLRequest(url: url)
         webview.load(request)
+    }
+
+    private func showAlert(title: String?, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
 

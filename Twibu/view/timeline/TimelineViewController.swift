@@ -134,10 +134,9 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let b = bookmarks[indexPath.row]
-        guard let urlString = b.url.expanded_url, let url = URL(string: urlString) else { return }
         let storyboard = UIStoryboard(name: "WebViewController", bundle: nil)
         let vc = storyboard.instantiateInitialViewController() as! WebViewController
-        vc.load(url: url)
+        vc.set(bookmark: b)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
