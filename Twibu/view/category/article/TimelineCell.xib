@@ -30,7 +30,7 @@ search/universal は公式のConsumerKey/ConsumerSecretでないと使用でき�
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LGg-GY-SC3">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LGg-GY-SC3">
                         <rect key="frame" x="228" y="12" width="80" height="80"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="D2P-Hz-Pa3"/>

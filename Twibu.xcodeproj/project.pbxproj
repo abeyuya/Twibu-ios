@@ -204,8 +204,6 @@
 			children = (
 				4D65092B22BBE7F600BB0959 /* login */,
 				4D04E20A22BA981400995026 /* comment */,
-				4D11154A22B6A62E000817BA /* web */,
-				4D11153B22B576A6000817BA /* article */,
 				4D11153622B57683000817BA /* category */,
 				4D11153422B570A3000817BA /* PagingRootViewController.swift */,
 				4D11150722B5160E000817BA /* Main.storyboard */,
@@ -218,6 +216,7 @@
 			children = (
 				4D11153722B57697000817BA /* CategoryViewController.swift */,
 				4D11153C22B58091000817BA /* CategoryViewController.storyboard */,
+				4D11153B22B576A6000817BA /* article */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -229,6 +228,7 @@
 				4D11154222B60131000817BA /* TimelineViewController.storyboard */,
 				4D11154422B60298000817BA /* TimelineCell.swift */,
 				4D11154522B60298000817BA /* TimelineCell.xib */,
+				4D11154A22B6A62E000817BA /* web */,
 			);
 			path = article;
 			sourceTree = "<group>";

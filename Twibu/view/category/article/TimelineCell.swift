@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TimelineCell: UITableViewCell {
 
@@ -44,16 +45,17 @@ class TimelineCell: UITableViewCell {
 
         if let sec = bookmark.created_at {
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd:MM"
+            formatter.dateFormat = "M/d"
             let date = Date(timeIntervalSince1970: TimeInterval(sec))
             createdAtLabel.text = formatter.string(from: date)
         } else {
             createdAtLabel.isHidden = true
         }
 
-        if let imageUrl = bookmark.image_url {
-
+        if let imageUrl = bookmark.image_url, let url = URL(string: imageUrl) {
+            thumbnailImageView.kf.setImage(with: url)
         } else {
+            thumbnailImageView.image = nil
             // レイアウト変えたい
         }
     }
