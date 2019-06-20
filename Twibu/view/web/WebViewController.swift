@@ -44,7 +44,7 @@ class WebViewController: UIViewController {
 
     @objc
     private func tapLoadButton() {
-        BookmarkUtil.execUpdateBookmarkComment(bookmarkUid: bookmark.uid) { [weak self] result in
+        BookmarkRepository.execUpdateBookmarkComment(bookmarkUid: bookmark.uid) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.localizedDescription)
@@ -52,7 +52,7 @@ class WebViewController: UIViewController {
                 guard let buid = self?.bookmark.uid else {
                     return
                 }
-                BookmarkUtil.fetchBookmarkComment(bookmarkUid: buid) { [weak self] result in
+                CommentRepository.fetchBookmarkComment(bookmarkUid: buid) { [weak self] result in
                     switch result {
                     case .failure(let error):
                         self?.showAlert(title: "Error", message: error.localizedDescription)

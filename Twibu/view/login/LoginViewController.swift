@@ -47,7 +47,7 @@ final class LoginViewController: UIViewController {
                     return
                 }
 
-                User.add(
+                UserRepository.add(
                     uid: result.user.uid,
                     userName: session.userName,
                     userId: session.userID,

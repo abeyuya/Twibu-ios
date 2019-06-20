@@ -1,32 +1,26 @@
 //
-//  Bookmark.swift
+//  Comment.swift
 //  Twibu
 //
-//  Created by abeyuya on 2019/06/17.
+//  Created by abeyuya on 2019/06/21.
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
 import Foundation
 import FirebaseFirestore
 
-struct Bookmark {
-    let uid: String
-    let title: String?
-    let image_url: String?
-    let description: String?
-    let comment_count: Int?
-    let created_at: Int?
-    let updated_at: Int?
-    let url: Url
+struct Comment {
+    let id: String
+    let text: String
 
-    struct Url: Codable {
-        let url: String?
-        let expanded_url: String?
-        let display_url: String?
+    struct User: Codable {
+        let twitter_user_id: String
+        let name: String
+        let profile_image_url: String
     }
 }
 
-extension Bookmark: Codable {
+extension Comment: Codable {
     init(dictionary: [String: Any]) throws {
         let dict: [String: Any] = {
             var newDict = dictionary
@@ -46,8 +40,11 @@ extension Bookmark: Codable {
         }()
 
         self = try JSONDecoder().decode(
-            Bookmark.self,
+            Comment.self,
             from: JSONSerialization.data(withJSONObject: dict)
         )
     }
+
+
 }
+

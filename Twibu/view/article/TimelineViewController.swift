@@ -17,12 +17,6 @@ final class TimelineViewController: UIViewController {
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
     private let refreshControll = UIRefreshControl()
-    private let dummyData = [
-        "あいうえお",
-        "かきくけこ",
-        "さしすせそ"
-    ]
-
     private var bookmarks: [Bookmark] = []
 
     override func viewDidLoad() {
@@ -54,7 +48,7 @@ final class TimelineViewController: UIViewController {
     }
 
     private func fetchBookmark() {
-        BookmarkUtil.fetchBookmark() { [weak self] result in
+        BookmarkRepository.fetchBookmark() { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.localizedDescription)
@@ -72,7 +66,7 @@ final class TimelineViewController: UIViewController {
             return
         }
 
-        User.kickScrapeTimeline(uid: user.uid) { [weak self] result in
+        UserRepository.kickScrapeTimeline(uid: user.uid) { [weak self] result in
             self?.refreshControll.endRefreshing()
             switch result {
             case .failure(let error):
@@ -128,7 +122,7 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         let b = bookmarks[indexPath.row]
-        cell.titleLabel.text = b.title
+        cell.set(bookmark: b)
         return cell
     }
 

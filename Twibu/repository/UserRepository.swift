@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFunctions
 
-final class User {
+final class UserRepository {
     private static let db = Firestore.firestore()
     private static let functions = Functions.functions(region: "asia-northeast1")
     private static let path = "users"

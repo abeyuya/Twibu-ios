@@ -20,7 +20,7 @@
 		4D11151922B5160F000817BA /* TwibuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11151822B5160F000817BA /* TwibuTests.swift */; };
 		4D11152A22B528AE000817BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D11152922B528AE000817BA /* GoogleService-Info.plist */; };
 		4D11152C22B531E8000817BA /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11152B22B531E8000817BA /* Device.swift */; };
-		4D11152F22B545FF000817BA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11152E22B545FF000817BA /* User.swift */; };
+		4D11152F22B545FF000817BA /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11152E22B545FF000817BA /* UserRepository.swift */; };
 		4D11153222B547F8000817BA /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153122B547F8000817BA /* Result.swift */; };
 		4D11153522B570A3000817BA /* PagingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153422B570A3000817BA /* PagingRootViewController.swift */; };
 		4D11153922B57697000817BA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153722B57697000817BA /* CategoryViewController.swift */; };
@@ -33,6 +33,9 @@
 		4D11154922B69E15000817BA /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154822B69E15000817BA /* Bookmark.swift */; };
 		4D11154C22B6A648000817BA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154B22B6A648000817BA /* WebViewController.swift */; };
 		4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154D22B6A659000817BA /* WebViewController.storyboard */; };
+		4D65092622BBDB5900BB0959 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
+		4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
+		4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepository.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +71,7 @@
 		4D11152722B524C0000817BA /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		4D11152922B528AE000817BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4D11152B22B531E8000817BA /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		4D11152E22B545FF000817BA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4D11152E22B545FF000817BA /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		4D11153122B547F8000817BA /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		4D11153422B570A3000817BA /* PagingRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingRootViewController.swift; sourceTree = "<group>"; };
 		4D11153722B57697000817BA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +84,9 @@
 		4D11154822B69E15000817BA /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		4D11154B22B6A648000817BA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4D11154D22B6A659000817BA /* WebViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebViewController.storyboard; sourceTree = "<group>"; };
+		4D65092522BBDB5800BB0959 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
+		4D65092922BBDCC400BB0959 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +159,7 @@
 		4D11150222B5160E000817BA /* Twibu */ = {
 			isa = PBXGroup;
 			children = (
+				4D65092422BBDB3700BB0959 /* repository */,
 				4D11153322B56F97000817BA /* view */,
 				4D11153022B547E8000817BA /* util */,
 				4D11152D22B545F2000817BA /* model */,
@@ -177,8 +184,8 @@
 		4D11152D22B545F2000817BA /* model */ = {
 			isa = PBXGroup;
 			children = (
-				4D11152E22B545FF000817BA /* User.swift */,
 				4D11154822B69E15000817BA /* Bookmark.swift */,
+				4D65092522BBDB5800BB0959 /* Comment.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -195,9 +202,10 @@
 		4D11153322B56F97000817BA /* view */ = {
 			isa = PBXGroup;
 			children = (
+				4D65092B22BBE7F600BB0959 /* login */,
 				4D04E20A22BA981400995026 /* comment */,
 				4D11154A22B6A62E000817BA /* web */,
-				4D11153B22B576A6000817BA /* timeline */,
+				4D11153B22B576A6000817BA /* article */,
 				4D11153622B57683000817BA /* category */,
 				4D11153422B570A3000817BA /* PagingRootViewController.swift */,
 				4D11150722B5160E000817BA /* Main.storyboard */,
@@ -214,17 +222,15 @@
 			path = category;
 			sourceTree = "<group>";
 		};
-		4D11153B22B576A6000817BA /* timeline */ = {
+		4D11153B22B576A6000817BA /* article */ = {
 			isa = PBXGroup;
 			children = (
-				4D11150522B5160E000817BA /* LoginViewController.swift */,
-				4D11153E22B5FFD0000817BA /* LoginViewController.storyboard */,
 				4D11154022B60118000817BA /* TimelineViewController.swift */,
 				4D11154222B60131000817BA /* TimelineViewController.storyboard */,
 				4D11154422B60298000817BA /* TimelineCell.swift */,
 				4D11154522B60298000817BA /* TimelineCell.xib */,
 			);
-			path = timeline;
+			path = article;
 			sourceTree = "<group>";
 		};
 		4D11154A22B6A62E000817BA /* web */ = {
@@ -234,6 +240,25 @@
 				4D11154D22B6A659000817BA /* WebViewController.storyboard */,
 			);
 			path = web;
+			sourceTree = "<group>";
+		};
+		4D65092422BBDB3700BB0959 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
+				4D65092922BBDCC400BB0959 /* CommentRepository.swift */,
+				4D11152E22B545FF000817BA /* UserRepository.swift */,
+			);
+			path = repository;
+			sourceTree = "<group>";
+		};
+		4D65092B22BBE7F600BB0959 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				4D11150522B5160E000817BA /* LoginViewController.swift */,
+				4D11153E22B5FFD0000817BA /* LoginViewController.storyboard */,
+			);
+			path = login;
 			sourceTree = "<group>";
 		};
 		BE96F5C735459C2F19058E09 /* Pods */ = {
@@ -443,8 +468,10 @@
 			files = (
 				4D11153522B570A3000817BA /* PagingRootViewController.swift in Sources */,
 				4D11154C22B6A648000817BA /* WebViewController.swift in Sources */,
-				4D11152F22B545FF000817BA /* User.swift in Sources */,
+				4D11152F22B545FF000817BA /* UserRepository.swift in Sources */,
+				4D65092622BBDB5900BB0959 /* Comment.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
+				4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */,
 				4D11153222B547F8000817BA /* Result.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
 				4D11154922B69E15000817BA /* Bookmark.swift in Sources */,
@@ -453,6 +480,7 @@
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
+				4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
