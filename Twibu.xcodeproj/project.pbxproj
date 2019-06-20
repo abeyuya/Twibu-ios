@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		35E166CFD0ADCCD6A243D389 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */; };
+		4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E20B22BA982C00995026 /* CommentViewController.swift */; };
+		4D04E20E22BA983E00995026 /* CommentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D04E20D22BA983E00995026 /* CommentViewController.storyboard */; };
+		4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */; };
+		4D04E21222BA9AAC00995026 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D04E21022BA9AAC00995026 /* CommentTableViewCell.xib */; };
 		4D11150422B5160E000817BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150322B5160E000817BA /* AppDelegate.swift */; };
 		4D11150622B5160E000817BA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150522B5160E000817BA /* LoginViewController.swift */; };
 		4D11150922B5160E000817BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150722B5160E000817BA /* Main.storyboard */; };
@@ -45,6 +49,10 @@
 /* Begin PBXFileReference section */
 		2B4C34F81AF3D53D7F38E124 /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3593C26586AEB83E34BB3A20 /* Pods-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
+		4D04E20B22BA982C00995026 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		4D04E20D22BA983E00995026 /* CommentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentViewController.storyboard; sourceTree = "<group>"; };
+		4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		4D04E21022BA9AAC00995026 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		4D11150022B5160E000817BA /* Twibu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twibu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D11150322B5160E000817BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D11150522B5160E000817BA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +117,17 @@
 				664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D04E20A22BA981400995026 /* comment */ = {
+			isa = PBXGroup;
+			children = (
+				4D04E20B22BA982C00995026 /* CommentViewController.swift */,
+				4D04E20D22BA983E00995026 /* CommentViewController.storyboard */,
+				4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */,
+				4D04E21022BA9AAC00995026 /* CommentTableViewCell.xib */,
+			);
+			path = comment;
 			sourceTree = "<group>";
 		};
 		4D1114F722B5160E000817BA = {
@@ -176,6 +195,7 @@
 		4D11153322B56F97000817BA /* view */ = {
 			isa = PBXGroup;
 			children = (
+				4D04E20A22BA981400995026 /* comment */,
 				4D11154A22B6A62E000817BA /* web */,
 				4D11153B22B576A6000817BA /* timeline */,
 				4D11153622B57683000817BA /* category */,
@@ -318,7 +338,9 @@
 				4D11152A22B528AE000817BA /* GoogleService-Info.plist in Resources */,
 				4D11154322B60131000817BA /* TimelineViewController.storyboard in Resources */,
 				4D11150B22B5160F000817BA /* Assets.xcassets in Resources */,
+				4D04E20E22BA983E00995026 /* CommentViewController.storyboard in Resources */,
 				4D11153F22B5FFD0000817BA /* LoginViewController.storyboard in Resources */,
+				4D04E21222BA9AAC00995026 /* CommentTableViewCell.xib in Resources */,
 				4D11153D22B58091000817BA /* CategoryViewController.storyboard in Resources */,
 				4D11150922B5160E000817BA /* Main.storyboard in Resources */,
 			);
@@ -427,6 +449,8 @@
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
 				4D11154922B69E15000817BA /* Bookmark.swift in Sources */,
 				4D11154122B60118000817BA /* TimelineViewController.swift in Sources */,
+				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
+				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,

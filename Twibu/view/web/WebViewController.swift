@@ -57,8 +57,16 @@ class WebViewController: UIViewController {
                     case .failure(let error):
                         self?.showAlert(title: "Error", message: error.localizedDescription)
                     case .success(let comments):
-                        print(comments)
-                        self?.showAlert(title: "Success", message: "\(comments.count)")
+                        let storyboard = UIStoryboard(name: "CommentViewController", bundle: nil)
+                        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+                        guard let vc = nav.viewControllers.first as? CommentViewController else {
+                            return
+                        }
+                        vc.comments = comments
+
+                        DispatchQueue.main.async {
+                            self?.present(nav, animated: true)
+                        }
                     }
                 }
             }
