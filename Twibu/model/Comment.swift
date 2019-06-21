@@ -12,16 +12,24 @@ import FirebaseFirestore
 struct Comment {
     let id: String
     let text: String
+    let user: User
+    let favorite_count: Int
+    let retweet_count: Int
+    let tweet_at: String
+    let created_at: Int?
+    let updated_at: Int?
 
     struct User: Codable {
         let twitter_user_id: String
         let name: String
         let profile_image_url: String
+        let screen_name: String
+//        let verified: Bool?
     }
 }
 
 extension Comment: Codable {
-    init(dictionary: [String: Any]) throws {
+    init?(dictionary: [String: Any]) {
         let dict: [String: Any] = {
             var newDict = dictionary
 
@@ -39,12 +47,15 @@ extension Comment: Codable {
             return newDict
         }()
 
-        self = try JSONDecoder().decode(
-            Comment.self,
-            from: JSONSerialization.data(withJSONObject: dict)
-        )
+        do {
+            self = try JSONDecoder().decode(
+                Comment.self,
+                from: JSONSerialization.data(withJSONObject: dict)
+            )
+        } catch {
+            print("decodeに失敗しました", dict)
+            return nil
+        }
     }
-
-
 }
 

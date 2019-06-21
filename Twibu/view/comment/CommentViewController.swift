@@ -26,6 +26,7 @@ final class CommentViewController: UIViewController {
     }
 
     private func setupTableview() {
+        tableview.tableFooterView = UIView()
         tableview.delegate = self
         tableview.dataSource = self
         tableview.register(
@@ -103,7 +104,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         let c = comments[indexPath.row]
-        cell.commentLabel?.text = c.text
+        cell.set(comment: c)
         return cell
     }
 }

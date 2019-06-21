@@ -32,18 +32,21 @@ class TimelineCell: UITableViewCell {
         titleLabel.text = bookmark.title ?? "タイトルが取得できませんでした"
 
         if let count = bookmark.comment_count {
+            usersCountLabel.isHidden = false
             usersCountLabel.text = "\(count) users"
         } else {
             usersCountLabel.isHidden = true
         }
 
         if let url = bookmark.url.expanded_url, let domain = URL(string: url)?.host {
+            domainLabel.isHidden = false
             domainLabel.text = domain
         } else {
             domainLabel.isHidden = true
         }
 
         if let sec = bookmark.created_at {
+            createdAtLabel.isHidden = false
             let formatter = DateFormatter()
             formatter.dateFormat = "M/d"
             let date = Date(timeIntervalSince1970: TimeInterval(sec))
@@ -52,25 +55,11 @@ class TimelineCell: UITableViewCell {
             createdAtLabel.isHidden = true
         }
 
+        thumbnailImageView.image = nil
         if let imageUrl = bookmark.image_url, let url = URL(string: imageUrl) {
             thumbnailImageView.kf.setImage(with: url)
         } else {
-            thumbnailImageView.image = nil
             // レイアウト変えたい
         }
     }
-
-//    func parseTwitterDate(twitterDate: String, outputDateFormat: String) -> String? {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
-//
-//        let indate = formatter.date(from: twitterDate)
-//        let outputFormatter = DateFormatter()
-//        outputFormatter.dateFormat = "hh:mm a dd:MM:yy"
-//        var outputDate: String?
-//        if let d = indate {
-//            outputDate = outputFormatter.string(from: d)
-//        }
-//        return outputDate;
-//    }
 }

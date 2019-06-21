@@ -18,19 +18,23 @@ final class CommentRepository {
             return
         }
 
-        db.collection("bookmarks").document(bookmarkUid).collection("comments").getDocuments() { snapshot, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
+        db.collection("bookmarks")
+            .document(bookmarkUid)
+            .collection("comments")
+            .order(by: "favorite_count", descending: true)
+            .getDocuments() { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
 
-            guard let snapshot = snapshot else {
-                completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "no result"])))
-                return
-            }
+                guard let snapshot = snapshot else {
+                    completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "no result"])))
+                    return
+                }
 
-            let comments = snapshot.documents.compactMap { try? Comment(dictionary: $0.data()) }
-            completion(.success(comments))
+                let comments = snapshot.documents.compactMap { Comment(dictionary: $0.data()) }
+                completion(.success(comments))
         }
     }
 }
