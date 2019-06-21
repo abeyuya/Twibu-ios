@@ -29,7 +29,7 @@ class CommentTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func set(comment: Comment) {
+    func set(bookmark: Bookmark?, comment: Comment) {
         commentLabel.text = comment.text
 
         profileImageView.image = nil

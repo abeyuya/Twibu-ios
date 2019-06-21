@@ -20,7 +20,7 @@ final class BookmarkRepository {
             return
         }
 
-        db.collection("bookmarks").getDocuments() { snapshot, error in
+        db.collection("bookmarks").order(by: "created_at", descending: true).getDocuments() { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -31,7 +31,7 @@ final class BookmarkRepository {
                 return
             }
 
-            let bookmarks = snapshot.documents.compactMap { try? Bookmark(dictionary: $0.data()) }
+            let bookmarks = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
             completion(.success(bookmarks))
         }
     }

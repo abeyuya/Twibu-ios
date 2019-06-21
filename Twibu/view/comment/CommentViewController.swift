@@ -16,6 +16,7 @@ final class CommentViewController: UIViewController {
 
     var bookmark: Bookmark?
     var comments: [Comment] = []
+    var commentsWithMessage: [Comment] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,12 @@ final class CommentViewController: UIViewController {
         }
     }
 
+//    private func setupCommentsWithMessage() {
+//        let cwm = comments.filter { c in
+//
+//        }
+//    }
+
     @objc
     private func refresh() {
         guard let buid = self.bookmark?.uid else { return }
@@ -104,7 +111,18 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         let c = comments[indexPath.row]
-        cell.set(comment: c)
+        cell.set(bookmark: bookmark, comment: c)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let c = comments[indexPath.row]
+        guard let url = c.url else { return }
+        UIApplication.shared.open(url, options: [:]) { success in
+            guard success else {
+                print("open error")
+                return
+            }
+        }
     }
 }

@@ -27,7 +27,7 @@ struct Bookmark {
 }
 
 extension Bookmark: Codable {
-    init(dictionary: [String: Any]) throws {
+    init?(dictionary: [String: Any]) {
         let dict: [String: Any] = {
             var newDict = dictionary
 
@@ -45,9 +45,14 @@ extension Bookmark: Codable {
             return newDict
         }()
 
-        self = try JSONDecoder().decode(
-            Bookmark.self,
-            from: JSONSerialization.data(withJSONObject: dict)
-        )
+        do {
+            self = try JSONDecoder().decode(
+                Bookmark.self,
+                from: JSONSerialization.data(withJSONObject: dict)
+            )
+        } catch {
+            print("Bookmarkのdecodeに失敗しました", dict)
+            return nil
+        }
     }
 }

@@ -24,7 +24,19 @@ struct Comment {
         let name: String
         let profile_image_url: String
         let screen_name: String
-//        let verified: Bool?
+        let verified: Bool?
+    }
+
+    var url: URL? {
+        let str = "https://twitter.com/\(user.screen_name)/status/\(id)"
+        return URL(string: str)
+    }
+
+    func removedText(targetWord: String) -> String {
+        guard let range = text.range(of: targetWord) else {
+            return text
+        }
+        return text.replacingCharacters(in: range, with: "{..}")
     }
 }
 
@@ -53,7 +65,7 @@ extension Comment: Codable {
                 from: JSONSerialization.data(withJSONObject: dict)
             )
         } catch {
-            print("decodeに失敗しました", dict)
+            print("Commentのdecodeに失敗しました", dict)
             return nil
         }
     }
