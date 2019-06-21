@@ -34,8 +34,8 @@ class WebViewController: UIViewController {
 
     private func setupCommentLoadButton() {
         let b = UIButton()
-        b.addTarget(self, action: #selector(tapLoadButton), for: .touchUpInside)
-        b.setTitle("load comment", for: .normal)
+        b.addTarget(self, action: #selector(tapCommentButton), for: .touchUpInside)
+        b.setTitle("コメントを見る", for: .normal)
         b.setTitleColor(.orange, for: .normal)
         view.addSubview(b)
         b.sizeToFit()
@@ -43,33 +43,17 @@ class WebViewController: UIViewController {
     }
 
     @objc
-    private func tapLoadButton() {
-        BookmarkRepository.execUpdateBookmarkComment(bookmarkUid: bookmark.uid) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
-            case .success(_):
-                guard let buid = self?.bookmark.uid else {
-                    return
-                }
-                CommentRepository.fetchBookmarkComment(bookmarkUid: buid) { [weak self] result in
-                    switch result {
-                    case .failure(let error):
-                        self?.showAlert(title: "Error", message: error.localizedDescription)
-                    case .success(let comments):
-                        let storyboard = UIStoryboard(name: "CommentViewController", bundle: nil)
-                        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
-                        guard let vc = nav.viewControllers.first as? CommentViewController else {
-                            return
-                        }
-                        vc.comments = comments
+    private func tapCommentButton() {
+        let storyboard = UIStoryboard(name: "CommentViewController", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        guard let vc = nav.viewControllers.first as? CommentViewController else {
+            return
+        }
+        vc.bookmark = bookmark
 
-                        DispatchQueue.main.async {
-                            self?.present(nav, animated: true)
-                        }
-                    }
-                }
-            }
+        DispatchQueue.main.async {
+//            self.present(nav, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 

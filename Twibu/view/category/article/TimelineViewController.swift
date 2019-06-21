@@ -48,7 +48,11 @@ final class TimelineViewController: UIViewController {
     }
 
     private func fetchBookmark() {
+        refreshControll.beginRefreshing()
+
         BookmarkRepository.fetchBookmark() { [weak self] result in
+            self?.refreshControll.endRefreshing()
+
             switch result {
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.localizedDescription)
@@ -67,12 +71,12 @@ final class TimelineViewController: UIViewController {
         }
 
         UserRepository.kickScrapeTimeline(uid: user.uid) { [weak self] result in
-            self?.refreshControll.endRefreshing()
             switch result {
             case .failure(let error):
+                self?.refreshControll.endRefreshing()
                 self?.showAlert(title: "Error", message: error.localizedDescription)
-            case .success(let result):
-                self?.showAlert(title: "Success", message: result.debugDescription)
+            case .success(_):
+                self?.fetchBookmark()
             }
         }
     }

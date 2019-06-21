@@ -8,22 +8,35 @@
 
 import UIKit
 
-class CommentViewController: UIViewController {
+final class CommentViewController: UIViewController {
 
     @IBOutlet weak var tableview: UITableView!
 
+    private let refreshControll = UIRefreshControl()
+
+    var bookmark: Bookmark?
     var comments: [Comment] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupTableview()
+//        setupNavigation()
+        setupComments()
+    }
+
+    private func setupTableview() {
         tableview.delegate = self
         tableview.dataSource = self
         tableview.register(
             UINib(nibName: "CommentTableViewCell", bundle: nil),
             forCellReuseIdentifier: "CommentTableViewCell"
         )
+        refreshControll.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableview.refreshControl = refreshControll
+    }
 
+    private func setupNavigation() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
@@ -31,22 +44,52 @@ class CommentViewController: UIViewController {
         )
     }
 
+    private func setupComments() {
+        guard let buid = self.bookmark?.uid else { return }
+        refreshControll.beginRefreshing()
+
+        CommentRepository.fetchBookmarkComment(bookmarkUid: buid) { [weak self] result in
+            self?.refreshControll.endRefreshing()
+
+            switch result {
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            case .success(let comments):
+                self?.comments = comments
+                self?.tableview.reloadData()
+            }
+        }
+    }
+
+    @objc
+    private func refresh() {
+        guard let buid = self.bookmark?.uid else { return }
+
+        BookmarkRepository.execUpdateBookmarkComment(bookmarkUid: buid) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            case .success(_):
+                self?.setupComments()
+            }
+        }
+    }
+
     @objc
     private func close() {
         dismiss(animated: true)
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func showAlert(title: String?, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
-    */
-
 }
 
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
