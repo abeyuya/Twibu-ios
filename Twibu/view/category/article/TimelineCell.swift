@@ -38,7 +38,7 @@ class TimelineCell: UITableViewCell {
             usersCountLabel.isHidden = true
         }
 
-        if let url = bookmark.url.expanded_url, let domain = URL(string: url)?.host {
+        if let domain = URL(string: bookmark.url)?.host {
             domainLabel.isHidden = false
             domainLabel.text = domain
         } else {

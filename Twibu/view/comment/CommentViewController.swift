@@ -71,9 +71,10 @@ final class CommentViewController: UIViewController {
 
     @objc
     private func refresh() {
-        guard let buid = self.bookmark?.uid else { return }
+        guard let b = bookmark else { return }
+        let param = BookmarkRepository.ExecUpdateBookmarkCommentParam(bookmarkUid: b.uid, url: b.url)
 
-        BookmarkRepository.execUpdateBookmarkComment(bookmarkUid: buid) { [weak self] result in
+        BookmarkRepository.execUpdateBookmarkComment(param: param) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.localizedDescription)

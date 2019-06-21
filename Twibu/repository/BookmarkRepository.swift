@@ -20,30 +20,43 @@ final class BookmarkRepository {
             return
         }
 
-        db.collection("bookmarks").order(by: "created_at", descending: true).getDocuments() { snapshot, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
+        db.collection("bookmarks")
+            .order(by: "created_at", descending: true)
+            .getDocuments() { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
 
-            guard let snapshot = snapshot else {
-                completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "no result"])))
-                return
-            }
+                guard let snapshot = snapshot else {
+                    completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "no result"])))
+                    return
+                }
 
-            let bookmarks = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
-            completion(.success(bookmarks))
+                let bookmarks = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
+                completion(.success(bookmarks))
         }
     }
 
-    static func execUpdateBookmarkComment(bookmarkUid: String, completion: @escaping (Result<HTTPSCallableResult?, Error>) -> Void) {
+    struct ExecUpdateBookmarkCommentParam {
+        let bookmarkUid: String
+        let url: String
+
+        var toDict: [String: String] {
+            return [
+                "bookmark_uid": bookmarkUid,
+                "url": url
+            ]
+        }
+    }
+
+    static func execUpdateBookmarkComment(param: ExecUpdateBookmarkCommentParam, completion: @escaping (Result<HTTPSCallableResult?, Error>) -> Void) {
         guard Auth.auth().currentUser != nil else {
             completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "need login"])))
             return
         }
 
-        let data: [String: String] = ["bookmark_uid": bookmarkUid]
-        functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(data) { result, error in
+        functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param.toDict) { result, error in
             if let error = error {
                 completion(.failure(error))
                 return

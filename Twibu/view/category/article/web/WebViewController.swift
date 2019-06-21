@@ -60,7 +60,7 @@ class WebViewController: UIViewController {
     func set(bookmark: Bookmark) {
         self.bookmark = bookmark
 
-        guard let displayUrl = bookmark.url.expanded_url, let url = URL(string: displayUrl) else {
+        guard let url = URL(string: bookmark.url) else {
             assert(false)
             return
         }

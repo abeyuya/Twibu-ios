@@ -17,13 +17,7 @@ struct Bookmark {
     let comment_count: Int?
     let created_at: Int?
     let updated_at: Int?
-    let url: Url
-
-    struct Url: Codable {
-        let url: String?
-        let expanded_url: String?
-        let display_url: String?
-    }
+    let url: String
 }
 
 extension Bookmark: Codable {
