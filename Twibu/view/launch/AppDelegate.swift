@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
@@ -23,6 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             withConsumerKey: "6TWMRUdUTZytnBMrtO9WqTuxu",
             consumerSecret: "VnFMSY5A3HolXfCtRlR2VyvBGp95LSazKKpDYAsKBPt0J3NacG"
         )
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = RootViewController()
+        window?.makeKeyAndVisible()
+
         return true
     }
 

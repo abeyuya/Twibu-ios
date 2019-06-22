@@ -88,17 +88,6 @@ final class CommentViewController: UIViewController {
     private func close() {
         dismiss(animated: true)
     }
-
-    private func showAlert(title: String?, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        let okAction = UIAlertAction(title: "OK", style: .cancel)
-        alert.addAction(okAction)
-        present(alert, animated: true)
-    }
 }
 
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {

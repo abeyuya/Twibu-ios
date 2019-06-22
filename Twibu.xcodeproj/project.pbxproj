@@ -14,7 +14,7 @@
 		4D04E21222BA9AAC00995026 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D04E21022BA9AAC00995026 /* CommentTableViewCell.xib */; };
 		4D11150422B5160E000817BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150322B5160E000817BA /* AppDelegate.swift */; };
 		4D11150622B5160E000817BA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150522B5160E000817BA /* LoginViewController.swift */; };
-		4D11150922B5160E000817BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150722B5160E000817BA /* Main.storyboard */; };
+		4D11150922B5160E000817BA /* PagingRootViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150722B5160E000817BA /* PagingRootViewController.storyboard */; };
 		4D11150B22B5160F000817BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150A22B5160F000817BA /* Assets.xcassets */; };
 		4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150C22B5160F000817BA /* LaunchScreen.storyboard */; };
 		4D11151922B5160F000817BA /* TwibuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11151822B5160F000817BA /* TwibuTests.swift */; };
@@ -39,6 +39,10 @@
 		4D65092D22BE01D600BB0959 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092C22BE01D500BB0959 /* Category.swift */; };
 		4D65092F22BE213400BB0959 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092E22BE213400BB0959 /* Error.swift */; };
 		4D65093122BE25CA00BB0959 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
+		4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093322BE43CD00BB0959 /* RootViewController.swift */; };
+		4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093522BE445E00BB0959 /* LaunchingViewController.swift */; };
+		4D65093822BE447500BB0959 /* LaunchingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D65093722BE447500BB0959 /* LaunchingViewController.storyboard */; };
+		4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +66,7 @@
 		4D11150022B5160E000817BA /* Twibu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twibu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D11150322B5160E000817BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D11150522B5160E000817BA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		4D11150822B5160E000817BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4D11150822B5160E000817BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PagingRootViewController.storyboard; sourceTree = "<group>"; };
 		4D11150A22B5160F000817BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D11150D22B5160F000817BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D11150F22B5160F000817BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -93,6 +97,10 @@
 		4D65092C22BE01D500BB0959 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4D65092E22BE213400BB0959 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4D65093022BE25CA00BB0959 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
+		4D65093322BE43CD00BB0959 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		4D65093522BE445E00BB0959 /* LaunchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingViewController.swift; sourceTree = "<group>"; };
+		4D65093722BE447500BB0959 /* LaunchingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchingViewController.storyboard; sourceTree = "<group>"; };
+		4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,14 +173,13 @@
 		4D11150222B5160E000817BA /* Twibu */ = {
 			isa = PBXGroup;
 			children = (
+				4D65093922BE4AD500BB0959 /* extension */,
 				4D65092422BBDB3700BB0959 /* repository */,
 				4D11153322B56F97000817BA /* view */,
 				4D11153022B547E8000817BA /* util */,
 				4D11152D22B545F2000817BA /* model */,
 				4D11152922B528AE000817BA /* GoogleService-Info.plist */,
-				4D11150322B5160E000817BA /* AppDelegate.swift */,
 				4D11150A22B5160F000817BA /* Assets.xcassets */,
-				4D11150C22B5160F000817BA /* LaunchScreen.storyboard */,
 				4D11150F22B5160F000817BA /* Info.plist */,
 			);
 			path = Twibu;
@@ -211,11 +218,11 @@
 		4D11153322B56F97000817BA /* view */ = {
 			isa = PBXGroup;
 			children = (
+				4D65093222BE2AE100BB0959 /* launch */,
 				4D65092B22BBE7F600BB0959 /* login */,
 				4D04E20A22BA981400995026 /* comment */,
 				4D11153622B57683000817BA /* category */,
-				4D11153422B570A3000817BA /* PagingRootViewController.swift */,
-				4D11150722B5160E000817BA /* Main.storyboard */,
+				4D11154A22B6A62E000817BA /* bookmarkWeb */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -223,10 +230,11 @@
 		4D11153622B57683000817BA /* category */ = {
 			isa = PBXGroup;
 			children = (
+				4D11150722B5160E000817BA /* PagingRootViewController.storyboard */,
+				4D11153422B570A3000817BA /* PagingRootViewController.swift */,
 				4D11153722B57697000817BA /* CategoryViewController.swift */,
 				4D11153C22B58091000817BA /* CategoryViewController.storyboard */,
 				4D11153B22B576A6000817BA /* timeline */,
-				4D11154A22B6A62E000817BA /* web */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -242,13 +250,13 @@
 			path = timeline;
 			sourceTree = "<group>";
 		};
-		4D11154A22B6A62E000817BA /* web */ = {
+		4D11154A22B6A62E000817BA /* bookmarkWeb */ = {
 			isa = PBXGroup;
 			children = (
 				4D11154B22B6A648000817BA /* WebViewController.swift */,
 				4D11154D22B6A659000817BA /* WebViewController.storyboard */,
 			);
-			path = web;
+			path = bookmarkWeb;
 			sourceTree = "<group>";
 		};
 		4D65092422BBDB3700BB0959 /* repository */ = {
@@ -268,6 +276,26 @@
 				4D11153E22B5FFD0000817BA /* LoginViewController.storyboard */,
 			);
 			path = login;
+			sourceTree = "<group>";
+		};
+		4D65093222BE2AE100BB0959 /* launch */ = {
+			isa = PBXGroup;
+			children = (
+				4D11150322B5160E000817BA /* AppDelegate.swift */,
+				4D11150C22B5160F000817BA /* LaunchScreen.storyboard */,
+				4D65093322BE43CD00BB0959 /* RootViewController.swift */,
+				4D65093522BE445E00BB0959 /* LaunchingViewController.swift */,
+				4D65093722BE447500BB0959 /* LaunchingViewController.storyboard */,
+			);
+			path = launch;
+			sourceTree = "<group>";
+		};
+		4D65093922BE4AD500BB0959 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
+			);
+			path = extension;
 			sourceTree = "<group>";
 		};
 		BE96F5C735459C2F19058E09 /* Pods */ = {
@@ -375,8 +403,9 @@
 				4D04E20E22BA983E00995026 /* CommentViewController.storyboard in Resources */,
 				4D11153F22B5FFD0000817BA /* LoginViewController.storyboard in Resources */,
 				4D04E21222BA9AAC00995026 /* CommentTableViewCell.xib in Resources */,
+				4D65093822BE447500BB0959 /* LaunchingViewController.storyboard in Resources */,
 				4D11153D22B58091000817BA /* CategoryViewController.storyboard in Resources */,
-				4D11150922B5160E000817BA /* Main.storyboard in Resources */,
+				4D11150922B5160E000817BA /* PagingRootViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,12 +514,15 @@
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
 				4D11154922B69E15000817BA /* Bookmark.swift in Sources */,
 				4D11154122B60118000817BA /* TimelineViewController.swift in Sources */,
+				4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */,
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
+				4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */,
 				4D65092D22BE01D600BB0959 /* Category.swift in Sources */,
 				4D65093122BE25CA00BB0959 /* Env.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
+				4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */,
 				4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */,
 				4D65092F22BE213400BB0959 /* Error.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,
@@ -516,12 +548,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4D11150722B5160E000817BA /* Main.storyboard */ = {
+		4D11150722B5160E000817BA /* PagingRootViewController.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4D11150822B5160E000817BA /* Base */,
 			);
-			name = Main.storyboard;
+			name = PagingRootViewController.storyboard;
 			sourceTree = "<group>";
 		};
 		4D11150C22B5160F000817BA /* LaunchScreen.storyboard */ = {

@@ -9,18 +9,18 @@
 import Foundation
 
 enum TwibuError: Error {
-    case unknown(String)
-    case needFirebaseAuth(String)
-    case needTwitterAuth(String)
-    case firestoreError(String)
-    case firebaseFunctionsError(String)
+    case unknown(String?)
+    case needFirebaseAuth(String?)
+    case needTwitterAuth(String?)
+    case firestoreError(String?)
+    case firebaseFunctionsError(String?)
 
     var displayMessage: String {
         if Env.current == .debug {
             return [
                 userMessage,
                 "--- show only debug ---",
-                debugMessage,
+                debugMessage ?? "no debug message",
                 localizedDescription
             ].joined(separator: "\n")
         }
@@ -38,7 +38,7 @@ enum TwibuError: Error {
         }
     }
 
-    private var debugMessage: String {
+    private var debugMessage: String? {
         switch self {
         case .unknown(let message): return message
         case .needFirebaseAuth(let message): return message

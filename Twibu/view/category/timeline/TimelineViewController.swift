@@ -101,17 +101,6 @@ final class TimelineViewController: UIViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
-
-    private func showAlert(title: String?, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        let okAction = UIAlertAction(title: "OK", style: .cancel)
-        alert.addAction(okAction)
-        present(alert, animated: true)
-    }
 }
 
 extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
