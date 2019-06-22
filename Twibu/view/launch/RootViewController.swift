@@ -13,8 +13,8 @@ final class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let storyboard = UIStoryboard(name: "LaunchingViewController", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! LaunchingViewController
+        view.backgroundColor = .white
+        let vc = LaunchingViewController.initFromStoryBoard()
         set(vc: vc)
     }
 

@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-class LaunchingViewController: UIViewController {
+class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
     override func viewDidLoad() {
         super.viewDidLoad()

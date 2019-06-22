@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private let webview = WKWebView()
     private var bookmark: Bookmark!

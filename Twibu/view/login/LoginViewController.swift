@@ -11,7 +11,7 @@ import FirebaseAuth
 import TwitterKit
 import Parchment
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
@@ -25,45 +25,71 @@ final class LoginViewController: UIViewController {
     }
 
     private func buildLoginButton() -> UIView {
-        let loginButton = TWTRLogInButton() { [weak self] session, error in
-            guard let session = session else {
-                let message = error?.localizedDescription ?? "ログインに失敗しました"
-                self?.showAlert(title: "Error", message: message)
+        let loginButton = TWTRLogInButton(logInCompletion: buildLoginCompletion)
+        return loginButton
+    }
+
+    private func buildLoginCompletion(session: TWTRSession?, error: Error?) {
+        if let error = error {
+            self.showAlert(
+                title: "Error",
+                message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
+            )
+            return
+        }
+
+        guard let session = session else {
+            self.showAlert(
+                title: "Error",
+                message: TwibuError.twitterLogin("sessionがnil").displayMessage
+            )
+            return
+        }
+
+        linkTwitterAccount(session: session)
+    }
+
+    private func linkTwitterAccount(session: TWTRSession) {
+        guard let user = Auth.auth().currentUser else {
+            self.showAlert(title: "Error", message: TwibuError.needFirebaseAuth(nil).displayMessage)
+            return
+        }
+
+        let cred = TwitterAuthProvider.credential(
+            withToken: session.authToken,
+            secret: session.authTokenSecret
+        )
+
+        user.link(with: cred) { [weak self] result, error in
+            if let error = error {
+                self?.showAlert(
+                    title: "Error",
+                    message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
+                )
+                return
+            }
+            guard let result = result else {
+                self?.showAlert(
+                    title: "Error",
+                    message: TwibuError.twitterLogin("Twitterユーザが取得できませんでした").displayMessage
+                )
                 return
             }
 
-            let cred = TwitterAuthProvider.credential(
-                withToken: session.authToken,
-                secret: session.authTokenSecret
-            )
-
-            Auth.auth().signIn(with: cred) { result, error in
-                if let error = error {
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
-                    return
-                }
-                guard let result = result else {
-                    self?.showAlert(title: "Error", message: "ログインユーザが取得できませんでした")
-                    return
-                }
-
-                UserRepository.add(
-                    uid: result.user.uid,
-                    userName: session.userName,
-                    userId: session.userID,
-                    accessToken: session.authToken,
-                    secretToken: session.authTokenSecret
-                ) { result in
-                    switch result {
-                    case .success:
-                        self?.delegate?.reload(item: self?.item)
-                    case .failure(let error):
-                        self?.showAlert(title: "Error", message: error.displayMessage)
-                    }
+            UserRepository.add(
+                uid: result.user.uid,
+                userName: session.userName,
+                userId: session.userID,
+                accessToken: session.authToken,
+                secretToken: session.authTokenSecret
+            ) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.delegate?.reload(item: self?.item)
+                case .failure(let error):
+                    self?.showAlert(title: "Error", message: error.displayMessage)
                 }
             }
         }
-
-        return loginButton
     }
 }

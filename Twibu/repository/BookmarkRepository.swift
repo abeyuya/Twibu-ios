@@ -36,7 +36,7 @@ final class BookmarkRepository {
         }
     }
 
-    static func buildQuery(category: Category) -> Query {
+    static private func buildQuery(category: Category) -> Query {
         let common1 = db.collection("bookmarks")
 
         let common2: Query = {
@@ -70,8 +70,8 @@ final class BookmarkRepository {
     }
 
     static func execUpdateBookmarkComment(param: ExecUpdateBookmarkCommentParam, completion: @escaping (Result<HTTPSCallableResult?>) -> Void) {
-        guard Auth.auth().currentUser != nil else {
-            completion(.failure(.needFirebaseAuth("need firebase login")))
+        guard UserRepository.isTwitterLogin() else {
+            completion(.failure(.needTwitterAuth("need twitter login")))
             return
         }
 

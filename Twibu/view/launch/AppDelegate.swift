@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         TWTRTwitter.sharedInstance().start(
-            withConsumerKey: "6TWMRUdUTZytnBMrtO9WqTuxu",
-            consumerSecret: "VnFMSY5A3HolXfCtRlR2VyvBGp95LSazKKpDYAsKBPt0J3NacG"
+            withConsumerKey: Const.twitterConsumerKey,
+            consumerSecret: Const.twitterConsumerSecret
         )
 
         window = UIWindow(frame: UIScreen.main.bounds)

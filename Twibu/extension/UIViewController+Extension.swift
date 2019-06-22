@@ -20,3 +20,13 @@ extension UIViewController {
         present(alert, animated: true)
     }
 }
+
+protocol StoryboardInstantiatable {}
+
+extension StoryboardInstantiatable where Self: UIViewController {
+    static func initFromStoryBoard() -> Self {
+        let storyboard = UIStoryboard(name: String(describing: self), bundle: nil)
+        let vc = storyboard.instantiateInitialViewController() as! Self
+        return vc
+    }
+}

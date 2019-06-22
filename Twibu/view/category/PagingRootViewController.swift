@@ -56,22 +56,20 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
 
         switch category {
         case .timeline:
-            if Auth.auth().currentUser != nil {
-                let storyboard = UIStoryboard(name: "TimelineViewController", bundle: nil)
-                let vc = storyboard.instantiateInitialViewController() as! TimelineViewController
-                vc.delegate = self
-                vc.item = item
-                return vc
-            } else {
-                let storyboard = UIStoryboard(name: "LoginViewController", bundle: nil)
-                let vc = storyboard.instantiateInitialViewController() as! LoginViewController
+            guard UserRepository.isTwitterLogin() else {
+                let vc = LoginViewController.initFromStoryBoard()
                 vc.delegate = self
                 vc.item = item
                 return vc
             }
-        default:
-            let storyboard = UIStoryboard(name: "CategoryViewController", bundle: nil)
-            let vc = storyboard.instantiateInitialViewController() as! CategoryViewController
+
+            let vc = CategoryViewController.initFromStoryBoard()
+            vc.delegate = self
+            vc.item = item
+            return vc
+
+        case .all, .economics, .entertainment, .fun, .game, .general, .it, .knowledge, .social, .life:
+            let vc = CategoryViewController.initFromStoryBoard()
             vc.item = item
             return vc
         }

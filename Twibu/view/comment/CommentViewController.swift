@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-final class CommentViewController: UIViewController {
+final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
     @IBOutlet weak var tableview: UITableView!
 
@@ -72,8 +73,13 @@ final class CommentViewController: UIViewController {
     @objc
     private func refresh() {
         guard let b = bookmark else { return }
-        let param = BookmarkRepository.ExecUpdateBookmarkCommentParam(bookmarkUid: b.uid, url: b.url)
 
+        guard UserRepository.isTwitterLogin() else {
+            setupComments()
+            return
+        }
+
+        let param = BookmarkRepository.ExecUpdateBookmarkCommentParam(bookmarkUid: b.uid, url: b.url)
         BookmarkRepository.execUpdateBookmarkComment(param: param) { [weak self] result in
             switch result {
             case .failure(let error):
