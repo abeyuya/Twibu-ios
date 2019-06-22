@@ -16,37 +16,6 @@ protocol PagingRootViewControllerDelegate: class {
 
 final class PagingRootViewController: UIViewController {
 
-    enum Category: String, CaseIterable {
-        case sougou = "総合"
-        case timeline = "タイムライン"
-        case yononaka = "世の中"
-        case seijiKeizai = "政治と経済"
-        case kurashi = "暮らし"
-        case manabi = "学び"
-        case technology = "テクノロジー"
-        case entame = "エンタメ"
-        case animeGame = "アニメとゲーム"
-        case omoshiro = "おもしろ"
-
-        var index: Int {
-            return Category.allCases.firstIndex(of: self)!
-        }
-
-        init?(index: Int) {
-            self = Category.allCases[index]
-        }
-
-        static func calcLogicalIndex(physicalIndex: Int) -> Int {
-            let i = physicalIndex % Category.allCases.count
-
-            if i >= 0 {
-                return i
-            }
-
-            return i + Category.allCases.count
-        }
-    }
-
     private let pagingViewController = PagingViewController<PagingIndexItem>()
 
     override func viewDidLoad() {
@@ -69,8 +38,8 @@ final class PagingRootViewController: UIViewController {
         pagingViewController.delegate = self
         pagingViewController.menuItemSize = .sizeToFit(minWidth: 120, height: 40)
 
-        let c = Category.sougou
-        pagingViewController.select(pagingItem: PagingIndexItem(index: c.index, title: c.rawValue))
+        let c = Category.all
+        pagingViewController.select(pagingItem: PagingIndexItem(index: c.index, title: c.displayString))
     }
 }
 
@@ -103,7 +72,7 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
         default:
             let storyboard = UIStoryboard(name: "CategoryViewController", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! CategoryViewController
-            vc.category = category
+            vc.item = item
             return vc
         }
     }
@@ -112,14 +81,14 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
         guard let currentItem = pagingItem as? PagingIndexItem else { return nil }
         let categoryIndex = Category.calcLogicalIndex(physicalIndex: currentItem.index - 1)
         guard let category = Category(index: categoryIndex) else { return nil }
-        return PagingIndexItem(index: currentItem.index - 1, title: category.rawValue) as? T
+        return PagingIndexItem(index: currentItem.index - 1, title: category.displayString) as? T
     }
 
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemAfterPagingItem pagingItem: T) -> T? {
         guard let currentItem = pagingItem as? PagingIndexItem else { return nil }
         let categoryIndex = Category.calcLogicalIndex(physicalIndex: currentItem.index + 1)
         guard let category = Category(index: categoryIndex) else { return nil }
-        return PagingIndexItem(index: currentItem.index + 1, title: category.rawValue) as? T
+        return PagingIndexItem(index: currentItem.index + 1, title: category.displayString) as? T
     }
 }
 

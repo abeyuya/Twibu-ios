@@ -49,8 +49,7 @@ final class TimelineViewController: UIViewController {
 
     private func fetchBookmark() {
         refreshControll.beginRefreshing()
-
-        BookmarkRepository.fetchBookmark() { [weak self] result in
+        BookmarkRepository.fetchBookmark(category: .timeline) { [weak self] result in
             self?.refreshControll.endRefreshing()
 
             switch result {

@@ -7,18 +7,97 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Parchment
 
-class CategoryViewController: UIViewController {
+final class CategoryViewController: UIViewController {
 
-    var category: PagingRootViewController.Category?
+    @IBOutlet weak var tableView: UITableView!
+
+    var item: PagingIndexItem?
+    weak var delegate: PagingRootViewControllerDelegate?
+    private let refreshControll = UIRefreshControl()
+    private var bookmarks: [Bookmark] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.text = category?.rawValue
-        view.addSubview(l)
-        l.center = view.center
+        setupTableView()
+        fetchBookmark()
     }
+
+    private func setupTableView() {
+        tableView.tableFooterView = UIView()
+        tableView.register(
+            UINib(nibName: "TimelineCell", bundle: nil),
+            forCellReuseIdentifier: "TimelineCell"
+        )
+        tableView.delegate = self
+        tableView.dataSource = self
+        refreshControll.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.refreshControl = refreshControll
+    }
+
+    private func fetchBookmark() {
+        guard let i = item?.index,
+            let category = Category(index: Category.calcLogicalIndex(physicalIndex: i)) else {
+                return
+        }
+
+        refreshControll.beginRefreshing()
+
+        BookmarkRepository.fetchBookmark(category: category) { [weak self] result in
+            self?.refreshControll.endRefreshing()
+
+            switch result {
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            case .success(let bookmarks):
+                self?.bookmarks = bookmarks
+                self?.tableView.reloadData()
+            }
+        }
+    }
+
+    @objc
+    private func refresh() {
+        fetchBookmark()
+    }
+
+    private func showAlert(title: String?, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+}
+
+extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return bookmarks.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TimelineCell") as? TimelineCell else {
+            return UITableViewCell()
+        }
+
+        let b = bookmarks[indexPath.row]
+        cell.set(bookmark: b)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let b = bookmarks[indexPath.row]
+        let storyboard = UIStoryboard(name: "WebViewController", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController() as! WebViewController
+        vc.set(bookmark: b)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension CategoryViewController: UIPageViewControllerDelegate {
 }
