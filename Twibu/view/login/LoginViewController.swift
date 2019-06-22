@@ -58,7 +58,7 @@ final class LoginViewController: UIViewController {
                     case .success:
                         self?.delegate?.reload(item: self?.item)
                     case .failure(let error):
-                        self?.showAlert(title: "Error", message: error.localizedDescription)
+                        self?.showAlert(title: "Error", message: error.displayMessage)
                     }
                 }
             }

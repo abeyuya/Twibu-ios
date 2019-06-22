@@ -21,7 +21,7 @@ final class UserRepository {
         userId: String,
         accessToken: String,
         secretToken: String,
-        completion: @escaping (Result<Void, Error>) -> Void
+        completion: @escaping (Result<Void>) -> Void
     ) {
         let data: [String: Any] = [
             "uid": uid,
@@ -36,18 +36,18 @@ final class UserRepository {
             .document(uid)
             .setData(data, mergeFields: ["access_token", "secret_token"]) { error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(.firestoreError(error.localizedDescription)))
                     return
                 }
                 completion(.success(Void()))
         }
     }
 
-    static func kickScrapeTimeline(uid: String, completion: @escaping (Result<HTTPSCallableResult?, Error>) -> Void) {
+    static func kickScrapeTimeline(uid: String, completion: @escaping (Result<HTTPSCallableResult?>) -> Void) {
         let data: [String: String] = ["uid": uid]
         functions.httpsCallable("execFetchUserTimeline").call(data) { result, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(.firebaseFunctionsError(error.localizedDescription)))
                 return
             }
             completion(.success(result))

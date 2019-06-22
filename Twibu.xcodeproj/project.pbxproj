@@ -37,6 +37,8 @@
 		4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
 		4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepository.swift */; };
 		4D65092D22BE01D600BB0959 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092C22BE01D500BB0959 /* Category.swift */; };
+		4D65092F22BE213400BB0959 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092E22BE213400BB0959 /* Error.swift */; };
+		4D65093122BE25CA00BB0959 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +91,8 @@
 		4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
 		4D65092922BBDCC400BB0959 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
 		4D65092C22BE01D500BB0959 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		4D65092E22BE213400BB0959 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		4D65093022BE25CA00BB0959 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +202,8 @@
 			children = (
 				4D11152B22B531E8000817BA /* Device.swift */,
 				4D11153122B547F8000817BA /* Result.swift */,
+				4D65092E22BE213400BB0959 /* Error.swift */,
+				4D65093022BE25CA00BB0959 /* Env.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -481,10 +487,12 @@
 				4D11154122B60118000817BA /* TimelineViewController.swift in Sources */,
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
 				4D65092D22BE01D600BB0959 /* Category.swift in Sources */,
+				4D65093122BE25CA00BB0959 /* Env.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */,
+				4D65092F22BE213400BB0959 /* Error.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,9 +12,9 @@ import FirebaseFirestore
 final class CommentRepository {
     private static let db = Firestore.firestore()
 
-    static func fetchBookmarkComment(bookmarkUid: String, completion: @escaping (Result<[Comment], Error>) -> Void) {
+    static func fetchBookmarkComment(bookmarkUid: String, completion: @escaping (Result<[Comment]>) -> Void) {
         guard Auth.auth().currentUser != nil else {
-            completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "need login"])))
+            completion(.failure(.needFirebaseAuth("need firebase login")))
             return
         }
 
@@ -24,12 +24,12 @@ final class CommentRepository {
             .order(by: "favorite_count", descending: true)
             .getDocuments() { snapshot, error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(.firestoreError(error.localizedDescription)))
                     return
                 }
 
                 guard let snapshot = snapshot else {
-                    completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "no result"])))
+                    completion(.failure(.firestoreError("no result")))
                     return
                 }
 

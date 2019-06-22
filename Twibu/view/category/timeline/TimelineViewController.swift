@@ -54,7 +54,7 @@ final class TimelineViewController: UIViewController {
 
             switch result {
             case .failure(let error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
+                self?.showAlert(title: "Error", message: error.displayMessage)
             case .success(let bookmarks):
                 self?.bookmarks = bookmarks
                 self?.tableView.reloadData()
@@ -73,7 +73,7 @@ final class TimelineViewController: UIViewController {
             switch result {
             case .failure(let error):
                 self?.refreshControll.endRefreshing()
-                self?.showAlert(title: "Error", message: error.localizedDescription)
+                self?.showAlert(title: "Error", message: error.displayMessage)
             case .success(_):
                 self?.fetchBookmark()
             }

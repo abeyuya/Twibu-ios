@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Result<T, E: Error> {
+enum Result<T> {
     case success(T)
-    case failure(E)
+    case failure(TwibuError)
 }

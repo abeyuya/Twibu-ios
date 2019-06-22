@@ -14,26 +14,25 @@ final class BookmarkRepository {
     private static let db = Firestore.firestore()
     private static let functions = Functions.functions(region: "asia-northeast1")
 
-    static func fetchBookmark(category: Category, completion: @escaping (Result<[Bookmark], Error>) -> Void) {
+    static func fetchBookmark(category: Category, completion: @escaping (Result<[Bookmark]>) -> Void) {
         guard Auth.auth().currentUser != nil else {
-            completion(.failure(NSError(domain: "", code: 500, userInfo: ["message": "need login"])))
+            completion(.failure(.needFirebaseAuth("need firebase login")))
             return
         }
 
-        buildQuery(category: category)
-            .getDocuments() { snapshot, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
+        buildQuery(category: category).getDocuments() { snapshot, error in
+            if let error = error {
+                completion(.failure(.firestoreError(error.localizedDescription)))
+                return
+            }
 
-                guard let snapshot = snapshot else {
-                    completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "no result"])))
-                    return
-                }
+            guard let snapshot = snapshot else {
+                completion(.failure(.firestoreError("no result")))
+                return
+            }
 
-                let bookmarks = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
-                completion(.success(bookmarks))
+            let bookmarks = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
+            completion(.success(bookmarks))
         }
     }
 
@@ -45,7 +44,7 @@ final class BookmarkRepository {
             case .all:
                 return common1
                     .order(by: "comment_count", descending: true)
-                    .whereField("comment_count", isGreaterThan: 0)
+                    .whereField("comment_count", isGreaterThan: 20)
             case .timeline:
                 return common1
             default:
@@ -70,15 +69,15 @@ final class BookmarkRepository {
         }
     }
 
-    static func execUpdateBookmarkComment(param: ExecUpdateBookmarkCommentParam, completion: @escaping (Result<HTTPSCallableResult?, Error>) -> Void) {
+    static func execUpdateBookmarkComment(param: ExecUpdateBookmarkCommentParam, completion: @escaping (Result<HTTPSCallableResult?>) -> Void) {
         guard Auth.auth().currentUser != nil else {
-            completion(.failure(NSError.init(domain: "", code: 500, userInfo: ["message": "need login"])))
+            completion(.failure(.needFirebaseAuth("need firebase login")))
             return
         }
 
         functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param.toDict) { result, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(.firestoreError(error.localizedDescription)))
                 return
             }
             completion(.success(result))

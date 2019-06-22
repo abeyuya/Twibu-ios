@@ -50,7 +50,7 @@ final class CategoryViewController: UIViewController {
 
             switch result {
             case .failure(let error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
+                self?.showAlert(title: "Error", message: error.displayMessage)
             case .success(let bookmarks):
                 self?.bookmarks = bookmarks
                 self?.tableView.reloadData()

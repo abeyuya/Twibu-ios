@@ -55,7 +55,7 @@ final class CommentViewController: UIViewController {
 
             switch result {
             case .failure(let error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
+                self?.showAlert(title: "Error", message: error.displayMessage)
             case .success(let comments):
                 self?.comments = comments
                 self?.tableview.reloadData()
@@ -77,7 +77,7 @@ final class CommentViewController: UIViewController {
         BookmarkRepository.execUpdateBookmarkComment(param: param) { [weak self] result in
             switch result {
             case .failure(let error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
+                self?.showAlert(title: "Error", message: error.displayMessage)
             case .success(_):
                 self?.setupComments()
             }
