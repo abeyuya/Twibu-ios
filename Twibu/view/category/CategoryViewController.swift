@@ -19,6 +19,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private let refreshControll = UIRefreshControl()
     private var bookmarks: [Bookmark] = []
 
+    private var beginingPoint = CGPoint(x: 0, y: 0)
+
     private var category: Category? {
         guard let i = item?.index,
             let category = Category(index: Category.calcLogicalIndex(physicalIndex: i)) else {
@@ -79,7 +81,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 }
 
-extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
+extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookmarks.count
     }
@@ -99,6 +101,35 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = WebViewController.initFromStoryBoard()
         vc.set(bookmark: b)
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension CategoryViewController: UITableViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        beginingPoint = scrollView.contentOffset
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentPoint = scrollView.contentOffset
+        let contentSize = scrollView.contentSize
+        let frameSize = scrollView.frame
+        let maxOffSet = contentSize.height - frameSize.height
+
+        if currentPoint.y >= maxOffSet {
+            // print("hit the bottom")
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        } else if beginingPoint.y < currentPoint.y {
+            // print("Scrolled down")
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        } else {
+            // print("Scrolled up")
+        }
+    }
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if velocity.y < 0 {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
 }
 

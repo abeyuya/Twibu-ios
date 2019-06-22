@@ -233,18 +233,18 @@
 				4D11150722B5160E000817BA /* PagingRootViewController.storyboard */,
 				4D11153722B57697000817BA /* CategoryViewController.swift */,
 				4D11153C22B58091000817BA /* CategoryViewController.storyboard */,
-				4D11153B22B576A6000817BA /* timeline */,
+				4D11153B22B576A6000817BA /* cell */,
 			);
 			path = category;
 			sourceTree = "<group>";
 		};
-		4D11153B22B576A6000817BA /* timeline */ = {
+		4D11153B22B576A6000817BA /* cell */ = {
 			isa = PBXGroup;
 			children = (
 				4D11154422B60298000817BA /* TimelineCell.swift */,
 				4D11154522B60298000817BA /* TimelineCell.xib */,
 			);
-			path = timeline;
+			path = cell;
 			sourceTree = "<group>";
 		};
 		4D11154A22B6A62E000817BA /* bookmarkWeb */ = {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Const {
     static let twitterConsumerKey: String = {
@@ -16,4 +17,6 @@ struct Const {
     static let twitterConsumerSecret: String = {
         return "VnFMSY5A3HolXfCtRlR2VyvBGp95LSazKKpDYAsKBPt0J3NacG"
     }()
+
+    static let scrollShowHideOffset: CGFloat = 1
 }

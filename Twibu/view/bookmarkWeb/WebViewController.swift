@@ -13,15 +13,25 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private let webview = WKWebView()
     private var bookmark: Bookmark!
+    private var beginingPoint = CGPoint(x: 0, y: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupWebview()
         setupCommentLoadButton()
+        setupNavigation()
+        setupToolbar()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setToolbarHidden(true, animated: true)
     }
 
     private func setupWebview() {
+        webview.scrollView.delegate = self
         webview.navigationDelegate = self
         webview.translatesAutoresizingMaskIntoConstraints = false
 
@@ -40,6 +50,14 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
         view.addSubview(b)
         b.sizeToFit()
         b.center = view.center
+    }
+
+    private func setupNavigation() {
+        title = bookmark.title
+    }
+
+    private func setupToolbar() {
+        navigationController?.setToolbarHidden(false, animated: true)
     }
 
     @objc
@@ -71,4 +89,36 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
 }
 
 extension WebViewController: WKNavigationDelegate {
+}
+
+extension WebViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        beginingPoint = scrollView.contentOffset
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentPoint = scrollView.contentOffset
+        let contentSize = scrollView.contentSize
+        let frameSize = scrollView.frame
+        let maxOffSet = contentSize.height - frameSize.height
+
+        if currentPoint.y >= maxOffSet {
+            // print("hit the bottom")
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.navigationController?.setToolbarHidden(false, animated: true)
+        } else if beginingPoint.y < currentPoint.y {
+            // print("Scrolled down")
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            self.navigationController?.setToolbarHidden(true, animated: true)
+        } else {
+            //print("Scrolled up")
+        }
+    }
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if velocity.y < 0 {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+            navigationController?.setToolbarHidden(false, animated: true)
+        }
+    }
 }
