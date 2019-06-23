@@ -45,12 +45,12 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
     private func setupView() {
         UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white
+            NSAttributedString.Key.foregroundColor: UIColor.mainBlack
         ]
-        UINavigationBar.appearance().barTintColor = .sky
-        UINavigationBar.appearance().tintColor = .white
+        UINavigationBar.appearance().barTintColor = .white
+        UINavigationBar.appearance().tintColor = .mainBlack
 
-        UIToolbar.appearance().barTintColor = .sky
-        UIToolbar.appearance().tintColor = .white
+        UIToolbar.appearance().barTintColor = .white
+        UIToolbar.appearance().tintColor = .mainBlack
     }
 }

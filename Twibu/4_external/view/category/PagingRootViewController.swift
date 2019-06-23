@@ -22,6 +22,7 @@ final class PagingRootViewController: UIViewController {
         super.viewDidLoad()
 
         setupPagingView()
+        title = "ホーム"
     }
 
     private func setupPagingView() {
@@ -37,6 +38,12 @@ final class PagingRootViewController: UIViewController {
         pagingViewController.infiniteDataSource = self
         pagingViewController.delegate = self
         pagingViewController.menuItemSize = .sizeToFit(minWidth: 120, height: 40)
+        pagingViewController.textColor = .tabUnselectGray
+        pagingViewController.selectedTextColor = .mainBlack
+        pagingViewController.indicatorColor = .mainBlack
+        pagingViewController.backgroundColor = .tabBgGray
+        pagingViewController.menuBackgroundColor = .tabBgGray
+        pagingViewController.borderOptions = .hidden
 
         let c = Category.all
         pagingViewController.select(pagingItem: PagingIndexItem(index: c.index, title: c.displayString))
