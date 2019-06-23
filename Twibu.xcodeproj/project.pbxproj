@@ -42,6 +42,7 @@
 		4D65093822BE447500BB0959 /* LaunchingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D65093722BE447500BB0959 /* LaunchingViewController.storyboard */; };
 		4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
 		4D65093D22BE625300BB0959 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093C22BE625300BB0959 /* Const.swift */; };
+		4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		4D65093722BE447500BB0959 /* LaunchingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchingViewController.storyboard; sourceTree = "<group>"; };
 		4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		4D65093C22BE625300BB0959 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
+				4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
+				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,
 				4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */,
 				4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */,
 				4D65092F22BE213400BB0959 /* Error.swift in Sources */,

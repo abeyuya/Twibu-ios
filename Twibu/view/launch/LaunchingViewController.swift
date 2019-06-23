@@ -14,6 +14,8 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
+
         if Auth.auth().currentUser != nil {
             moveToPagingRootView()
             return
@@ -39,5 +41,16 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
         let storyboard = UIStoryboard(name: "PagingRootViewController", bundle: nil)
         let vc = storyboard.instantiateInitialViewController()!
         root.replace(vc: vc)
+    }
+
+    private func setupView() {
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white
+        ]
+        UINavigationBar.appearance().barTintColor = .sky
+        UINavigationBar.appearance().tintColor = .white
+
+        UIToolbar.appearance().barTintColor = .sky
+        UIToolbar.appearance().tintColor = .white
     }
 }

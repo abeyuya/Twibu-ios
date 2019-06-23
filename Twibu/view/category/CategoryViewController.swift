@@ -34,10 +34,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         setupTableView()
         fetchBookmark()
 
-        if category == .timeline, let u = Auth.auth().currentUser, !u.providerData.isEmpty {
+        if category == .timeline, UserRepository.isTwitterLogin() {
             setupLogoutButton()
-        } else {
-
         }
     }
 

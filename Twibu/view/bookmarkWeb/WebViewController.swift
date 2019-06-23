@@ -13,13 +13,12 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private let webview = WKWebView()
     private var bookmark: Bookmark!
-    private var beginingPoint = CGPoint(x: 0, y: 0)
+    private var lastContentOffset: CGFloat = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupWebview()
-        setupCommentLoadButton()
         setupNavigation()
         setupToolbar()
     }
@@ -42,37 +41,65 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
         webview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
-    private func setupCommentLoadButton() {
-        let b = UIButton()
-        b.addTarget(self, action: #selector(tapCommentButton), for: .touchUpInside)
-        b.setTitle("コメントを見る", for: .normal)
-        b.setTitleColor(.orange, for: .normal)
-        view.addSubview(b)
-        b.sizeToFit()
-        b.center = view.center
-    }
-
     private func setupNavigation() {
         title = bookmark.title
     }
 
     private func setupToolbar() {
         navigationController?.setToolbarHidden(false, animated: true)
+
+        let backRoot = UIBarButtonItem(
+            barButtonSystemItem: .camera,
+            target: self,
+            action: nil
+        )
+        let backPrev = UIBarButtonItem(
+            barButtonSystemItem: .bookmarks,
+            target: self,
+            action: nil
+        )
+        let commentButton = UIBarButtonItem(
+            barButtonSystemItem: .search,
+            target: self,
+            action: #selector(tapCommentButton)
+        )
+        let shareButton = UIBarButtonItem(
+            barButtonSystemItem: .action,
+            target: self,
+            action: #selector(tapShareButton)
+        )
+        let space = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+
+        toolbarItems = [
+            backRoot,
+            space,
+            backPrev,
+            space,
+            commentButton,
+            space,
+            shareButton
+        ]
     }
 
     @objc
     private func tapCommentButton() {
-        let storyboard = UIStoryboard(name: "CommentViewController", bundle: nil)
-        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
-        guard let vc = nav.viewControllers.first as? CommentViewController else {
-            return
-        }
+        let vc = CommentViewController.initFromStoryBoard()
         vc.bookmark = bookmark
 
         DispatchQueue.main.async {
-//            self.present(nav, animated: true)
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+
+    @objc
+    private func tapShareButton() {
+        guard let url = URL(string: bookmark.url) else { return }
+        let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        present(vc, animated: true)
     }
 
     func set(bookmark: Bookmark) {
@@ -92,9 +119,6 @@ extension WebViewController: WKNavigationDelegate {
 }
 
 extension WebViewController: UIScrollViewDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        beginingPoint = scrollView.contentOffset
-    }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPoint = scrollView.contentOffset
@@ -102,17 +126,37 @@ extension WebViewController: UIScrollViewDelegate {
         let frameSize = scrollView.frame
         let maxOffSet = contentSize.height - frameSize.height
 
+        defer {
+            lastContentOffset = currentPoint.y
+        }
+
         if currentPoint.y >= maxOffSet {
             // print("hit the bottom")
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.setToolbarHidden(false, animated: true)
-        } else if beginingPoint.y < currentPoint.y {
+            return
+        }
+
+        if currentPoint.y <= 0 {
+            // print("hit the top")
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.navigationController?.setToolbarHidden(false, animated: true)
+            return
+        }
+
+        //
+        // NOTE: webviewの読み込みでスクロール位置がジャンプしてしまう
+        //       そういった瞬間移動的なスクロールは無視したい
+        //
+        let delta = currentPoint.y - lastContentOffset
+        if 0 < delta {
             // print("Scrolled down")
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.setToolbarHidden(true, animated: true)
-        } else {
-            //print("Scrolled up")
+            return
         }
+
+        // print("Scrolled up")
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
