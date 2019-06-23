@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Bookmark {
+struct Bookmark: TwibuFirestoreRecord {
     let uid: String
     let title: String?
     let image_url: String?

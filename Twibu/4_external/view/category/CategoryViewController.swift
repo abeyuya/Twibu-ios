@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Parchment
+import ReSwift
 
 final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
@@ -17,7 +18,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
     private let refreshControll = UIRefreshControl()
-    private var bookmarks: [Bookmark] = []
+    private var bookmarksResponse: ResponseState<[Bookmark]> = .notYetLoading
 
     private var lastContentOffset: CGFloat = 0
 
@@ -29,14 +30,39 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         return category
     }
 
+    private var bookmarks: [Bookmark] {
+        switch bookmarksResponse {
+        case .success(let bookmarks): return bookmarks
+        case .loading(let bookmarks): return bookmarks
+        case .faillure(_): return []
+        case .notYetLoading: return []
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupTableView()
-        fetchBookmark()
 
         if category == .timeline, UserRepository.isTwitterLogin() {
             setupLogoutButton()
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        store.subscribe(self) { [weak self] subcription in
+            subcription.select { state in
+                guard let c = self?.category else { return nil }
+                return state.response.bookmarks[c]
+            }
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        store.unsubscribe(self)
     }
 
     private func setupTableView() {
@@ -53,19 +79,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchBookmark() {
         guard let category = category else { return }
-
         refreshControll.beginRefreshing()
-        BookmarkRepository.fetchBookmark(category: category) { [weak self] result in
-            self?.refreshControll.endRefreshing()
-
-            switch result {
-            case .failure(let error):
-                self?.showAlert(title: "Error", message: error.displayMessage)
-            case .success(let bookmarks):
-                self?.bookmarks = bookmarks
-                self?.tableView.reloadData()
-            }
-        }
+        BookmarkDispatcher.fetchBookmark(category: category)
     }
 
     @objc
@@ -205,6 +220,37 @@ extension CategoryViewController {
             case .success(_):
                 self?.fetchBookmark()
             }
+        }
+    }
+}
+
+extension CategoryViewController: StoreSubscriber {
+    typealias StoreSubscriberStateType = ResponseState<[Bookmark]>?
+
+    func newState(state: ResponseState<[Bookmark]>?) {
+        guard let res = state else {
+            // 初回取得前はここを通る
+            bookmarksResponse = .notYetLoading
+            fetchBookmark()
+            return
+        }
+
+        bookmarksResponse = res
+        render()
+    }
+
+    func render() {
+        switch bookmarksResponse {
+        case .success(_):
+            refreshControll.endRefreshing()
+            tableView.reloadData()
+        case .faillure(let error):
+            refreshControll.endRefreshing()
+            showAlert(title: "Error", message: error.displayMessage)
+        case .loading(_):
+            refreshControll.beginRefreshing()
+        case .notYetLoading:
+            refreshControll.endRefreshing()
         }
     }
 }

@@ -11,8 +11,10 @@ target 'Twibu' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Functions'
   pod 'TwitterKit'
+  
   pod 'Parchment' # tab menu
   pod 'Kingfisher'
+  pod 'ReSwift'
 
   target 'TwibuTests' do
     inherit! :search_paths

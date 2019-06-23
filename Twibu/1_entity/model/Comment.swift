@@ -71,3 +71,19 @@ extension Comment: Codable {
     }
 }
 
+extension Comment {
+    // 古いものを新しいもので置き換えつつ合体する
+    static func merge(base: [Comment], add: [Comment]) -> [Comment] {
+        var result = base
+
+        add.forEach { b in
+            if let i = result.firstIndex(where: { $0.id == b.id }) {
+                result[i] = b
+                return
+            }
+            result.append(b)
+        }
+
+        return result
+    }
+}

@@ -43,6 +43,11 @@
 		4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
 		4D65093D22BE625300BB0959 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093C22BE625300BB0959 /* Const.swift */; };
 		4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */; };
+		4D65094622BF5FD200BB0959 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094522BF5FD200BB0959 /* Store.swift */; };
+		4D65094822BF698700BB0959 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
+		4D65094A22BF6F7C00BB0959 /* TwibuFirebaseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseRecord.swift */; };
+		4D65094D22BF7EBE00BB0959 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094C22BF7EBE00BB0959 /* Response.swift */; };
+		4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +106,11 @@
 		4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		4D65093C22BE625300BB0959 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		4D65094522BF5FD200BB0959 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		4D65094722BF698700BB0959 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		4D65094922BF6F7C00BB0959 /* TwibuFirebaseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuFirebaseRecord.swift; sourceTree = "<group>"; };
+		4D65094C22BF7EBE00BB0959 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDispatcher.swift; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,9 +206,14 @@
 		4D11152D22B545F2000817BA /* model */ = {
 			isa = PBXGroup;
 			children = (
+				4D11152B22B531E8000817BA /* Device.swift */,
+				4D65093022BE25CA00BB0959 /* Env.swift */,
+				4D65093C22BE625300BB0959 /* Const.swift */,
 				4D11154822B69E15000817BA /* Bookmark.swift */,
 				4D65092522BBDB5800BB0959 /* Comment.swift */,
 				4D65092C22BE01D500BB0959 /* Category.swift */,
+				4D65094922BF6F7C00BB0959 /* TwibuFirebaseRecord.swift */,
+				4D65094C22BF7EBE00BB0959 /* Response.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -206,11 +221,8 @@
 		4D11153022B547E8000817BA /* util */ = {
 			isa = PBXGroup;
 			children = (
-				4D11152B22B531E8000817BA /* Device.swift */,
 				4D11153122B547F8000817BA /* Result.swift */,
 				4D65092E22BE213400BB0959 /* Error.swift */,
-				4D65093022BE25CA00BB0959 /* Env.swift */,
-				4D65093C22BE625300BB0959 /* Const.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -293,6 +305,7 @@
 			children = (
 				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
 				4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */,
+				4D65094722BF698700BB0959 /* Array+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -300,6 +313,7 @@
 		4D65094022BF5DAF00BB0959 /* 1_entity */ = {
 			isa = PBXGroup;
 			children = (
+				4D65094422BF5F9500BB0959 /* reswift */,
 				4D11153022B547E8000817BA /* util */,
 				4D11152D22B545F2000817BA /* model */,
 			);
@@ -309,6 +323,7 @@
 		4D65094122BF5E0400BB0959 /* 2_usecase */ = {
 			isa = PBXGroup;
 			children = (
+				4D65094E22BF8C1900BB0959 /* dispatcher */,
 				4D65092422BBDB3700BB0959 /* repository */,
 			);
 			path = 2_usecase;
@@ -324,10 +339,34 @@
 		4D65094322BF5E3E00BB0959 /* 4_external */ = {
 			isa = PBXGroup;
 			children = (
+				4D65094B22BF708E00BB0959 /* client */,
 				4D65093922BE4AD500BB0959 /* extension */,
 				4D11153322B56F97000817BA /* view */,
 			);
 			path = 4_external;
+			sourceTree = "<group>";
+		};
+		4D65094422BF5F9500BB0959 /* reswift */ = {
+			isa = PBXGroup;
+			children = (
+				4D65094522BF5FD200BB0959 /* Store.swift */,
+			);
+			path = reswift;
+			sourceTree = "<group>";
+		};
+		4D65094B22BF708E00BB0959 /* client */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = client;
+			sourceTree = "<group>";
+		};
+		4D65094E22BF8C1900BB0959 /* dispatcher */ = {
+			isa = PBXGroup;
+			children = (
+				4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */,
+			);
+			path = dispatcher;
 			sourceTree = "<group>";
 		};
 		BE96F5C735459C2F19058E09 /* Pods */ = {
@@ -541,17 +580,22 @@
 				4D65092622BBDB5900BB0959 /* Comment.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */,
+				4D65094822BF698700BB0959 /* Array+Extension.swift in Sources */,
 				4D11153222B547F8000817BA /* Result.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
 				4D11154922B69E15000817BA /* Bookmark.swift in Sources */,
 				4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */,
+				4D65094622BF5FD200BB0959 /* Store.swift in Sources */,
+				4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */,
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
+				4D65094D22BF7EBE00BB0959 /* Response.swift in Sources */,
 				4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */,
 				4D65092D22BE01D600BB0959 /* Category.swift in Sources */,
 				4D65093122BE25CA00BB0959 /* Env.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
+				4D65094A22BF6F7C00BB0959 /* TwibuFirebaseRecord.swift in Sources */,
 				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,
 				4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */,
 				4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */,
