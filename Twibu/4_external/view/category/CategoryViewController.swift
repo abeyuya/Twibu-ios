@@ -47,10 +47,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         if category == .timeline, UserRepository.isTwitterLogin() {
             setupLogoutButton()
         }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
 
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
@@ -60,8 +56,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    deinit {
         store.unsubscribe(self)
     }
 
@@ -236,7 +231,10 @@ extension CategoryViewController: StoreSubscriber {
         }
 
         bookmarksResponse = res
-        render()
+
+        DispatchQueue.main.async {
+            self.render()
+        }
     }
 
     func render() {

@@ -17,13 +17,12 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
     var bookmark: Bookmark?
     var comments: [Comment] = []
-    var commentsWithMessage: [Comment] = []
+//    var commentsWithMessage: [Comment] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupTableview()
-//        setupNavigation()
         setupComments()
     }
 
@@ -37,14 +36,6 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         )
         refreshControll.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableview.refreshControl = refreshControll
-    }
-
-    private func setupNavigation() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: self,
-            action: #selector(close)
-        )
     }
 
     private func setupComments() {
@@ -79,8 +70,8 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             return
         }
 
-        let param = BookmarkRepository.ExecUpdateBookmarkCommentParam(bookmarkUid: b.uid, url: b.url)
-        BookmarkRepository.execUpdateBookmarkComment(param: param) { [weak self] result in
+        let param = CommentRepository.ExecUpdateBookmarkCommentParam(bookmarkUid: b.uid, url: b.url)
+        CommentRepository.execUpdateBookmarkComment(param: param) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.displayMessage)
@@ -96,7 +87,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     }
 }
 
-extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
+extension CommentViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
     }
@@ -122,3 +113,5 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
+
+extension CommentViewController: UITableViewDelegate {}

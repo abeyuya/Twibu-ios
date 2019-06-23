@@ -56,31 +56,4 @@ final class BookmarkRepository {
             .order(by: "created_at", descending: true)
             .limit(to: 30)
     }
-
-    struct ExecUpdateBookmarkCommentParam {
-        let bookmarkUid: String
-        let url: String
-
-        var toDict: [String: String] {
-            return [
-                "bookmark_uid": bookmarkUid,
-                "url": url
-            ]
-        }
-    }
-
-    static func execUpdateBookmarkComment(param: ExecUpdateBookmarkCommentParam, completion: @escaping (Result<HTTPSCallableResult?>) -> Void) {
-        guard UserRepository.isTwitterLogin() else {
-            completion(.failure(.needTwitterAuth("need twitter login")))
-            return
-        }
-
-        functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param.toDict) { result, error in
-            if let error = error {
-                completion(.failure(.firestoreError(error.localizedDescription)))
-                return
-            }
-            completion(.success(result))
-        }
-    }
 }
