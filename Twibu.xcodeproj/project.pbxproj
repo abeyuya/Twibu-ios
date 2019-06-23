@@ -48,6 +48,7 @@
 		4D65094A22BF6F7C00BB0959 /* TwibuFirebaseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseRecord.swift */; };
 		4D65094D22BF7EBE00BB0959 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094C22BF7EBE00BB0959 /* Response.swift */; };
 		4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */; };
+		4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +112,7 @@
 		4D65094922BF6F7C00BB0959 /* TwibuFirebaseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuFirebaseRecord.swift; sourceTree = "<group>"; };
 		4D65094C22BF7EBE00BB0959 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDispatcher.swift; sourceTree = "<group>"; };
+		4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDispatcher.swift; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -365,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */,
+				4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */,
 			);
 			path = dispatcher;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */,
 				4D65092D22BE01D600BB0959 /* Category.swift in Sources */,
 				4D65093122BE25CA00BB0959 /* Env.swift in Sources */,
+				4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,

@@ -52,7 +52,10 @@ final class CommentRepository {
         }
     }
 
-    static func execUpdateBookmarkComment(param: ExecUpdateBookmarkCommentParam, completion: @escaping (Result<HTTPSCallableResult?>) -> Void) {
+    //
+    // NOTE: 検索で引っかかった分だけしか返さないので注意
+    //
+    static func execUpdateBookmarkComment(param: ExecUpdateBookmarkCommentParam, completion: @escaping (Result<[Comment]?>) -> Void) {
         guard UserRepository.isTwitterLogin() else {
             completion(.failure(.needTwitterAuth("need twitter login")))
             return
@@ -63,7 +66,19 @@ final class CommentRepository {
                 completion(.failure(.firestoreError(error.localizedDescription)))
                 return
             }
-            completion(.success(result))
+
+            guard let res = result?.data as? [String: Any] else {
+                completion(.success(nil))
+                return
+            }
+
+            guard let rawComments = res["comments"] as? [[String: Any]] else {
+                completion(.success(nil))
+                return
+            }
+
+            let comments = rawComments.compactMap { Comment(dictionary: $0) }
+            completion(.success(comments))
         }
     }
 }

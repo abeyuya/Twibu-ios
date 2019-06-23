@@ -12,7 +12,6 @@ import FirebaseFunctions
 
 final class BookmarkRepository {
     private static let db = Firestore.firestore()
-    private static let functions = Functions.functions(region: "asia-northeast1")
 
     static func fetchBookmark(category: Category, completion: @escaping (Result<[Bookmark]>) -> Void) {
         guard Auth.auth().currentUser != nil else {
@@ -55,5 +54,8 @@ final class BookmarkRepository {
         return common2
             .order(by: "created_at", descending: true)
             .limit(to: 30)
+    }
+
+    static func createOrUpdateBookmark(url: String) {
     }
 }

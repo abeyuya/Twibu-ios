@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import ReSwift
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
 
@@ -22,6 +23,17 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         setupWebview()
         setupNavigation()
         setupToolbar()
+
+        store.subscribe(self) { [weak self] subcription in
+            subcription.select { state in
+                let bms = AppState.toFlat(bookmarks: state.response.bookmarks)
+                return bms.first { $0.uid == self?.bookmark.uid }
+            }
+        }
+    }
+
+    deinit {
+        store.unsubscribe(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +62,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func setupNavigation() {
-        title = bookmark.title
+        title = "\(bookmark.comment_count ?? 0):\(bookmark.title ?? "no title")"
     }
 
     private func setupToolbar() {
@@ -96,8 +108,6 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private let commentViewController = CommentViewController.initFromStoryBoard()
 
     private lazy var commentContainerView: UIView  = {
-        commentViewController.bookmark = bookmark
-
         let container = UIView(frame: view.frame)
         addChild(commentViewController)
         commentViewController.view.frame = container.frame
@@ -117,6 +127,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func showCommentView() {
+        commentViewController.bookmark = bookmark
         isShowComment = true
         UIView.transition(
             with: view,
@@ -124,7 +135,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             options: .transitionCurlDown,
             animations: {
                 self.view.addSubview(self.commentContainerView)
-        },
+            },
             completion: { _ in }
         )
     }
@@ -137,7 +148,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             options: .transitionCurlUp,
             animations: {
                 self.commentContainerView.removeFromSuperview()
-        },
+            },
             completion: { _ in }
         )
     }
@@ -233,5 +244,16 @@ extension WebViewController: UIScrollViewDelegate {
             navigationController?.setNavigationBarHidden(false, animated: true)
             navigationController?.setToolbarHidden(false, animated: true)
         }
+    }
+}
+
+extension WebViewController: StoreSubscriber {
+    typealias StoreSubscriberStateType = Bookmark?
+
+    func newState(state: Bookmark?) {
+        guard let b = state else { return }
+
+        self.bookmark = b
+        setupNavigation()
     }
 }

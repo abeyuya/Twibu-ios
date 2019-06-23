@@ -20,6 +20,19 @@ struct Bookmark: TwibuFirestoreRecord {
     let url: String
 }
 
+extension Bookmark {
+    init(_ bookmark: Bookmark, commentCount: Int) {
+        uid = bookmark.uid
+        title = bookmark.title
+        image_url = bookmark.image_url
+        description = bookmark.description
+        comment_count = commentCount // これだけ差し替えている
+        created_at = bookmark.created_at
+        updated_at = bookmark.updated_at
+        url = bookmark.url
+    }
+}
+
 extension Bookmark: Codable {
     init?(dictionary: [String: Any]) {
         let dict: [String: Any] = {
