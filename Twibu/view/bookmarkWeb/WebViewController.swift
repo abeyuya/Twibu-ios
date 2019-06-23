@@ -14,6 +14,7 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
     private let webview = WKWebView()
     private var bookmark: Bookmark!
     private var lastContentOffset: CGFloat = 0
+    private var showComment = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,13 +86,44 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
         ]
     }
 
+    private let commentViewController = CommentViewController.initFromStoryBoard()
+
+    private lazy var commentContainerView: UIView  = {
+        commentViewController.bookmark = bookmark
+
+        let container = UIView(frame: view.frame)
+        addChild(commentViewController)
+        commentViewController.view.frame = container.frame
+        container.addSubview(commentViewController.view)
+        commentViewController.didMove(toParent: self)
+
+        return container
+    }()
+
     @objc
     private func tapCommentButton() {
-        let vc = CommentViewController.initFromStoryBoard()
-        vc.bookmark = bookmark
-
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(vc, animated: true)
+        if showComment {
+            showComment = false
+            UIView.transition(
+                with: view,
+                duration: 0.5,
+                options: .transitionCurlUp,
+                animations: {
+                    self.commentContainerView.removeFromSuperview()
+                },
+                completion: { _ in }
+            )
+        } else {
+            showComment = true
+            UIView.transition(
+                with: view,
+                duration: 0.5,
+                options: .transitionCurlDown,
+                animations: {
+                    self.view.addSubview(self.commentContainerView)
+                },
+                completion: { _ in }
+            )
         }
     }
 
@@ -144,10 +176,6 @@ extension WebViewController: UIScrollViewDelegate {
             return
         }
 
-        //
-        // NOTE: webviewの読み込みでスクロール位置がジャンプしてしまう
-        //       そういった瞬間移動的なスクロールは無視したい
-        //
         let delta = currentPoint.y - lastContentOffset
         if 0 < delta {
             // print("Scrolled down")
