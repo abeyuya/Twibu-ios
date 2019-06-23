@@ -19,7 +19,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private let refreshControll = UIRefreshControl()
     private var bookmarks: [Bookmark] = []
 
-    private var beginingPoint = CGPoint(x: 0, y: 0)
+    private var lastContentOffset: CGFloat = 0
 
     private var category: Category? {
         guard let i = item?.index,
@@ -103,25 +103,36 @@ extension CategoryViewController: UITableViewDataSource {
 }
 
 extension CategoryViewController: UITableViewDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        beginingPoint = scrollView.contentOffset
-    }
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPoint = scrollView.contentOffset
         let contentSize = scrollView.contentSize
         let frameSize = scrollView.frame
         let maxOffSet = contentSize.height - frameSize.height
 
+        defer {
+            lastContentOffset = currentPoint.y
+        }
+
         if currentPoint.y >= maxOffSet {
             // print("hit the bottom")
             self.navigationController?.setNavigationBarHidden(false, animated: true)
-        } else if beginingPoint.y < currentPoint.y {
+            return
+        }
+
+        if currentPoint.y <= 0 {
+            // print("hit the top")
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            return
+        }
+
+        let delta = currentPoint.y - lastContentOffset
+        if 0 < delta {
             // print("Scrolled down")
             self.navigationController?.setNavigationBarHidden(true, animated: true)
-        } else {
-            // print("Scrolled up")
+            return
         }
+
+        // print("Scrolled up")
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
