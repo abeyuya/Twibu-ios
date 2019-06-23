@@ -14,7 +14,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private let webview = WKWebView()
     private var bookmark: Bookmark!
     private var lastContentOffset: CGFloat = 0
-    private var showComment = false
+    private var isShowComment = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,13 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         setupWebview()
         setupNavigation()
         setupToolbar()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setToolbarHidden(false, animated: true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -102,7 +109,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     @objc
     private func tapCommentButton() {
-        if showComment {
+        if isShowComment {
             hideCommentView()
         } else {
             showCommentView()
@@ -110,7 +117,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func showCommentView() {
-        showComment = true
+        isShowComment = true
         UIView.transition(
             with: view,
             duration: 0.5,
@@ -123,7 +130,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func hideCommentView() {
-        showComment = false
+        isShowComment = false
         UIView.transition(
             with: view,
             duration: 0.5,
