@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class WebViewController: UIViewController, StoryboardInstantiatable {
+final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private let webview = WKWebView()
     private var bookmark: Bookmark!
@@ -52,12 +52,12 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
         let backRoot = UIBarButtonItem(
             barButtonSystemItem: .camera,
             target: self,
-            action: nil
+            action: #selector(tapBackRootButton)
         )
         let backPrev = UIBarButtonItem(
             barButtonSystemItem: .bookmarks,
             target: self,
-            action: nil
+            action: #selector(tapBackPrevButton)
         )
         let commentButton = UIBarButtonItem(
             barButtonSystemItem: .search,
@@ -103,28 +103,47 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
     @objc
     private func tapCommentButton() {
         if showComment {
-            showComment = false
-            UIView.transition(
-                with: view,
-                duration: 0.5,
-                options: .transitionCurlUp,
-                animations: {
-                    self.commentContainerView.removeFromSuperview()
-                },
-                completion: { _ in }
-            )
+            hideCommentView()
         } else {
-            showComment = true
-            UIView.transition(
-                with: view,
-                duration: 0.5,
-                options: .transitionCurlDown,
-                animations: {
-                    self.view.addSubview(self.commentContainerView)
-                },
-                completion: { _ in }
-            )
+            showCommentView()
         }
+    }
+
+    private func showCommentView() {
+        showComment = true
+        UIView.transition(
+            with: view,
+            duration: 0.5,
+            options: .transitionCurlDown,
+            animations: {
+                self.view.addSubview(self.commentContainerView)
+        },
+            completion: { _ in }
+        )
+    }
+
+    private func hideCommentView() {
+        showComment = false
+        UIView.transition(
+            with: view,
+            duration: 0.5,
+            options: .transitionCurlUp,
+            animations: {
+                self.commentContainerView.removeFromSuperview()
+        },
+            completion: { _ in }
+        )
+    }
+
+    @objc
+    private func tapBackPrevButton() {
+        webview.goBack()
+    }
+
+    @objc
+    private func tapBackRootButton() {
+        guard let item = webview.backForwardList.backList.first else { return }
+        webview.go(to: item)
     }
 
     @objc
@@ -148,10 +167,25 @@ class WebViewController: UIViewController, StoryboardInstantiatable {
 }
 
 extension WebViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
+        guard navigationAction.navigationType == .linkActivated else {
+            decisionHandler(.allow)
+            return
+        }
+
+        guard let f = navigationAction.targetFrame, f.isMainFrame else {
+                // target="_blank" の場合
+                webview.load(navigationAction.request)
+                decisionHandler(.cancel)
+                return
+        }
+
+        decisionHandler(.allow)
+    }
 }
 
 extension WebViewController: UIScrollViewDelegate {
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPoint = scrollView.contentOffset
         let contentSize = scrollView.contentSize
