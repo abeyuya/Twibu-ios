@@ -126,7 +126,6 @@ extension CategoryViewController: UITableViewDelegate {
 
         if currentPoint.y >= maxOffSet {
             // print("hit the bottom")
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
             return
         }
 
