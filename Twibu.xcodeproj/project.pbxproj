@@ -173,11 +173,10 @@
 		4D11150222B5160E000817BA /* Twibu */ = {
 			isa = PBXGroup;
 			children = (
-				4D65093922BE4AD500BB0959 /* extension */,
-				4D65092422BBDB3700BB0959 /* repository */,
-				4D11153322B56F97000817BA /* view */,
-				4D11153022B547E8000817BA /* util */,
-				4D11152D22B545F2000817BA /* model */,
+				4D65094022BF5DAF00BB0959 /* 1_entity */,
+				4D65094122BF5E0400BB0959 /* 2_usecase */,
+				4D65094222BF5E2D00BB0959 /* 3_interface */,
+				4D65094322BF5E3E00BB0959 /* 4_external */,
 				4D11152922B528AE000817BA /* GoogleService-Info.plist */,
 				4D11150A22B5160F000817BA /* Assets.xcassets */,
 				4D11150F22B5160F000817BA /* Info.plist */,
@@ -296,6 +295,39 @@
 				4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */,
 			);
 			path = extension;
+			sourceTree = "<group>";
+		};
+		4D65094022BF5DAF00BB0959 /* 1_entity */ = {
+			isa = PBXGroup;
+			children = (
+				4D11153022B547E8000817BA /* util */,
+				4D11152D22B545F2000817BA /* model */,
+			);
+			path = 1_entity;
+			sourceTree = "<group>";
+		};
+		4D65094122BF5E0400BB0959 /* 2_usecase */ = {
+			isa = PBXGroup;
+			children = (
+				4D65092422BBDB3700BB0959 /* repository */,
+			);
+			path = 2_usecase;
+			sourceTree = "<group>";
+		};
+		4D65094222BF5E2D00BB0959 /* 3_interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 3_interface;
+			sourceTree = "<group>";
+		};
+		4D65094322BF5E3E00BB0959 /* 4_external */ = {
+			isa = PBXGroup;
+			children = (
+				4D65093922BE4AD500BB0959 /* extension */,
+				4D11153322B56F97000817BA /* view */,
+			);
+			path = 4_external;
 			sourceTree = "<group>";
 		};
 		BE96F5C735459C2F19058E09 /* Pods */ = {
