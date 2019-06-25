@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import ReSwift
 
 final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
@@ -16,14 +17,29 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     private let refreshControll = UIRefreshControl()
 
     var bookmark: Bookmark?
-    var comments: [Comment] = []
+    private var commentsResponse: ResponseState<[Comment]> = .notYetLoading
 //    var commentsWithMessage: [Comment] = []
+
+    private var comments: [Comment] {
+        switch commentsResponse {
+        case .success(let comments): return comments
+        case .loading(let comments): return comments
+        case .faillure(_): return []
+        case .notYetLoading: return []
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupTableview()
-        setupComments()
+
+        store.subscribe(self) { [weak self] subcription in
+            subcription.select { state in
+                guard let buid = self?.bookmark?.uid else { return nil }
+                return state.response.comments[buid]
+            }
+        }
     }
 
     private func setupTableview() {
@@ -38,21 +54,10 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         tableview.refreshControl = refreshControll
     }
 
-    private func setupComments() {
-        guard let buid = self.bookmark?.uid else { return }
+    private func fetchComments() {
+        guard let buid = bookmark?.uid else { return }
         refreshControll.beginRefreshing()
-
-        CommentRepository.fetchBookmarkComment(bookmarkUid: buid) { [weak self] result in
-            self?.refreshControll.endRefreshing()
-
-            switch result {
-            case .failure(let error):
-                self?.showAlert(title: "Error", message: error.displayMessage)
-            case .success(let comments):
-                self?.comments = comments
-                self?.tableview.reloadData()
-            }
-        }
+        CommentDispatcher.fetchComments(buid: buid)
     }
 
 //    private func setupCommentsWithMessage() {
@@ -66,7 +71,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         guard let b = bookmark else { return }
 
         guard UserRepository.isTwitterLogin() else {
-            setupComments()
+            fetchComments()
             return
         }
 
@@ -76,7 +81,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.displayMessage)
             case .success(_):
-                self?.setupComments()
+                self?.fetchComments()
             }
         }
     }
@@ -115,3 +120,37 @@ extension CommentViewController: UITableViewDataSource {
 }
 
 extension CommentViewController: UITableViewDelegate {}
+
+extension CommentViewController: StoreSubscriber {
+    typealias StoreSubscriberStateType = ResponseState<[Comment]>?
+
+    func newState(state: ResponseState<[Comment]>?) {
+        guard let res = state else {
+            // 初回取得前はここを通る
+            commentsResponse = .notYetLoading
+            fetchComments()
+            return
+        }
+
+        commentsResponse = res
+
+        DispatchQueue.main.async {
+            self.render()
+        }
+    }
+
+    private func render() {
+        switch commentsResponse {
+        case .success(_):
+            refreshControll.endRefreshing()
+            tableview.reloadData()
+        case .faillure(let error):
+            refreshControll.endRefreshing()
+            showAlert(title: "Error", message: error.displayMessage)
+        case .loading(_):
+            refreshControll.beginRefreshing()
+        case .notYetLoading:
+            refreshControll.endRefreshing()
+        }
+    }
+}

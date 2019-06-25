@@ -43,4 +43,29 @@ struct CommentDispatcher {
             }
         }
     }
+
+    static func fetchComments(buid: String) {
+        let startLoadingAction = AddCommentsAction(
+            bookmarkUid: buid,
+            comments: .loading([])
+        )
+        store.dispatch(startLoadingAction)
+
+        CommentRepository.fetchBookmarkComment(bookmarkUid: buid) { result in
+            switch result {
+            case .success(let comments):
+                let a = AddCommentsAction(
+                    bookmarkUid: buid,
+                    comments: .success(comments)
+                )
+                store.dispatch(a)
+            case .failure(let error):
+                let a = AddCommentsAction(
+                    bookmarkUid: buid,
+                    comments: .faillure(error)
+                )
+                store.dispatch(a)
+            }
+        }
+    }
 }
