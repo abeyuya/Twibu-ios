@@ -30,7 +30,11 @@ class CommentTableViewCell: UITableViewCell {
     }
 
     func set(bookmark: Bookmark?, comment: Comment) {
-        commentLabel.text = comment.text
+        if let t = bookmark?.title {
+            commentLabel.text = comment.replacedText(title: t)
+        } else {
+            commentLabel.text = comment.text
+        }
 
         profileImageView.image = nil
         if let url = URL(string: comment.user.profile_image_url) {

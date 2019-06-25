@@ -27,16 +27,9 @@ struct Comment {
         let verified: Bool?
     }
 
-    var url: URL? {
+    var tweetUrl: URL? {
         let str = "https://twitter.com/\(user.screen_name)/status/\(id)"
         return URL(string: str)
-    }
-
-    func removedText(targetWord: String) -> String {
-        guard let range = text.range(of: targetWord) else {
-            return text
-        }
-        return text.replacingCharacters(in: range, with: "{..}")
     }
 }
 
@@ -68,6 +61,31 @@ extension Comment: Codable {
             print("Commentのdecodeに失敗しました", dict)
             return nil
         }
+    }
+}
+
+extension Comment {
+    func replacedText(title: String) -> String {
+        let t = titleReplacedText(text: text, title: title)
+        return urlReplacedText(text: t)
+    }
+
+    func titleReplacedText(text: String, title: String) -> String {
+        guard let range = text.range(of: title) else {
+            return text
+        }
+        return text.replacingCharacters(in: range, with: "{...}")
+    }
+
+    func urlReplacedText(text: String) -> String {
+        let pattern = "(?i)https?://(?:www\\.)?\\S+(?:/|\\b)"
+        let urls = text.capture(pattern: pattern, group: [0])
+
+        guard let url = urls.first else { return text }
+        guard let range = text.range(of: url) else { return text }
+
+        let new = text.replacingCharacters(in: range, with: "{...}")
+        return urlReplacedText(text: new)
     }
 }
 

@@ -109,7 +109,7 @@ extension CommentViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let c = comments[indexPath.row]
-        guard let url = c.url else { return }
+        guard let url = c.tweetUrl else { return }
         UIApplication.shared.open(url, options: [:]) { success in
             guard success else {
                 print("open error")
