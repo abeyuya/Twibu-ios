@@ -138,7 +138,9 @@ extension CategoryViewController: UITableViewDelegate {
         let delta = currentPoint.y - lastContentOffset
         if 0 < delta {
             // print("Scrolled down")
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            if navigationController?.isNavigationBarHidden == false {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+            }
             return
         }
 

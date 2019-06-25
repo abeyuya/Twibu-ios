@@ -39,14 +39,23 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.setToolbarHidden(false, animated: true)
+        if navigationController?.isNavigationBarHidden == true {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        if navigationController?.isToolbarHidden == true {
+            navigationController?.setToolbarHidden(false, animated: true)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.setToolbarHidden(true, animated: true)
+
+        if navigationController?.isNavigationBarHidden == true {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        if navigationController?.isToolbarHidden == false {
+            navigationController?.setToolbarHidden(true, animated: true)
+        }
     }
 
     private func setupWebview() {
@@ -62,7 +71,9 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func setupNavigation() {
-        title = "\(bookmark.comment_count ?? 0):\(bookmark.title ?? "no title")"
+        DispatchQueue.main.async {
+            self.title = "\(self.bookmark.comment_count ?? 0):\(self.bookmark.title ?? "no title")"
+        }
     }
 
     private func setupToolbar() {
@@ -108,9 +119,12 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private let commentViewController = CommentViewController.initFromStoryBoard()
 
     private lazy var commentContainerView: UIView  = {
-        let container = UIView(frame: view.frame)
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+
         addChild(commentViewController)
         commentViewController.view.frame = container.frame
+
         container.addSubview(commentViewController.view)
         commentViewController.didMove(toParent: self)
 
@@ -135,6 +149,10 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             options: .transitionCurlDown,
             animations: {
                 self.view.addSubview(self.commentContainerView)
+                self.commentContainerView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+                self.commentContainerView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+                self.commentContainerView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+                self.commentContainerView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             },
             completion: { _ in }
         )
@@ -216,23 +234,29 @@ extension WebViewController: UIScrollViewDelegate {
 
         if currentPoint.y >= maxOffSet {
             // print("hit the bottom")
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.setToolbarHidden(false, animated: true)
             return
         }
 
         if currentPoint.y <= 0 {
             // print("hit the top")
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.setToolbarHidden(false, animated: true)
+            if navigationController?.isNavigationBarHidden == true {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+            if navigationController?.isToolbarHidden == true {
+                self.navigationController?.setToolbarHidden(false, animated: true)
+            }
             return
         }
 
         let delta = currentPoint.y - lastContentOffset
         if 0 < delta {
             // print("Scrolled down")
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-            self.navigationController?.setToolbarHidden(true, animated: true)
+            if navigationController?.isNavigationBarHidden == false {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+            }
+            if navigationController?.isToolbarHidden == false {
+                self.navigationController?.setToolbarHidden(true, animated: true)
+            }
             return
         }
 
@@ -241,8 +265,12 @@ extension WebViewController: UIScrollViewDelegate {
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity.y < 0 {
-            navigationController?.setNavigationBarHidden(false, animated: true)
-            navigationController?.setToolbarHidden(false, animated: true)
+            if navigationController?.isNavigationBarHidden == true {
+                navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+            if navigationController?.isToolbarHidden == true {
+                navigationController?.setToolbarHidden(false, animated: true)
+            }
         }
     }
 }
