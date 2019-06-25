@@ -71,6 +71,10 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func setupNavigation() {
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+
+    private func setNavigationTitle() {
         DispatchQueue.main.async {
             self.title = "\(self.bookmark.comment_count ?? 0):\(self.bookmark.title ?? "no title")"
         }
@@ -275,6 +279,20 @@ extension WebViewController: UIScrollViewDelegate {
     }
 }
 
+extension WebViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let nav = navigationController else { return false }
+        return nav.viewControllers.count > 1
+    }
+
+    // これを許すとエッジスワイプ中に縦スクロールできちゃって気持ち悪い
+    // This is necessary because without it, subviews of your top controller can
+    // cancel out your gesture recognizer on the edge.
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        return true
+//    }
+}
+
 extension WebViewController: StoreSubscriber {
     typealias StoreSubscriberStateType = Bookmark?
 
@@ -282,6 +300,6 @@ extension WebViewController: StoreSubscriber {
         guard let b = state else { return }
 
         self.bookmark = b
-        setupNavigation()
+        setNavigationTitle()
     }
 }
