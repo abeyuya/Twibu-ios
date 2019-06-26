@@ -66,25 +66,71 @@ extension Comment: Codable {
 
 extension Comment {
     func replacedText(title: String) -> String {
-        let t = titleReplacedText(text: text, title: title)
-        return urlReplacedText(text: t)
+        let t = Comment.urlReplacedText(text: text)
+        return Comment.titleReplacedText(text: t, title: title)
     }
 
-    func titleReplacedText(text: String, title: String) -> String {
-        guard let range = text.range(of: title) else {
+    static func titleReplacedText(text: String, title: String) -> String {
+        // 7文字以上じゃないと事故りそう
+        guard title.count > 6 else { return text }
+
+        var textStartIndex: String.Index?
+        var textEndIndex: String.Index?
+
+        for (i, textC) in text.enumerated() {
+            // endIndexがセットされたタイミングでbreakするはず
+            guard textEndIndex == nil else { break }
+
+            let textI = String.Index(utf16Offset: i, in: text)
+            guard let tsi = textStartIndex else {
+                // 先頭が一致したポジション
+                if textC == title.first {
+                    textStartIndex = textI
+                }
+                continue
+            }
+
+            if title.endIndex.utf16Offset(in: title) == (i - tsi.utf16Offset(in: text)) {
+                // タイトルごっそり含まれていて終了
+                textEndIndex = textI
+                break
+            }
+
+            let titleI = String.Index(utf16Offset: i - tsi.utf16Offset(in: text), in: title)
+            if textC == title[titleI] {
+                // 2文字目以降が一致
+                continue
+            } else {
+                // 一致しない
+                textEndIndex = textI
+                break
+            }
+        }
+
+        guard let si = textStartIndex, let ei = textEndIndex else {
             return text
         }
-        return text.replacingCharacters(in: range, with: "{...}")
+
+        let replaceStr = text[si..<ei]
+        if replaceStr.count < title.count / 2 {
+            // 半分以上が合致してないなら置換しない
+            return text
+        }
+
+        guard let range = text.range(of: replaceStr) else {
+            return text
+        }
+        return text.replacingCharacters(in: range, with: "{title}")
     }
 
-    func urlReplacedText(text: String) -> String {
+    private static func urlReplacedText(text: String) -> String {
         let pattern = "(?i)https?://(?:www\\.)?\\S+(?:/|\\b)"
         let urls = text.capture(pattern: pattern, group: [0])
 
         guard let url = urls.first else { return text }
         guard let range = text.range(of: url) else { return text }
 
-        let new = text.replacingCharacters(in: range, with: "{...}")
+        let new = text.replacingCharacters(in: range, with: "{url}")
         return urlReplacedText(text: new)
     }
 }

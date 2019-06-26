@@ -36,6 +36,17 @@ extension Array {
 
         return arrayOrdered
     }
+
+    func intersect<T: Equatable>(obj: [T]) -> [T] {
+        var ret = [T]()
+
+        for x in self {
+            if obj.contains(x as! T) {
+                ret.append(x as! T)
+            }
+        }
+        return ret
+    }
 }
 
 extension Sequence where Element: Equatable {

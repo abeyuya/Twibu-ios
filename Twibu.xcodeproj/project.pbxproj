@@ -12,6 +12,7 @@
 		4D04E20E22BA983E00995026 /* CommentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D04E20D22BA983E00995026 /* CommentViewController.storyboard */; };
 		4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */; };
 		4D04E21222BA9AAC00995026 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D04E21022BA9AAC00995026 /* CommentTableViewCell.xib */; };
+		4D0CE0E222C36A8D00FC33FA /* CommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CE0E122C36A8D00FC33FA /* CommentTests.swift */; };
 		4D11150422B5160E000817BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150322B5160E000817BA /* AppDelegate.swift */; };
 		4D11150622B5160E000817BA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150522B5160E000817BA /* LoginViewController.swift */; };
 		4D11150922B5160E000817BA /* PagingRootViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150722B5160E000817BA /* PagingRootViewController.storyboard */; };
@@ -70,6 +71,7 @@
 		4D04E20D22BA983E00995026 /* CommentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentViewController.storyboard; sourceTree = "<group>"; };
 		4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		4D04E21022BA9AAC00995026 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
+		4D0CE0E122C36A8D00FC33FA /* CommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTests.swift; sourceTree = "<group>"; };
 		4D11150022B5160E000817BA /* Twibu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twibu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D11150322B5160E000817BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D11150522B5160E000817BA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,22 @@
 			path = comment;
 			sourceTree = "<group>";
 		};
+		4D0CE0DF22C36A7000FC33FA /* 1_entity */ = {
+			isa = PBXGroup;
+			children = (
+				4D0CE0E022C36A7E00FC33FA /* model */,
+			);
+			path = 1_entity;
+			sourceTree = "<group>";
+		};
+		4D0CE0E022C36A7E00FC33FA /* model */ = {
+			isa = PBXGroup;
+			children = (
+				4D0CE0E122C36A8D00FC33FA /* CommentTests.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		4D1114F722B5160E000817BA = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +219,7 @@
 		4D11151722B5160F000817BA /* TwibuTests */ = {
 			isa = PBXGroup;
 			children = (
+				4D0CE0DF22C36A7000FC33FA /* 1_entity */,
 				4D11151822B5160F000817BA /* TwibuTests.swift */,
 				4D11151A22B5160F000817BA /* Info.plist */,
 			);
@@ -626,6 +645,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D11151922B5160F000817BA /* TwibuTests.swift in Sources */,
+				4D0CE0E222C36A8D00FC33FA /* CommentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
