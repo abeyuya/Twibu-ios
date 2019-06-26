@@ -19,7 +19,9 @@ class TimelineCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        thumbnailImageView.layer.cornerRadius = 4
+        thumbnailImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,9 +33,9 @@ class TimelineCell: UITableViewCell {
     func set(bookmark: Bookmark) {
         titleLabel.text = bookmark.title ?? "タイトルが取得できませんでした"
 
-        if let count = bookmark.comment_count {
+        if let count = bookmark.comment_count, count > 0 {
             usersCountLabel.isHidden = false
-            usersCountLabel.text = "\(count) users"
+            usersCountLabel.text = "\(count) tweets"
         } else {
             usersCountLabel.isHidden = true
         }

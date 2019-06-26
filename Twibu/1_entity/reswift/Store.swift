@@ -75,7 +75,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             }
         }()
 
-        let new = Bookmark.merge(base: old, add: add)
+        let new = Bookmark
+            .merge(base: old, add: add)
+            .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
 
         state.response.bookmarks[a.category] = {
             switch a.bookmarks {
@@ -110,7 +112,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             }
         }()
 
-        let new = Comment.merge(base: old, add: add)
+        let new = Comment
+            .merge(base: old, add: add)
+            .sorted { $0.favorite_count > $1.favorite_count }
 
         state.response.comments[a.bookmarkUid] = {
             switch a.comments {
