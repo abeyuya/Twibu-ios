@@ -16,6 +16,7 @@ class TimelineCell: UITableViewCell {
     @IBOutlet weak var domainLabel: UILabel!
     @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
+    @IBOutlet weak var faviconImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,6 +63,28 @@ class TimelineCell: UITableViewCell {
             thumbnailImageView.kf.setImage(with: url)
         } else {
             // レイアウト変えたい
+        }
+
+        faviconImageView.image = nil
+        if let url = URL(string: bookmark.url),
+            let scheme = url.scheme,
+            let host = url.host,
+            let favicionUrl = URL(string: "\(scheme)://\(host)/favicon.ico") {
+            faviconImageView.kf.setImage(
+                with: favicionUrl,
+                placeholder: nil,
+                options: nil,
+                progressBlock: nil,
+                completionHandler: { result in
+                    switch result {
+                    case .success(let res):
+                        self.faviconImageView.isHidden = false
+                        self.faviconImageView.image = res.image
+                    case .failure(let error):
+                        self.faviconImageView.isHidden = true
+                        print(error)
+                    }
+            })
         }
     }
 }

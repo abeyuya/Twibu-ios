@@ -38,22 +38,29 @@ search/universal は公式のConsumerKey/ConsumerSecretでないと使用でき�
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ma2-km-p40">
-                        <rect key="frame" x="12" y="116" width="214" height="14.5"/>
+                        <rect key="frame" x="12" y="114.5" width="214" height="16"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDb-zh-WaS">
-                                <rect key="frame" x="0.0" y="0.0" width="31" height="14.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="31" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.33333333333333331" green="0.67450980392156867" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yNz-ZX-euq">
+                                <rect key="frame" x="39" y="0.0" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="9SN-Wk-z4C"/>
+                                    <constraint firstAttribute="height" constant="16" id="uAa-zK-nTz"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXQ-yd-kOE">
-                                <rect key="frame" x="39" y="0.0" width="26.5" height="14.5"/>
+                                <rect key="frame" x="63" y="0.0" width="26.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EC4-kg-Xhi">
-                                <rect key="frame" x="73.5" y="0.0" width="140.5" height="14.5"/>
+                                <rect key="frame" x="97.5" y="0.0" width="116.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -78,6 +85,7 @@ search/universal は公式のConsumerKey/ConsumerSecretでないと使用でき�
             <connections>
                 <outlet property="createdAtLabel" destination="EC4-kg-Xhi" id="Sng-fe-eQ0"/>
                 <outlet property="domainLabel" destination="OXQ-yd-kOE" id="WPh-Mm-ZJK"/>
+                <outlet property="faviconImageView" destination="yNz-ZX-euq" id="3d7-vQ-MCd"/>
                 <outlet property="thumbnailImageView" destination="LGg-GY-SC3" id="90E-eP-9Qy"/>
                 <outlet property="titleLabel" destination="Y1H-Zg-SCQ" id="FPz-b8-Upg"/>
                 <outlet property="usersCountLabel" destination="VDb-zh-WaS" id="tn8-Xj-67x"/>
