@@ -36,24 +36,22 @@ final class BookmarkRepository {
     }
 
     static private func buildQuery(category: Category) -> Query {
-        let common1 = db.collection("bookmarks")
-
-        let common2: Query = {
-            switch category {
-            case .all:
-                return common1
-                    .order(by: "comment_count", descending: true)
-                    .whereField("comment_count", isGreaterThan: 20)
-            case .timeline:
-                return common1
-            default:
-                return common1.whereField("category", isEqualTo: category.rawValue)
-            }
-        }()
-
-        return common2
-            .order(by: "created_at", descending: true)
-            .limit(to: 30)
+        switch category {
+        case .all:
+            return db.collection("bookmarks")
+                .order(by: "created_at", descending: true)
+                .order(by: "comment_count", descending: true)
+                .limit(to: 30)
+        case .timeline:
+            return db.collection("bookmarks")
+                .order(by: "created_at", descending: true)
+                .limit(to: 30)
+        default:
+            return db.collection("bookmarks")
+                .whereField("category", isEqualTo: category.rawValue)
+                .order(by: "created_at", descending: true)
+                .limit(to: 30)
+        }
     }
 
     static func createOrUpdateBookmark(url: String) {
