@@ -71,48 +71,19 @@ extension Comment {
     }
 
     static func titleReplacedText(text: String, title: String) -> String {
-        let textArr: [Character] = Array(text)
-        let titleArr: [Character] = Array(title)
-
-        var textStartIndex: Int?
-        var textEndIndex: Int?
-
-        for (i, textC) in textArr.enumerated() {
-            guard textEndIndex == nil else { break }
-
-            guard let tsi = textStartIndex else {
-                if textC == title.first {
-                    textStartIndex = i
-                }
-                continue
-            }
-
-            if (titleArr.endIndex) == (i - tsi) {
-                textEndIndex = i
-                break
-            }
-
-            if textC == titleArr[i - tsi] {
-                continue
-            } else {
-                textEndIndex = i
-                break
-            }
-        }
-
-        guard let si = textStartIndex, let ei = textEndIndex else {
+        guard let replaceStr = text.pickupDeplicateString(target: title) else {
             return text
         }
 
-        let replaceStr = textArr[si..<ei]
         if replaceStr.count < title.count / 2 {
             // 半分以上が合致してないなら置換しない
             return text
         }
 
-        guard let range = text.range(of: String(replaceStr)) else {
+        guard let range = text.range(of: replaceStr) else {
             return text
         }
+
         return text.replacingCharacters(in: range, with: "{title}")
     }
 
