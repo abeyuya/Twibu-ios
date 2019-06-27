@@ -34,6 +34,17 @@ class CommentTests: XCTestCase {
         assert(result == "2人は約2年にわたって極秘交際を続けていたことが関係者への取材でわかった――。\n\n{title}\n\n#梶裕貴 #竹達彩奈 #スクープ速報 #週刊文春 {url}")
     }
 
+    // 微妙にタイトルが変更されているので仕方なし
+    func testTitleReplacedText3() {
+        let text = "⚽️🏃‍♂️🏋️‍♀️🏓🎾\n\nGoogle Japan Blog: Google が 2020 年東京オリンピック・パラリンピックのオフィシャルサポーターに {url}o/M6t7UZSEKF"
+        let title = "\nGoogle Japan Blog: Google が 東京2020オリンピック・パラリンピック競技大会のオフィシャルサポーターに\n"
+        let result = Comment.titleReplacedText(text: text, title: title)
+        print(result)
+        assert(result == "⚽️🏃‍♂️🏋️‍♀️🏓🎾\n\nGoogle Japan Blog: Google が 2020 年東京オリンピック・パラリンピックのオフィシャルサポーターに {url}o/M6t7UZSEKF")
+    }
+
+
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {

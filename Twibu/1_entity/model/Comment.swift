@@ -71,38 +71,31 @@ extension Comment {
     }
 
     static func titleReplacedText(text: String, title: String) -> String {
-        // 7文字以上じゃないと事故りそう
-        guard title.count > 6 else { return text }
+        let textArr: [Character] = Array(text)
+        let titleArr: [Character] = Array(title)
 
-        var textStartIndex: String.Index?
-        var textEndIndex: String.Index?
+        var textStartIndex: Int?
+        var textEndIndex: Int?
 
-        for (i, textC) in text.enumerated() {
-            // endIndexがセットされたタイミングでbreakするはず
+        for (i, textC) in textArr.enumerated() {
             guard textEndIndex == nil else { break }
 
-            let textI = String.Index(utf16Offset: i, in: text)
             guard let tsi = textStartIndex else {
-                // 先頭が一致したポジション
                 if textC == title.first {
-                    textStartIndex = textI
+                    textStartIndex = i
                 }
                 continue
             }
 
-            if title.endIndex.utf16Offset(in: title) == (i - tsi.utf16Offset(in: text)) {
-                // タイトルごっそり含まれていて終了
-                textEndIndex = textI
+            if (titleArr.endIndex) == (i - tsi) {
+                textEndIndex = i
                 break
             }
 
-            let titleI = String.Index(utf16Offset: i - tsi.utf16Offset(in: text), in: title)
-            if textC == title[titleI] {
-                // 2文字目以降が一致
+            if textC == titleArr[i - tsi] {
                 continue
             } else {
-                // 一致しない
-                textEndIndex = textI
+                textEndIndex = i
                 break
             }
         }
@@ -111,13 +104,13 @@ extension Comment {
             return text
         }
 
-        let replaceStr = text[si..<ei]
+        let replaceStr = textArr[si..<ei]
         if replaceStr.count < title.count / 2 {
             // 半分以上が合致してないなら置換しない
             return text
         }
 
-        guard let range = text.range(of: replaceStr) else {
+        guard let range = text.range(of: String(replaceStr)) else {
             return text
         }
         return text.replacingCharacters(in: range, with: "{title}")

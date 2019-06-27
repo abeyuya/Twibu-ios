@@ -82,7 +82,7 @@ class TimelineCell: UITableViewCell {
                         self.faviconImageView.image = res.image
                     case .failure(let error):
                         self.faviconImageView.isHidden = true
-                        print(error)
+                        // print(error)
                     }
             })
         }
