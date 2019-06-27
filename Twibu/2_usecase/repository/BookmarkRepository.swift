@@ -8,10 +8,9 @@
 
 import FirebaseAuth
 import FirebaseFirestore
-import FirebaseFunctions
 
 final class BookmarkRepository {
-    private static let db = Firestore.firestore()
+    private static let db = TwibuFirebase.firestore
 
     static func fetchBookmark(category: Category, completion: @escaping (Result<[Bookmark]>) -> Void) {
         guard Auth.auth().currentUser != nil else {

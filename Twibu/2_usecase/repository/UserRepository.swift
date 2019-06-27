@@ -11,8 +11,8 @@ import FirebaseFirestore
 import FirebaseFunctions
 
 final class UserRepository {
-    private static let db = Firestore.firestore()
-    private static let functions = Functions.functions(region: "asia-northeast1")
+    private static let db = TwibuFirebase.firestore
+    private static let functions = TwibuFirebase.functions
     private static let path = "users"
 
     static func add(

@@ -8,11 +8,9 @@
 
 import FirebaseAuth
 import FirebaseFirestore
-import FirebaseFunctions
 
 final class CommentRepository {
-    private static let db = Firestore.firestore()
-    private static let functions = Functions.functions(region: "asia-northeast1")
+    private static let db = TwibuFirebase.firestore
 
     static func fetchBookmarkComment(bookmarkUid: String, completion: @escaping (Result<[Comment]>) -> Void) {
         guard Auth.auth().currentUser != nil else {
@@ -61,7 +59,7 @@ final class CommentRepository {
             return
         }
 
-        functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param.toDict) { result, error in
+        TwibuFirebase.functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param.toDict) { result, error in
             if let error = error {
                 completion(.failure(.firestoreError(error.localizedDescription)))
                 return

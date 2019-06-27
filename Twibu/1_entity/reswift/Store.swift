@@ -171,3 +171,11 @@ let store = Store(
     state: AppState(),
     middleware: []
 )
+
+extension Store {
+    func mDispatch(_ action: Action) {
+        DispatchQueue.main.async {
+            self.dispatch(action)
+        }
+    }
+}

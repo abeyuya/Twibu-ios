@@ -87,6 +87,10 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
         fetchBookmark()
     }
+
+    private func fetchAdditionalBookmarks() {
+        guard bookmarks.count < 30 else { return }
+    }
 }
 
 extension CategoryViewController: UITableViewDataSource {
@@ -124,6 +128,12 @@ extension CategoryViewController: UITableViewDelegate {
             lastContentOffset = currentPoint.y
         }
 
+        // 無限スクロールするためのイベント発火
+        let distanceToBottom = maxOffSet - currentPoint.y
+        if distanceToBottom < 300 {
+            fetchAdditionalBookmarks()
+        }
+
         if currentPoint.y >= maxOffSet {
             // print("hit the bottom")
             return
@@ -131,7 +141,7 @@ extension CategoryViewController: UITableViewDelegate {
 
         if currentPoint.y <= 0 {
             // print("hit the top")
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            // self.navigationController?.setNavigationBarHidden(false, animated: true)
             return
         }
 

@@ -14,7 +14,7 @@ struct BookmarkDispatcher {
             category: category,
             bookmarks: .loading([])
         )
-        store.dispatch(startLoadingAction)
+        store.mDispatch(startLoadingAction)
 
         BookmarkRepository.fetchBookmark(category: category) { result in
             switch result {
@@ -23,13 +23,13 @@ struct BookmarkDispatcher {
                     category: category,
                     bookmarks: .success(bookmarks)
                 )
-                store.dispatch(a)
+                store.mDispatch(a)
             case .failure(let error):
                 let a = AddBookmarksAction(
                     category: category,
                     bookmarks: .faillure(error)
                 )
-                store.dispatch(a)
+                store.mDispatch(a)
             }
         }
     }
