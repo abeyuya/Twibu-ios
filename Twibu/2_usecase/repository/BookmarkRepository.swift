@@ -37,6 +37,8 @@ final class BookmarkRepository {
     static private func buildQuery(category: Category) -> Query {
         switch category {
         case .all:
+//            let c = Calendar.current
+//            let yesterday = c.date(byAdding: .day, value: -1, to: c.startOfDay(for: Date()))!
             return db.collection("bookmarks")
                 .order(by: "created_at", descending: true)
                 .order(by: "comment_count", descending: true)

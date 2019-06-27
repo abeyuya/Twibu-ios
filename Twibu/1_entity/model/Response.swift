@@ -12,5 +12,6 @@ enum ResponseState<T> {
     case notYetLoading
     case loading(T)
     case success(T)
+    case hasMore(T)
     case faillure(TwibuError)
 }

@@ -10,18 +10,23 @@ import FirebaseAuth
 import FirebaseFirestore
 
 final class CommentRepository {
+    private static let shared = CommentRepository()
+    private init() {}
     private static let db = TwibuFirebase.firestore
 
-    static func fetchBookmarkComment(bookmarkUid: String, completion: @escaping (Result<[Comment]>) -> Void) {
+    private var lastSpanshot: [String: DocumentSnapshot] = [:]
+
+    static func fetchBookmarkComment(
+        bookmarkUid: String,
+        type: Repository.FetchType,
+        completion: @escaping (Result<([Comment], Bool)>
+    ) -> Void) {
         guard Auth.auth().currentUser != nil else {
             completion(.failure(.needFirebaseAuth("need firebase login")))
             return
         }
 
-        db.collection("bookmarks")
-            .document(bookmarkUid)
-            .collection("comments")
-            .order(by: "favorite_count", descending: true)
+        buildQuery(bookmarkUid: bookmarkUid, type: type)
             .getDocuments() { snapshot, error in
                 if let error = error {
                     completion(.failure(.firestoreError(error.localizedDescription)))
@@ -33,9 +38,33 @@ final class CommentRepository {
                     return
                 }
 
+                if let last = snapshot.documents.last {
+                    shared.lastSpanshot[bookmarkUid] = last
+                }
+
+                let hasMore = !snapshot.documents.isEmpty
+
                 let comments = snapshot.documents.compactMap { Comment(dictionary: $0.data()) }
-                completion(.success(comments))
+                completion(.success((comments, hasMore)))
         }
+    }
+
+    private static func buildQuery(bookmarkUid: String, type: Repository.FetchType) -> Query {
+        let q = db.collection("bookmarks")
+            .document(bookmarkUid)
+            .collection("comments")
+            .order(by: "favorite_count", descending: true)
+            .limit(to: 100)
+
+        if type == .new {
+            return q
+        }
+
+        guard let last = shared.lastSpanshot[bookmarkUid] else {
+            return q
+        }
+
+        return q.start(afterDocument: last)
     }
 
     struct ExecUpdateBookmarkCommentParam {

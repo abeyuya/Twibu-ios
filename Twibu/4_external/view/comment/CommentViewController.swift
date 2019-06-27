@@ -24,6 +24,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         switch commentsResponse {
         case .success(let comments): return comments
         case .loading(let comments): return comments
+        case .hasMore(let comments): return comments
         case .faillure(_): return []
         case .notYetLoading: return []
         }
@@ -54,10 +55,23 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         tableview.refreshControl = refreshControll
     }
 
-    private func fetchComments() {
+    private func fetchComments(type: Repository.FetchType = .new) {
         guard let buid = bookmark?.uid else { return }
-        refreshControll.beginRefreshing()
-        CommentDispatcher.fetchComments(buid: buid)
+
+        if type == .add {
+            switch commentsResponse {
+            case .hasMore(_):
+                break
+            default:
+                return
+            }
+        }
+
+        DispatchQueue.main.async {
+            self.refreshControll.beginRefreshing()
+        }
+
+        CommentDispatcher.fetchComments(buid: buid, type: type)
     }
 
 //    private func setupCommentsWithMessage() {
@@ -119,7 +133,20 @@ extension CommentViewController: UITableViewDataSource {
     }
 }
 
-extension CommentViewController: UITableViewDelegate {}
+extension CommentViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentPoint = scrollView.contentOffset
+        let contentSize = scrollView.contentSize
+        let frameSize = scrollView.frame
+        let maxOffSet = contentSize.height - frameSize.height
+
+        // 無限スクロールするためのイベント発火
+        let distanceToBottom = maxOffSet - currentPoint.y
+        if distanceToBottom < 300 {
+            fetchComments(type: .add)
+        }
+    }
+}
 
 extension CommentViewController: StoreSubscriber {
     typealias StoreSubscriberStateType = ResponseState<[Comment]>?
@@ -142,6 +169,9 @@ extension CommentViewController: StoreSubscriber {
     private func render() {
         switch commentsResponse {
         case .success(_):
+            refreshControll.endRefreshing()
+            tableview.reloadData()
+        case .hasMore(_):
             refreshControll.endRefreshing()
             tableview.reloadData()
         case .faillure(let error):

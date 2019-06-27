@@ -44,21 +44,29 @@ struct CommentDispatcher {
         }
     }
 
-    static func fetchComments(buid: String) {
+    static func fetchComments(buid: String, type: Repository.FetchType = .new) {
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: buid,
             comments: .loading([])
         )
         store.mDispatch(startLoadingAction)
 
-        CommentRepository.fetchBookmarkComment(bookmarkUid: buid) { result in
+        CommentRepository.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
             switch result {
-            case .success(let comments):
-                let a = AddCommentsAction(
-                    bookmarkUid: buid,
-                    comments: .success(comments)
-                )
-                store.mDispatch(a)
+            case .success(let (comments, hasMore)):
+                if hasMore {
+                    let a = AddCommentsAction(
+                        bookmarkUid: buid,
+                        comments: .hasMore(comments)
+                    )
+                    store.mDispatch(a)
+                } else {
+                    let a = AddCommentsAction(
+                        bookmarkUid: buid,
+                        comments: .success(comments)
+                    )
+                    store.mDispatch(a)
+                }
             case .failure(let error):
                 let a = AddCommentsAction(
                     bookmarkUid: buid,

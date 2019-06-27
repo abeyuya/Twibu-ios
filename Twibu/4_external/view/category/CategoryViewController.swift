@@ -33,6 +33,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private var bookmarks: [Bookmark] {
         switch bookmarksResponse {
         case .success(let bookmarks): return bookmarks
+        case .hasMore(let bookmarks): return bookmarks
         case .loading(let bookmarks): return bookmarks
         case .faillure(_): return []
         case .notYetLoading: return []
@@ -74,7 +75,10 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchBookmark() {
         guard let category = category else { return }
-        refreshControll.beginRefreshing()
+
+        DispatchQueue.main.async {
+            self.refreshControll.beginRefreshing()
+        }
         BookmarkDispatcher.fetchBookmark(category: category)
     }
 
@@ -222,8 +226,10 @@ extension CategoryViewController {
         UserRepository.kickScrapeTimeline(uid: user.uid) { [weak self] result in
             switch result {
             case .failure(let error):
-                self?.refreshControll.endRefreshing()
-                self?.showAlert(title: "Error", message: error.displayMessage)
+                DispatchQueue.main.async {
+                    self?.refreshControll.endRefreshing()
+                    self?.showAlert(title: "Error", message: error.displayMessage)
+                }
             case .success(_):
                 self?.fetchBookmark()
             }
@@ -243,24 +249,26 @@ extension CategoryViewController: StoreSubscriber {
         }
 
         bookmarksResponse = res
-
-        DispatchQueue.main.async {
-            self.render()
-        }
+        render()
     }
 
     func render() {
-        switch bookmarksResponse {
-        case .success(_):
-            refreshControll.endRefreshing()
-            tableView.reloadData()
-        case .faillure(let error):
-            refreshControll.endRefreshing()
-            showAlert(title: "Error", message: error.displayMessage)
-        case .loading(_):
-            refreshControll.beginRefreshing()
-        case .notYetLoading:
-            refreshControll.endRefreshing()
+        DispatchQueue.main.async {
+            switch self.bookmarksResponse {
+            case .success(_):
+                self.refreshControll.endRefreshing()
+                self.tableView.reloadData()
+            case .hasMore(_):
+                self.refreshControll.endRefreshing()
+                self.tableView.reloadData()
+            case .faillure(let error):
+                self.refreshControll.endRefreshing()
+                self.showAlert(title: "Error", message: error.displayMessage)
+            case .loading(_):
+                self.refreshControll.beginRefreshing()
+            case .notYetLoading:
+                self.refreshControll.beginRefreshing()
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ extension AppState {
             case .faillure(_): return nil
             case .notYetLoading: return nil
             case .success(let bms): return bms
+            case .hasMore(let bms): return bms
             }
         }
         let bmArr: [Bookmark] = bmNestArr.reduce([], +)
@@ -85,6 +86,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             case .faillure(_): return a.bookmarks
             case .notYetLoading: return .notYetLoading
             case .success(_): return .success(new)
+            case .hasMore(_): return .hasMore(new)
             }
         }()
 
@@ -122,6 +124,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             case .faillure(_): return a.comments
             case .notYetLoading: return .notYetLoading
             case .success(_): return .success(new)
+            case .hasMore(_): return .hasMore(new)
             }
         }()
 
