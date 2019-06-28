@@ -38,7 +38,8 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
                 guard let buid = self?.bookmark?.uid else { return nil }
-                return state.response.comments[buid]
+                guard let res = state.response.comments[buid] else { return nil }
+                return res
             }
         }
     }
@@ -57,21 +58,16 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchComments(type: Repository.FetchType = .new) {
         guard let buid = bookmark?.uid else { return }
-
-        if type == .add {
-            switch commentsResponse {
-            case .hasMore(_):
-                break
-            default:
-                return
-            }
-        }
-
-        DispatchQueue.main.async {
-            self.refreshControll.beginRefreshing()
-        }
-
         CommentDispatcher.fetchComments(buid: buid, type: type)
+
+//        if type == .add {
+//            switch commentsResponse {
+//            case .notYetLoading, .hasMore(_):
+//            case .faillure(_), .loading(_), .success(_):
+//                CommentDispatcher.fetchComments(buid: buid, type: type)
+//            }
+//        }
+
     }
 
 //    private func setupCommentsWithMessage() {
@@ -103,6 +99,19 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     @objc
     private func close() {
         dismiss(animated: true)
+    }
+
+    private func startRefreshControll() {
+        if refreshControll.isRefreshing {
+            return
+        }
+        refreshControll.beginRefreshing()
+    }
+
+    private func endRefreshController() {
+        if refreshControll.isRefreshing {
+            refreshControll.endRefreshing()
+        }
     }
 }
 
@@ -143,7 +152,12 @@ extension CommentViewController: UITableViewDelegate {
         // 無限スクロールするためのイベント発火
         let distanceToBottom = maxOffSet - currentPoint.y
         if distanceToBottom < 300 {
-            fetchComments(type: .add)
+            switch commentsResponse {
+            case .hasMore(_):
+                fetchComments(type: .add)
+            default:
+                return
+            }
         }
     }
 }
@@ -169,18 +183,19 @@ extension CommentViewController: StoreSubscriber {
     private func render() {
         switch commentsResponse {
         case .success(_):
-            refreshControll.endRefreshing()
+            endRefreshController()
             tableview.reloadData()
         case .hasMore(_):
-            refreshControll.endRefreshing()
+            // TODO: bottomのindicatorを回したい
+            endRefreshController()
             tableview.reloadData()
         case .faillure(let error):
-            refreshControll.endRefreshing()
+            endRefreshController()
             showAlert(title: "Error", message: error.displayMessage)
         case .loading(_):
-            refreshControll.beginRefreshing()
+            startRefreshControll()
         case .notYetLoading:
-            refreshControll.endRefreshing()
+            endRefreshController()
         }
     }
 }

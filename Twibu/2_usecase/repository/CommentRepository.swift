@@ -54,17 +54,16 @@ final class CommentRepository {
             .document(bookmarkUid)
             .collection("comments")
             .order(by: "favorite_count", descending: true)
-            .limit(to: 100)
 
         if type == .new {
-            return q
+            return q.limit(to: 100)
         }
 
         guard let last = shared.lastSpanshot[bookmarkUid] else {
-            return q
+            return q.limit(to: 100)
         }
 
-        return q.start(afterDocument: last)
+        return q.start(afterDocument: last).limit(to: 100)
     }
 
     struct ExecUpdateBookmarkCommentParam {
