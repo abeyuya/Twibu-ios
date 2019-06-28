@@ -28,6 +28,10 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         super.viewDidLoad()
 
         setupTableview()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
@@ -36,6 +40,11 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
                 return res
             }
         }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        store.unsubscribe(self)
     }
 
     private func setupTableview() {
@@ -158,12 +167,12 @@ extension CommentViewController: StoreSubscriber {
         guard let res = state else {
             // 初回取得前はここを通る
             commentsResponse = .notYetLoading
+            render()
             fetchComments(type: .new)
             return
         }
 
         commentsResponse = res
-
         DispatchQueue.main.async {
             self.render()
         }

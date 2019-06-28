@@ -42,6 +42,10 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         if category == .timeline, UserRepository.isTwitterLogin() {
             setupLogoutButton()
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
@@ -51,7 +55,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
-    deinit {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         store.unsubscribe(self)
     }
 
@@ -250,28 +255,29 @@ extension CategoryViewController: StoreSubscriber {
         guard let res = state else {
             // 初回取得前はここを通る
             bookmarksResponse = .notYetLoading
+            render()
             fetchBookmark()
             return
         }
 
         bookmarksResponse = res
-        render()
+        DispatchQueue.main.async {
+            self.render()
+        }
     }
 
     func render() {
-        DispatchQueue.main.async {
-            switch self.bookmarksResponse {
-            case .success(_):
-                self.endRefreshController()
-                self.tableView.reloadData()
-            case .failure(let error):
-                self.endRefreshController()
-                self.showAlert(title: "Error", message: error.displayMessage)
-            case .loading(_):
-                self.startRefreshControll()
-            case .notYetLoading:
-                self.startRefreshControll()
-            }
+        switch self.bookmarksResponse {
+        case .success(_):
+            self.endRefreshController()
+            self.tableView.reloadData()
+        case .failure(let error):
+            self.endRefreshController()
+            self.showAlert(title: "Error", message: error.displayMessage)
+        case .loading(_):
+            self.startRefreshControll()
+        case .notYetLoading:
+            self.startRefreshControll()
         }
     }
 }
