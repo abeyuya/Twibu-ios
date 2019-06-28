@@ -17,7 +17,7 @@ final class CommentRepository {
     static func fetchBookmarkComment(
         bookmarkUid: String,
         type: Repository.FetchType,
-        completion: @escaping ((Result<[Comment]>) -> Void)
+        completion: @escaping ((Repository.Response<[Comment]>) -> Void)
     ) {
         guard Auth.auth().currentUser != nil else {
             completion(.failure(.needFirebaseAuth("need firebase login")))
@@ -37,7 +37,23 @@ final class CommentRepository {
                 }
 
                 let comments = snapshot.documents.compactMap { Comment(dictionary: $0.data()) }
-                completion(.success(comments))
+                let result: Repository.Result<[Comment]> = {
+                    guard let last = snapshot.documents.last else {
+                        return Repository.Result(
+                            item: comments,
+                            lastSnapshot: nil,
+                            hasMore: false
+                        )
+                    }
+
+                    return Repository.Result(
+                        item: comments,
+                        lastSnapshot: last,
+                        hasMore: !snapshot.documents.isEmpty
+                    )
+                }()
+
+                completion(.success(result))
         }
     }
 
@@ -61,8 +77,8 @@ final class CommentRepository {
     static func execUpdateBookmarkComment(
         bookmarkUid: String,
         url: String,
-        completion: @escaping (Result<[Comment]?>
-    ) -> Void) {
+        completion: @escaping (Repository.Response<[Comment]>) -> Void
+    ) {
         guard UserRepository.isTwitterLogin() else {
             completion(.failure(.needTwitterAuth("need twitter login")))
             return
@@ -80,17 +96,18 @@ final class CommentRepository {
             }
 
             guard let res = result?.data as? [String: Any] else {
-                completion(.success(nil))
+                completion(.failure(.firestoreError("")))
                 return
             }
 
             guard let rawComments = res["comments"] as? [[String: Any]] else {
-                completion(.success(nil))
+                completion(.failure(.firestoreError("")))
                 return
             }
 
             let comments = rawComments.compactMap { Comment(dictionary: $0) }
-            completion(.success(comments))
+            let result = Repository.Result<[Comment]>(item: comments, lastSnapshot: nil, hasMore: false)
+            completion(.success(result))
         }
     }
 }

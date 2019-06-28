@@ -10,27 +10,19 @@ import Foundation
 
 struct BookmarkDispatcher {
     static func fetchBookmark(category: Category) {
+        let result = Repository.Result<[Bookmark]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddBookmarksAction(
             category: category,
-            bookmarks: .loading([])
+            bookmarks: .loading(result)
         )
         store.mDispatch(startLoadingAction)
 
         BookmarkRepository.fetchBookmark(category: category) { result in
-            switch result {
-            case .success(let res):
-                let a = AddBookmarksAction(
-                    category: category,
-                    bookmarks: .success(res)
-                )
-                store.mDispatch(a)
-            case .failure(let error):
-                let a = AddBookmarksAction(
-                    category: category,
-                    bookmarks: .faillure(error)
-                )
-                store.mDispatch(a)
-            }
+            let a = AddBookmarksAction(
+                category: category,
+                bookmarks: result
+            )
+            store.mDispatch(a)
         }
     }
 }

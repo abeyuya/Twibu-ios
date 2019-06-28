@@ -10,61 +10,45 @@ import Foundation
 
 struct CommentDispatcher {
     static func updateBookmarkComment(bookmarkUid: String, url: String) {
+        let result = Repository.Result<[Comment]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: bookmarkUid,
-            comments: .loading([])
+            comments: .loading(result)
         )
         store.mDispatch(startLoadingAction)
 
         CommentRepository.execUpdateBookmarkComment(bookmarkUid: bookmarkUid, url: url) { result in
-            switch result {
-            case .failure(let error):
-                let a = AddCommentsAction(
-                    bookmarkUid: bookmarkUid,
-                    comments: .faillure(error)
-                )
-                store.mDispatch(a)
-            case .success(let comments):
-                // TODO: 全件は取得できていないけど、comment_count更新する？
-                let a = AddCommentsAction(
-                    bookmarkUid: bookmarkUid,
-                    comments: .success(comments ?? [])
-                )
-                store.mDispatch(a)
+            let a = AddCommentsAction(
+                bookmarkUid: bookmarkUid,
+                comments: result
+            )
+            store.mDispatch(a)
 
-                if let count = comments?.count {
-                    let a2 = UpdateBookmarkCommentCountAction(
-                        bookmarkUid: bookmarkUid,
-                        commentCount: count
-                    )
-                    store.mDispatch(a2)
-                }
+            // TODO: 全件は取得できていないけど、comment_count更新する？
+            if let count = result.item?.count {
+                let a2 = UpdateBookmarkCommentCountAction(
+                    bookmarkUid: bookmarkUid,
+                    commentCount: count
+                )
+                store.mDispatch(a2)
             }
         }
     }
 
-    static func fetchComments(buid: String, type: Repository.FetchType = .new) {
+    static func fetchComments(buid: String, type: Repository.FetchType) {
+        let result = Repository.Result<[Comment]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: buid,
-            comments: .loading([])
+            comments: .loading(result)
         )
         store.mDispatch(startLoadingAction)
 
         CommentRepository.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
-            switch result {
-            case .success(let comments):
-                let a = AddCommentsAction(
-                    bookmarkUid: buid,
-                    comments: .success(comments)
-                )
-                store.mDispatch(a)
-            case .failure(let error):
-                let a = AddCommentsAction(
-                    bookmarkUid: buid,
-                    comments: .faillure(error)
-                )
-                store.mDispatch(a)
-            }
+            let a = AddCommentsAction(
+                bookmarkUid: buid,
+                comments: result
+            )
+            store.mDispatch(a)
         }
     }
 }

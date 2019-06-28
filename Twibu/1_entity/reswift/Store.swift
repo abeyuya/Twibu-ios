@@ -11,22 +11,22 @@ import ReSwift
 
 struct AppState: StateType {
     struct Response {
-        var bookmarks: [Category: ResponseState<[Repository.Response<Bookmark>]>] = [:]
-        var comments: [String: ResponseState<[Comment]>] = [:]
+        var bookmarks: [Category: Repository.Response<[Bookmark]>] = [:]
+        var comments: [String: Repository.Response<[Comment]>] = [:]
     }
 
     var response: Response = Response()
 }
 
 extension AppState {
-    static func toFlat(bookmarks: [Category: ResponseState<[Repository.Response<Bookmark>]>]) -> [Bookmark] {
+    static func toFlat(bookmarks: [Category: Repository.Response<[Bookmark]>]) -> [Bookmark] {
         let resArr = bookmarks.values.compactMap { $0 }
-        let bmNestArr: [[Bookmark]] = resArr.compactMap { (res: ResponseState<[Repository.Response<Bookmark>]>) in
+        let bmNestArr: [[Bookmark]] = resArr.compactMap { (res: Repository.Response<[Bookmark]>) in
             switch res {
-            case .loading(let i): return i.map { $0.obj }
-            case .faillure(_): return nil
+            case .success(let result): return result.item
+            case .loading(let result): return result.item
+            case .failure: return nil
             case .notYetLoading: return nil
-            case .success(let i): return i.map { $0.obj }
             }
         }
         let bmArr: [Bookmark] = bmNestArr.reduce([], +)
@@ -36,11 +36,11 @@ extension AppState {
 
 struct AddBookmarksAction: Action {
     let category: Category
-    let bookmarks: ResponseState<[Repository.Response<Bookmark>]>
+    let bookmarks: Repository.Response<[Bookmark]>
 }
 struct AddCommentsAction: Action {
     let bookmarkUid: String
-    let comments: ResponseState<[Comment]>
+    let comments: Repository.Response<[Comment]>
 }
 struct UpdateBookmarkCommentCountAction: Action {
     let bookmarkUid: String
@@ -52,39 +52,51 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 
     switch action {
     case let a as AddBookmarksAction:
-        let old: [Repository.Response<Bookmark>] = {
+        let old: [Bookmark] = {
             let s = state.response.bookmarks[a.category] ?? .notYetLoading
             switch s {
             case .success(let res):
-                return res
+                return res.item
             case .loading(let res):
-                return res
+                return res.item
             default:
                 return []
             }
         }()
 
-        let add: [Repository.Response<Bookmark>] = {
+        let add: [Bookmark] = {
             switch a.bookmarks {
             case .success(let res):
-                return res
+                return res.item
             case .loading(let res):
-                return res
+                return res.item
             default:
                 return []
             }
         }()
 
-        let new = Repository.Response
+        let new = Bookmark
             .merge(base: old, add: add)
-            .sorted { $0.obj.created_at ?? 0 > $1.obj.created_at ?? 0 }
+            .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
 
         state.response.bookmarks[a.category] = {
             switch a.bookmarks {
-            case .loading: return .loading(new)
-            case .faillure(_): return a.bookmarks
+            case .success(let old):
+                let result = Repository.Result(
+                    item: new,
+                    lastSnapshot: old.lastSnapshot,
+                    hasMore: old.hasMore
+                )
+                return .success(result)
+            case .loading(let old):
+                let result = Repository.Result(
+                    item: new,
+                    lastSnapshot: old.lastSnapshot,
+                    hasMore: old.hasMore
+                )
+                return .loading(result)
+            case .failure: return a.bookmarks
             case .notYetLoading: return .notYetLoading
-            case .success(_): return .success(new)
             }
         }()
 
@@ -92,10 +104,10 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         let old: [Comment] = {
             let s = state.response.comments[a.bookmarkUid] ?? .notYetLoading
             switch s {
-            case .success(let before):
-                return before
-            case .loading(let before):
-                return before
+            case .success(let res):
+                return res.item
+            case .loading(let res):
+                return res.item
             default:
                 return []
             }
@@ -103,10 +115,10 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 
         let add: [Comment] = {
             switch a.comments {
-            case .success(let add):
-                return add
-            case .loading(let add):
-                return add
+            case .success(let res):
+                return res.item
+            case .loading(let res):
+                return res.item
             default:
                 return []
             }
@@ -118,10 +130,22 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 
         state.response.comments[a.bookmarkUid] = {
             switch a.comments {
-            case .loading: return .loading(new)
-            case .faillure(_): return a.comments
+            case .success(let old):
+                let result = Repository.Result<[Comment]>(
+                    item: new,
+                    lastSnapshot: old.lastSnapshot,
+                    hasMore: old.hasMore
+                )
+                return .success(result)
+            case .loading(let old):
+                let result = Repository.Result<[Comment]>(
+                    item: new,
+                    lastSnapshot: old.lastSnapshot,
+                    hasMore: old.hasMore
+                )
+                return .loading(result)
+            case .failure(_): return a.comments
             case .notYetLoading: return .notYetLoading
-            case .success(_): return .success(new)
             }
         }()
 

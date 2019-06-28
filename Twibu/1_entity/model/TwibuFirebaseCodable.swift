@@ -9,8 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-protocol TwibuFirestoreCodable: Codable {
-}
+protocol TwibuFirestoreCodable: Codable {}
 
 extension TwibuFirestoreCodable {
     init?(dictionary: [String: Any]) {

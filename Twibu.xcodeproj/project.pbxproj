@@ -233,8 +233,6 @@
 		4D11152D22B545F2000817BA /* model */ = {
 			isa = PBXGroup;
 			children = (
-				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
-				4D11153122B547F8000817BA /* Result.swift */,
 				4D65092E22BE213400BB0959 /* Error.swift */,
 				4D11152B22B531E8000817BA /* Device.swift */,
 				4D65093022BE25CA00BB0959 /* Env.swift */,
@@ -243,7 +241,6 @@
 				4D65092522BBDB5800BB0959 /* Comment.swift */,
 				4D65092C22BE01D500BB0959 /* Category.swift */,
 				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
-				4D65094C22BF7EBE00BB0959 /* Response.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -287,6 +284,16 @@
 				4D11154D22B6A659000817BA /* WebViewController.storyboard */,
 			);
 			path = bookmarkWeb;
+			sourceTree = "<group>";
+		};
+		4D3A9AB022C6510E00AA9C23 /* interface */ = {
+			isa = PBXGroup;
+			children = (
+				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
+				4D11153122B547F8000817BA /* Result.swift */,
+				4D65094C22BF7EBE00BB0959 /* Response.swift */,
+			);
+			path = interface;
 			sourceTree = "<group>";
 		};
 		4D65092422BBDB3700BB0959 /* repository */ = {
@@ -335,6 +342,7 @@
 				4DD2685522C4D805007A9E68 /* extension */,
 				4D65094422BF5F9500BB0959 /* reswift */,
 				4D11152D22B545F2000817BA /* model */,
+				4D3A9AB022C6510E00AA9C23 /* interface */,
 			);
 			path = 1_entity;
 			sourceTree = "<group>";

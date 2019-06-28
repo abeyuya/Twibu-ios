@@ -12,7 +12,7 @@ import FirebaseFirestore
 final class BookmarkRepository {
     private static let db = TwibuFirebase.firestore
 
-    static func fetchBookmark(category: Category, completion: @escaping (Result<[Repository.Response<Bookmark>]>) -> Void) {
+    static func fetchBookmark(category: Category, completion: @escaping (Repository.Response<[Bookmark]>) -> Void) {
         guard Auth.auth().currentUser != nil else {
             completion(.failure(.needFirebaseAuth("need firebase login")))
             return
@@ -29,8 +29,25 @@ final class BookmarkRepository {
                 return
             }
 
-            let res = snapshot.documents.compactMap { Repository.Response<Bookmark>(snapshot: $0) }
-            completion(.success(res))
+            let item = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
+
+            let result: Repository.Result<[Bookmark]> = {
+                guard let last = snapshot.documents.last else {
+                    return Repository.Result(
+                        item: item,
+                        lastSnapshot: nil,
+                        hasMore: false
+                    )
+                }
+
+                return Repository.Result(
+                    item: item,
+                    lastSnapshot: last,
+                    hasMore: !snapshot.documents.isEmpty
+                )
+            }()
+
+            completion(.success(result))
         }
     }
 

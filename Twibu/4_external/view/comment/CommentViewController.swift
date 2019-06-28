@@ -17,7 +17,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     private let refreshControll = UIRefreshControl()
 
     var bookmark: Bookmark?
-    private var commentsResponse: ResponseState<[Comment]> = .notYetLoading
+    private var commentsResponse: Repository.Response<[Comment]> = .notYetLoading
 //    var commentsWithMessage: [Comment] = []
 
     private var comments: [Comment] {
@@ -56,7 +56,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         switch commentsResponse {
         case .loading(_):
             return
-        case .notYetLoading, .faillure(_), .success(_):
+        case .notYetLoading, .failure(_), .success(_):
             CommentDispatcher.fetchComments(buid: buid, type: type)
         }
     }
@@ -82,6 +82,10 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
                 self?.showAlert(title: "Error", message: error.displayMessage)
             case .success(_):
                 self?.fetchComments(type: .new)
+            case .notYetLoading:
+                return
+            case .loading(_):
+                return
             }
         }
     }
@@ -148,9 +152,9 @@ extension CommentViewController: UITableViewDelegate {
 }
 
 extension CommentViewController: StoreSubscriber {
-    typealias StoreSubscriberStateType = ResponseState<[Comment]>?
+    typealias StoreSubscriberStateType = Repository.Response<[Comment]>?
 
-    func newState(state: ResponseState<[Comment]>?) {
+    func newState(state: Repository.Response<[Comment]>?) {
         guard let res = state else {
             // 初回取得前はここを通る
             commentsResponse = .notYetLoading
@@ -170,7 +174,7 @@ extension CommentViewController: StoreSubscriber {
         case .success(_):
             endRefreshController()
             tableview.reloadData()
-        case .faillure(let error):
+        case .failure(let error):
             endRefreshController()
             showAlert(title: "Error", message: error.displayMessage)
         case .loading(_):
