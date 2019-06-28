@@ -46,7 +46,7 @@
 		4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */; };
 		4D65094622BF5FD200BB0959 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094522BF5FD200BB0959 /* Store.swift */; };
 		4D65094822BF698700BB0959 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
-		4D65094A22BF6F7C00BB0959 /* TwibuFirebaseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseRecord.swift */; };
+		4D65094A22BF6F7C00BB0959 /* TwibuFirebaseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */; };
 		4D65094D22BF7EBE00BB0959 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094C22BF7EBE00BB0959 /* Response.swift */; };
 		4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */; };
 		4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */; };
@@ -114,7 +114,7 @@
 		4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		4D65094522BF5FD200BB0959 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		4D65094722BF698700BB0959 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		4D65094922BF6F7C00BB0959 /* TwibuFirebaseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuFirebaseRecord.swift; sourceTree = "<group>"; };
+		4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuFirebaseCodable.swift; sourceTree = "<group>"; };
 		4D65094C22BF7EBE00BB0959 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDispatcher.swift; sourceTree = "<group>"; };
 		4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDispatcher.swift; sourceTree = "<group>"; };
@@ -233,6 +233,7 @@
 		4D11152D22B545F2000817BA /* model */ = {
 			isa = PBXGroup;
 			children = (
+				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 				4D11153122B547F8000817BA /* Result.swift */,
 				4D65092E22BE213400BB0959 /* Error.swift */,
 				4D11152B22B531E8000817BA /* Device.swift */,
@@ -241,7 +242,7 @@
 				4D11154822B69E15000817BA /* Bookmark.swift */,
 				4D65092522BBDB5800BB0959 /* Comment.swift */,
 				4D65092C22BE01D500BB0959 /* Category.swift */,
-				4D65094922BF6F7C00BB0959 /* TwibuFirebaseRecord.swift */,
+				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
 				4D65094C22BF7EBE00BB0959 /* Response.swift */,
 			);
 			path = model;
@@ -294,7 +295,6 @@
 				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
 				4D65092922BBDCC400BB0959 /* CommentRepository.swift */,
 				4D11152E22B545FF000817BA /* UserRepository.swift */,
-				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 			);
 			path = repository;
 			sourceTree = "<group>";
@@ -658,7 +658,7 @@
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
-				4D65094A22BF6F7C00BB0959 /* TwibuFirebaseRecord.swift in Sources */,
+				4D65094A22BF6F7C00BB0959 /* TwibuFirebaseCodable.swift in Sources */,
 				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,
 				4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */,
 				4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */,

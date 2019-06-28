@@ -11,7 +11,7 @@ import ReSwift
 
 struct AppState: StateType {
     struct Response {
-        var bookmarks: [Category: ResponseState<[Bookmark]>] = [:]
+        var bookmarks: [Category: ResponseState<[Repository.Response<Bookmark>]>] = [:]
         var comments: [String: ResponseState<[Comment]>] = [:]
     }
 
@@ -19,14 +19,14 @@ struct AppState: StateType {
 }
 
 extension AppState {
-    static func toFlat(bookmarks: [Category: ResponseState<[Bookmark]>]) -> [Bookmark] {
-        let resArr: [ResponseState<[Bookmark]>] = bookmarks.values.compactMap { $0 }
-        let bmNestArr: [[Bookmark]] = resArr.compactMap { (res: ResponseState<[Bookmark]>) in
+    static func toFlat(bookmarks: [Category: ResponseState<[Repository.Response<Bookmark>]>]) -> [Bookmark] {
+        let resArr = bookmarks.values.compactMap { $0 }
+        let bmNestArr: [[Bookmark]] = resArr.compactMap { (res: ResponseState<[Repository.Response<Bookmark>]>) in
             switch res {
-            case .loading(let bms): return bms;
+            case .loading(let i): return i.map { $0.obj }
             case .faillure(_): return nil
             case .notYetLoading: return nil
-            case .success(let bms): return bms
+            case .success(let i): return i.map { $0.obj }
             }
         }
         let bmArr: [Bookmark] = bmNestArr.reduce([], +)
@@ -36,7 +36,7 @@ extension AppState {
 
 struct AddBookmarksAction: Action {
     let category: Category
-    let bookmarks: ResponseState<[Bookmark]>
+    let bookmarks: ResponseState<[Repository.Response<Bookmark>]>
 }
 struct AddCommentsAction: Action {
     let bookmarkUid: String
@@ -52,32 +52,32 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 
     switch action {
     case let a as AddBookmarksAction:
-        let old: [Bookmark] = {
+        let old: [Repository.Response<Bookmark>] = {
             let s = state.response.bookmarks[a.category] ?? .notYetLoading
             switch s {
-            case .success(let before):
-                return before
-            case .loading(let before):
-                return before
+            case .success(let res):
+                return res
+            case .loading(let res):
+                return res
             default:
                 return []
             }
         }()
 
-        let add: [Bookmark] = {
+        let add: [Repository.Response<Bookmark>] = {
             switch a.bookmarks {
-            case .success(let add):
-                return add
-            case .loading(let add):
-                return add
+            case .success(let res):
+                return res
+            case .loading(let res):
+                return res
             default:
                 return []
             }
         }()
 
-        let new = Bookmark
+        let new = Repository.Response
             .merge(base: old, add: add)
-            .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
+            .sorted { $0.obj.created_at ?? 0 > $1.obj.created_at ?? 0 }
 
         state.response.bookmarks[a.category] = {
             switch a.bookmarks {
@@ -143,13 +143,13 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     return state
 }
 
-private func pickupBookmarkFromStore(
-    bookmarkUid: String,
-    bookmarks: [Category: ResponseState<[Bookmark]>]
-) -> Bookmark? {
-    let bmArr = AppState.toFlat(bookmarks: bookmarks)
-    return bmArr.first { $0.uid == bookmarkUid }
-}
+//private func pickupBookmarkFromStore(
+//    bookmarkUid: String,
+//    bookmarks: [Category: ResponseState<[Bookmark]>]
+//) -> Bookmark? {
+//    let bmArr = AppState.toFlat(bookmarks: bookmarks)
+//    return bmArr.first { $0.uid == bookmarkUid }
+//}
 
 //private func getReplaceInfo(b: Bookmark, bookmarks: [Category: ResponseState<[Bookmark]>]) -> (Category?, Int?) {
 //    var category: Category? = nil

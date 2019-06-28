@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Bookmark: TwibuFirestoreRecord {
+struct Bookmark: TwibuFirestoreCodable {
     let uid: String
     let title: String?
     let image_url: String?
@@ -33,33 +33,19 @@ extension Bookmark {
     }
 }
 
-extension Bookmark: Codable {
-    init?(dictionary: [String: Any]) {
-        let dict: [String: Any] = {
-            var newDict = dictionary
+extension Bookmark {
+    // 古いものを新しいもので置き換えつつ合体する
+    static func merge(base: [Bookmark], add: [Bookmark]) -> [Bookmark] {
+        var result = base
 
-            if let createdAt = dictionary["created_at"] as? Timestamp {
-                newDict["created_at"] = createdAt.seconds
-            } else {
-                newDict.removeValue(forKey: "created_at")
+        add.forEach { b in
+            if let i = result.firstIndex(where: { $0.uid == b.uid }) {
+                result[i] = b
+                return
             }
-
-            if let updatedAt = dictionary["updated_at"] as? Timestamp {
-                newDict["updated_at"] = updatedAt.seconds
-            } else {
-                newDict.removeValue(forKey: "updated_at")
-            }
-            return newDict
-        }()
-
-        do {
-            self = try JSONDecoder().decode(
-                Bookmark.self,
-                from: JSONSerialization.data(withJSONObject: dict)
-            )
-        } catch {
-            print("Bookmarkのdecodeに失敗しました", dict)
-            return nil
+            result.append(b)
         }
+
+        return result
     }
 }

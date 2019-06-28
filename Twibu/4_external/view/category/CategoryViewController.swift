@@ -18,7 +18,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
     private let refreshControll = UIRefreshControl()
-    private var bookmarksResponse: ResponseState<[Bookmark]> = .notYetLoading
+    private var bookmarksResponse: ResponseState<[Repository.Response<Bookmark>]> = .notYetLoading
 
     private var lastContentOffset: CGFloat = 0
 
@@ -31,7 +31,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private var bookmarks: [Bookmark] {
-        return bookmarksResponse.item ?? []
+        guard let item = bookmarksResponse.item else { return [] }
+        return item.map { $0.obj }
     }
 
     override func viewDidLoad() {
@@ -244,9 +245,9 @@ extension CategoryViewController {
 }
 
 extension CategoryViewController: StoreSubscriber {
-    typealias StoreSubscriberStateType = ResponseState<[Bookmark]>?
+    typealias StoreSubscriberStateType = ResponseState<[Repository.Response<Bookmark>]>?
 
-    func newState(state: ResponseState<[Bookmark]>?) {
+    func newState(state: ResponseState<[Repository.Response<Bookmark>]>?) {
         guard let res = state else {
             // 初回取得前はここを通る
             bookmarksResponse = .notYetLoading

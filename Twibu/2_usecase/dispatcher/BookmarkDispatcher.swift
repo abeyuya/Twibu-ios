@@ -18,10 +18,10 @@ struct BookmarkDispatcher {
 
         BookmarkRepository.fetchBookmark(category: category) { result in
             switch result {
-            case .success(let bookmarks):
+            case .success(let res):
                 let a = AddBookmarksAction(
                     category: category,
-                    bookmarks: .success(bookmarks)
+                    bookmarks: .success(res)
                 )
                 store.mDispatch(a)
             case .failure(let error):
