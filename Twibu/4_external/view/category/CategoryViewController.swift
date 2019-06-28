@@ -75,10 +75,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchBookmark() {
         guard let category = category else { return }
-
-        DispatchQueue.main.async {
-            self.refreshControll.beginRefreshing()
-        }
         BookmarkDispatcher.fetchBookmark(category: category)
     }
 
@@ -94,6 +90,22 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchAdditionalBookmarks() {
         guard bookmarks.count < 30 else { return }
+    }
+
+    private func startRefreshControll() {
+        if refreshControll.isRefreshing {
+            return
+        }
+        DispatchQueue.main.async {
+            self.refreshControll.beginRefreshing()
+        }
+    }
+
+    private func endRefreshController() {
+        guard refreshControll.isRefreshing else { return }
+        DispatchQueue.main.async {
+            self.refreshControll.endRefreshing()
+        }
     }
 }
 
@@ -256,18 +268,18 @@ extension CategoryViewController: StoreSubscriber {
         DispatchQueue.main.async {
             switch self.bookmarksResponse {
             case .success(_):
-                self.refreshControll.endRefreshing()
+                self.endRefreshController()
                 self.tableView.reloadData()
             case .hasMore(_):
-                self.refreshControll.endRefreshing()
+                self.endRefreshController()
                 self.tableView.reloadData()
             case .faillure(let error):
-                self.refreshControll.endRefreshing()
+                self.endRefreshController()
                 self.showAlert(title: "Error", message: error.displayMessage)
             case .loading(_):
-                self.refreshControll.beginRefreshing()
+                self.startRefreshControll()
             case .notYetLoading:
-                self.refreshControll.beginRefreshing()
+                self.startRefreshControll()
             }
         }
     }
