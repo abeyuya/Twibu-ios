@@ -16,8 +16,7 @@ struct CommentDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
-        let param = CommentRepository.ExecUpdateBookmarkCommentParam(bookmarkUid: bookmarkUid, url: url)
-        CommentRepository.execUpdateBookmarkComment(param: param) { result in
+        CommentRepository.execUpdateBookmarkComment(bookmarkUid: bookmarkUid, url: url) { result in
             switch result {
             case .failure(let error):
                 let a = AddCommentsAction(
@@ -26,7 +25,7 @@ struct CommentDispatcher {
                 )
                 store.mDispatch(a)
             case .success(let comments):
-                // TODO: 実際には全件取得しているわけではないので、successにするとマズイかも？
+                // TODO: 全件は取得できていないけど、comment_count更新する？
                 let a = AddCommentsAction(
                     bookmarkUid: bookmarkUid,
                     comments: .success(comments ?? [])
@@ -53,20 +52,12 @@ struct CommentDispatcher {
 
         CommentRepository.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
             switch result {
-            case .success(let (comments, hasMore)):
-                if hasMore {
-                    let a = AddCommentsAction(
-                        bookmarkUid: buid,
-                        comments: .hasMore(comments)
-                    )
-                    store.mDispatch(a)
-                } else {
-                    let a = AddCommentsAction(
-                        bookmarkUid: buid,
-                        comments: .success(comments)
-                    )
-                    store.mDispatch(a)
-                }
+            case .success(let comments):
+                let a = AddCommentsAction(
+                    bookmarkUid: buid,
+                    comments: .success(comments)
+                )
+                store.mDispatch(a)
             case .failure(let error):
                 let a = AddCommentsAction(
                     bookmarkUid: buid,

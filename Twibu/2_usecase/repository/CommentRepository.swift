@@ -14,13 +14,11 @@ final class CommentRepository {
     private init() {}
     private static let db = TwibuFirebase.firestore
 
-    private var lastSpanshot: [String: DocumentSnapshot] = [:]
-
     static func fetchBookmarkComment(
         bookmarkUid: String,
         type: Repository.FetchType,
-        completion: @escaping (Result<([Comment], Bool)>
-    ) -> Void) {
+        completion: @escaping ((Result<[Comment]>) -> Void)
+    ) {
         guard Auth.auth().currentUser != nil else {
             completion(.failure(.needFirebaseAuth("need firebase login")))
             return
@@ -38,14 +36,8 @@ final class CommentRepository {
                     return
                 }
 
-                if let last = snapshot.documents.last {
-                    shared.lastSpanshot[bookmarkUid] = last
-                }
-
-                let hasMore = !snapshot.documents.isEmpty
-
                 let comments = snapshot.documents.compactMap { Comment(dictionary: $0.data()) }
-                completion(.success((comments, hasMore)))
+                completion(.success(comments))
         }
     }
 
@@ -59,35 +51,29 @@ final class CommentRepository {
             return q.limit(to: 100)
         }
 
-        guard let last = shared.lastSpanshot[bookmarkUid] else {
-            return q.limit(to: 100)
-        }
-
-        return q.start(afterDocument: last).limit(to: 100)
-    }
-
-    struct ExecUpdateBookmarkCommentParam {
-        let bookmarkUid: String
-        let url: String
-
-        var toDict: [String: String] {
-            return [
-                "bookmark_uid": bookmarkUid,
-                "url": url
-            ]
-        }
+//        return q.start(afterDocument: last).limit(to: 100)
+        return q.limit(to: 100)
     }
 
     //
     // NOTE: 検索で引っかかった分だけしか返さないので注意
     //
-    static func execUpdateBookmarkComment(param: ExecUpdateBookmarkCommentParam, completion: @escaping (Result<[Comment]?>) -> Void) {
+    static func execUpdateBookmarkComment(
+        bookmarkUid: String,
+        url: String,
+        completion: @escaping (Result<[Comment]?>
+    ) -> Void) {
         guard UserRepository.isTwitterLogin() else {
             completion(.failure(.needTwitterAuth("need twitter login")))
             return
         }
 
-        TwibuFirebase.functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param.toDict) { result, error in
+        let param = [
+            "bookmark_uid": bookmarkUid,
+            "url": url
+        ]
+
+        TwibuFirebase.functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param) { result, error in
             if let error = error {
                 completion(.failure(.firestoreError(error.localizedDescription)))
                 return

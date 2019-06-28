@@ -31,13 +31,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private var bookmarks: [Bookmark] {
-        switch bookmarksResponse {
-        case .success(let bookmarks): return bookmarks
-        case .hasMore(let bookmarks): return bookmarks
-        case .loading(let bookmarks): return bookmarks
-        case .faillure(_): return []
-        case .notYetLoading: return []
-        }
+        return bookmarksResponse.item ?? []
     }
 
     override func viewDidLoad() {
@@ -268,9 +262,6 @@ extension CategoryViewController: StoreSubscriber {
         DispatchQueue.main.async {
             switch self.bookmarksResponse {
             case .success(_):
-                self.endRefreshController()
-                self.tableView.reloadData()
-            case .hasMore(_):
                 self.endRefreshController()
                 self.tableView.reloadData()
             case .faillure(let error):

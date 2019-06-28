@@ -21,13 +21,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
 //    var commentsWithMessage: [Comment] = []
 
     private var comments: [Comment] {
-        switch commentsResponse {
-        case .success(let comments): return comments
-        case .loading(let comments): return comments
-        case .hasMore(let comments): return comments
-        case .faillure(_): return []
-        case .notYetLoading: return []
-        }
+        return commentsResponse.item ?? []
     }
 
     override func viewDidLoad() {
@@ -56,18 +50,15 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         tableview.refreshControl = refreshControll
     }
 
-    private func fetchComments(type: Repository.FetchType = .new) {
+    private func fetchComments(type: Repository.FetchType) {
         guard let buid = bookmark?.uid else { return }
-        CommentDispatcher.fetchComments(buid: buid, type: type)
 
-//        if type == .add {
-//            switch commentsResponse {
-//            case .notYetLoading, .hasMore(_):
-//            case .faillure(_), .loading(_), .success(_):
-//                CommentDispatcher.fetchComments(buid: buid, type: type)
-//            }
-//        }
-
+        switch commentsResponse {
+        case .loading(_):
+            return
+        case .notYetLoading, .faillure(_), .success(_):
+            CommentDispatcher.fetchComments(buid: buid, type: type)
+        }
     }
 
 //    private func setupCommentsWithMessage() {
@@ -81,17 +72,16 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         guard let b = bookmark else { return }
 
         guard UserRepository.isTwitterLogin() else {
-            fetchComments()
+            fetchComments(type: .new)
             return
         }
 
-        let param = CommentRepository.ExecUpdateBookmarkCommentParam(bookmarkUid: b.uid, url: b.url)
-        CommentRepository.execUpdateBookmarkComment(param: param) { [weak self] result in
+        CommentRepository.execUpdateBookmarkComment(bookmarkUid: b.uid, url: b.url) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.displayMessage)
             case .success(_):
-                self?.fetchComments()
+                self?.fetchComments(type: .new)
             }
         }
     }
@@ -152,12 +142,7 @@ extension CommentViewController: UITableViewDelegate {
         // 無限スクロールするためのイベント発火
         let distanceToBottom = maxOffSet - currentPoint.y
         if distanceToBottom < 300 {
-            switch commentsResponse {
-            case .hasMore(_):
-                fetchComments(type: .add)
-            default:
-                return
-            }
+//            fetchComments(type: .add)
         }
     }
 }
@@ -169,7 +154,7 @@ extension CommentViewController: StoreSubscriber {
         guard let res = state else {
             // 初回取得前はここを通る
             commentsResponse = .notYetLoading
-            fetchComments()
+            fetchComments(type: .new)
             return
         }
 
@@ -183,10 +168,6 @@ extension CommentViewController: StoreSubscriber {
     private func render() {
         switch commentsResponse {
         case .success(_):
-            endRefreshController()
-            tableview.reloadData()
-        case .hasMore(_):
-            // TODO: bottomのindicatorを回したい
             endRefreshController()
             tableview.reloadData()
         case .faillure(let error):
