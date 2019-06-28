@@ -63,12 +63,17 @@ final class CommentRepository {
             .collection("comments")
             .order(by: "favorite_count", descending: true)
 
-        if type == .new {
+        switch type {
+        case .new:
             return q.limit(to: 100)
+        case .add(let snapshot):
+            if let s = snapshot {
+                return q.start(afterDocument: s).limit(to: 100)
+            } else {
+                // スナップショットが無い場合は先頭から取得
+                return q.limit(to: 100)
+            }
         }
-
-//        return q.start(afterDocument: last).limit(to: 100)
-        return q.limit(to: 100)
     }
 
     //
@@ -106,7 +111,7 @@ final class CommentRepository {
             }
 
             let comments = rawComments.compactMap { Comment(dictionary: $0) }
-            let result = Repository.Result<[Comment]>(item: comments, lastSnapshot: nil, hasMore: false)
+            let result = Repository.Result<[Comment]>(item: comments, lastSnapshot: nil, hasMore: true)
             completion(.success(result))
         }
     }

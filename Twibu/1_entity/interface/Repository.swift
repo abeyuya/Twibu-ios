@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 struct Repository {
     enum FetchType {
-        case new, add
+        case new, add(DocumentSnapshot?)
     }
 
     struct Result<T> {
