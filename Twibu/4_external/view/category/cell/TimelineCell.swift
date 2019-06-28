@@ -66,6 +66,7 @@ class TimelineCell: UITableViewCell {
         }
 
         faviconImageView.image = nil
+        faviconImageView.isHidden = true
         if let url = URL(string: bookmark.url),
             let scheme = url.scheme,
             let host = url.host,
@@ -81,8 +82,9 @@ class TimelineCell: UITableViewCell {
                         self.faviconImageView.isHidden = false
                         self.faviconImageView.image = res.image
                     case .failure(_):
-                        self.faviconImageView.isHidden = true
+                        // self.faviconImageView.isHidden = true
                         // print(error)
+                        break
                     }
             })
         }
