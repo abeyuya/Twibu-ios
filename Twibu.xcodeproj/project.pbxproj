@@ -432,6 +432,7 @@
 				4D1114FE22B5160E000817BA /* Resources */,
 				45CC3D7CFCEB43E97619C0BD /* [CP] Embed Pods Frameworks */,
 				F24C6A37246349CC69566AD3 /* [CP] Copy Pods Resources */,
+				4DADE8F622C5343100DD2CCB /* Fabric Run Script */,
 			);
 			buildRules = (
 			);
@@ -566,6 +567,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Twibu/Pods-Twibu-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4DADE8F622C5343100DD2CCB /* Fabric Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Fabric Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		CE1B4D40D1EECFC4A45F0B41 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -11,6 +11,8 @@ target 'Twibu' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Functions'
   pod 'TwitterKit'
+  pod 'Fabric'
+  pod 'Crashlytics'
   
   pod 'Parchment' # tab menu
   pod 'Kingfisher'

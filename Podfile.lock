@@ -5,6 +5,9 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.3):
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
+  - Crashlytics (3.13.2):
+    - Fabric (~> 1.10.2)
+  - Fabric (1.10.2)
   - Firebase/Analytics (6.2.0):
     - Firebase/Core
   - Firebase/Auth (6.2.0):
@@ -119,6 +122,8 @@ PODS:
     - TwitterCore (>= 3.2.0)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
@@ -132,6 +137,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs:
     - BoringSSL-GRPC
+    - Crashlytics
+    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -156,6 +163,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  Crashlytics: 611738c7847f8291a1a51084e35987b86ba6b3ee
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: 5965bac23e7fcb5fa6d926ed429c9ecef8a2014e
   FirebaseAnalytics: 629301c2b9925f3537d4093a17a72751ae5b7084
   FirebaseAuth: 80879f0e9f2c5f40686d5b42f6ccb3cd5dce78ea
@@ -178,6 +187,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: f56f7ce731456020b228eb17b695c3a391e62d40
+PODFILE CHECKSUM: 49eb6fb95f3ea55c3a690e7d4cf5872eca09bad5
 
 COCOAPODS: 1.7.2
