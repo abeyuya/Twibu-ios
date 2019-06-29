@@ -17,6 +17,7 @@ target 'Twibu' do
   pod 'Parchment' # tab menu
   pod 'Kingfisher'
   pod 'ReSwift'
+  pod 'SwiftIcons'
 
   target 'TwibuTests' do
     inherit! :search_paths

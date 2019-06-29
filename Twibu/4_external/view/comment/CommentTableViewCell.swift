@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwiftIcons
 
-class CommentTableViewCell: UITableViewCell {
+final class CommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var commentLabel: UILabel!
@@ -45,8 +46,22 @@ class CommentTableViewCell: UITableViewCell {
 
         displayNameLabel.text = comment.user.name
         usernameLabel.text = "@" + comment.user.screen_name
-        retweetCountLabel.text = "↩\(comment.retweet_count)"
-        favoriteCountLabel.text = "♡\(comment.favorite_count)"
+        retweetCountLabel.setIcon(
+            prefixText: "",
+            icon: .fontAwesomeSolid(.retweet),
+            iconColor: .darkGray,
+            postfixText: "  \(comment.retweet_count)",
+            postfixTextColor: .darkGray,
+            size: nil
+        )
+        favoriteCountLabel.setIcon(
+            prefixText: "",
+            icon: .fontAwesomeRegular(.heart),
+            iconColor: .darkGray,
+            postfixText: "  \(comment.favorite_count)",
+            postfixTextColor: .darkGray,
+            size: nil
+        )
         tweetAtLabel.text = parseTwitterDate(twitterDate: comment.tweet_at)
     }
 
@@ -56,7 +71,7 @@ class CommentTableViewCell: UITableViewCell {
 
         let indate = formatter.date(from: twitterDate)
         let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "yyyy/MM/dd h:mm"
+        outputFormatter.dateFormat = "yyyy/MM/dd H:mm"
         var outputDate: String?
         if let d = indate {
             outputDate = outputFormatter.string(from: d)
