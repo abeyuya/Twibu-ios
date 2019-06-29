@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 import ReSwift
+import SwiftIcons
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
 
@@ -85,26 +86,26 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private func setupToolbar() {
         navigationController?.setToolbarHidden(false, animated: true)
 
-        let backRoot = UIBarButtonItem(
-            barButtonSystemItem: .camera,
-            target: self,
-            action: #selector(tapBackRootButton)
-        )
-        let backPrev = UIBarButtonItem(
-            barButtonSystemItem: .bookmarks,
-            target: self,
-            action: #selector(tapBackPrevButton)
-        )
-        let commentButton = UIBarButtonItem(
-            barButtonSystemItem: .search,
-            target: self,
-            action: #selector(tapCommentButton)
-        )
-        let shareButton = UIBarButtonItem(
-            barButtonSystemItem: .action,
-            target: self,
-            action: #selector(tapShareButton)
-        )
+        let backRoot = UIBarButtonItem()
+        backRoot.setIcon(icon: .fontAwesomeSolid(.stepBackward), iconSize: 20)
+        backRoot.target = self
+        backRoot.action = #selector(tapBackRootButton)
+
+        let backPrev = UIBarButtonItem()
+        backPrev.setIcon(icon: .fontAwesomeSolid(.chevronLeft), iconSize: 20)
+        backPrev.target = self
+        backPrev.action = #selector(tapBackPrevButton)
+
+        let commentButton = UIBarButtonItem()
+        commentButton.setIcon(icon: .fontAwesomeRegular(.comment), iconSize: 20)
+        commentButton.target = self
+        commentButton.action = #selector(tapCommentButton)
+
+        let shareButton = UIBarButtonItem()
+        shareButton.setIcon(icon: .fontAwesomeSolid(.externalLinkAlt), iconSize: 20)
+        shareButton.target = self
+        shareButton.action = #selector(tapShareButton)
+
         let space = UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
             target: nil,
