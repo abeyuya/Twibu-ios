@@ -226,6 +226,10 @@ extension WebViewController: WKNavigationDelegate {
 }
 
 extension WebViewController: UIScrollViewDelegate {
+
+    // webview読み込みによって自動でスクロール判定されちゃうので、その対応
+    private static let humanScrollOffset: CGFloat = 100
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPoint = scrollView.contentOffset
         let contentSize = scrollView.contentSize
@@ -253,7 +257,7 @@ extension WebViewController: UIScrollViewDelegate {
         }
 
         let delta = currentPoint.y - lastContentOffset
-        if 0 < delta {
+        if 0 < delta, delta < WebViewController.humanScrollOffset {
             // print("Scrolled down")
             if navigationController?.isNavigationBarHidden == false {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
