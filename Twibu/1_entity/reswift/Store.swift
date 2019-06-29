@@ -150,15 +150,31 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         }()
 
     case let a as UpdateBookmarkCommentCountAction:
-//        guard let b = pickupBookmarkFromStore(
-//            bookmarkUid: a.bookmarkUid,
-//            bookmarks: state.response.bookmarks
-//            ) else { break }
-//
-//        if b.comment_count ?? 0 < a.commentCount {
-//            let new = Bookmark(b, commentCount: a.commentCount)
-//        }
-        break
+        var new = state.response.bookmarks
+        for (category, res) in new {
+            guard var bms = res.item else { continue }
+            guard let index = bms.firstIndex(where: { $0.uid == a.bookmarkUid }) else { continue }
+
+            let newBookmark = Bookmark(bms[index], commentCount: a.commentCount)
+            bms[index] = newBookmark
+
+            switch res {
+            case .notYetLoading, .failure(_):
+                continue
+            case .loading(_):
+                print("通るのか？")
+                continue
+            case .success(let result):
+                let newResult = Repository.Result<[Bookmark]>(
+                    item: bms,
+                    lastSnapshot: result.lastSnapshot,
+                    hasMore: result.hasMore
+                )
+                new[category] = .success(newResult)
+            }
+            break
+        }
+        state.response.bookmarks = new
 
     default:
         break
@@ -166,29 +182,6 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 
     return state
 }
-
-//private func pickupBookmarkFromStore(
-//    bookmarkUid: String,
-//    bookmarks: [Category: ResponseState<[Bookmark]>]
-//) -> Bookmark? {
-//    let bmArr = AppState.toFlat(bookmarks: bookmarks)
-//    return bmArr.first { $0.uid == bookmarkUid }
-//}
-
-//private func getReplaceInfo(b: Bookmark, bookmarks: [Category: ResponseState<[Bookmark]>]) -> (Category?, Int?) {
-//    var category: Category? = nil
-//    var index: Int? = nil
-//
-//    bookmarks.forEach { c, res in
-//        let resArr: [ResponseState<[Bookmark]>] = res.compactMap { $0 }
-//    }
-//
-//    return (category, index)
-//}
-//
-//private func buildReplaced(bookmarkUid: String, res: ResponseState<[Bookmark]>) {
-//
-//}
 
 let store = Store(
     reducer: appReducer,
