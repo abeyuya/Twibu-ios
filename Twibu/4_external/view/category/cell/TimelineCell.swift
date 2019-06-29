@@ -32,7 +32,7 @@ class TimelineCell: UITableViewCell {
     }
 
     func set(bookmark: Bookmark) {
-        titleLabel.text = bookmark.title ?? "タイトルが取得できませんでした"
+        titleLabel.text = bookmark.trimmedTitle ?? "タイトルが取得できませんでした"
 
         if let count = bookmark.comment_count, count > 0 {
             usersCountLabel.isHidden = false

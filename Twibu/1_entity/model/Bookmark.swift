@@ -18,6 +18,10 @@ struct Bookmark: TwibuFirestoreCodable {
     let created_at: Int?
     let updated_at: Int?
     let url: String
+
+    var trimmedTitle: String? {
+        return title?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }
 
 extension Bookmark {

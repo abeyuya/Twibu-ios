@@ -56,7 +56,7 @@ extension Comment {
         return text.replacingCharacters(in: range, with: "{title}")
     }
 
-    private static func urlReplacedText(text: String) -> String {
+    static func urlReplacedText(text: String) -> String {
         let pattern = "(?i)https?://(?:www\\.)?\\S+(?:/|\\b)"
         let urls = text.capture(pattern: pattern, group: [0])
 

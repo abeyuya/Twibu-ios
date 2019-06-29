@@ -30,7 +30,7 @@ class CommentTableViewCell: UITableViewCell {
     }
 
     func set(bookmark: Bookmark?, comment: Comment) {
-        if let t = bookmark?.title {
+        if let t = bookmark?.trimmedTitle {
             commentLabel.text = comment.replacedText(title: t)
         } else {
             commentLabel.text = comment.text

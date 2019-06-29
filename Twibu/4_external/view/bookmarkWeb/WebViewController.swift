@@ -76,7 +76,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func setNavigationTitle() {
         DispatchQueue.main.async {
-            self.title = "\(self.bookmark.comment_count ?? 0):\(self.bookmark.title ?? "no title")"
+            self.title = "\(self.bookmark.comment_count ?? 0):\(self.bookmark.trimmedTitle ?? "no title")"
         }
     }
 
@@ -215,10 +215,10 @@ extension WebViewController: WKNavigationDelegate {
         }
 
         guard let f = navigationAction.targetFrame, f.isMainFrame else {
-                // target="_blank" の場合
-                webview.load(navigationAction.request)
-                decisionHandler(.cancel)
-                return
+            // target="_blank" の場合
+            webview.load(navigationAction.request)
+            decisionHandler(.cancel)
+            return
         }
 
         decisionHandler(.allow)
@@ -243,12 +243,12 @@ extension WebViewController: UIScrollViewDelegate {
 
         if currentPoint.y <= 0 {
             // print("hit the top")
-            if navigationController?.isNavigationBarHidden == true {
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
-            }
-            if navigationController?.isToolbarHidden == true {
-                self.navigationController?.setToolbarHidden(false, animated: true)
-            }
+            // if navigationController?.isNavigationBarHidden == true {
+            //     self.navigationController?.setNavigationBarHidden(false, animated: true)
+            // }
+            // if navigationController?.isToolbarHidden == true {
+            //     self.navigationController?.setToolbarHidden(false, animated: true)
+            // }
             return
         }
 

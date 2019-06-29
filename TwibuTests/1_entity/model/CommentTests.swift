@@ -43,7 +43,19 @@ class CommentTests: XCTestCase {
         assert(result == "⚽️🏃‍♂️🏋️‍♀️🏓🎾\n\nGoogle Japan Blog: Google が 2020 年東京オリンピック・パラリンピックのオフィシャルサポーターに {url}o/M6t7UZSEKF")
     }
 
+    func testUrlReplacedText1() {
+        let text = "haroharo https://t.co/aaabbbcccddd hogehoge https://t.co/a987sdflkds"
+        let result = Comment.urlReplacedText(text: text)
+        print(result)
+        assert(result == "haroharo {url} hogehoge {url}")
+    }
 
+    func testUrlReplacedText2() {
+        let text = "わろた https://t.co/9ADBDSDF87x びびる https://t.co/XXX98eas82SD"
+        let result = Comment.urlReplacedText(text: text)
+        print(result)
+        assert(result == "わろた {url} びびる {url}")
+    }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
