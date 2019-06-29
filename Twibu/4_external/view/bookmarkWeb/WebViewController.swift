@@ -76,7 +76,9 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func setNavigationTitle() {
         DispatchQueue.main.async {
-            self.title = "\(self.bookmark.comment_count ?? 0):\(self.bookmark.trimmedTitle ?? "no title")"
+            if self.viewIfLoaded?.window != nil {
+                self.title = "\(self.bookmark.comment_count ?? 0):\(self.bookmark.trimmedTitle ?? "no title")"
+            }
         }
     }
 

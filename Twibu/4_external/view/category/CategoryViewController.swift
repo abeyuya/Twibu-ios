@@ -133,6 +133,9 @@ extension CategoryViewController: UITableViewDataSource {
 }
 
 extension CategoryViewController: UITableViewDelegate {
+
+    private static let humanScrollOffset: CGFloat = 100
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPoint = scrollView.contentOffset
         let contentSize = scrollView.contentSize
@@ -161,7 +164,7 @@ extension CategoryViewController: UITableViewDelegate {
         }
 
         let delta = currentPoint.y - lastContentOffset
-        if 0 < delta {
+        if 0 < delta, delta < CategoryViewController.humanScrollOffset {
             // print("Scrolled down")
             if navigationController?.isNavigationBarHidden == false {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)

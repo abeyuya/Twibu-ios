@@ -19,13 +19,15 @@ final class RootViewController: UIViewController {
     }
 
     func replace(vc: UIViewController) {
-        if let childViewController = self.children.first {
-            childViewController.willMove(toParent: nil)
-            childViewController.view.removeFromSuperview()
-            childViewController.removeFromParent()
-        }
+        DispatchQueue.main.async {
+            if let childViewController = self.children.first {
+                childViewController.willMove(toParent: nil)
+                childViewController.view.removeFromSuperview()
+                childViewController.removeFromParent()
+            }
 
-        set(vc: vc)
+            self.set(vc: vc)
+        }
     }
 
     private func set(vc: UIViewController) {
