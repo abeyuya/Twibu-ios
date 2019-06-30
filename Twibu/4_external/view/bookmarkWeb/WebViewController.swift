@@ -19,6 +19,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private var lastContentOffset: CGFloat = 0
     private var isShowComment = false
 
+    private let iconSize: CGFloat = 25
     private let commentBadge: BadgeSwift = {
         let badge = BadgeSwift()
         badge.translatesAutoresizingMaskIntoConstraints = false
@@ -94,8 +95,6 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func setupToolbar() {
-        let iconSize: CGFloat = 25
-
         let br = UIButton()
         br.setIcon(icon: .fontAwesomeSolid(.stepBackward), iconSize: iconSize, forState: .normal)
         br.addTarget(self, action: #selector(tapBackRootButton), for: .touchUpInside)
@@ -155,14 +154,16 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }()
 
     @objc
-    private func tapCommentButton(_ sender: UIBarButtonItem) {
+    private func tapCommentButton(_ sender: UIButton) {
         if isShowComment {
             hideCommentView()
+            commentBadge.isHidden = false
+            sender.setIcon(icon: .fontAwesomeRegular(.comment), iconSize: iconSize, forState: .normal)
         } else {
             showCommentView()
+            commentBadge.isHidden = true
+            sender.setIcon(icon: .fontAwesomeSolid(.comment), iconSize: iconSize, forState: .normal)
         }
-
-        print(sender)
     }
 
     private func showCommentView() {
