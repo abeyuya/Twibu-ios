@@ -154,8 +154,12 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         for (category, res) in new {
             guard var bms = res.item else { continue }
             guard let index = bms.firstIndex(where: { $0.uid == a.bookmarkUid }) else { continue }
+            let oldBookmark = bms[index]
 
-            let newBookmark = Bookmark(bms[index], commentCount: a.commentCount)
+            // 新しいコメント数の方が少ないなら更新しない
+            guard oldBookmark.comment_count ?? 0 < a.commentCount else { break }
+
+            let newBookmark = Bookmark(oldBookmark, commentCount: a.commentCount)
             bms[index] = newBookmark
 
             switch res {

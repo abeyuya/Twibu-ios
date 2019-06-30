@@ -9,7 +9,7 @@
 import Foundation
 
 struct CommentDispatcher {
-    static func updateBookmarkComment(bookmarkUid: String, url: String) {
+    static func updateBookmarkComment(bookmarkUid: String, url: String, oldCount: Int) {
         let result = Repository.Result<[Comment]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: bookmarkUid,
@@ -24,13 +24,16 @@ struct CommentDispatcher {
             )
             store.mDispatch(a)
 
-            // TODO: 全件は取得できていないけど、comment_count更新する？
-            if let count = result.item?.count {
+            if let count = result.item?.count, oldCount < count {
+                // store上のデータ書き換え
                 let a2 = UpdateBookmarkCommentCountAction(
                     bookmarkUid: bookmarkUid,
                     commentCount: count
                 )
                 store.mDispatch(a2)
+
+                // 実際にDBのデータ書き換え
+                BookmarkRepository.updateCommentCount(bookmarkUid: bookmarkUid, commentCount: count)
             }
         }
     }
