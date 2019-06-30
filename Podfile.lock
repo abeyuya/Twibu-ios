@@ -1,4 +1,5 @@
 PODS:
+  - BadgeSwift (8.0.0)
   - BoringSSL-GRPC (0.0.3):
     - BoringSSL-GRPC/Implementation (= 0.0.3)
     - BoringSSL-GRPC/Interface (= 0.0.3)
@@ -123,6 +124,7 @@ PODS:
     - TwitterCore (>= 3.2.0)
 
 DEPENDENCIES:
+  - BadgeSwift
   - Crashlytics
   - Fabric
   - Firebase/Analytics
@@ -138,6 +140,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs:
+    - BadgeSwift
     - BoringSSL-GRPC
     - Crashlytics
     - Fabric
@@ -165,6 +168,7 @@ SPEC REPOS:
     - TwitterKit
 
 SPEC CHECKSUMS:
+  BadgeSwift: a81547ffde1f462bb5fc02e3fa3fdcbc1b888354
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Crashlytics: 611738c7847f8291a1a51084e35987b86ba6b3ee
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
@@ -191,6 +195,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: 41018cb4bd2a19f0f16ebb21f89f7ce515fa9b8d
+PODFILE CHECKSUM: 7903979247d25aec4b4a5e35ec5ba602c7fe34dd
 
 COCOAPODS: 1.7.2

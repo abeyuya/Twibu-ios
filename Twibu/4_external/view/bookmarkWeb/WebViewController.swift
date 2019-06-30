@@ -10,6 +10,7 @@ import UIKit
 import WebKit
 import ReSwift
 import SwiftIcons
+import BadgeSwift
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
 
@@ -17,6 +18,15 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private var bookmark: Bookmark!
     private var lastContentOffset: CGFloat = 0
     private var isShowComment = false
+
+    private let commentBadge: BadgeSwift = {
+        let badge = BadgeSwift()
+        badge.translatesAutoresizingMaskIntoConstraints = false
+        badge.textColor = .white
+        badge.font = .systemFont(ofSize: 11)
+
+        return badge
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,33 +88,39 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private func setNavigationTitle() {
         DispatchQueue.main.async {
             if self.viewIfLoaded?.window != nil {
-                self.title = "\(self.bookmark.comment_count ?? 0):\(self.bookmark.trimmedTitle ?? "no title")"
+                self.title = self.bookmark.trimmedTitle ?? "no title"
             }
         }
     }
 
     private func setupToolbar() {
-        navigationController?.setToolbarHidden(false, animated: true)
+        let iconSize: CGFloat = 25
 
-        let backRoot = UIBarButtonItem()
-        backRoot.setIcon(icon: .fontAwesomeSolid(.stepBackward), iconSize: 20)
-        backRoot.target = self
-        backRoot.action = #selector(tapBackRootButton)
+        let br = UIButton()
+        br.setIcon(icon: .fontAwesomeSolid(.stepBackward), iconSize: iconSize, forState: .normal)
+        br.addTarget(self, action: #selector(tapBackRootButton), for: .touchUpInside)
+        let backRoot = UIBarButtonItem(customView: br)
 
-        let backPrev = UIBarButtonItem()
-        backPrev.setIcon(icon: .fontAwesomeSolid(.chevronLeft), iconSize: 20)
-        backPrev.target = self
-        backPrev.action = #selector(tapBackPrevButton)
+        let bp = UIButton()
+        bp.setIcon(icon: .fontAwesomeSolid(.chevronLeft), iconSize: iconSize, forState: .normal)
+        bp.addTarget(self, action: #selector(tapBackPrevButton), for: .touchUpInside)
+        let backPrev = UIBarButtonItem(customView: bp)
 
-        let commentButton = UIBarButtonItem()
-        commentButton.setIcon(icon: .fontAwesomeRegular(.comment), iconSize: 20)
-        commentButton.target = self
-        commentButton.action = #selector(tapCommentButton)
+        let b = UIButton()
+        b.setIcon(icon: .fontAwesomeRegular(.comment), iconSize: iconSize, forState: .normal)
+        b.addTarget(self, action: #selector(tapCommentButton(_:)), for: .touchUpInside)
+        if let count = bookmark.comment_count {
+            commentBadge.text = String(count)
+            b.addSubview(commentBadge)
+            commentBadge.centerXAnchor.constraint(equalTo: b.trailingAnchor).isActive = true
+            commentBadge.topAnchor.constraint(equalTo: b.topAnchor).isActive = true
+        }
+        let commentButton = UIBarButtonItem(customView: b)
 
-        let shareButton = UIBarButtonItem()
-        shareButton.setIcon(icon: .fontAwesomeSolid(.externalLinkAlt), iconSize: 20)
-        shareButton.target = self
-        shareButton.action = #selector(tapShareButton)
+        let sb = UIButton()
+        sb.setIcon(icon: .fontAwesomeSolid(.externalLinkAlt), iconSize: iconSize, forState: .normal)
+        sb.addTarget(self, action: #selector(tapShareButton), for: .touchUpInside)
+        let shareButton = UIBarButtonItem(customView: sb)
 
         let space = UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
@@ -139,12 +155,14 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }()
 
     @objc
-    private func tapCommentButton() {
+    private func tapCommentButton(_ sender: UIBarButtonItem) {
         if isShowComment {
             hideCommentView()
         } else {
             showCommentView()
         }
+
+        print(sender)
     }
 
     private func showCommentView() {
@@ -206,6 +224,12 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
         let request = URLRequest(url: url)
         webview.load(request)
+    }
+
+    private func setBadgeCount(count: Int) {
+        DispatchQueue.main.async {
+            self.commentBadge.text = String(count)
+        }
     }
 }
 
@@ -308,5 +332,9 @@ extension WebViewController: StoreSubscriber {
 
         self.bookmark = b
         setNavigationTitle()
+
+        if let c = b.comment_count {
+            setBadgeCount(count: c)
+        }
     }
 }

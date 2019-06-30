@@ -18,6 +18,7 @@ target 'Twibu' do
   pod 'Kingfisher'
   pod 'ReSwift'
   pod 'SwiftIcons'
+  pod 'BadgeSwift'
 
   target 'TwibuTests' do
     inherit! :search_paths
