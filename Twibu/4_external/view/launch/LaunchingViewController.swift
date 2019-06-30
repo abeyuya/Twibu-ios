@@ -38,9 +38,9 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
                 return
         }
 
-        let storyboard = UIStoryboard(name: "PagingRootViewController", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController()!
-        root.replace(vc: vc)
+        let vc = PagingRootViewController.initFromStoryBoard()
+        let nav = UINavigationController(rootViewController: vc)
+        root.replace(vc: nav)
     }
 
     private func setupView() {

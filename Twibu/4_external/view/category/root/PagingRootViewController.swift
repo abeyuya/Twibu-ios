@@ -14,7 +14,7 @@ protocol PagingRootViewControllerDelegate: class {
     func reload(item: PagingIndexItem?)
 }
 
-final class PagingRootViewController: UIViewController {
+final class PagingRootViewController: UIViewController, StoryboardInstantiatable {
 
     private let pagingViewController = PagingViewController<PagingIndexItem>()
 
