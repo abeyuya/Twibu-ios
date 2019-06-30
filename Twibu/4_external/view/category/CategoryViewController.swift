@@ -127,12 +127,15 @@ extension CategoryViewController: UITableViewDataSource {
         let b = bookmarks[indexPath.row]
         let vc = WebViewController.initFromStoryBoard()
         vc.set(bookmark: b)
-        CommentDispatcher.updateBookmarkComment(
-            bookmarkUid: b.uid,
-            url: b.url,
-            oldCount: b.comment_count ?? 0
-        )
         navigationController?.pushViewController(vc, animated: true)
+
+        if UserRepository.isTwitterLogin() {
+            CommentDispatcher.updateBookmarkComment(
+                bookmarkUid: b.uid,
+                url: b.url,
+                oldCount: b.comment_count ?? 0
+            )
+        }
     }
 }
 
