@@ -19,6 +19,7 @@ target 'Twibu' do
   pod 'ReSwift'
   pod 'SwiftIcons'
   pod 'BadgeSwift'
+  pod 'SideMenuSwift'
 
   target 'TwibuTests' do
     inherit! :search_paths

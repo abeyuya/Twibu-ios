@@ -22,7 +22,7 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         super.viewDidLoad()
 
         setupPagingView()
-        title = "ホーム"
+        setupNavigation()
     }
 
     private func setupPagingView() {
@@ -47,6 +47,21 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
 
         let c = Category.all
         pagingViewController.select(pagingItem: PagingIndexItem(index: c.index, title: c.displayString))
+    }
+
+    private func setupNavigation() {
+        title = "ホーム"
+
+        let b = UIButton()
+        b.setIcon(icon: .fontAwesomeSolid(.bars), forState: .normal)
+        b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
+        let bb = UIBarButtonItem(customView: b)
+        navigationItem.setLeftBarButton(bb, animated: false)
+    }
+
+    @objc
+    private func tapMenuButton() {
+        sideMenuController?.revealMenu()
     }
 }
 

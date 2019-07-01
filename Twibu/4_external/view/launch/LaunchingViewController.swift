@@ -8,7 +8,7 @@
 
 import UIKit
 import FirebaseAuth
-import AMScrollingNavbar
+import SideMenuSwift
 
 class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
@@ -41,9 +41,10 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
         DispatchQueue.main.async {
             let vc = PagingRootViewController.initFromStoryBoard()
-            let nav = ScrollingNavigationController()
-            nav.setViewControllers([vc], animated: true)
-            root.replace(vc: nav)
+            let nav = UINavigationController(rootViewController: vc)
+            let side = SideMenuViewController.initFromStoryBoard()
+            let allVc = SideMenuController(contentViewController: nav, menuViewController: side)
+            root.replace(vc: allVc)
         }
     }
 
@@ -56,5 +57,7 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
         UIToolbar.appearance().barTintColor = .white
         UIToolbar.appearance().tintColor = .mainBlack
+
+//        SideMenuController.preferences.basic.enablePanGesture = true
     }
 }
