@@ -77,6 +77,7 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
 
         case .all, .economics, .entertainment, .fun, .game, .general, .it, .knowledge, .social, .life:
             let vc = CategoryViewController.initFromStoryBoard()
+            vc.delegate = self
             vc.item = item
             return vc
         }

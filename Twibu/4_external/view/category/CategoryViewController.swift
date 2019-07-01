@@ -122,6 +122,9 @@ extension CategoryViewController: UITableViewDataSource {
         cell.set(bookmark: b)
         return cell
     }
+}
+
+extension CategoryViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let b = bookmarks[indexPath.row]
@@ -137,9 +140,6 @@ extension CategoryViewController: UITableViewDataSource {
             )
         }
     }
-}
-
-extension CategoryViewController: UITableViewDelegate {
 
     private static let humanScrollOffset: CGFloat = 100
 

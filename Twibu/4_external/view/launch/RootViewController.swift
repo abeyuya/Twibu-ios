@@ -33,8 +33,11 @@ final class RootViewController: UIViewController {
     private func set(vc: UIViewController) {
         DispatchQueue.main.async {
             self.addChild(vc)
-            vc.view.frame = UIScreen.main.bounds
             self.view.addSubview(vc.view)
+            vc.view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+            vc.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+            vc.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+            vc.view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             vc.didMove(toParent: self)
         }
     }

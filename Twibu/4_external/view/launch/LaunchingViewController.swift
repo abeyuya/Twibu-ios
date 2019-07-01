@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import AMScrollingNavbar
 
 class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
@@ -38,9 +39,12 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
                 return
         }
 
-        let vc = PagingRootViewController.initFromStoryBoard()
-        let nav = UINavigationController(rootViewController: vc)
-        root.replace(vc: nav)
+        DispatchQueue.main.async {
+            let vc = PagingRootViewController.initFromStoryBoard()
+            let nav = ScrollingNavigationController()
+            nav.setViewControllers([vc], animated: true)
+            root.replace(vc: nav)
+        }
     }
 
     private func setupView() {
