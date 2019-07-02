@@ -96,12 +96,12 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func setupToolbar() {
         let br = UIButton()
-        br.setIcon(icon: .fontAwesomeSolid(.stepBackward), iconSize: iconSize, forState: .normal)
+        br.setIcon(icon: .icofont(.thinDoubleLeft), iconSize: iconSize, forState: .normal)
         br.addTarget(self, action: #selector(tapBackRootButton), for: .touchUpInside)
         let backRoot = UIBarButtonItem(customView: br)
 
         let bp = UIButton()
-        bp.setIcon(icon: .fontAwesomeSolid(.chevronLeft), iconSize: iconSize, forState: .normal)
+        bp.setIcon(icon: .icofont(.thinLeft), iconSize: iconSize, forState: .normal)
         bp.addTarget(self, action: #selector(tapBackPrevButton), for: .touchUpInside)
         let backPrev = UIBarButtonItem(customView: bp)
 
@@ -117,7 +117,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         let commentButton = UIBarButtonItem(customView: b)
 
         let sb = UIButton()
-        sb.setIcon(icon: .fontAwesomeSolid(.externalLinkAlt), iconSize: iconSize, forState: .normal)
+        sb.setIcon(icon: .linearIcons(.exitUp), iconSize: iconSize, forState: .normal)
         sb.addTarget(self, action: #selector(tapShareButton), for: .touchUpInside)
         let shareButton = UIBarButtonItem(customView: sb)
 

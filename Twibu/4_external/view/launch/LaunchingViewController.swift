@@ -8,7 +8,6 @@
 
 import UIKit
 import FirebaseAuth
-import SideMenuSwift
 
 class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
@@ -42,9 +41,7 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
         DispatchQueue.main.async {
             let vc = PagingRootViewController.initFromStoryBoard()
             let nav = UINavigationController(rootViewController: vc)
-            let side = SideMenuViewController.initFromStoryBoard()
-            let allVc = SideMenuController(contentViewController: nav, menuViewController: side)
-            root.replace(vc: allVc)
+            root.replace(vc: nav)
         }
     }
 
@@ -57,7 +54,5 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
         UIToolbar.appearance().barTintColor = .white
         UIToolbar.appearance().tintColor = .mainBlack
-
-//        SideMenuController.preferences.basic.enablePanGesture = true
     }
 }

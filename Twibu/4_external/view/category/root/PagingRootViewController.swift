@@ -53,7 +53,7 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         title = "ホーム"
 
         let b = UIButton()
-        b.setIcon(icon: .fontAwesomeSolid(.bars), forState: .normal)
+        b.setIcon(icon: .fontAwesomeSolid(.cog), forState: .normal)
         b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
         let bb = UIBarButtonItem(customView: b)
         navigationItem.setLeftBarButton(bb, animated: false)
@@ -61,7 +61,6 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
 
     @objc
     private func tapMenuButton() {
-        sideMenuController?.revealMenu()
     }
 }
 
