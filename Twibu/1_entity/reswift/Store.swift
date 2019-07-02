@@ -17,7 +17,7 @@ struct AppState: StateType {
     }
 
     var response: Response = Response()
-    var currentUser: User? = Auth.auth().currentUser
+    var currentUser = TwibuUser(firebaseAuthUser: nil)
 }
 
 extension AppState {
@@ -48,7 +48,7 @@ struct UpdateBookmarkCommentCountAction: Action {
     let bookmarkUid: String
     let commentCount: Int
 }
-struct UpdateCurrentUser: Action {
+struct UpdateFirebaseUser: Action {
     let newUser: User
 }
 
@@ -185,8 +185,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         }
         state.response.bookmarks = new
 
-    case let a as UpdateCurrentUser:
-        state.currentUser = a.newUser
+    case let a as UpdateFirebaseUser:
+        let newUser = TwibuUser(firebaseAuthUser: a.newUser)
+        state.currentUser = newUser
 
     default:
         break

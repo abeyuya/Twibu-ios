@@ -84,11 +84,6 @@ final class CommentRepository {
         url: String,
         completion: @escaping (Repository.Response<[Comment]>) -> Void
     ) {
-        guard UserRepository.isTwitterLogin() else {
-            completion(.failure(.needTwitterAuth("need twitter login")))
-            return
-        }
-
         let param = [
             "bookmark_uid": bookmarkUid,
             "url": url

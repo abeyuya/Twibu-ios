@@ -16,7 +16,8 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 
         setupView()
 
-        if Auth.auth().currentUser != nil {
+        if let user = Auth.auth().currentUser {
+            UserDispatcher.updateFirebaseUser(user: user)
             moveToPagingRootView()
             return
         }
@@ -28,6 +29,13 @@ class LaunchingViewController: UIViewController, StoryboardInstantiatable {
                 return
             }
 
+            guard let user = result?.user else {
+                let e = TwibuError.needFirebaseAuth("匿名ログインしたもののユーザ情報が取れない")
+                self?.showAlert(title: "Error", message: e.displayMessage)
+                return
+            }
+
+            UserDispatcher.updateFirebaseUser(user: user)
             self?.moveToPagingRootView()
         }
     }

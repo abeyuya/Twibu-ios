@@ -19,6 +19,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     var bookmark: Bookmark?
     private var commentsResponse: Repository.Response<[Comment]> = .notYetLoading
 //    var commentsWithMessage: [Comment] = []
+    private var currentUser: TwibuUser?
 
     private var comments: [Comment] {
         return commentsResponse.item ?? []
@@ -35,9 +36,13 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
-                guard let buid = self?.bookmark?.uid else { return nil }
-                guard let res = state.response.comments[buid] else { return nil }
-                return res
+                let res: Repository.Response<[Comment]>? = {
+                    guard let buid = self?.bookmark?.uid else { return nil }
+                    guard let res = state.response.comments[buid] else { return nil }
+                    return res
+                }()
+
+                return Subscribe(res: res, currentUser: state.currentUser)
             }
         }
     }
@@ -89,7 +94,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     private func refresh() {
         guard let b = bookmark else { return }
 
-        guard UserRepository.isTwitterLogin() else {
+        guard currentUser?.isTwitterLogin == true else {
             fetchComments()
             return
         }
@@ -170,10 +175,17 @@ extension CommentViewController: UITableViewDelegate {
 }
 
 extension CommentViewController: StoreSubscriber {
-    typealias StoreSubscriberStateType = Repository.Response<[Comment]>?
+    struct Subscribe {
+        var res: Repository.Response<[Comment]>?
+        var currentUser: TwibuUser
+    }
 
-    func newState(state: Repository.Response<[Comment]>?) {
-        guard let res = state else {
+    typealias StoreSubscriberStateType = Subscribe
+
+    func newState(state: Subscribe) {
+        currentUser = state.currentUser
+
+        guard let res = state.res else {
             // 初回取得前はここを通る
             commentsResponse = .notYetLoading
             render()

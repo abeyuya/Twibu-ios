@@ -18,6 +18,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     var item: PagingIndexItem?
     private let refreshControll = UIRefreshControl()
     private var bookmarksResponse: Repository.Response<[Bookmark]> = .notYetLoading
+    private var currentUser: TwibuUser?
 
     private var lastContentOffset: CGFloat = 0
 
@@ -44,8 +45,12 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
-                guard let c = self?.category else { return nil }
-                return state.response.bookmarks[c]
+                let res: Repository.Response<[Bookmark]>? = {
+                    guard let c = self?.category else { return nil }
+                    return state.response.bookmarks[c]
+                }()
+
+                return Subscribe(res: res, currentUser: state.currentUser)
             }
         }
     }
@@ -74,7 +79,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     @objc
     private func refresh() {
-        if category == .timeline, UserRepository.isTwitterLogin() {
+        if category == .timeline, currentUser?.isTwitterLogin == true {
             refreshForLoginUser()
             return
         }
@@ -127,7 +132,7 @@ extension CategoryViewController: UITableViewDelegate {
         vc.set(bookmark: b)
         navigationController?.pushViewController(vc, animated: true)
 
-        if UserRepository.isTwitterLogin() {
+        if currentUser?.isTwitterLogin == true {
             CommentDispatcher.updateBookmarkComment(
                 bookmarkUid: b.uid,
                 url: b.url,
@@ -190,17 +195,18 @@ extension CategoryViewController: UIPageViewControllerDelegate {
 // Category.timelineの場合の処理
 extension CategoryViewController {
     private func refreshForLoginUser() {
-        guard UserRepository.isTwitterLogin() else {
-            showAlert(title: "Error", message: TwibuError.needTwitterAuth(nil).displayMessage)
-            return
-        }
-
-        guard let user = Auth.auth().currentUser else {
+        guard currentUser?.firebaseAuthUser != nil else {
             showAlert(title: "Error", message: TwibuError.needFirebaseAuth(nil).displayMessage)
             return
         }
 
-        UserRepository.kickScrapeTimeline(uid: user.uid) { [weak self] result in
+        guard currentUser?.isTwitterLogin == true,
+            let uid = currentUser?.firebaseAuthUser?.uid else {
+                showAlert(title: "Error", message: TwibuError.needTwitterAuth(nil).displayMessage)
+                return
+        }
+
+        UserRepository.kickScrapeTimeline(uid: uid) { [weak self] result in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -215,10 +221,17 @@ extension CategoryViewController {
 }
 
 extension CategoryViewController: StoreSubscriber {
-    typealias StoreSubscriberStateType = Repository.Response<[Bookmark]>?
+    struct Subscribe {
+        var res: Repository.Response<[Bookmark]>?
+        var currentUser: TwibuUser
+    }
 
-    func newState(state: Repository.Response<[Bookmark]>?) {
-        guard let res = state else {
+    typealias StoreSubscriberStateType = Subscribe
+
+    func newState(state: Subscribe) {
+        currentUser = state.currentUser
+
+        guard let res = state.res else {
             // 初回取得前はここを通る
             bookmarksResponse = .notYetLoading
             render()

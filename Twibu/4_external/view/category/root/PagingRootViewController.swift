@@ -14,6 +14,7 @@ import ReSwift
 final class PagingRootViewController: UIViewController, StoryboardInstantiatable {
 
     private let pagingViewController = PagingViewController<PagingIndexItem>()
+    private var currentUser: TwibuUser?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +26,20 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        store.subscribe(self) { subcription in
+        store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
+                let beforeState = self?.currentUser?.isTwitterLogin ?? false
+
+                if beforeState == state.currentUser.isTwitterLogin {
+                    return nil
+                }
                 return state.currentUser
             }
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         store.unsubscribe(self)
     }
 
@@ -91,7 +98,7 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
 
         switch category {
         case .timeline:
-            guard UserRepository.isTwitterLogin() else {
+            guard currentUser?.isTwitterLogin == true else {
                 let vc = LoginViewController.initFromStoryBoard()
                 vc.item = item
                 return vc
@@ -126,14 +133,22 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
 extension PagingRootViewController: PagingViewControllerDelegate {}
 
 extension PagingRootViewController: StoreSubscriber {
-    typealias StoreSubscriberStateType = User?
+    typealias StoreSubscriberStateType = TwibuUser?
 
-    func newState(state: User?) {
-        let timeline = pagingViewController.visibleItems.items.first { $0.title == Category.timeline.displayString }
-        guard let t = timeline else { return }
+    func newState(state: TwibuUser?) {
+        let beforeState = currentUser?.isTwitterLogin ?? false
+        guard let newUser = state else { return }
 
-        DispatchQueue.main.async {
-            self.pagingViewController.reloadData(around: t)
+        currentUser = newUser
+
+        guard beforeState == newUser.isTwitterLogin else {
+            let timeline = pagingViewController.visibleItems.items.first { $0.title == Category.timeline.displayString }
+            guard let t = timeline else { return }
+
+            DispatchQueue.main.async {
+                self.pagingViewController.reloadData(around: t)
+            }
+            return
         }
     }
 }

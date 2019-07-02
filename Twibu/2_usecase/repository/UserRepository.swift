@@ -54,17 +54,17 @@ final class UserRepository {
         }
     }
 
-    static func isTwitterLogin() -> Bool {
-        guard let user = Auth.auth().currentUser else {
-            return false
-        }
-
-        if user.providerData.isEmpty {
-            return false
-        }
-
-        return true
-    }
+//    static func isTwitterLogin() -> Bool {
+//        guard let user = Auth.auth().currentUser else {
+//            return false
+//        }
+//
+//        if user.providerData.isEmpty {
+//            return false
+//        }
+//
+//        return true
+//    }
 
 //    static func fetchTimeline(page: Int = 1, completion: @escaping (Result<Void, Error>) -> Void) {
 //        guard let currentUser = Auth.auth().currentUser else {

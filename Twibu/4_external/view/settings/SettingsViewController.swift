@@ -8,10 +8,13 @@
 
 import UIKit
 import FirebaseAuth
+import ReSwift
 
 final class SettingsViewController: UIViewController, StoryboardInstantiatable {
 
     @IBOutlet weak var tableView: UITableView!
+
+    private var currentUser: TwibuUser?
 
     private enum Menu: String, CaseIterable {
         case term = "利用規約"
@@ -26,6 +29,21 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
 
         setupTableview()
         setupNavigation()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        store.subscribe(self) { subcription in
+            subcription.select { state in
+                return state.currentUser
+            }
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        store.unsubscribe(self)
     }
 
     private func setupTableview() {
@@ -55,20 +73,20 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             message: "ログアウトしますか？",
             preferredStyle: .alert
         )
+
         let okAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
             guard let user = Auth.auth().currentUser else {
                 self.showAlert(title: "Error", message: TwibuError.needFirebaseAuth("ログアウトしようとした").displayMessage)
                 return
             }
 
-            user.unlink(fromProvider: "twitter.com") { [weak self] user, error in
-                if let error = error {
-                    self?.showAlert(title: "Error", message: TwibuError.signOut(error.localizedDescription).displayMessage)
-                    return
+            UserDispatcher.unlinkTwitter(user: user) { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    self?.showAlert(title: "Error", message: error.displayMessage)
+                case .success(_):
+                    self?.showAlert(title: "Success", message: "Twitterからログアウトしました")
                 }
-
-                // TODO: access_tokenとか使えなくなるので消したい
-                // self?.delegate?.reload(item: self?.item)
             }
         }
 
@@ -103,5 +121,13 @@ extension SettingsViewController: UITableViewDelegate {
         case .version:
             break
         }
+    }
+}
+
+extension SettingsViewController: StoreSubscriber {
+    typealias StoreSubscriberStateType = TwibuUser
+
+    func newState(state: TwibuUser) {
+        currentUser = state
     }
 }

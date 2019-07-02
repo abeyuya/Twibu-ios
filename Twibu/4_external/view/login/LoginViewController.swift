@@ -45,50 +45,12 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
             return
         }
 
-        linkTwitterAccount(session: session)
-    }
-
-    private func linkTwitterAccount(session: TWTRSession) {
-        guard let user = Auth.auth().currentUser else {
-            self.showAlert(title: "Error", message: TwibuError.needFirebaseAuth(nil).displayMessage)
-            return
-        }
-
-        let cred = TwitterAuthProvider.credential(
-            withToken: session.authToken,
-            secret: session.authTokenSecret
-        )
-
-        user.link(with: cred) { [weak self] result, error in
-            if let error = error {
-                self?.showAlert(
-                    title: "Error",
-                    message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
-                )
-                return
-            }
-            guard let result = result else {
-                self?.showAlert(
-                    title: "Error",
-                    message: TwibuError.twitterLogin("Twitterユーザが取得できませんでした").displayMessage
-                )
-                return
-            }
-
-            UserRepository.add(
-                uid: result.user.uid,
-                userName: session.userName,
-                userId: session.userID,
-                accessToken: session.authToken,
-                secretToken: session.authTokenSecret
-            ) { [weak self] addResult in
-                switch addResult {
-                case .success:
-                    let a = UpdateCurrentUser(newUser: result.user)
-                    store.dispatch(a)
-                case .failure(let error):
-                    self?.showAlert(title: "Error", message: error.displayMessage)
-                }
+        UserDispatcher.linkTwitterAccount(session: session) { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.showAlert(title: "Success", message: "Twitter連携しました！")
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.displayMessage)
             }
         }
     }
