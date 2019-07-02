@@ -14,7 +14,6 @@ import Parchment
 final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
     var item: PagingIndexItem?
-    weak var delegate: PagingRootViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,10 +81,11 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
                 userId: session.userID,
                 accessToken: session.authToken,
                 secretToken: session.authTokenSecret
-            ) { [weak self] result in
-                switch result {
+            ) { [weak self] addResult in
+                switch addResult {
                 case .success:
-                    self?.delegate?.reload(item: self?.item)
+                    let a = UpdateCurrentUser(newUser: result.user)
+                    store.dispatch(a)
                 case .failure(let error):
                     self?.showAlert(title: "Error", message: error.displayMessage)
                 }

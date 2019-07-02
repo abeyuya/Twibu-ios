@@ -9,10 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Parchment
-
-protocol PagingRootViewControllerDelegate: class {
-    func reload(item: PagingIndexItem?)
-}
+import ReSwift
 
 final class PagingRootViewController: UIViewController, StoryboardInstantiatable {
 
@@ -23,6 +20,20 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
 
         setupPagingView()
         setupNavigation()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        store.subscribe(self) { subcription in
+            subcription.select { state in
+                return state.currentUser
+            }
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        store.unsubscribe(self)
     }
 
     private func setupPagingView() {
@@ -61,6 +72,9 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
 
     @objc
     private func tapMenuButton() {
+        let vc = SettingsViewController.initFromStoryBoard()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
 }
 
@@ -79,19 +93,16 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
         case .timeline:
             guard UserRepository.isTwitterLogin() else {
                 let vc = LoginViewController.initFromStoryBoard()
-                vc.delegate = self
                 vc.item = item
                 return vc
             }
 
             let vc = CategoryViewController.initFromStoryBoard()
-            vc.delegate = self
             vc.item = item
             return vc
 
         case .all, .economics, .entertainment, .fun, .game, .general, .it, .knowledge, .social, .life:
             let vc = CategoryViewController.initFromStoryBoard()
-            vc.delegate = self
             vc.item = item
             return vc
         }
@@ -112,15 +123,17 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
     }
 }
 
-extension PagingRootViewController: PagingViewControllerDelegate {
-}
+extension PagingRootViewController: PagingViewControllerDelegate {}
 
-extension PagingRootViewController: PagingRootViewControllerDelegate {
-    func reload(item: PagingIndexItem?) {
-        if let item = item {
-            pagingViewController.reloadData(around: item)
-        } else {
-            pagingViewController.reloadMenu()
+extension PagingRootViewController: StoreSubscriber {
+    typealias StoreSubscriberStateType = User?
+
+    func newState(state: User?) {
+        let timeline = pagingViewController.visibleItems.items.first { $0.title == Category.timeline.displayString }
+        guard let t = timeline else { return }
+
+        DispatchQueue.main.async {
+            self.pagingViewController.reloadData(around: t)
         }
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import ReSwift
+import FirebaseAuth
 
 struct AppState: StateType {
     struct Response {
@@ -16,6 +17,7 @@ struct AppState: StateType {
     }
 
     var response: Response = Response()
+    var currentUser: User? = Auth.auth().currentUser
 }
 
 extension AppState {
@@ -45,6 +47,9 @@ struct AddCommentsAction: Action {
 struct UpdateBookmarkCommentCountAction: Action {
     let bookmarkUid: String
     let commentCount: Int
+}
+struct UpdateCurrentUser: Action {
+    let newUser: User
 }
 
 func appReducer(action: Action, state: AppState?) -> AppState {
@@ -179,6 +184,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             break
         }
         state.response.bookmarks = new
+
+    case let a as UpdateCurrentUser:
+        state.currentUser = a.newUser
 
     default:
         break

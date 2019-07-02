@@ -16,7 +16,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet weak var tableView: UITableView!
 
     var item: PagingIndexItem?
-    weak var delegate: PagingRootViewControllerDelegate?
     private let refreshControll = UIRefreshControl()
     private var bookmarksResponse: Repository.Response<[Bookmark]> = .notYetLoading
 
@@ -38,10 +37,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         super.viewDidLoad()
 
         setupTableView()
-
-        if category == .timeline, UserRepository.isTwitterLogin() {
-            setupLogoutButton()
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -194,45 +189,6 @@ extension CategoryViewController: UIPageViewControllerDelegate {
 
 // Category.timelineの場合の処理
 extension CategoryViewController {
-    private func setupLogoutButton() {
-        let b = UIButton()
-        b.addTarget(self, action: #selector(tapLogoutButton), for: .touchUpInside)
-        b.setTitle("Logout", for: .normal)
-        b.setTitleColor(.orange, for: .normal)
-        view.addSubview(b)
-        b.sizeToFit()
-        b.center = view.center
-    }
-
-    @objc
-    private func tapLogoutButton() {
-        let alert = UIAlertController(
-            title: "",
-            message: "ログアウトしますか？",
-            preferredStyle: .alert
-        )
-        let okAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
-            guard let user = Auth.auth().currentUser else {
-                self.showAlert(title: "Error", message: TwibuError.needFirebaseAuth("ログアウトしようとした").displayMessage)
-                return
-            }
-
-            user.unlink(fromProvider: "twitter.com") { [weak self] user, error in
-                if let error = error {
-                    self?.showAlert(title: "Error", message: TwibuError.signOut(error.localizedDescription).displayMessage)
-                    return
-                }
-
-                // TODO: access_tokenとか使えなくなるので消したい
-                self?.delegate?.reload(item: self?.item)
-            }
-        }
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
-    }
-
     private func refreshForLoginUser() {
         guard UserRepository.isTwitterLogin() else {
             showAlert(title: "Error", message: TwibuError.needTwitterAuth(nil).displayMessage)
