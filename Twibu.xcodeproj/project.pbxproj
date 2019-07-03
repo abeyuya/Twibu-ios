@@ -471,6 +471,7 @@
 				4D1114FE22B5160E000817BA /* Resources */,
 				45CC3D7CFCEB43E97619C0BD /* [CP] Embed Pods Frameworks */,
 				F24C6A37246349CC69566AD3 /* [CP] Copy Pods Resources */,
+				4D37812522CCFD430072EEBD /* License Run Script */,
 				4DADE8F622C5343100DD2CCB /* Fabric Run Script */,
 			);
 			buildRules = (
@@ -608,6 +609,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Twibu/Pods-Twibu-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4D37812522CCFD430072EEBD /* License Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "License Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ $CONFIGURATION = \"Debug\" ]; then\n./Pods/LicensePlist/license-plist --output-path Twibu/4_external/license/Settings.bundle --prefix Twibu\nfi\n";
 		};
 		4DADE8F622C5343100DD2CCB /* Fabric Run Script */ = {
 			isa = PBXShellScriptBuildPhase;

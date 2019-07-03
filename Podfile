@@ -20,6 +20,8 @@ target 'Twibu' do
   pod 'SwiftIcons'
   pod 'BadgeSwift'
 
+  pod 'LicensePlist'
+
   target 'TwibuTests' do
     inherit! :search_paths
     # Pods for testing
@@ -27,11 +29,3 @@ target 'Twibu' do
 
 end
 
-post_install do |installer|
-  require 'fileutils'
-  FileUtils.cp_r(
-    'Pods/Target Support Files/Pods-Twibu/Pods-Twibu-acknowledgements.plist',
-    'Twibu/4_external/license/Settings.bundle/Acknowledgements.plist',
-    :remove_destination => true
-  )
-end
