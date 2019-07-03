@@ -14,6 +14,7 @@ import Parchment
 final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
     var item: PagingIndexItem?
+    weak var delegate: PagingRootViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
             switch result {
             case .success(_):
                 self?.showAlert(title: "Success", message: "Twitter連携しました！")
+                self?.delegate?.reload(item: self?.item)
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.displayMessage)
             }

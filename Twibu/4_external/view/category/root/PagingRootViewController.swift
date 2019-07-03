@@ -11,6 +11,10 @@ import FirebaseAuth
 import Parchment
 import ReSwift
 
+protocol PagingRootViewControllerDelegate: class {
+    func reload(item: PagingIndexItem?)
+}
+
 final class PagingRootViewController: UIViewController, StoryboardInstantiatable {
 
     private let pagingViewController = PagingViewController<PagingIndexItem>()
@@ -80,6 +84,7 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
     @objc
     private func tapMenuButton() {
         let vc = SettingsViewController.initFromStoryBoard()
+        vc.delegate = self
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }
@@ -101,6 +106,7 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
             guard currentUser?.isTwitterLogin == true else {
                 let vc = LoginViewController.initFromStoryBoard()
                 vc.item = item
+                vc.delegate = self
                 return vc
             }
 
@@ -136,19 +142,21 @@ extension PagingRootViewController: StoreSubscriber {
     typealias StoreSubscriberStateType = TwibuUser?
 
     func newState(state: TwibuUser?) {
-        let beforeState = currentUser?.isTwitterLogin ?? false
-        guard let newUser = state else { return }
+        currentUser = state
+    }
+}
 
-        currentUser = newUser
-
-        guard beforeState == newUser.isTwitterLogin else {
-            let timeline = pagingViewController.visibleItems.items.first { $0.title == Category.timeline.displayString }
-            guard let t = timeline else { return }
-
-            DispatchQueue.main.async {
-                self.pagingViewController.reloadData(around: t)
+extension PagingRootViewController: PagingRootViewControllerDelegate {
+    func reload(item: PagingIndexItem?) {
+        DispatchQueue.main.async {
+            if let item = item {
+                self.pagingViewController.reloadData(around: item)
+            } else {
+                let c = Category.all
+                self.pagingViewController.select(
+                    pagingItem: PagingIndexItem(index: c.index, title: c.displayString)
+                )
             }
-            return
         }
     }
 }

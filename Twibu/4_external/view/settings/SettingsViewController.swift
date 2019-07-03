@@ -15,6 +15,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet weak var tableView: UITableView!
 
     private var currentUser: TwibuUser?
+    weak var delegate: PagingRootViewControllerDelegate?
 
     private enum Menu: String, CaseIterable {
         case term = "利用規約"
@@ -81,11 +82,14 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             }
 
             UserDispatcher.unlinkTwitter(user: user) { [weak self] result in
-                switch result {
-                case .failure(let error):
-                    self?.showAlert(title: "Error", message: error.displayMessage)
-                case .success(_):
-                    self?.showAlert(title: "Success", message: "Twitterからログアウトしました")
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(let error):
+                        self?.showAlert(title: "Error", message: error.displayMessage)
+                    case .success(_):
+                        self?.showAlert(title: "Success", message: "Twitterからログアウトしました")
+                        self?.delegate?.reload(item: nil)
+                    }
                 }
             }
         }

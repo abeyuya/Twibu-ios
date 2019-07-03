@@ -189,8 +189,7 @@ extension CategoryViewController: UITableViewDelegate {
     }
 }
 
-extension CategoryViewController: UIPageViewControllerDelegate {
-}
+extension CategoryViewController: UIPageViewControllerDelegate {}
 
 // Category.timelineの場合の処理
 extension CategoryViewController {
