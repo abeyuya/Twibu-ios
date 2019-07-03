@@ -24,4 +24,8 @@ extension UIColor {
     class var tabUnselectGray: UIColor {
         return .rgba(red: 187, green: 187, blue: 187, alpha: 1)
     }
+
+    class var twitter: UIColor {
+        return .rgba(red: 85, green: 172, blue: 238, alpha: 1)
+    }
 }

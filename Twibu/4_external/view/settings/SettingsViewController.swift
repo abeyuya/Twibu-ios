@@ -21,7 +21,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
         case term = "利用規約"
         case privacyPolicy = "プライバシーポリシー"
         case licence = "ライセンス"
-        case logout = "ログアウト"
+        case logout = "Twitter連携を取り消す"
         case version = "バージョン"
     }
 
@@ -69,9 +69,13 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func tapLogout() {
+        if currentUser?.isTwitterLogin == false {
+            return
+        }
+
         let alert = UIAlertController(
             title: "",
-            message: "ログアウトしますか？",
+            message: "Twitter連携を解除しますか？",
             preferredStyle: .alert
         )
 
@@ -107,8 +111,34 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = Menu.allCases[indexPath.row].rawValue
+        let menu = Menu.allCases[indexPath.row]
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+
+        switch menu {
+        case .licence, .privacyPolicy, .term:
+            cell.textLabel?.text = menu.rawValue
+            cell.accessoryType = .disclosureIndicator
+        case .version:
+            cell.textLabel?.text = menu.rawValue
+            cell.detailTextLabel?.text = "\(Const.version) (\(Const.build))"
+        case .logout:
+            cell.textLabel?.text = menu.rawValue
+            cell.detailTextLabel?.setIcon(
+                prefixText: "",
+                prefixTextColor: .clear,
+                icon: .fontAwesomeBrands(.twitter),
+                iconColor: currentUser?.isTwitterLogin == true ? .twitter : .lightGray,
+                postfixText: "",
+                postfixTextColor: .clear,
+                size: 17,
+                iconSize: 17
+            )
+
+            if currentUser?.isTwitterLogin == true {
+            } else {
+                cell.textLabel?.textColor = .lightGray
+            }
+        }
         return cell
     }
 }
