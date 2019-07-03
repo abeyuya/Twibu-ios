@@ -10,6 +10,8 @@ target 'Twibu' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Functions'
+  pod 'Firebase/Performance'
+  
   pod 'TwitterKit'
   pod 'Fabric'
   pod 'Crashlytics'

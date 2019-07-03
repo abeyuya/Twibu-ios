@@ -20,7 +20,6 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     private enum Menu: String, CaseIterable {
         case term = "利用規約"
         case privacyPolicy = "プライバシーポリシー"
-        case licence = "ライセンス"
         case logout = "Twitter連携を取り消す"
         case version = "バージョン"
     }
@@ -79,7 +78,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             preferredStyle: .alert
         )
 
-        let okAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
+        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
             guard let user = Auth.auth().currentUser else {
                 self.showAlert(title: "Error", message: TwibuError.needFirebaseAuth("ログアウトしようとした").displayMessage)
                 return
@@ -98,10 +97,26 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             }
         }
 
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
-        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "cancel", style: .default)
         alert.addAction(cancelAction)
+        alert.addAction(logoutAction)
         present(alert, animated: true)
+    }
+
+    private func openWebView(title: String, url: String) {
+        let vc = WebViewController.initFromStoryBoard()
+        let b = Bookmark(
+            uid: "",
+            title: title,
+            image_url: nil,
+            description: nil,
+            comment_count: nil,
+            created_at: nil,
+            updated_at: nil,
+            url: url
+        )
+        vc.set(bookmark: b)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -115,7 +130,7 @@ extension SettingsViewController: UITableViewDataSource {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
 
         switch menu {
-        case .licence, .privacyPolicy, .term:
+        case .privacyPolicy, .term:
             cell.textLabel?.text = menu.rawValue
             cell.accessoryType = .disclosureIndicator
         case .version:
@@ -149,9 +164,10 @@ extension SettingsViewController: UITableViewDelegate {
 
         switch menu {
         case .logout: tapLogout()
-        case .term: break
-        case .privacyPolicy: break
-        case .licence: break
+        case .term:
+            openWebView(title: menu.rawValue, url: "https://github.com/abeyuya")
+        case .privacyPolicy:
+            openWebView(title: menu.rawValue, url: "https://github.com/sikmi")
         case .version:
             break
         }

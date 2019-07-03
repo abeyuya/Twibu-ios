@@ -65,7 +65,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func fetchComments() {
-        guard let buid = bookmark?.uid else { return }
+        guard let buid = bookmark?.uid, buid != "" else { return }
         CommentDispatcher.fetchComments(buid: buid, type: .new)
     }
 
