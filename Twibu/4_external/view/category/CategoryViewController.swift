@@ -96,6 +96,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             return
         }
         DispatchQueue.main.async {
+            self.tableView.contentOffset = CGPoint(x:0, y: -self.refreshControll.frame.size.height)
             self.refreshControll.beginRefreshing()
         }
     }
