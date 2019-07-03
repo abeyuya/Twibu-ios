@@ -32,6 +32,7 @@
 		4D11154922B69E15000817BA /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154822B69E15000817BA /* Bookmark.swift */; };
 		4D11154C22B6A648000817BA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154B22B6A648000817BA /* WebViewController.swift */; };
 		4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154D22B6A659000817BA /* WebViewController.storyboard */; };
+		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
 		4D65092622BBDB5900BB0959 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
 		4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
 		4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepository.swift */; };
@@ -104,6 +105,7 @@
 		4D11154822B69E15000817BA /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		4D11154B22B6A648000817BA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4D11154D22B6A659000817BA /* WebViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebViewController.storyboard; sourceTree = "<group>"; };
+		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D65092522BBDB5800BB0959 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
 		4D65092922BBDCC400BB0959 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
@@ -296,6 +298,14 @@
 			path = bookmarkWeb;
 			sourceTree = "<group>";
 		};
+		4D37812222CCF8060072EEBD /* license */ = {
+			isa = PBXGroup;
+			children = (
+				4D37812322CCF8240072EEBD /* Settings.bundle */,
+			);
+			path = license;
+			sourceTree = "<group>";
+		};
 		4D3A9AB022C6510E00AA9C23 /* interface */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +386,7 @@
 		4D65094322BF5E3E00BB0959 /* 4_external */ = {
 			isa = PBXGroup;
 			children = (
+				4D37812222CCF8060072EEBD /* license */,
 				4D65094B22BF708E00BB0959 /* client */,
 				4D65093922BE4AD500BB0959 /* extension */,
 				4D11153322B56F97000817BA /* view */,
@@ -535,6 +546,7 @@
 			files = (
 				4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */,
 				4D11154722B60298000817BA /* TimelineCell.xib in Resources */,
+				4D37812422CCF8240072EEBD /* Settings.bundle in Resources */,
 				4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */,
 				4D11152A22B528AE000817BA /* GoogleService-Info.plist in Resources */,
 				4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */,

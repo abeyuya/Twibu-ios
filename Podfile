@@ -26,3 +26,12 @@ target 'Twibu' do
   end
 
 end
+
+post_install do |installer|
+  require 'fileutils'
+  FileUtils.cp_r(
+    'Pods/Target Support Files/Pods-Twibu/Pods-Twibu-acknowledgements.plist',
+    'Twibu/4_external/license/Settings.bundle/Acknowledgements.plist',
+    :remove_destination => true
+  )
+end
