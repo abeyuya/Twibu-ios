@@ -9,7 +9,7 @@
 import Foundation
 
 struct CommentDispatcher {
-    static func updateBookmarkComment(bookmarkUid: String, url: String, oldCount: Int) {
+    static func updateBookmarkComment(bookmarkUid: String, title: String, url: String, oldCount: Int) {
         let result = Repository.Result<[Comment]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: bookmarkUid,
@@ -17,7 +17,7 @@ struct CommentDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
-        CommentRepository.execUpdateBookmarkComment(bookmarkUid: bookmarkUid, url: url) { result in
+        CommentRepository.execUpdateBookmarkComment(bookmarkUid: bookmarkUid, title: title, url: url) { result in
             let a = AddCommentsAction(
                 bookmarkUid: bookmarkUid,
                 comments: result

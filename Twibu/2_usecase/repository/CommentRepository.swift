@@ -81,11 +81,13 @@ final class CommentRepository {
     //
     static func execUpdateBookmarkComment(
         bookmarkUid: String,
+        title: String,
         url: String,
         completion: @escaping (Repository.Response<[Comment]>) -> Void
     ) {
         let param = [
             "bookmark_uid": bookmarkUid,
+            "title": title,
             "url": url
         ]
 

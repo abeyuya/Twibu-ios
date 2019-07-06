@@ -136,6 +136,7 @@ extension CategoryViewController: UITableViewDelegate {
         if currentUser?.isTwitterLogin == true {
             CommentDispatcher.updateBookmarkComment(
                 bookmarkUid: b.uid,
+                title: b.title ?? "",
                 url: b.url,
                 oldCount: b.comment_count ?? 0
             )

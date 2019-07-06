@@ -99,7 +99,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             return
         }
 
-        CommentRepository.execUpdateBookmarkComment(bookmarkUid: b.uid, url: b.url) { [weak self] result in
+        CommentRepository.execUpdateBookmarkComment(bookmarkUid: b.uid, title: b.title ?? "", url: b.url) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.displayMessage)
