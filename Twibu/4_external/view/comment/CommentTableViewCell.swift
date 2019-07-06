@@ -104,6 +104,8 @@ final class CommentTableViewCell: UITableViewCell {
                 arr.append(buildUrlAttrStr(str: t.text))
             case .hashtag:
                 arr.append(buildHashtagAttrStr(str: t.text))
+            case .via:
+                arr.append(buildHashtagAttrStr(str: t.text))
             case .error:
                 arr.append(buildNormalAttrStr(str: t.text))
             }
