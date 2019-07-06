@@ -142,7 +142,7 @@ final class CommentTableViewCell: UITableViewCell {
     private func buildHashtagAttrStr(str: String) -> NSAttributedString {
         let att: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 10),
-            .foregroundColor: UIColor.twitter
+            .foregroundColor: UIColor.darkGray
         ]
         return NSAttributedString(string: str, attributes: att)
     }

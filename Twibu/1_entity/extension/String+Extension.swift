@@ -80,6 +80,8 @@ extension String {
     }
 
     func manualHtmlDecode() -> String {
-        return self.replacingOccurrences(of: "&gt;", with: ">")
+        return self
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&amp;", with: "&")
     }
 }
