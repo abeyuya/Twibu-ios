@@ -283,9 +283,9 @@ extension WebViewController: UIScrollViewDelegate {
         let delta = currentPoint.y - lastContentOffset
         if 0 < delta, delta < WebViewController.humanScrollOffset, isShowComment == false {
             // print("Scrolled down")
-            if navigationController?.isNavigationBarHidden == false {
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-            }
+//            if navigationController?.isNavigationBarHidden == false {
+//                self.navigationController?.setNavigationBarHidden(true, animated: true)
+//            }
             if navigationController?.isToolbarHidden == false {
                 self.navigationController?.setToolbarHidden(true, animated: true)
             }
