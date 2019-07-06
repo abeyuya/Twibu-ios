@@ -117,7 +117,10 @@ final class CommentTableViewCell: UITableViewCell {
             .font: UIFont.systemFont(ofSize: 14),
             .foregroundColor: UIColor.darkText
         ]
-        return NSAttributedString(string: str, attributes: att)
+        return NSAttributedString(
+            string: str.manualHtmlDecode(),
+            attributes: att
+        )
     }
 
     private func buildTitleAttrStr(str: String) -> NSAttributedString {
