@@ -59,7 +59,7 @@ final class CommentRootViewController: UIViewController {
         pagingViewController.selectedTextColor = .twitter
         pagingViewController.indicatorColor = .twitter
         pagingViewController.backgroundColor = .tabBgGray
-//        pagingViewController.menuBackgroundColor = .tabBgGray
+        pagingViewController.menuBackgroundColor = .tabBgGray
         pagingViewController.borderOptions = .hidden
     }
 

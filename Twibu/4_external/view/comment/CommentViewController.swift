@@ -92,12 +92,6 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
-//    private func setupCommentsWithMessage() {
-//        let cwm = comments.filter { c in
-//
-//        }
-//    }
-
     @objc
     private func refresh() {
         guard let b = bookmark else { return }
