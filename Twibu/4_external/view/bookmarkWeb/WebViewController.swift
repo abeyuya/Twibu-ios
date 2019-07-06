@@ -135,17 +135,16 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         ]
     }
 
-    private let commentViewController = CommentViewController.initFromStoryBoard()
-
     private lazy var commentContainerView: UIView  = {
+        let commentRootViewController = CommentRootViewController.build(bookmark: bookmark)
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
 
-        addChild(commentViewController)
-        commentViewController.view.frame = container.frame
+        addChild(commentRootViewController)
+        commentRootViewController.view.frame = container.frame
 
-        container.addSubview(commentViewController.view)
-        commentViewController.didMove(toParent: self)
+        container.addSubview(commentRootViewController.view)
+        commentRootViewController.didMove(toParent: self)
 
         return container
     }()
@@ -164,8 +163,8 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func showCommentView() {
-        commentViewController.bookmark = bookmark
         isShowComment = true
+        webview.scrollView.scrollsToTop = false
         UIView.transition(
             with: view,
             duration: 0.5,
@@ -183,6 +182,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func hideCommentView() {
         isShowComment = false
+        webview.scrollView.scrollsToTop = true
         UIView.transition(
             with: view,
             duration: 0.5,

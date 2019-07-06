@@ -11,18 +11,26 @@ import FirebaseAuth
 import ReSwift
 
 final class CommentViewController: UIViewController, StoryboardInstantiatable {
-
     @IBOutlet weak var tableview: UITableView!
 
     private let refreshControll = UIRefreshControl()
 
     var bookmark: Bookmark?
-    private var commentsResponse: Repository.Response<[Comment]> = .notYetLoading
-//    var commentsWithMessage: [Comment] = []
-    private var currentUser: TwibuUser?
+    var commentType: CommentRootViewController.CommentType = .left
 
+    private var commentsResponse: Repository.Response<[Comment]> = .notYetLoading
+    private var currentUser: TwibuUser?
     private var comments: [Comment] {
         return commentsResponse.item ?? []
+    }
+
+    private var currentComments: [Comment] {
+        switch commentType {
+        case .left:
+            return comments.filter { $0.has_comment == true }
+        case .right:
+            return comments.filter { $0.has_comment == nil || $0.has_comment == false }
+        }
     }
 
     override func viewDidLoad() {
@@ -134,7 +142,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
 extension CommentViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return currentComments.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -142,13 +150,13 @@ extension CommentViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let c = comments[indexPath.row]
+        let c = currentComments[indexPath.row]
         cell.set(bookmark: bookmark, comment: c)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let c = comments[indexPath.row]
+        let c = currentComments[indexPath.row]
         guard let url = c.tweetUrl else { return }
 
         if currentUser?.isAdmin == true {
