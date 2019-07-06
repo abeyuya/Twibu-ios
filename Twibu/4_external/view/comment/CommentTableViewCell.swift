@@ -18,6 +18,7 @@ final class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
     @IBOutlet weak var tweetAtLabel: UILabel!
+    @IBOutlet weak var verifiedLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,6 +46,15 @@ final class CommentTableViewCell: UITableViewCell {
         }
 
         displayNameLabel.text = comment.user.name
+        verifiedLabel.isHidden = true
+        if comment.user.verified == true {
+            verifiedLabel.setIcon(
+                icon: .fontAwesomeSolid(.checkCircle),
+                iconSize: 13,
+                color: .twitter
+            )
+            verifiedLabel.isHidden = false
+        }
         usernameLabel.text = "@" + comment.user.screen_name
         retweetCountLabel.setIcon(
             prefixText: "",
