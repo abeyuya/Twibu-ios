@@ -182,7 +182,7 @@ extension CommentViewController: UITableViewDataSource {
                     let furl = Comment.buildFirestoreDebugLink(buid: buid, cuid: comment.id) else {
                     return ["\(comment)"]
                 }
-                return [furl, "\n---\n", "\(comment)"]
+                return [furl, "```\n\(comment)\n```"]
             }()
 
             let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
