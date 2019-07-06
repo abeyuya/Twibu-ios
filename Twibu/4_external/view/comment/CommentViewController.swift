@@ -150,12 +150,55 @@ extension CommentViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let c = comments[indexPath.row]
         guard let url = c.tweetUrl else { return }
-        UIApplication.shared.open(url, options: [:]) { success in
-            guard success else {
-                print("open error")
-                return
+
+        if currentUser?.isAdmin == true {
+            openAdminMenu(url: url, comment: c)
+        } else {
+            openExternalLink(url: url)
+        }
+    }
+
+    private func openExternalLink(url: URL) {
+        DispatchQueue.main.async {
+            UIApplication.shared.open(url, options: [:]) { success in
+                guard success else {
+                    print("open error")
+                    return
+                }
             }
         }
+    }
+
+    private func openAdminMenu(url: URL, comment: Comment) {
+        let sheet = UIAlertController(
+            title: "管理者メニュー",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        let share = UIAlertAction(title: "詳細をシェア", style: .default) { _ in
+            let items: [Any] = {
+                guard let buid = self.bookmark?.uid,
+                    let furl = Comment.buildFirestoreDebugLink(buid: buid, cuid: comment.id) else {
+                    return ["\(comment)"]
+                }
+                return [furl]
+            }()
+
+            let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            self.present(vc, animated: true)
+        }
+
+        let normal = UIAlertAction(title: "通常ユーザの挙動", style: .default) { _ in
+            self.openExternalLink(url: url)
+        }
+
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { _ in }
+
+        sheet.addAction(share)
+        sheet.addAction(normal)
+        sheet.addAction(cancel)
+        present(sheet, animated: true)
     }
 }
 

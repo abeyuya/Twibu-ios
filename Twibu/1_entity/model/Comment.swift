@@ -100,3 +100,11 @@ extension Comment {
         return result
     }
 }
+
+extension Comment {
+    static func buildFirestoreDebugLink(buid: String, cuid: String) -> URL? {
+        let str = "https://console.firebase.google.com/project/twibu-c4d5a/database/firestore/data~2Fbookmarks~2F\(buid)~2Fcomments~2F\(cuid)"
+
+        return URL(string: str)
+    }
+}

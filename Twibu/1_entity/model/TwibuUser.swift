@@ -17,10 +17,22 @@ struct TwibuUser {
             return false
         }
 
-        if u.providerData.isEmpty {
+        let twitterInfo = u.providerData.first { $0.providerID == "twitter.com" }
+        if twitterInfo == nil {
             return false
         }
 
         return true
+    }
+
+    var isAdmin: Bool {
+        guard let u = firebaseAuthUser else {
+            return false
+        }
+
+        let twitterInfo = u.providerData.first { $0.providerID == "twitter.com" }
+        guard let i = twitterInfo else { return false }
+
+        return i.uid == "225056817" // abe_abe_yuya
     }
 }
