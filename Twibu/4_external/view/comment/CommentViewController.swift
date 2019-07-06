@@ -124,12 +124,16 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         if refreshControll.isRefreshing {
             return
         }
-        refreshControll.beginRefreshing()
+        DispatchQueue.main.async {
+            self.tableview.contentOffset = CGPoint(x:0, y: -self.refreshControll.frame.size.height)
+            self.refreshControll.beginRefreshing()
+        }
     }
 
     private func endRefreshController() {
-        if refreshControll.isRefreshing {
-            refreshControll.endRefreshing()
+        guard refreshControll.isRefreshing else { return }
+        DispatchQueue.main.async {
+            self.refreshControll.endRefreshing()
         }
     }
 }
