@@ -36,51 +36,17 @@ struct Comment: TwibuFirestoreCodable {
         case space = "space"
         case url = "url"
         case hashtag = "hashtag"
+        case error = "error" // サーバ側で新しいtypeが追加された時に使う
     }
 
     struct TextBlock: Codable {
-        let type: TextBlockType
+        var type: TextBlockType = .error
         let text: String
     }
 
     var tweetUrl: URL? {
         let str = "https://twitter.com/\(user.screen_name)/status/\(id)"
         return URL(string: str)
-    }
-}
-
-extension Comment {
-    func replacedText(title: String) -> String {
-        let t = Comment.urlReplacedText(text: text)
-        return Comment.titleReplacedText(text: t, title: title)
-    }
-
-    static func titleReplacedText(text: String, title: String) -> String {
-        guard let replaceStr = text.pickupDeplicateString(target: title) else {
-            return text
-        }
-
-        if replaceStr.count < title.count / 2 {
-            // 半分以上が合致してないなら置換しない
-            return text
-        }
-
-        guard let range = text.range(of: replaceStr) else {
-            return text
-        }
-
-        return text.replacingCharacters(in: range, with: "{title}")
-    }
-
-    static func urlReplacedText(text: String) -> String {
-        let pattern = "(?i)https?://(?:www\\.)?\\S+(?:/|\\b)"
-        let urls = text.capture(pattern: pattern, group: [0])
-
-        guard let url = urls.first else { return text }
-        guard let range = text.range(of: url) else { return text }
-
-        let new = text.replacingCharacters(in: range, with: "{url}")
-        return urlReplacedText(text: new)
     }
 }
 

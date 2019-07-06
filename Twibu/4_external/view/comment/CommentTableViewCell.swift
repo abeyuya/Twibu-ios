@@ -35,7 +35,7 @@ final class CommentTableViewCell: UITableViewCell {
         if let p = comment.parsed_comment {
             commentLabel.attributedText = buildAttr(parsedText: p)
         } else {
-            commentLabel.text = comment.replacedText(title: bookmark?.title ?? "")
+            commentLabel.text = comment.text
         }
 
         profileImageView.image = nil
@@ -104,9 +104,8 @@ final class CommentTableViewCell: UITableViewCell {
                 arr.append(buildUrlAttrStr(str: t.text))
             case .hashtag:
                 arr.append(buildHashtagAttrStr(str: t.text))
-//            default:
-//                TODO: サーバ側で新しい型追加する場合がありそうなので、decode時点でエラーにならないようにしたい
-//                arr.append(buildNormalAttrStr(str: t.text))
+            case .error:
+                arr.append(buildNormalAttrStr(str: t.text))
             }
         }
 

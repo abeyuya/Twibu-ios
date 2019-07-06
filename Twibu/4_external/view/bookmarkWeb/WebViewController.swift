@@ -96,12 +96,12 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func setupToolbar() {
         let br = UIButton()
-        br.setIcon(icon: .icofont(.curvedDoubleLeft), iconSize: iconSize, forState: .normal)
+        br.setIcon(icon: .icofont(.thinDoubleLeft), iconSize: iconSize, forState: .normal)
         br.addTarget(self, action: #selector(tapBackRootButton), for: .touchUpInside)
         let backRoot = UIBarButtonItem(customView: br)
 
         let bp = UIButton()
-        bp.setIcon(icon: .icofont(.curvedLeft), iconSize: iconSize, forState: .normal)
+        bp.setIcon(icon: .icofont(.thinLeft), iconSize: iconSize, forState: .normal)
         bp.addTarget(self, action: #selector(tapBackPrevButton), for: .touchUpInside)
         let backPrev = UIBarButtonItem(customView: bp)
 
@@ -251,7 +251,6 @@ extension WebViewController: WKNavigationDelegate {
 }
 
 extension WebViewController: UIScrollViewDelegate {
-
     // webview読み込みによって自動でスクロール判定されちゃうので、その対応
     private static let humanScrollOffset: CGFloat = 100
 
@@ -282,7 +281,7 @@ extension WebViewController: UIScrollViewDelegate {
         }
 
         let delta = currentPoint.y - lastContentOffset
-        if 0 < delta, delta < WebViewController.humanScrollOffset {
+        if 0 < delta, delta < WebViewController.humanScrollOffset, isShowComment == false {
             // print("Scrolled down")
             if navigationController?.isNavigationBarHidden == false {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
