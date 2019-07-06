@@ -18,6 +18,8 @@ struct Comment: TwibuFirestoreCodable {
     let tweet_at: String
     let created_at: Int?
     let updated_at: Int?
+    let parsed_comment: [TextBlock]?
+    let has_comment: Bool?
 
     struct User: Codable {
         let twitter_user_id: String
@@ -25,6 +27,20 @@ struct Comment: TwibuFirestoreCodable {
         let profile_image_url: String
         let screen_name: String
         let verified: Bool?
+    }
+
+    enum TextBlockType: String, Codable {
+        case unknown = "unknown"
+        case comment = "comment"
+        case title = "title"
+        case space = "space"
+        case url = "url"
+        case hashtag = "hashtag"
+    }
+
+    struct TextBlock: Codable {
+        let type: TextBlockType
+        let text: String
     }
 
     var tweetUrl: URL? {

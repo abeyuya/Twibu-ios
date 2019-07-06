@@ -32,10 +32,10 @@ final class CommentTableViewCell: UITableViewCell {
     }
 
     func set(bookmark: Bookmark?, comment: Comment) {
-        if let t = bookmark?.trimmedTitle {
-            commentLabel.text = comment.replacedText(title: t)
+        if let p = comment.parsed_comment {
+            commentLabel.attributedText = buildAttr(parsedText: p)
         } else {
-            commentLabel.text = comment.text
+            commentLabel.text = comment.replacedText(title: bookmark?.title ?? "")
         }
 
         profileImageView.image = nil
@@ -87,5 +87,61 @@ final class CommentTableViewCell: UITableViewCell {
             outputDate = outputFormatter.string(from: d)
         }
         return outputDate;
+    }
+
+    private func buildAttr(parsedText: [Comment.TextBlock]) -> NSAttributedString {
+        let arr = NSMutableAttributedString()
+
+        parsedText.forEach { t in
+            switch t.type {
+            case .comment, .unknown:
+                arr.append(buildNormalAttrStr(str: t.text))
+            case .title:
+                arr.append(buildTitleAttrStr(str: t.text))
+            case .space:
+                arr.append(buildNormalAttrStr(str: t.text))
+            case .url:
+                arr.append(buildUrlAttrStr(str: t.text))
+            case .hashtag:
+                arr.append(buildHashtagAttrStr(str: t.text))
+//            default:
+//                TODO: サーバ側で新しい型追加する場合がありそうなので、decode時点でエラーにならないようにしたい
+//                arr.append(buildNormalAttrStr(str: t.text))
+            }
+        }
+
+        return arr
+    }
+
+    private func buildNormalAttrStr(str: String) -> NSAttributedString {
+        let att: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 14),
+            .foregroundColor: UIColor.darkText
+        ]
+        return NSAttributedString(string: str, attributes: att)
+    }
+
+    private func buildTitleAttrStr(str: String) -> NSAttributedString {
+        let att: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 10),
+            .foregroundColor: UIColor.darkGray
+        ]
+        return NSAttributedString(string: "<title>", attributes: att)
+    }
+
+    private func buildUrlAttrStr(str: String) -> NSAttributedString {
+        let att: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 10),
+            .foregroundColor: UIColor.darkGray
+        ]
+        return NSAttributedString(string: "<url>", attributes: att)
+    }
+
+    private func buildHashtagAttrStr(str: String) -> NSAttributedString {
+        let att: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 10),
+            .foregroundColor: UIColor.twitter
+        ]
+        return NSAttributedString(string: str, attributes: att)
     }
 }
