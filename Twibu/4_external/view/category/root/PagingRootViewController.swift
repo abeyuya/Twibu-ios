@@ -109,7 +109,7 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
             vc.item = item
             return vc
 
-        case .all, .economics, .entertainment, .fun, .game, .ippan, .it, .knowledge, .social, .life:
+        case .all, .economics, .entertainment, .fun, .game, .it, .knowledge, .social, .life:
             let vc = CategoryViewController.initFromStoryBoard()
             vc.item = item
             return vc

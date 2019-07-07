@@ -29,7 +29,15 @@ final class BookmarkRepository {
                 return
             }
 
-            let item = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
+            let item: [Bookmark] = {
+                let b = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
+
+                if category == .all {
+                    return b.filter { $0.comment_count ?? 0 > 20 }
+                }
+
+                return b
+            }()
 
             let result: Repository.Result<[Bookmark]> = {
                 guard let last = snapshot.documents.last else {
@@ -56,8 +64,7 @@ final class BookmarkRepository {
         case .all:
             return db.collection("bookmarks")
                 .order(by: "created_at", descending: true)
-                .order(by: "comment_count", descending: true)
-                .limit(to: 30)
+                .limit(to: 100)
         default:
             return db.collection("bookmarks")
                 .whereField("category", isEqualTo: category.rawValue)
