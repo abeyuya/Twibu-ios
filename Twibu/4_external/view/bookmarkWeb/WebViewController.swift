@@ -71,7 +71,6 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func setupWebview() {
-        webview.scrollView.delegate = self
         webview.navigationDelegate = self
         webview.translatesAutoresizingMaskIntoConstraints = false
 
@@ -308,17 +307,12 @@ extension WebViewController: UIScrollViewDelegate {
 }
 
 extension WebViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let nav = navigationController else { return false }
-        return nav.viewControllers.count > 1
-    }
-
     // これを許すとエッジスワイプ中に縦スクロールできちゃって気持ち悪い
     // This is necessary because without it, subviews of your top controller can
     // cancel out your gesture recognizer on the edge.
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return true
-//    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
 
 extension WebViewController: StoreSubscriber {
