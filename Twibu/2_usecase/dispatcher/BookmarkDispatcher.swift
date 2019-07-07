@@ -9,7 +9,7 @@
 import Foundation
 
 struct BookmarkDispatcher {
-    static func fetchBookmark(category: Category) {
+    static func fetchBookmark(category: Category, uid: String) {
         let result = Repository.Result<[Bookmark]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddBookmarksAction(
             category: category,
@@ -17,7 +17,7 @@ struct BookmarkDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
-        BookmarkRepository.fetchBookmark(category: category) { result in
+        BookmarkRepository.fetchBookmark(category: category, uid: uid) { result in
             let a = AddBookmarksAction(
                 category: category,
                 bookmarks: result

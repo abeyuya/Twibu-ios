@@ -73,8 +73,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func fetchBookmark() {
-        guard let category = category else { return }
-        BookmarkDispatcher.fetchBookmark(category: category)
+        guard let category = category, let uid = currentUser?.firebaseAuthUser?.uid else { return }
+        BookmarkDispatcher.fetchBookmark(category: category, uid: uid)
     }
 
     @objc
@@ -196,11 +196,6 @@ extension CategoryViewController: UIPageViewControllerDelegate {}
 // Category.timelineの場合の処理
 extension CategoryViewController {
     private func refreshForLoginUser() {
-        guard currentUser?.firebaseAuthUser != nil else {
-            showAlert(title: "Error", message: TwibuError.needFirebaseAuth(nil).displayMessage)
-            return
-        }
-
         guard currentUser?.isTwitterLogin == true,
             let uid = currentUser?.firebaseAuthUser?.uid else {
                 showAlert(title: "Error", message: TwibuError.needTwitterAuth(nil).displayMessage)
