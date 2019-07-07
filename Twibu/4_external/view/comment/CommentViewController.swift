@@ -42,25 +42,6 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        switch commentsResponse {
-        case .success(let result):
-            if result.hasMore {
-                fetchAdditionalComments()
-                return
-            }
-            updateFooter(mode: .finish)
-        case .failure(_):
-            updateFooter(mode: .finish)
-        case .loading(_):
-            if currentComments.isEmpty {
-                // startRefreshControll()
-            } else {
-                updateFooter(mode: .hasMore)
-            }
-        case .notYetLoading:
-            updateFooter(mode: .hide)
-        }
-
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
                 let res: Repository.Response<[Comment]>? = {
@@ -102,23 +83,18 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     private func fetchAdditionalComments() {
         switch commentsResponse {
         case .loading(_):
-            updateFooter(mode: .hide)
             return
         case .notYetLoading:
-            updateFooter(mode: .hide)
             // 来ないはず
             return
         case .failure(_):
-            updateFooter(mode: .finish)
             return
         case .success(let result):
             guard let buid = bookmark?.uid, result.hasMore else {
-                updateFooter(mode: .finish)
                 return
             }
 
             CommentDispatcher.fetchComments(buid: buid, type: .add(result.lastSnapshot))
-            updateFooter(mode: .hasMore)
         }
     }
 
@@ -291,13 +267,14 @@ extension CommentViewController: StoreSubscriber {
         case .success(let result):
             endRefreshController()
             if result.hasMore {
-                updateFooter(mode: .hasMore)
+                updateFooter(mode: .hide)
             } else {
                 updateFooter(mode: .finish)
             }
             tableview.reloadData()
         case .failure(let error):
             endRefreshController()
+            updateFooter(mode: .finish)
             showAlert(title: "Error", message: error.displayMessage)
         case .loading(_):
             if currentComments.isEmpty {
