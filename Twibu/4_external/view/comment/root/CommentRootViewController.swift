@@ -20,7 +20,7 @@ final class CommentRootViewController: UIViewController {
         var title: String {
             switch self {
             case .left:
-                return "人気のコメント"
+                return "みんなのコメント"
             case .right:
                 return "その他のツイート"
             }

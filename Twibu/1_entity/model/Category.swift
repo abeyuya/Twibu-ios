@@ -11,7 +11,7 @@ import Foundation
 enum Category: String, CaseIterable {
     case timeline = "timeline"
     case all = "all"
-    case general = "general"
+    case ippan = "ippan"
     case social = "social"
     case economics = "economics"
     case life = "life"
@@ -25,7 +25,7 @@ enum Category: String, CaseIterable {
         switch self {
         case .timeline: return "タイムライン"
         case .all: return "総合"
-        case .general: return "一般"
+        case .ippan: return "一般"
         case .social: return "世の中"
         case .economics: return "政治と経済"
         case .life: return "暮らし"
