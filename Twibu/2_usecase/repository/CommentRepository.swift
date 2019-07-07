@@ -108,7 +108,7 @@ final class CommentRepository {
             }
 
             let comments = rawComments.compactMap { Comment(dictionary: $0) }
-            let result = Repository.Result<[Comment]>(item: comments, lastSnapshot: nil, hasMore: true)
+            let result = Repository.Result<[Comment]>(item: comments, lastSnapshot: nil, hasMore: false)
             completion(.success(result))
         }
     }
