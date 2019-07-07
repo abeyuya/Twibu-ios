@@ -74,7 +74,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchBookmark() {
         guard let category = category, let uid = currentUser?.firebaseAuthUser?.uid else { return }
-        BookmarkDispatcher.fetchBookmark(category: category, uid: uid)
+        BookmarkDispatcher.fetchBookmark(category: category, uid: uid, type: .new)
     }
 
     @objc
@@ -88,7 +88,28 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func fetchAdditionalBookmarks() {
-        guard bookmarks.count < 30 else { return }
+        guard category == .all else { return }
+        guard bookmarks.count < 50 else { return }
+
+        switch bookmarksResponse {
+        case .loading(_):
+            return
+        case .notYetLoading:
+            // 来ないはず
+            return
+        case .failure(_):
+            return
+        case .success(let result):
+            guard let category = category,
+                let uid = currentUser?.firebaseAuthUser?.uid,
+                result.hasMore else { return }
+
+            BookmarkDispatcher.fetchBookmark(
+                category: category,
+                uid: uid,
+                type: .add(result.lastSnapshot)
+            )
+        }
     }
 
     private func startRefreshControll() {

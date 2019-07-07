@@ -12,13 +12,18 @@ import FirebaseFirestore
 final class BookmarkRepository {
     private static let db = TwibuFirebase.firestore
 
-    static func fetchBookmark(category: Category, uid: String, completion: @escaping (Repository.Response<[Bookmark]>) -> Void) {
+    static func fetchBookmark(
+        category: Category,
+        uid: String,
+        type: Repository.FetchType,
+        completion: @escaping (Repository.Response<[Bookmark]>) -> Void
+    ) {
         if category == .timeline {
             fetchTimelineBookmarks(uid: uid, completion: completion)
             return
         }
 
-        buildQuery(category: category).getDocuments() { snapshot, error in
+        buildQuery(category: category, type: type).getDocuments() { snapshot, error in
             if let error = error {
                 completion(.failure(.firestoreError(error.localizedDescription)))
                 return
@@ -59,17 +64,45 @@ final class BookmarkRepository {
         }
     }
 
-    static private func buildQuery(category: Category) -> Query {
+    static private func buildQuery(category: Category, type: Repository.FetchType) -> Query {
         switch category {
         case .all:
-            return db.collection("bookmarks")
-                .order(by: "created_at", descending: true)
-                .limit(to: 100)
+            switch type {
+            case .new:
+                return db.collection("bookmarks")
+                    .order(by: "created_at", descending: true)
+                    .limit(to: 100)
+            case .add(let doc):
+                if let d = doc {
+                    return db.collection("bookmarks")
+                        .order(by: "created_at", descending: true)
+                        .start(afterDocument: d)
+                        .limit(to: 100)
+                }
+                return db.collection("bookmarks")
+                    .order(by: "created_at", descending: true)
+                    .limit(to: 100)
+            }
         default:
-            return db.collection("bookmarks")
-                .whereField("category", isEqualTo: category.rawValue)
-                .order(by: "created_at", descending: true)
-                .limit(to: 30)
+            switch type {
+            case .new:
+                return db.collection("bookmarks")
+                    .whereField("category", isEqualTo: category.rawValue)
+                    .order(by: "created_at", descending: true)
+                    .limit(to: 30)
+            case .add(let doc):
+                if let d = doc {
+                    return db.collection("bookmarks")
+                        .whereField("category", isEqualTo: category.rawValue)
+                        .order(by: "created_at", descending: true)
+                        .start(afterDocument: d)
+                        .limit(to: 30)
+                }
+                return db.collection("bookmarks")
+                    .whereField("category", isEqualTo: category.rawValue)
+                    .order(by: "created_at", descending: true)
+                    .limit(to: 30)
+            }
         }
     }
 
@@ -119,42 +152,47 @@ final class BookmarkRepository {
     private static func execConcurrentFetch(timelines: [[String: Any]], completion: @escaping ([Bookmark]) -> Void) {
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "queue", attributes: .concurrent)
-        var results: [Bookmark] = []
 
-        timelines.forEach { t in
-            guard let ref = t["bookmark_ref"] as? DocumentReference else {
-                return
-            }
+        DispatchQueue.global().async {
+            var results: [Bookmark] = []
 
-            dispatchGroup.enter()
-            dispatchQueue.async(group: dispatchGroup) {
-                ref.getDocument { snapshot, error in
-                    if let error = error {
-                        print(error)
-                        dispatchGroup.leave()
-                        return
+            timelines.forEach { t in
+                guard let ref = t["bookmark_ref"] as? DocumentReference else {
+                    return
+                }
+
+                dispatchGroup.enter()
+                dispatchQueue.async(group: dispatchGroup) {
+                    ref.getDocument { snapshot, error in
+                        if let error = error {
+                            print(error)
+                            dispatchGroup.leave()
+                            return
+                        }
+
+                        guard let snapshot = snapshot, let dict = snapshot.data() else {
+                            print("snapshotが取れず...")
+                            dispatchGroup.leave()
+                            return
+                        }
+
+                        guard let b = Bookmark(dictionary: dict) else {
+                            print("bookmark decode できず")
+                            dispatchGroup.leave()
+                            return
+                        }
+
+                        DispatchQueue.global().async {
+                            results.append(b)
+                            dispatchGroup.leave()
+                        }
                     }
-
-                    guard let snapshot = snapshot, let dict = snapshot.data() else {
-                        print("snapshotが取れず...")
-                        dispatchGroup.leave()
-                        return
-                    }
-
-                    guard let b = Bookmark(dictionary: dict) else {
-                        print("bookmark decode できず")
-                        dispatchGroup.leave()
-                        return
-                    }
-
-                    results.append(b)
-                    dispatchGroup.leave()
                 }
             }
-        }
 
-        dispatchGroup.notify(queue: .global()) {
-            completion(results)
+            dispatchGroup.notify(queue: .global()) {
+                completion(results)
+            }
         }
     }
 }
