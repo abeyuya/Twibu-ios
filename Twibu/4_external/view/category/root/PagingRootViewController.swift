@@ -30,13 +30,8 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        store.subscribe(self) { [weak self] subcription in
+        store.subscribe(self) { subcription in
             subcription.select { state in
-                let beforeState = self?.currentUser?.isTwitterLogin ?? false
-
-                if beforeState == state.currentUser.isTwitterLogin {
-                    return nil
-                }
                 return state.currentUser
             }
         }
@@ -103,7 +98,7 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
 
         switch category {
         case .timeline:
-            guard currentUser?.isTwitterLogin == true else {
+            guard let isLogin = currentUser?.isTwitterLogin, isLogin else {
                 let vc = LoginViewController.initFromStoryBoard()
                 vc.item = item
                 vc.delegate = self
