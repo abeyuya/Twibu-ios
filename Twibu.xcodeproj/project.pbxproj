@@ -56,6 +56,8 @@
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
 		4DA1E5E622CBAEBC00320895 /* UserDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E522CBAEBC00320895 /* UserDispatcher.swift */; };
 		4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C022D0EA330013C198 /* CommentRootViewController.swift */; };
+		4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */; };
+		4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
 		4DD2685922C4E6FA007A9E68 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
 		4DDB8DDE22C4F57400916F72 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
@@ -130,6 +132,8 @@
 		4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUser.swift; sourceTree = "<group>"; };
 		4DA1E5E522CBAEBC00320895 /* UserDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDispatcher.swift; sourceTree = "<group>"; };
 		4DB1B4C022D0EA330013C198 /* CommentRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRootViewController.swift; sourceTree = "<group>"; };
+		4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentFooterView.swift; path = Twibu/4_external/view/comment/footer/CommentFooterView.swift; sourceTree = SOURCE_ROOT; };
+		4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentFooterView.xib; sourceTree = "<group>"; };
 		4DD2685622C4D879007A9E68 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		4DDB8DDD22C4F57400916F72 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 		4D04E20A22BA981400995026 /* comment */ = {
 			isa = PBXGroup;
 			children = (
+				4DB1B4C622D1F50B0013C198 /* footer */,
 				4DB1B4BF22D0EA1E0013C198 /* root */,
 				4D04E20B22BA982C00995026 /* CommentViewController.swift */,
 				4D04E20D22BA983E00995026 /* CommentViewController.storyboard */,
@@ -449,6 +454,15 @@
 			path = root;
 			sourceTree = "<group>";
 		};
+		4DB1B4C622D1F50B0013C198 /* footer */ = {
+			isa = PBXGroup;
+			children = (
+				4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */,
+				4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */,
+			);
+			path = footer;
+			sourceTree = "<group>";
+		};
 		4DD2685522C4D805007A9E68 /* extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,6 +577,7 @@
 				4D11152A22B528AE000817BA /* GoogleService-Info.plist in Resources */,
 				4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */,
 				4D11150B22B5160F000817BA /* Assets.xcassets in Resources */,
+				4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */,
 				4D04E20E22BA983E00995026 /* CommentViewController.storyboard in Resources */,
 				4D11153F22B5FFD0000817BA /* LoginViewController.storyboard in Resources */,
 				4D04E21222BA9AAC00995026 /* CommentTableViewCell.xib in Resources */,
@@ -732,6 +747,7 @@
 				4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
+				4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D65094A22BF6F7C00BB0959 /* TwibuFirebaseCodable.swift in Sources */,
 				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,

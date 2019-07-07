@@ -23,6 +23,11 @@ struct Bookmark: TwibuFirestoreCodable {
     var trimmedTitle: String? {
         return title?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+
+    var twitterSearchUrl: URL? {
+        let str = "https://twitter.com/search?src=typd&q=\(url)"
+        return URL(string: str)
+    }
 }
 
 extension Bookmark {

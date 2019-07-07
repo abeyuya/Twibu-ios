@@ -42,6 +42,25 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        switch commentsResponse {
+        case .success(let result):
+            if result.hasMore {
+                fetchAdditionalComments()
+                return
+            }
+            updateFooter(mode: .finish)
+        case .failure(_):
+            updateFooter(mode: .finish)
+        case .loading(_):
+            if currentComments.isEmpty {
+                // startRefreshControll()
+            } else {
+                updateFooter(mode: .hasMore)
+            }
+        case .notYetLoading:
+            updateFooter(mode: .hide)
+        }
+
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
                 let res: Repository.Response<[Comment]>? = {
@@ -61,7 +80,10 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func setupTableview() {
-        tableview.tableFooterView = UIView()
+        let footer = CommentFooterView()
+        footer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+        tableview.tableFooterView = footer
+
         tableview.delegate = self
         tableview.dataSource = self
         tableview.register(
@@ -80,15 +102,31 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     private func fetchAdditionalComments() {
         switch commentsResponse {
         case .loading(_):
+            updateFooter(mode: .hide)
             return
         case .notYetLoading:
+            updateFooter(mode: .hide)
             // 来ないはず
             return
         case .failure(_):
+            updateFooter(mode: .finish)
             return
         case .success(let result):
-            guard let buid = bookmark?.uid, result.hasMore else { return }
+            guard let buid = bookmark?.uid, result.hasMore else {
+                updateFooter(mode: .finish)
+                return
+            }
+
             CommentDispatcher.fetchComments(buid: buid, type: .add(result.lastSnapshot))
+            updateFooter(mode: .hasMore)
+        }
+    }
+
+    private func updateFooter(mode: CommentFooterView.Mode) {
+        guard let t = tableview.tableFooterView as? CommentFooterView else { return }
+
+        if let url = bookmark?.twitterSearchUrl {
+            t.set(mode: mode, url: url)
         }
     }
 
@@ -250,16 +288,27 @@ extension CommentViewController: StoreSubscriber {
 
     private func render() {
         switch commentsResponse {
-        case .success(_):
+        case .success(let result):
             endRefreshController()
+            if result.hasMore {
+                updateFooter(mode: .hasMore)
+            } else {
+                updateFooter(mode: .finish)
+            }
             tableview.reloadData()
         case .failure(let error):
             endRefreshController()
             showAlert(title: "Error", message: error.displayMessage)
         case .loading(_):
-            startRefreshControll()
+            if currentComments.isEmpty {
+                startRefreshControll()
+                updateFooter(mode: .hide)
+            } else {
+                updateFooter(mode: .hasMore)
+            }
         case .notYetLoading:
             endRefreshController()
+            updateFooter(mode: .hide)
         }
     }
 }
