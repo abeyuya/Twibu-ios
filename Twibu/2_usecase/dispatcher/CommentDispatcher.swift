@@ -31,9 +31,6 @@ struct CommentDispatcher {
                     commentCount: count
                 )
                 store.mDispatch(a2)
-
-                // 実際にDBのデータ書き換え
-                BookmarkRepository.updateCommentCount(bookmarkUid: bookmarkUid, commentCount: count)
             }
         }
     }

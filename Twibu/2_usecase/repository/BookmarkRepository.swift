@@ -72,22 +72,5 @@ final class BookmarkRepository {
         }
     }
 
-    static func createOrUpdateBookmark(url: String) {
-    }
-
-    static func updateCommentCount(bookmarkUid: String, commentCount: Int) {
-        let param: [String: Any] = [
-            "comment_count": commentCount,
-            "updated_at": FieldValue.serverTimestamp()
-        ]
-
-        db.collection("bookmarks")
-            .document(bookmarkUid)
-            .updateData(param) { error in
-                if let error = error {
-                    print(error)
-                    return
-                }
-        }
-    }
+    static func createOrUpdateBookmark(url: String) {}
 }
