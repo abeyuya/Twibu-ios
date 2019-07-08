@@ -110,7 +110,7 @@ final class BookmarkRepository {
         let query = db.collection("users")
             .document(uid)
             .collection("timeline")
-            .order(by: "created_at", descending: true)
+            .order(by: "post_at", descending: true)
             .limit(to: 20)
 
         query.getDocuments { snapshot, error in

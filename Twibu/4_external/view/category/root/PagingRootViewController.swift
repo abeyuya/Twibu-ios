@@ -96,6 +96,11 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
             return UIViewController()
         }
 
+        AnalyticsDispatcer.logging(
+            .categoryLoad,
+            param: ["category": category.rawValue]
+        )
+
         switch category {
         case .timeline:
             guard let isLogin = currentUser?.isTwitterLogin, isLogin else {

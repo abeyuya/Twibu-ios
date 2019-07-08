@@ -79,6 +79,11 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     @objc
     private func refresh() {
+        AnalyticsDispatcer.logging(
+            .categoryRefresh,
+            param: ["category": category?.rawValue ?? "error"]
+        )
+
         if category == .timeline, currentUser?.isTwitterLogin == true {
             refreshForLoginUser()
             return
@@ -162,6 +167,16 @@ extension CategoryViewController: UITableViewDelegate {
                 oldCount: b.comment_count ?? 0
             )
         }
+
+        AnalyticsDispatcer.logging(
+            .bookmarkTap,
+            param: [
+                "category": category?.rawValue ?? "error",
+                "buid": b.uid,
+                "url": b.url,
+                "comment_count": b.comment_count ?? -1,
+            ]
+        )
     }
 
     private static let humanScrollOffset: CGFloat = 100

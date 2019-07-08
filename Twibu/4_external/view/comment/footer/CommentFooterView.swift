@@ -88,5 +88,10 @@ final class CommentFooterView: UIView {
         DispatchQueue.main.async {
             UIApplication.shared.open(url, options: [:])
         }
+
+        AnalyticsDispatcer.logging(
+            .showMoreTwitterTap,
+            param: ["url": url]
+        )
     }
 }

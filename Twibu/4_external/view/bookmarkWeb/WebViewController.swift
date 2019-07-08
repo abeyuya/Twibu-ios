@@ -177,6 +177,15 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             },
             completion: { _ in }
         )
+
+        AnalyticsDispatcer.logging(
+            .commentShow,
+            param: [
+                "buid": bookmark.uid,
+                "url": bookmark.url,
+                "comment_count": bookmark.comment_count ?? -1
+            ]
+        )
     }
 
     private func hideCommentView() {
@@ -190,6 +199,15 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
                 self.commentContainerView.removeFromSuperview()
             },
             completion: { _ in }
+        )
+
+        AnalyticsDispatcer.logging(
+            .commentHide,
+            param: [
+                "buid": bookmark.uid,
+                "url": bookmark.url,
+                "comment_count": bookmark.comment_count ?? -1
+            ]
         )
     }
 
@@ -209,6 +227,15 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         guard let url = URL(string: bookmark.url) else { return }
         let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         present(vc, animated: true)
+
+        AnalyticsDispatcer.logging(
+            .share,
+            param: [
+                "buid": bookmark.uid,
+                "url": bookmark.url,
+                "comment_count": bookmark.comment_count ?? -1
+            ]
+        )
     }
 
     func set(bookmark: Bookmark) {

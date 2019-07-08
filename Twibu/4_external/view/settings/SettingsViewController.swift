@@ -92,6 +92,11 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                     case .success(_):
                         self?.showAlert(title: "Success", message: "Twitterからログアウトしました")
                         self?.delegate?.reload(item: nil)
+
+                        AnalyticsDispatcer.logging(
+                            .logout,
+                            param: ["method": "twitter"]
+                        )
                     }
                 }
             }
@@ -101,6 +106,11 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
         alert.addAction(cancelAction)
         alert.addAction(logoutAction)
         present(alert, animated: true)
+
+        AnalyticsDispatcer.logging(
+            .logoutTry,
+            param: ["method": "twitter"]
+        )
     }
 
     private func openWebView(title: String, url: String) {

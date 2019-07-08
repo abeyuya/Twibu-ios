@@ -53,6 +53,11 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
                 return Subscribe(res: res, currentUser: state.currentUser)
             }
         }
+
+        AnalyticsDispatcer.logging(
+            .commentShowTab,
+            param: ["comment_type": "\(commentType)"]
+        )
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -127,6 +132,16 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
                 return
             }
         }
+
+        AnalyticsDispatcer.logging(
+            .commentRefresh,
+            param: [
+                "buid": bookmark?.uid ?? "error",
+                "url": bookmark?.url ?? "error",
+                "comment_count": bookmark?.comment_count ?? -1,
+                "comment_type": "\(commentType)"
+            ]
+        )
     }
 
     @objc
@@ -174,11 +189,11 @@ extension CommentViewController: UITableViewDataSource {
         if currentUser?.isAdmin == true {
             openAdminMenu(url: url, comment: c)
         } else {
-            openExternalLink(url: url)
+            openExternalLink(url: url, comment: c)
         }
     }
 
-    private func openExternalLink(url: URL) {
+    private func openExternalLink(url: URL, comment: Comment) {
         DispatchQueue.main.async {
             UIApplication.shared.open(url, options: [:]) { success in
                 guard success else {
@@ -187,6 +202,17 @@ extension CommentViewController: UITableViewDataSource {
                 }
             }
         }
+
+        AnalyticsDispatcer.logging(
+            .commentTap,
+            param: [
+                "uid": comment.id,
+                "twitter_user_id": comment.user.twitter_user_id,
+                "favorite_count": comment.favorite_count,
+                "retweet_count": comment.retweet_count,
+                "has_comment": comment.has_comment ?? false
+            ]
+        )
     }
 
     private func openAdminMenu(url: URL, comment: Comment) {
@@ -210,7 +236,7 @@ extension CommentViewController: UITableViewDataSource {
         }
 
         let normal = UIAlertAction(title: "通常ユーザの挙動", style: .default) { _ in
-            self.openExternalLink(url: url)
+            self.openExternalLink(url: url, comment: comment)
         }
 
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { _ in }

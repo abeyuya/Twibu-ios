@@ -30,6 +30,8 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func buildLoginCompletion(session: TWTRSession?, error: Error?) {
+        AnalyticsDispatcer.logging(.logoutTry, param: ["method": "twitter"])
+
         if let error = error {
             self.showAlert(
                 title: "Error",
@@ -51,6 +53,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
             case .success(_):
                 self?.showAlert(title: "Success", message: "Twitter連携しました！")
                 self?.delegate?.reload(item: self?.item)
+                AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.displayMessage)
             }
