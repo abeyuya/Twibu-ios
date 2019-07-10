@@ -14,6 +14,11 @@ import ReSwift
 final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     @IBOutlet weak var tableView: UITableView!
+    private let footerIndicator: UIActivityIndicatorView = {
+        let i = UIActivityIndicatorView(style: .gray)
+        i.startAnimating()
+        return i
+    }()
 
     var item: PagingIndexItem?
     private let refreshControll = UIRefreshControl()
@@ -61,7 +66,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func setupTableView() {
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = buildFooterView()
+
         tableView.register(
             UINib(nibName: "TimelineCell", bundle: nil),
             forCellReuseIdentifier: "TimelineCell"
@@ -70,6 +76,18 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         tableView.dataSource = self
         refreshControll.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.refreshControl = refreshControll
+    }
+
+    private func buildFooterView() -> UIView {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+
+        footerIndicator.translatesAutoresizingMaskIntoConstraints = false
+        v.addSubview(footerIndicator)
+        footerIndicator.centerXAnchor.constraint(equalTo: v.centerXAnchor).isActive = true
+        footerIndicator.centerYAnchor.constraint(equalTo: v.centerYAnchor).isActive = true
+
+        return v
     }
 
     private func fetchBookmark() {
@@ -93,8 +111,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func fetchAdditionalBookmarks() {
-        guard category == .all else { return }
-        guard bookmarks.count < 50 else { return }
+//        guard category == .all else { return }
+//        guard bookmarks.count < 50 else { return }
 
         switch bookmarksResponse {
         case .loading(_):
@@ -281,14 +299,25 @@ extension CategoryViewController: StoreSubscriber {
         switch self.bookmarksResponse {
         case .success(_):
             self.endRefreshController()
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.footerIndicator.isHidden = self.bookmarks.isEmpty
+            }
         case .failure(let error):
             self.endRefreshController()
             self.showAlert(title: "Error", message: error.displayMessage)
         case .loading(_):
-            self.startRefreshControll()
+            if bookmarks.isEmpty {
+                startRefreshControll()
+            }
+            DispatchQueue.main.async {
+                self.footerIndicator.isHidden = self.bookmarks.isEmpty
+            }
         case .notYetLoading:
             self.startRefreshControll()
+            DispatchQueue.main.async {
+                self.footerIndicator.isHidden = true
+            }
         }
     }
 }
