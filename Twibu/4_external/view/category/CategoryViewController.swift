@@ -111,9 +111,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func fetchAdditionalBookmarks() {
-//        guard category == .all else { return }
-//        guard bookmarks.count < 50 else { return }
-
         switch bookmarksResponse {
         case .loading(_):
             return
@@ -297,11 +294,11 @@ extension CategoryViewController: StoreSubscriber {
 
     func render() {
         switch self.bookmarksResponse {
-        case .success(_):
+        case .success(let result):
             self.endRefreshController()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.footerIndicator.isHidden = self.bookmarks.isEmpty
+                self.footerIndicator.isHidden = self.bookmarks.isEmpty || result.hasMore == false
             }
         case .failure(let error):
             self.endRefreshController()
