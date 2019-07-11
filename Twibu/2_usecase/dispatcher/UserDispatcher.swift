@@ -9,14 +9,10 @@
 import Foundation
 import FirebaseAuth
 import TwitterKit
+import Crashlytics
 
 struct UserDispatcher {
-    static func linkTwitterAccount(session: TWTRSession, completion: @escaping (Result<Void>) -> Void) {
-        guard let user = Auth.auth().currentUser else {
-            completion(.failure(TwibuError.needFirebaseAuth(nil)))
-            return
-        }
-
+    static func linkTwitterAccount(user: User, session: TWTRSession, completion: @escaping (Result<Void>) -> Void) {
         let cred = TwitterAuthProvider.credential(
             withToken: session.authToken,
             secret: session.authTokenSecret
@@ -53,6 +49,7 @@ struct UserDispatcher {
     static func updateFirebaseUser(user: User) {
         let a = UpdateFirebaseUser(newUser: user)
         store.dispatch(a)
+        Crashlytics.sharedInstance().setUserIdentifier(user.uid)
     }
 
     static func unlinkTwitter(user: User, completion: @escaping (Result<Void>) -> Void) {

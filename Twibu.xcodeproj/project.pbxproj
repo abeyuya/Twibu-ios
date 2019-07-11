@@ -62,6 +62,7 @@
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
 		4DD2685922C4E6FA007A9E68 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
 		4DDB8DDE22C4F57400916F72 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
+		4DF34EF822D78D6F00E9AE80 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF34EF722D78D6F00E9AE80 /* Logger.swift */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -139,6 +140,7 @@
 		4DD2685622C4D879007A9E68 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		4DDB8DDD22C4F57400916F72 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -416,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				4DD2685822C4E6FA007A9E68 /* Firebase.swift */,
+				4DF34EF722D78D6F00E9AE80 /* Logger.swift */,
 			);
 			path = client;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
 				4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */,
 				4D65094D22BF7EBE00BB0959 /* Response.swift in Sources */,
+				4DF34EF822D78D6F00E9AE80 /* Logger.swift in Sources */,
 				4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */,
 				4D65092D22BE01D600BB0959 /* Category.swift in Sources */,
 				4D65093122BE25CA00BB0959 /* Env.swift in Sources */,

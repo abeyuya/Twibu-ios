@@ -10,11 +10,13 @@ import UIKit
 import FirebaseAuth
 import TwitterKit
 import Parchment
+import ReSwift
 
 final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
+    private var currentUser: TwibuUser?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,12 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
         let button = buildLoginButton()
         button.center = view.center
         view.addSubview(button)
+
+        store.subscribe(self) { subcription in
+            subcription.select { state in
+                return state.currentUser
+            }
+        }
     }
 
     private func buildLoginButton() -> UIView {
@@ -40,6 +48,13 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
             return
         }
 
+        guard let firebaseUser = currentUser?.firebaseAuthUser else {
+            let e = TwibuError.needFirebaseAuth("firebase匿名ログインもできてない")
+            self.showAlert(title: "Error", message: e.displayMessage)
+            Logger.log(e)
+            return
+        }
+
         guard let session = session else {
             self.showAlert(
                 title: "Error",
@@ -48,7 +63,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
             return
         }
 
-        UserDispatcher.linkTwitterAccount(session: session) { [weak self] result in
+        UserDispatcher.linkTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
                 self?.showAlert(title: "Success", message: "Twitter連携しました！")
@@ -56,7 +71,16 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
                 AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.displayMessage)
+                Logger.log(error)
             }
         }
+    }
+}
+
+extension LoginViewController: StoreSubscriber {
+    typealias StoreSubscriberStateType = TwibuUser
+
+    func newState(state: TwibuUser) {
+        self.currentUser = state
     }
 }
