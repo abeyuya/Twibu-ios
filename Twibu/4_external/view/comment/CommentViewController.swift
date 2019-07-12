@@ -18,6 +18,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     var bookmark: Bookmark?
     var commentType: CommentRootViewController.CommentType = .left
 
+    private var cellHeight: [IndexPath: CGFloat] = [:]
     private var commentsResponse: Repository.Response<[Comment]> = .notYetLoading
     private var currentUser: TwibuUser?
     private var comments: [Comment] {
@@ -193,6 +194,21 @@ extension CommentViewController: UITableViewDataSource {
         }
     }
 
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let cellHeight = self.cellHeight[indexPath] else {
+            return UITableView.automaticDimension
+        }
+        return cellHeight
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if self.cellHeight.keys.contains(indexPath) == false {
+            self.cellHeight[indexPath] = cell.frame.height
+        }
+    }
+}
+
+extension CommentViewController {
     private func openExternalLink(url: URL, comment: Comment) {
         DispatchQueue.main.async {
             UIApplication.shared.open(url, options: [:]) { success in
