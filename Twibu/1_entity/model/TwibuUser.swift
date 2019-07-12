@@ -17,7 +17,11 @@ struct TwibuUser {
             return false
         }
 
-        let twitterInfo = u.providerData.first { $0.providerID == "twitter.com" }
+        return TwibuUser.isTwitterLogin(user: u)
+    }
+
+    static func isTwitterLogin(user: User) -> Bool {
+        let twitterInfo = user.providerData.first { $0.providerID == "twitter.com" }
         if twitterInfo == nil {
             return false
         }

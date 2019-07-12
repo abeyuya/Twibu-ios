@@ -50,6 +50,10 @@ struct UserDispatcher {
         let a = UpdateFirebaseUser(newUser: user)
         store.dispatch(a)
         Crashlytics.sharedInstance().setUserIdentifier(user.uid)
+
+        if TwibuUser.isTwitterLogin(user: user) {
+            UserRepository.kickScrapeTimeline(uid: user.uid) { _ in}
+        }
     }
 
     static func unlinkTwitter(user: User, completion: @escaping (Result<Void>) -> Void) {

@@ -58,6 +58,11 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
                 return Subscribe(res: res, currentUser: state.currentUser)
             }
         }
+
+        AnalyticsDispatcer.logging(
+            .categoryLoad,
+            param: ["category": category?.rawValue ?? "error"]
+        )
     }
 
     override func viewWillDisappear(_ animated: Bool) {
