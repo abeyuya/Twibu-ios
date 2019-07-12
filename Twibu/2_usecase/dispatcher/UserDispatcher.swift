@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseAnalytics
 import TwitterKit
 import Crashlytics
 
@@ -51,7 +52,9 @@ struct UserDispatcher {
         store.dispatch(a)
         Crashlytics.sharedInstance().setUserIdentifier(user.uid)
 
-        if TwibuUser.isTwitterLogin(user: user) {
+        let twitterLinked = TwibuUser.isTwitterLogin(user: user)
+        Analytics.setUserProperty(twitterLinked ? "1" : "0", forName: "twitterLinked")
+        if twitterLinked {
             UserRepository.kickScrapeTimeline(uid: user.uid) { _ in}
         }
     }
