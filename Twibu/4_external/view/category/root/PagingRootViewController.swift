@@ -55,11 +55,11 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         pagingViewController.infiniteDataSource = self
         pagingViewController.delegate = self
         pagingViewController.menuItemSize = .sizeToFit(minWidth: 120, height: 40)
+        pagingViewController.indicatorColor = .mainBlack
         pagingViewController.textColor = .tabUnselectGray
         pagingViewController.selectedTextColor = .mainBlack
-        pagingViewController.indicatorColor = .mainBlack
+        pagingViewController.selectedBackgroundColor = .tabBgGray
         pagingViewController.backgroundColor = .tabBgGray
-        pagingViewController.menuBackgroundColor = .tabBgGray
         pagingViewController.borderOptions = .hidden
 
         let c = Category.all
