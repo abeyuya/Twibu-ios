@@ -26,6 +26,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private var currentUser: TwibuUser?
 
     private var lastContentOffset: CGFloat = 0
+    private var cellHeight: [IndexPath: CGFloat] = [:]
 
     private var category: Category? {
         guard let i = item?.index,
@@ -168,6 +169,19 @@ extension CategoryViewController: UITableViewDataSource {
         let b = bookmarks[indexPath.row]
         cell.set(bookmark: b)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let cellHeight = self.cellHeight[indexPath] else {
+            return UITableView.automaticDimension
+        }
+        return cellHeight
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if self.cellHeight.keys.contains(indexPath) == false {
+            self.cellHeight[indexPath] = cell.frame.height
+        }
     }
 }
 
