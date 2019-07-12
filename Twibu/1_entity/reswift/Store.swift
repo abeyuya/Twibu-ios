@@ -171,6 +171,11 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             case .notYetLoading, .failure(_):
                 continue
             case .loading(_):
+                //
+                // NOTE:
+                //   timelineのpagingでまだ読み込み完了していない状態 & 読み込み済み記事のコメント表示
+                //   の時に通ったよ
+                //
                 print("通るのか？")
                 continue
             case .success(let result):

@@ -34,6 +34,7 @@
 		4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154D22B6A659000817BA /* WebViewController.storyboard */; };
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
 		4D3CBDD922D3A0F700573AF4 /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
+		4D5CFC8822D8BDDE00F33754 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5CFC8722D8BDDE00F33754 /* Timeline.swift */; };
 		4D65092622BBDB5900BB0959 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
 		4D65092822BBDCB900BB0959 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
 		4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepository.swift */; };
@@ -112,6 +113,7 @@
 		4D11154D22B6A659000817BA /* WebViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebViewController.storyboard; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
+		4D5CFC8722D8BDDE00F33754 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		4D65092522BBDB5800BB0959 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
 		4D65092922BBDCC400BB0959 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				4D65092C22BE01D500BB0959 /* Category.swift */,
 				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
 				4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */,
+				4D5CFC8722D8BDDE00F33754 /* Timeline.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				4D11152F22B545FF000817BA /* UserRepository.swift in Sources */,
 				4D65092622BBDB5900BB0959 /* Comment.swift in Sources */,
 				4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */,
+				4D5CFC8822D8BDDE00F33754 /* Timeline.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */,
 				4D65094822BF698700BB0959 /* Array+Extension.swift in Sources */,

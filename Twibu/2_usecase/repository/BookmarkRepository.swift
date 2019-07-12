@@ -147,8 +147,7 @@ final class BookmarkRepository {
                 return
             }
 
-            let timelines = snapshot.documents.compactMap { $0.data() }
-            print(timelines)
+            let timelines = snapshot.documents.compactMap { Timeline(dictionary: $0.data()) }
 
             execConcurrentFetch(timelines: timelines) { bookmarks in
                 let result: Repository.Result<[Bookmark]> = {
@@ -172,21 +171,17 @@ final class BookmarkRepository {
         }
     }
 
-    private static func execConcurrentFetch(timelines: [[String: Any]], completion: @escaping ([Bookmark]) -> Void) {
+    private static func execConcurrentFetch(timelines: [Timeline], completion: @escaping ([Bookmark]) -> Void) {
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "queue", attributes: .concurrent)
-        let serialQueue = DispatchQueue(label: "queue")
+        let serialQueue = DispatchQueue(label: "serialQueue")
 
-        var results: [Bookmark] = []
+        var results: [(Bookmark, Int)] = []
 
         timelines.forEach { t in
-            guard let ref = t["bookmark_ref"] as? DocumentReference else {
-                return
-            }
-
             dispatchGroup.enter()
             dispatchQueue.async(group: dispatchGroup) {
-                ref.getDocument { snapshot, error in
+                t.bookmark_ref.getDocument { snapshot, error in
                     if let error = error {
                         print(error)
                         dispatchGroup.leave()
@@ -210,13 +205,16 @@ final class BookmarkRepository {
                     }
                     // https://stackoverflow.com/questions/40080508/swift-unsafemutablepointer-deinitialize-fatal-error-with-negative-count-when-ap
                     serialQueue.sync {
-                        results.append(b)
+                        results.append((b, t.post_at))
                     }
                 }
             }
 
             dispatchGroup.notify(queue: .global()) {
-                completion(results)
+                let sortedBookmarks = results
+                    .sorted(by: { $0.1 > $1.1 })
+                    .map { $0.0 }
+                completion(sortedBookmarks)
             }
         }
     }
