@@ -53,7 +53,7 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         pagingViewController.didMove(toParent: self)
 
         pagingViewController.infiniteDataSource = self
-        pagingViewController.delegate = self
+//        pagingViewController.delegate = self
         pagingViewController.menuItemSize = .sizeToFit(minWidth: 120, height: 40)
         pagingViewController.indicatorColor = .mainBlack
         pagingViewController.textColor = .tabUnselectGray
@@ -131,7 +131,15 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
     }
 }
 
-extension PagingRootViewController: PagingViewControllerDelegate {}
+extension PagingRootViewController: PagingViewControllerDelegate {
+//    func pagingViewController<T: PagingItem>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+//
+//        guard let currentItem = pagingItem as? PagingIndexItem else { return nil }
+//        let categoryIndex = Category.calcLogicalIndex(physicalIndex: currentItem.index)
+//        guard let category = Category(index: categoryIndex) else { return nil }
+//        return 150
+//    }
+}
 
 extension PagingRootViewController: StoreSubscriber {
     typealias StoreSubscriberStateType = TwibuUser?

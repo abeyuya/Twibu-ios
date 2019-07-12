@@ -59,7 +59,9 @@ class TimelineCell: UITableViewCell {
         }
 
         thumbnailImageView.image = nil
-        if let imageUrl = bookmark.image_url, let url = URL(string: imageUrl) {
+        if let imageUrl = bookmark.image_url,
+            imageUrl != "",
+            let url = URL(string: imageUrl) {
             thumbnailImageView.kf.setImage(with: url)
         } else {
             // レイアウト変えたい
