@@ -12,6 +12,13 @@ import FirebaseFirestore
 struct Repository {
     enum FetchType {
         case new, add(DocumentSnapshot?)
+
+        var debugName: String {
+            switch self {
+            case .new: return "new"
+            case .add(_): return "add"
+            }
+        }
     }
 
     struct Result<T> {

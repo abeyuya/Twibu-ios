@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebasePerformance
 
 struct BookmarkDispatcher {
     static func fetchBookmark(category: Category, uid: String, type: Repository.FetchType) {
@@ -17,7 +18,9 @@ struct BookmarkDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
+        let trace = Performance.startTrace(name: "fetchBookmark.\(category.rawValue).\(type.debugName)")
         BookmarkRepository.fetchBookmark(category: category, uid: uid, type: type) { result in
+            trace?.stop()
             let a = AddBookmarksAction(
                 category: category,
                 bookmarks: result
