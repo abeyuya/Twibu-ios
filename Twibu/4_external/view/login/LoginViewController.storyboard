@@ -17,9 +17,30 @@
                     <view key="view" contentMode="scaleToFill" id="es5-Yt-J1P">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="ZJu-Lx-9Bf">
+                                <rect key="frame" x="36" y="80" width="342" height="61"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitterと連携すると、あなたのタイムラインでつぶやかれている記事をこのタブで表示できます。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaQ-3Y-3Ji">
+                                        <rect key="frame" x="0.0" y="0.0" width="342" height="61"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZJu-Lx-9Bf" firstAttribute="leading" secondItem="bKO-w2-eGY" secondAttribute="leading" constant="36" id="5U2-Wk-pem"/>
+                            <constraint firstItem="ZJu-Lx-9Bf" firstAttribute="top" secondItem="bKO-w2-eGY" secondAttribute="top" constant="36" id="QVT-LL-pJA"/>
+                            <constraint firstItem="bKO-w2-eGY" firstAttribute="trailing" secondItem="ZJu-Lx-9Bf" secondAttribute="trailing" constant="36" id="bYv-UA-bBX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bKO-w2-eGY"/>
                     </view>
+                    <connections>
+                        <outlet property="stackView" destination="ZJu-Lx-9Bf" id="51S-I6-pFM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oLV-eT-Doe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

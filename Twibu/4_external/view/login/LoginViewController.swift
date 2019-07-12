@@ -17,13 +17,13 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
     private var currentUser: TwibuUser?
+    @IBOutlet weak var stackView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let button = buildLoginButton()
-        button.center = view.center
-        view.addSubview(button)
+        stackView.addArrangedSubview(button)
 
         store.subscribe(self) { subcription in
             subcription.select { state in
@@ -34,6 +34,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
     private func buildLoginButton() -> UIView {
         let loginButton = TWTRLogInButton(logInCompletion: buildLoginCompletion)
+        loginButton.frame.size = CGSize(width: 240, height: 40)
         return loginButton
     }
 
