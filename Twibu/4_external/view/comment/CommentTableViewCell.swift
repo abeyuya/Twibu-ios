@@ -106,6 +106,10 @@ final class CommentTableViewCell: UITableViewCell {
                 arr.append(buildHashtagAttrStr(str: t.text))
             case .via:
                 arr.append(buildHashtagAttrStr(str: t.text))
+            case .ignore_symbol:
+                arr.append(buildHashtagAttrStr(str: t.text))
+            case .reply:
+                arr.append(buildHashtagAttrStr(str: t.text))
             case .error:
                 arr.append(buildNormalAttrStr(str: t.text))
             }

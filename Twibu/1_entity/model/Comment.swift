@@ -37,6 +37,8 @@ struct Comment: TwibuFirestoreCodable {
         case url = "url"
         case hashtag = "hashtag"
         case via = "via"
+        case ignore_symbol = "ignore_symbol"
+        case reply = "reply"
         case error = "error" // サーバ側で新しいtypeが追加された時に使う
     }
 
