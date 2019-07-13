@@ -67,13 +67,21 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
     }
 
     private func setupNavigation() {
-        title = "ホーム"
-
         let b = UIButton()
         b.setIcon(icon: .fontAwesomeSolid(.cog), forState: .normal)
         b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
         let bb = UIBarButtonItem(customView: b)
         navigationItem.setLeftBarButton(bb, animated: false)
+
+        let icon = UIImage(named: "app_icon_29")
+        let iv = UIImageView(image: icon)
+        iv.contentMode = .scaleAspectFit
+        iv.frame.size = CGSize(width: 29, height: 29)
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = 6
+        iv.layer.borderWidth = 0.5
+        iv.layer.borderColor = UIColor.lightGray.cgColor
+        navigationItem.titleView = iv
     }
 
     @objc

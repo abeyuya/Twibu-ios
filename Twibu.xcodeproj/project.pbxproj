@@ -238,7 +238,6 @@
 				4D65094222BF5E2D00BB0959 /* 3_interface */,
 				4D65094322BF5E3E00BB0959 /* 4_external */,
 				4D11152922B528AE000817BA /* GoogleService-Info.plist */,
-				4D11150A22B5160F000817BA /* Assets.xcassets */,
 				4D11150F22B5160F000817BA /* Info.plist */,
 			);
 			path = Twibu;
@@ -331,6 +330,14 @@
 			path = interface;
 			sourceTree = "<group>";
 		};
+		4D5CFC8B22D96D6600F33754 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				4D11150A22B5160F000817BA /* Assets.xcassets */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
 		4D65092422BBDB3700BB0959 /* repository */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +408,7 @@
 		4D65094322BF5E3E00BB0959 /* 4_external */ = {
 			isa = PBXGroup;
 			children = (
+				4D5CFC8B22D96D6600F33754 /* resource */,
 				4D37812222CCF8060072EEBD /* license */,
 				4D65094B22BF708E00BB0959 /* client */,
 				4D65093922BE4AD500BB0959 /* extension */,
