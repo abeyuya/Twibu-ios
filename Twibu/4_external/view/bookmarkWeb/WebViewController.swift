@@ -88,7 +88,25 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private func setNavigationTitle() {
         DispatchQueue.main.async {
             if self.viewIfLoaded?.window != nil {
-                self.title = self.bookmark.trimmedTitle ?? "no title"
+                let v = UIStackView()
+                v.axis = .vertical
+
+                let l1 = UILabel()
+                l1.text = self.bookmark.trimmedTitle ?? "no title"
+                v.addArrangedSubview(l1)
+
+                let l2 = UILabel()
+                l2.text = self.bookmark.url.replacingOccurrences(
+                    of: "^https?://(.+)$",
+                    with: "$1",
+                    options: .regularExpression,
+                    range: nil
+                )
+                l2.textColor = .darkGray
+                l2.font = .systemFont(ofSize: 12)
+                v.addArrangedSubview(l2)
+
+                self.navigationItem.titleView = v
             }
         }
     }
