@@ -82,6 +82,9 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         iv.layer.borderWidth = 0.5
         iv.layer.borderColor = UIColor.lightGray.cgColor
         navigationItem.titleView = iv
+
+        let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButtonItem
     }
 
     @objc

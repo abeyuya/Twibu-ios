@@ -90,6 +90,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             if self.viewIfLoaded?.window != nil {
                 let v = UIStackView()
                 v.axis = .vertical
+                v.spacing = 4
 
                 let l1 = UILabel()
                 l1.text = self.bookmark.trimmedTitle ?? "no title"
