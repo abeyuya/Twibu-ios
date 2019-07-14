@@ -17,7 +17,8 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
     private var currentUser: TwibuUser?
-    @IBOutlet weak var stackView: UIStackView!
+
+    @IBOutlet private weak var stackView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,25 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if self.currentUser?.isTwitterLogin == true, let d = delegate {
+            DispatchQueue.main.async {
+                let indicator = UIActivityIndicatorView(style: .gray)
+                indicator.startAnimating()
+                self.stackView.addArrangedSubview(indicator)
+
+                d.reload(item: self.item)
+            }
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        store.unsubscribe(self)
+    }
+
     private func buildLoginButton() -> UIView {
         let loginButton = TWTRLogInButton(logInCompletion: buildLoginCompletion)
         loginButton.frame.size = CGSize(width: 240, height: 40)
@@ -39,7 +59,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func buildLoginCompletion(session: TWTRSession?, error: Error?) {
-        AnalyticsDispatcer.logging(.logoutTry, param: ["method": "twitter"])
+        AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
 
         if let error = error {
             self.showAlert(
@@ -63,6 +83,10 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
             )
             return
         }
+
+        let indicator = UIActivityIndicatorView(style: .gray)
+        indicator.startAnimating()
+        stackView.addArrangedSubview(indicator)
 
         UserDispatcher.linkTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
             switch result {

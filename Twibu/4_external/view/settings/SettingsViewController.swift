@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import ReSwift
+import TwitterKit
 
 final class SettingsViewController: UIViewController, StoryboardInstantiatable {
 
@@ -20,7 +21,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     private enum Menu: String, CaseIterable {
         case term = "利用規約"
         case privacyPolicy = "プライバシーポリシー"
-        case logout = "Twitter連携を取り消す"
+        case twitter = "Twitter連携"
         case version = "バージョン"
     }
 
@@ -67,7 +68,55 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
         dismiss(animated: true)
     }
 
+    private func tapLogin() {
+        TWTRTwitter.sharedInstance().logIn { (session, error) in
+            AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
+
+            if let error = error {
+                self.showAlert(
+                    title: "Error",
+                    message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
+                )
+                return
+            }
+
+            guard let firebaseUser = self.currentUser?.firebaseAuthUser else {
+                let e = TwibuError.needFirebaseAuth("firebase匿名ログインもできてない")
+                self.showAlert(title: "Error", message: e.displayMessage)
+                Logger.log(e)
+                return
+            }
+
+            guard let session = session else {
+                self.showAlert(
+                    title: "Error",
+                    message: TwibuError.twitterLogin("sessionがnil").displayMessage
+                )
+                return
+            }
+
+            UserDispatcher.linkTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
+                switch result {
+                case .success(_):
+                    self?.showAlert(title: "Success", message: "Twitter連携しました！")
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                    }
+                    AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
+                case .failure(let error):
+                    self?.showAlert(title: "Error", message: error.displayMessage)
+                    Logger.log(error)
+                }
+            }
+        }
+    }
+
     private func tapLogout() {
+        AnalyticsDispatcer.logging(
+            .logoutTry,
+            param: ["method": "twitter"]
+        )
+
         if currentUser?.isTwitterLogin == false {
             return
         }
@@ -90,6 +139,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                     case .failure(let error):
                         self?.showAlert(title: "Error", message: error.displayMessage)
                     case .success(_):
+                        self?.tableView.reloadData()
                         self?.showAlert(title: "Success", message: "Twitterからログアウトしました")
                         self?.delegate?.reload(item: nil)
 
@@ -106,11 +156,6 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
         alert.addAction(cancelAction)
         alert.addAction(logoutAction)
         present(alert, animated: true)
-
-        AnalyticsDispatcer.logging(
-            .logoutTry,
-            param: ["method": "twitter"]
-        )
     }
 
     private func openWebView(title: String, url: String) {
@@ -146,8 +191,11 @@ extension SettingsViewController: UITableViewDataSource {
         case .version:
             cell.textLabel?.text = menu.rawValue
             cell.detailTextLabel?.text = "\(Const.version) (\(Const.build))"
-        case .logout:
-            cell.textLabel?.text = menu.rawValue
+        case .twitter:
+            cell.textLabel?.text = currentUser?.isTwitterLogin == true
+                ? "Twitter連携を取り消す"
+                : "Twitter連携する"
+
             cell.detailTextLabel?.setIcon(
                 prefixText: "",
                 prefixTextColor: .clear,
@@ -158,11 +206,6 @@ extension SettingsViewController: UITableViewDataSource {
                 size: 17,
                 iconSize: 17
             )
-
-            if currentUser?.isTwitterLogin == true {
-            } else {
-                cell.textLabel?.textColor = .lightGray
-            }
         }
         return cell
     }
@@ -173,7 +216,8 @@ extension SettingsViewController: UITableViewDelegate {
         let menu = Menu.allCases[indexPath.row]
 
         switch menu {
-        case .logout: tapLogout()
+        case .twitter:
+            currentUser?.isTwitterLogin == true ? tapLogout() : tapLogin()
         case .term:
             openWebView(title: menu.rawValue, url: "https://github.com/abeyuya")
         case .privacyPolicy:

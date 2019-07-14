@@ -13,7 +13,7 @@ import ReSwift
 
 final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     private let footerIndicator: UIActivityIndicatorView = {
         let i = UIActivityIndicatorView(style: .gray)
         i.startAnimating()
