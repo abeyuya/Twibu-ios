@@ -121,18 +121,12 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             return
         }
 
-        CommentRepository.execUpdateBookmarkComment(bookmarkUid: b.uid, title: b.title ?? "", url: b.url) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                // NOTE: API limitで失敗することがあるが、無視してOK
-                print(error)
-                break
-            case .success(_):
-                break
-            }
-
-            self?.fetchComments()
-        }
+        CommentDispatcher.updateAndFetchComments(
+            buid: b.uid,
+            title: b.title ?? "",
+            url: b.url,
+            type: .new
+        )
 
         AnalyticsDispatcer.logging(
             .commentRefresh,

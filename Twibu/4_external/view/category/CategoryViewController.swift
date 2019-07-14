@@ -193,12 +193,15 @@ extension CategoryViewController: UITableViewDelegate {
         vc.set(bookmark: b)
         navigationController?.pushViewController(vc, animated: true)
 
-        if currentUser?.isTwitterLogin == true {
-            CommentDispatcher.updateBookmarkComment(
-                bookmarkUid: b.uid,
+        if let isLogin = currentUser?.isTwitterLogin, isLogin {
+            CommentDispatcher.updateAndFetchComments(
+                buid: b.uid,
                 title: b.title ?? "",
-                url: b.url
+                url: b.url,
+                type: .new
             )
+        } else {
+            CommentDispatcher.fetchComments(buid: b.uid, type: .new)
         }
 
         AnalyticsDispatcer.logging(

@@ -9,7 +9,12 @@
 import Foundation
 
 struct CommentDispatcher {
-    static func updateBookmarkComment(bookmarkUid: String, title: String, url: String) {
+    static func updateBookmarkComment(
+        bookmarkUid: String,
+        title: String,
+        url: String,
+        completion: @escaping (Result<[Comment]>) -> Void
+    ) {
         let dummyResult = Repository.Result<[Comment]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: bookmarkUid,
@@ -50,6 +55,7 @@ struct CommentDispatcher {
                 store.mDispatch(a)
             }
 
+            completion(res)
         }
     }
 
@@ -76,6 +82,26 @@ struct CommentDispatcher {
                 )
                 store.mDispatch(a2)
             }
+        }
+    }
+
+    static func updateAndFetchComments(
+        buid: String,
+        title: String,
+        url: String,
+        type: Repository.FetchType
+    ) {
+        updateBookmarkComment(bookmarkUid: buid, title: title, url: url) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                fetchComments(buid: buid, type: type)
+                break
+            case .success(_):
+                break
+            }
+
+            fetchComments(buid: buid, type: type)
         }
     }
 }
