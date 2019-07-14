@@ -10,21 +10,26 @@ import Foundation
 
 struct CommentDispatcher {
     static func updateBookmarkComment(bookmarkUid: String, title: String, url: String, oldCount: Int) {
-        let result = Repository.Result<[Comment]>(item: [], lastSnapshot: nil, hasMore: false)
+        let dummyResult = Repository.Result<[Comment]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: bookmarkUid,
-            comments: .loading(result)
+            comments: .loading(dummyResult)
         )
         store.mDispatch(startLoadingAction)
 
-        CommentRepository.execUpdateBookmarkComment(bookmarkUid: bookmarkUid, title: title, url: url) { result in
-            let a = AddCommentsAction(
-                bookmarkUid: bookmarkUid,
-                comments: result
-            )
-            store.mDispatch(a)
+        CommentRepository.execUpdateBookmarkComment(bookmarkUid: bookmarkUid, title: title, url: url) { res in
+            switch res {
+            case .success(_):
+                let a = AddCommentsAction(
+                    bookmarkUid: bookmarkUid,
+                    comments: res
+                )
+                store.mDispatch(a)
+            default:
+                break
+            }
 
-            if let count = result.item?.count, oldCount < count {
+            if let count = res.item?.count, oldCount < count {
                 // store上のデータ書き換え
                 let a2 = UpdateBookmarkCommentCountAction(
                     bookmarkUid: bookmarkUid,
