@@ -18,22 +18,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twibu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaE-au-xaP">
-                                <rect key="frame" x="156.5" y="424" width="101.5" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="dgt-F8-AqJ">
-                                <rect key="frame" x="197" y="496" width="20" height="20"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="is1-0m-Pa2">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dgt-F8-AqJ">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JaE-au-xaP" firstAttribute="centerX" secondItem="Vp8-gK-mip" secondAttribute="centerX" id="Sxj-Nx-zHz"/>
-                            <constraint firstItem="JaE-au-xaP" firstAttribute="centerY" secondItem="Vp8-gK-mip" secondAttribute="centerY" id="Vcx-EY-XKw"/>
-                            <constraint firstItem="dgt-F8-AqJ" firstAttribute="top" secondItem="JaE-au-xaP" secondAttribute="bottom" constant="24" id="W2z-L8-2l5"/>
+                            <constraint firstItem="is1-0m-Pa2" firstAttribute="leading" secondItem="Vp8-gK-mip" secondAttribute="leading" id="BOF-ga-8Lh"/>
+                            <constraint firstItem="is1-0m-Pa2" firstAttribute="top" secondItem="Vp8-gK-mip" secondAttribute="top" id="BeT-l3-mjB"/>
+                            <constraint firstAttribute="bottom" secondItem="is1-0m-Pa2" secondAttribute="bottom" id="ZM1-23-ESl"/>
+                            <constraint firstAttribute="trailing" secondItem="is1-0m-Pa2" secondAttribute="trailing" id="eqy-11-M6f"/>
                             <constraint firstItem="dgt-F8-AqJ" firstAttribute="centerX" secondItem="Vp8-gK-mip" secondAttribute="centerX" id="f8d-YJ-eHt"/>
+                            <constraint firstItem="dgt-F8-AqJ" firstAttribute="centerY" secondItem="Vp8-gK-mip" secondAttribute="centerY" id="iPF-5d-BiM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cfH-cR-2Eb"/>
                     </view>
@@ -43,4 +42,7 @@
             <point key="canvasLocation" x="146" y="147"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="splash" width="512" height="512"/>
+    </resources>
 </document>

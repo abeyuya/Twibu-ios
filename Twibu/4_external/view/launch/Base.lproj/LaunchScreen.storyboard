@@ -18,17 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twibu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJQ-5N-uzr">
-                                <rect key="frame" x="156.5" y="424" width="101.5" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="h7X-S3-Hck">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cJQ-5N-uzr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="4d9-Yw-tX1"/>
-                            <constraint firstItem="cJQ-5N-uzr" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="GVT-11-eTp"/>
+                            <constraint firstAttribute="trailing" secondItem="h7X-S3-Hck" secondAttribute="trailing" id="0po-Qh-zfO"/>
+                            <constraint firstAttribute="bottom" secondItem="h7X-S3-Hck" secondAttribute="bottom" id="4hj-om-FW8"/>
+                            <constraint firstItem="h7X-S3-Hck" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="iTV-JM-UCo"/>
+                            <constraint firstItem="h7X-S3-Hck" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="mVz-RC-2PK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,4 +37,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="splash" width="512" height="512"/>
+    </resources>
 </document>
