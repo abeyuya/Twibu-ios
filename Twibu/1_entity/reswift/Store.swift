@@ -44,7 +44,7 @@ struct AddCommentsAction: Action {
     let bookmarkUid: String
     let comments: Repository.Response<[Comment]>
 }
-struct UpdateBookmarkCommentCountAction: Action {
+struct UpdateBookmarkCommentCountIfOverAction: Action {
     let bookmarkUid: String
     let commentCount: Int
 }
@@ -154,7 +154,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             }
         }()
 
-    case let a as UpdateBookmarkCommentCountAction:
+    case let a as UpdateBookmarkCommentCountIfOverAction:
         var new = state.response.bookmarks
         for (category, res) in new {
             guard var bms = res.item else { continue }

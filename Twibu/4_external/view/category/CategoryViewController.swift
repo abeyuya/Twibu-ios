@@ -197,8 +197,7 @@ extension CategoryViewController: UITableViewDelegate {
             CommentDispatcher.updateBookmarkComment(
                 bookmarkUid: b.uid,
                 title: b.title ?? "",
-                url: b.url,
-                oldCount: b.comment_count ?? 0
+                url: b.url
             )
         }
 

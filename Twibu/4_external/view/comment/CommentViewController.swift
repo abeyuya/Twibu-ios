@@ -124,14 +124,14 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         CommentRepository.execUpdateBookmarkComment(bookmarkUid: b.uid, title: b.title ?? "", url: b.url) { [weak self] result in
             switch result {
             case .failure(let error):
-                self?.showAlert(title: "Error", message: error.displayMessage)
+                // NOTE: API limitで失敗することがあるが、無視してOK
+                print(error)
+                break
             case .success(_):
-                self?.fetchComments()
-            case .notYetLoading:
-                return
-            case .loading(_):
-                return
+                break
             }
+
+            self?.fetchComments()
         }
 
         AnalyticsDispatcer.logging(
@@ -328,6 +328,7 @@ extension CommentViewController: StoreSubscriber {
         case .notYetLoading:
             endRefreshController()
             updateFooter(mode: .hide)
+            fetchComments()
         }
     }
 }

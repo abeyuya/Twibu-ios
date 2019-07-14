@@ -83,7 +83,7 @@ final class CommentRepository {
         bookmarkUid: String,
         title: String,
         url: String,
-        completion: @escaping (Repository.Response<[Comment]>) -> Void
+        completion: @escaping (Result<[Comment]>) -> Void
     ) {
         let param = [
             "bookmark_uid": bookmarkUid,
@@ -108,8 +108,14 @@ final class CommentRepository {
             }
 
             let comments = rawComments.compactMap { Comment(dictionary: $0) }
-            let result = Repository.Result<[Comment]>(item: comments, lastSnapshot: nil, hasMore: false)
-            completion(.success(result))
+
+            // NOTE: APIリミットエラーとかでも0件で返ってくるので、0件はエラーとして扱う
+            if comments.isEmpty {
+                completion(.failure(.firestoreError("response comments is empty")))
+                return
+            }
+
+            completion(.success(comments))
         }
     }
 }
