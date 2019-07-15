@@ -55,6 +55,11 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             }
         }
 
+        // 初回表示時に追加読み込みが必要ならする
+        if tableview.contentSize.height < tableview.frame.height, !currentComments.isEmpty {
+            fetchAdditionalComments()
+        }
+
         AnalyticsDispatcer.logging(
             .commentShowTab,
             param: ["comment_type": "\(commentType)"]
@@ -269,6 +274,7 @@ extension CommentViewController: UITableViewDelegate {
         let distanceToBottom = maxOffSet - currentPoint.y
         if distanceToBottom < 300 {
             fetchAdditionalComments()
+            return
         }
     }
 }
