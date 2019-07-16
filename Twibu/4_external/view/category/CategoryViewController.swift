@@ -98,7 +98,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchBookmark() {
         guard let category = category, let uid = currentUser?.firebaseAuthUser?.uid else { return }
-        BookmarkDispatcher.fetchBookmark(category: category, uid: uid, type: .new)
+        BookmarkDispatcher.fetchBookmark(category: category, uid: uid, type: .new) { _ in }
     }
 
     @objc
@@ -134,7 +134,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
                 category: category,
                 uid: uid,
                 type: .add(result.lastSnapshot)
-            )
+            ) { _ in }
         }
     }
 

@@ -54,8 +54,29 @@ struct UserDispatcher {
 
         let twitterLinked = TwibuUser.isTwitterLogin(user: user)
         Analytics.setUserProperty(twitterLinked ? "1" : "0", forName: "twitterLinked")
+
+        // twitterログインしているならtimelineの情報を更新する
         if twitterLinked {
-            UserRepository.kickScrapeTimeline(uid: user.uid) { _ in}
+            // timelineそのものを更新
+            UserRepository.kickScrapeTimeline(uid: user.uid) { _ in
+                // timelineのbookmarkを取得
+                BookmarkDispatcher.fetchBookmark(category: .timeline, uid: user.uid, type: .new) { result in
+                    switch result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let bookmarks):
+                        // それぞれ最新のコメントに更新
+                        bookmarks.forEach { b in
+                            CommentDispatcher.updateAndFetchComments(
+                                buid: b.uid,
+                                title: b.title ?? "",
+                                url: b.url,
+                                type: .new
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 

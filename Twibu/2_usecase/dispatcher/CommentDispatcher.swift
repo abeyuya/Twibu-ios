@@ -9,7 +9,7 @@
 import Foundation
 
 struct CommentDispatcher {
-    static func updateBookmarkComment(
+    private static func updateBookmarkComment(
         bookmarkUid: String,
         title: String,
         url: String,
@@ -95,7 +95,6 @@ struct CommentDispatcher {
             switch result {
             case .failure(let error):
                 print(error)
-                fetchComments(buid: buid, type: type)
                 break
             case .success(_):
                 break

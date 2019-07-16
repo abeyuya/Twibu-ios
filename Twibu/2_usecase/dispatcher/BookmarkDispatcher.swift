@@ -10,11 +10,16 @@ import Foundation
 import FirebasePerformance
 
 struct BookmarkDispatcher {
-    static func fetchBookmark(category: Category, uid: String, type: Repository.FetchType) {
-        let result = Repository.Result<[Bookmark]>(item: [], lastSnapshot: nil, hasMore: false)
+    static func fetchBookmark(
+        category: Category,
+        uid: String,
+        type: Repository.FetchType,
+        completion: @escaping (Result<[Bookmark]>) -> Void
+    ) {
+        let lResult = Repository.Result<[Bookmark]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddBookmarksAction(
             category: category,
-            bookmarks: .loading(result)
+            bookmarks: .loading(lResult)
         )
         store.mDispatch(startLoadingAction)
 
@@ -26,6 +31,15 @@ struct BookmarkDispatcher {
                 bookmarks: result
             )
             store.mDispatch(a)
+
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .loading(_), .notYetLoading:
+                completion(.failure(TwibuError.firestoreError(nil)))
+            case .success(let r):
+                completion(.success(r.item))
+            }
         }
     }
 }
