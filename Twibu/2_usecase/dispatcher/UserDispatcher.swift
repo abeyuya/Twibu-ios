@@ -57,23 +57,27 @@ struct UserDispatcher {
 
         // twitterログインしているならtimelineの情報を更新する
         if twitterLinked {
-            // timelineそのものを更新
-            UserRepository.kickScrapeTimeline(uid: user.uid) { _ in
-                // timelineのbookmarkを取得
-                BookmarkDispatcher.fetchBookmark(category: .timeline, uid: user.uid, type: .new) { result in
-                    switch result {
-                    case .failure(let error):
-                        print(error)
-                    case .success(let bookmarks):
-                        // それぞれ最新のコメントに更新
-                        bookmarks.forEach { b in
-                            CommentDispatcher.updateAndFetchComments(
-                                buid: b.uid,
-                                title: b.title ?? "",
-                                url: b.url,
-                                type: .new
-                            )
-                        }
+            updateTimeline(uid: user.uid)
+        }
+    }
+
+    private static func updateTimeline(uid: String) {
+        // timelineそのものを更新
+        UserRepository.kickScrapeTimeline(uid: uid) { _ in
+            // timelineのbookmarkを取得
+            BookmarkDispatcher.fetchBookmark(category: .timeline, uid: uid, type: .new) { result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let bookmarks):
+                    // それぞれ最新のコメントに更新
+                    bookmarks.forEach { b in
+                        CommentDispatcher.updateAndFetchComments(
+                            buid: b.uid,
+                            title: b.title ?? "",
+                            url: b.url,
+                            type: .new
+                        )
                     }
                 }
             }
@@ -92,7 +96,7 @@ struct UserDispatcher {
                 return
             }
 
-            // TODO: access_tokenとか使えなくなるので消したい
+            UserRepository.deleteTwitterToken(uid: nu.uid)
             updateFirebaseUser(user: nu)
             completion(.success(Void()))
         }

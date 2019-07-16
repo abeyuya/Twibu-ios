@@ -54,6 +54,17 @@ final class UserRepository {
         }
     }
 
+    static func deleteTwitterToken(uid: String) {
+        let data: [String: Any] = [
+            "access_token": FieldValue.delete(),
+            "secret_token": FieldValue.delete(),
+            "updated_at": FieldValue.serverTimestamp()
+        ]
+        db.collection(path)
+            .document(uid)
+            .updateData(data)
+    }
+
 //    static func isTwitterLogin() -> Bool {
 //        guard let user = Auth.auth().currentUser else {
 //            return false
