@@ -23,15 +23,15 @@ enum Category: String, CaseIterable {
     var displayString: String {
         switch self {
         case .timeline: return "タイムライン"
-        case .all: return "総合"
-        case .social: return "世の中"
-        case .economics: return "政治と経済"
-        case .life: return "暮らし"
+        case .all: return "トップ"
+        case .social: return "社会"
+        case .economics: return "政治・経済"
+        case .life: return "ライフスタイル"
         case .knowledge: return "学び"
         case .it: return "テクノロジー"
         case .fun: return "おもしろ"
-        case .entertainment: return "エンタメ"
-        case .game: return "アニメとゲーム"
+        case .entertainment: return "芸能・スポーツ"
+        case .game: return "アニメ・ゲーム"
         }
     }
 
