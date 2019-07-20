@@ -38,6 +38,16 @@
                ReferencedContainer = "container:Twibu.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D72CEF122E2E07B00E6AA66"
+               BuildableName = "EmbeddedTests.xctest"
+               BlueprintName = "EmbeddedTests"
+               ReferencedContainer = "container:Twibu.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

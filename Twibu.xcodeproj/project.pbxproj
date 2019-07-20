@@ -53,6 +53,15 @@
 		4D65094D22BF7EBE00BB0959 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094C22BF7EBE00BB0959 /* Response.swift */; };
 		4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */; };
 		4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */; };
+		4D72CED622E2DA1400E6AA66 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D72CED522E2DA1400E6AA66 /* NotificationCenter.framework */; };
+		4D72CED922E2DA1400E6AA66 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */; };
+		4D72CEDC22E2DA1400E6AA66 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CEDA22E2DA1400E6AA66 /* MainInterface.storyboard */; };
+		4D72CEE022E2DA1400E6AA66 /* today-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4D72CED422E2DA1400E6AA66 /* today-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4D72CEF322E2E07B00E6AA66 /* Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */; };
+		4D72CEFA22E2E07B00E6AA66 /* EmbeddedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72CEF922E2E07B00E6AA66 /* EmbeddedTests.swift */; };
+		4D72CEFC22E2E07B00E6AA66 /* Embedded.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D72CEEC22E2E07A00E6AA66 /* Embedded.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D72CEFF22E2E07B00E6AA66 /* Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */; };
+		4D72CF0022E2E07B00E6AA66 /* Embedded.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */; };
 		4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */; };
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
@@ -64,6 +73,7 @@
 		4DD2685922C4E6FA007A9E68 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
 		4DDB8DDE22C4F57400916F72 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
 		4DF34EF822D78D6F00E9AE80 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF34EF722D78D6F00E9AE80 /* Logger.swift */; };
+		748E1ED59E357D650D9B10E6 /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9BF3FCC7DD2D4F5AA1304D /* Pods_Embedded.framework */; };
 		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,9 +85,63 @@
 			remoteGlobalIDString = 4D1114FF22B5160E000817BA;
 			remoteInfo = Twibu;
 		};
+		4D72CEDE22E2DA1400E6AA66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D1114F822B5160E000817BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D72CED322E2DA1400E6AA66;
+			remoteInfo = "today-extension";
+		};
+		4D72CEF422E2E07B00E6AA66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D1114F822B5160E000817BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D72CEE922E2E07A00E6AA66;
+			remoteInfo = Embedded;
+		};
+		4D72CEF622E2E07B00E6AA66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D1114F822B5160E000817BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D1114FF22B5160E000817BA;
+			remoteInfo = Twibu;
+		};
+		4D72CEFD22E2E07B00E6AA66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D1114F822B5160E000817BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D72CEE922E2E07A00E6AA66;
+			remoteInfo = Embedded;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4D72CEE422E2DA1400E6AA66 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4D72CEE022E2DA1400E6AA66 /* today-extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CF0422E2E07B00E6AA66 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4D72CF0022E2E07B00E6AA66 /* Embedded.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1D9BF3FCC7DD2D4F5AA1304D /* Pods_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B4C34F81AF3D53D7F38E124 /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3593C26586AEB83E34BB3A20 /* Pods-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
 		4D04E20B22BA982C00995026 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +196,17 @@
 		4D65094C22BF7EBE00BB0959 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDispatcher.swift; sourceTree = "<group>"; };
 		4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDispatcher.swift; sourceTree = "<group>"; };
+		4D72CED422E2DA1400E6AA66 /* today-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "today-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D72CED522E2DA1400E6AA66 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		4D72CEDB22E2DA1400E6AA66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		4D72CEDD22E2DA1400E6AA66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D72CEEC22E2E07A00E6AA66 /* Embedded.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Embedded.h; sourceTree = "<group>"; };
+		4D72CEED22E2E07A00E6AA66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D72CEF222E2E07B00E6AA66 /* EmbeddedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmbeddedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D72CEF922E2E07B00E6AA66 /* EmbeddedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedTests.swift; sourceTree = "<group>"; };
+		4D72CEFB22E2E07B00E6AA66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
 		4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUser.swift; sourceTree = "<group>"; };
@@ -145,7 +220,9 @@
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
+		935CFDD870CED7C31CE259D1 /* Pods-Embedded.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded.debug.xcconfig"; path = "Target Support Files/Pods-Embedded/Pods-Embedded.debug.xcconfig"; sourceTree = "<group>"; };
 		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C77B409B42E4F3903BFF141B /* Pods-Embedded.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded.release.xcconfig"; path = "Target Support Files/Pods-Embedded/Pods-Embedded.release.xcconfig"; sourceTree = "<group>"; };
 		E66F2F9A420565A0D8752263 /* Pods-Twibu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.release.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +231,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D72CEFF22E2E07B00E6AA66 /* Embedded.framework in Frameworks */,
 				C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,6 +241,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				35E166CFD0ADCCD6A243D389 /* Pods_TwibuTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CED122E2DA1400E6AA66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D72CED622E2DA1400E6AA66 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CEE722E2E07A00E6AA66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				748E1ED59E357D650D9B10E6 /* Pods_Embedded.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CEEF22E2E07B00E6AA66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D72CEF322E2E07B00E6AA66 /* Embedded.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +279,8 @@
 				4D11152322B5213B000817BA /* Security.framework */,
 				A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */,
 				664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */,
+				4D72CED522E2DA1400E6AA66 /* NotificationCenter.framework */,
+				1D9BF3FCC7DD2D4F5AA1304D /* Pods_Embedded.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -215,6 +319,9 @@
 			children = (
 				4D11150222B5160E000817BA /* Twibu */,
 				4D11151722B5160F000817BA /* TwibuTests */,
+				4D72CED722E2DA1400E6AA66 /* today-extension */,
+				4D72CEEB22E2E07A00E6AA66 /* Embedded */,
+				4D72CEF822E2E07B00E6AA66 /* EmbeddedTests */,
 				4D11150122B5160E000817BA /* Products */,
 				BE96F5C735459C2F19058E09 /* Pods */,
 				04C4ACB6453732AD38B3F5D8 /* Frameworks */,
@@ -226,6 +333,9 @@
 			children = (
 				4D11150022B5160E000817BA /* Twibu.app */,
 				4D11151422B5160F000817BA /* TwibuTests.xctest */,
+				4D72CED422E2DA1400E6AA66 /* today-extension.appex */,
+				4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */,
+				4D72CEF222E2E07B00E6AA66 /* EmbeddedTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -454,6 +564,34 @@
 			path = root;
 			sourceTree = "<group>";
 		};
+		4D72CED722E2DA1400E6AA66 /* today-extension */ = {
+			isa = PBXGroup;
+			children = (
+				4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */,
+				4D72CEDA22E2DA1400E6AA66 /* MainInterface.storyboard */,
+				4D72CEDD22E2DA1400E6AA66 /* Info.plist */,
+			);
+			path = "today-extension";
+			sourceTree = "<group>";
+		};
+		4D72CEEB22E2E07A00E6AA66 /* Embedded */ = {
+			isa = PBXGroup;
+			children = (
+				4D72CEEC22E2E07A00E6AA66 /* Embedded.h */,
+				4D72CEED22E2E07A00E6AA66 /* Info.plist */,
+			);
+			path = Embedded;
+			sourceTree = "<group>";
+		};
+		4D72CEF822E2E07B00E6AA66 /* EmbeddedTests */ = {
+			isa = PBXGroup;
+			children = (
+				4D72CEF922E2E07B00E6AA66 /* EmbeddedTests.swift */,
+				4D72CEFB22E2E07B00E6AA66 /* Info.plist */,
+			);
+			path = EmbeddedTests;
+			sourceTree = "<group>";
+		};
 		4DA1E5DE22CB5F6B00320895 /* settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,11 +634,24 @@
 				E66F2F9A420565A0D8752263 /* Pods-Twibu.release.xcconfig */,
 				2B4C34F81AF3D53D7F38E124 /* Pods-TwibuTests.debug.xcconfig */,
 				3593C26586AEB83E34BB3A20 /* Pods-TwibuTests.release.xcconfig */,
+				935CFDD870CED7C31CE259D1 /* Pods-Embedded.debug.xcconfig */,
+				C77B409B42E4F3903BFF141B /* Pods-Embedded.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4D72CEE522E2E07A00E6AA66 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D72CEFC22E2E07B00E6AA66 /* Embedded.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		4D1114FF22B5160E000817BA /* Twibu */ = {
@@ -515,10 +666,14 @@
 				F24C6A37246349CC69566AD3 /* [CP] Copy Pods Resources */,
 				4D37812522CCFD430072EEBD /* License Run Script */,
 				4DADE8F622C5343100DD2CCB /* Fabric Run Script */,
+				4D72CEE422E2DA1400E6AA66 /* Embed App Extensions */,
+				4D72CF0422E2E07B00E6AA66 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4D72CEDF22E2DA1400E6AA66 /* PBXTargetDependency */,
+				4D72CEFE22E2E07B00E6AA66 /* PBXTargetDependency */,
 			);
 			name = Twibu;
 			productName = Twibu;
@@ -544,6 +699,61 @@
 			productReference = 4D11151422B5160F000817BA /* TwibuTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		4D72CED322E2DA1400E6AA66 /* today-extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D72CEE322E2DA1400E6AA66 /* Build configuration list for PBXNativeTarget "today-extension" */;
+			buildPhases = (
+				4D72CED022E2DA1400E6AA66 /* Sources */,
+				4D72CED122E2DA1400E6AA66 /* Frameworks */,
+				4D72CED222E2DA1400E6AA66 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "today-extension";
+			productName = "today-extension";
+			productReference = 4D72CED422E2DA1400E6AA66 /* today-extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		4D72CEE922E2E07A00E6AA66 /* Embedded */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D72CF0122E2E07B00E6AA66 /* Build configuration list for PBXNativeTarget "Embedded" */;
+			buildPhases = (
+				FDC8F1B072D32BF8B0BC2BEB /* [CP] Check Pods Manifest.lock */,
+				4D72CEE522E2E07A00E6AA66 /* Headers */,
+				4D72CEE622E2E07A00E6AA66 /* Sources */,
+				4D72CEE722E2E07A00E6AA66 /* Frameworks */,
+				4D72CEE822E2E07A00E6AA66 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Embedded;
+			productName = Embedded;
+			productReference = 4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4D72CEF122E2E07B00E6AA66 /* EmbeddedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D72CF0522E2E07B00E6AA66 /* Build configuration list for PBXNativeTarget "EmbeddedTests" */;
+			buildPhases = (
+				4D72CEEE22E2E07B00E6AA66 /* Sources */,
+				4D72CEEF22E2E07B00E6AA66 /* Frameworks */,
+				4D72CEF022E2E07B00E6AA66 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D72CEF522E2E07B00E6AA66 /* PBXTargetDependency */,
+				4D72CEF722E2E07B00E6AA66 /* PBXTargetDependency */,
+			);
+			name = EmbeddedTests;
+			productName = EmbeddedTests;
+			productReference = 4D72CEF222E2E07B00E6AA66 /* EmbeddedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -558,6 +768,16 @@
 						CreatedOnToolsVersion = 10.2.1;
 					};
 					4D11151322B5160F000817BA = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 4D1114FF22B5160E000817BA;
+					};
+					4D72CED322E2DA1400E6AA66 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					4D72CEE922E2E07A00E6AA66 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					4D72CEF122E2E07B00E6AA66 = {
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 4D1114FF22B5160E000817BA;
 					};
@@ -578,6 +798,9 @@
 			targets = (
 				4D1114FF22B5160E000817BA /* Twibu */,
 				4D11151322B5160F000817BA /* TwibuTests */,
+				4D72CED322E2DA1400E6AA66 /* today-extension */,
+				4D72CEE922E2E07A00E6AA66 /* Embedded */,
+				4D72CEF122E2E07B00E6AA66 /* EmbeddedTests */,
 			);
 		};
 /* End PBXProject section */
@@ -605,6 +828,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4D11151222B5160F000817BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CED222E2DA1400E6AA66 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D72CEDC22E2DA1400E6AA66 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CEE822E2E07A00E6AA66 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CEF022E2E07B00E6AA66 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -729,6 +974,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Twibu/Pods-Twibu-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FDC8F1B072D32BF8B0BC2BEB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Embedded-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -788,6 +1055,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4D72CED022E2DA1400E6AA66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D72CED922E2DA1400E6AA66 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CEE622E2E07A00E6AA66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D72CEEE22E2E07B00E6AA66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D72CEFA22E2E07B00E6AA66 /* EmbeddedTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -795,6 +1085,26 @@
 			isa = PBXTargetDependency;
 			target = 4D1114FF22B5160E000817BA /* Twibu */;
 			targetProxy = 4D11151522B5160F000817BA /* PBXContainerItemProxy */;
+		};
+		4D72CEDF22E2DA1400E6AA66 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D72CED322E2DA1400E6AA66 /* today-extension */;
+			targetProxy = 4D72CEDE22E2DA1400E6AA66 /* PBXContainerItemProxy */;
+		};
+		4D72CEF522E2E07B00E6AA66 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D72CEE922E2E07A00E6AA66 /* Embedded */;
+			targetProxy = 4D72CEF422E2E07B00E6AA66 /* PBXContainerItemProxy */;
+		};
+		4D72CEF722E2E07B00E6AA66 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D1114FF22B5160E000817BA /* Twibu */;
+			targetProxy = 4D72CEF622E2E07B00E6AA66 /* PBXContainerItemProxy */;
+		};
+		4D72CEFE22E2E07B00E6AA66 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D72CEE922E2E07A00E6AA66 /* Embedded */;
+			targetProxy = 4D72CEFD22E2E07B00E6AA66 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -813,6 +1123,14 @@
 				4D11150D22B5160F000817BA /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		4D72CEDA22E2DA1400E6AA66 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D72CEDB22E2DA1400E6AA66 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -938,6 +1256,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -959,6 +1278,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E66F2F9A420565A0D8752263 /* Pods-Twibu.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
@@ -1019,6 +1339,146 @@
 			};
 			name = Release;
 		};
+		4D72CEE122E2DA1400E6AA66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				INFOPLIST_FILE = "today-extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4D72CEE222E2DA1400E6AA66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				INFOPLIST_FILE = "today-extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4D72CF0222E2E07B00E6AA66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 935CFDD870CED7C31CE259D1 /* Pods-Embedded.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Embedded/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Embedded;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4D72CF0322E2E07B00E6AA66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C77B409B42E4F3903BFF141B /* Pods-Embedded.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Embedded/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Embedded;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4D72CF0622E2E07B00E6AA66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				INFOPLIST_FILE = EmbeddedTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.EmbeddedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Twibu.app/Twibu";
+			};
+			name = Debug;
+		};
+		4D72CF0722E2E07B00E6AA66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				INFOPLIST_FILE = EmbeddedTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.EmbeddedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Twibu.app/Twibu";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1045,6 +1505,33 @@
 			buildConfigurations = (
 				4D11152122B5160F000817BA /* Debug */,
 				4D11152222B5160F000817BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D72CEE322E2DA1400E6AA66 /* Build configuration list for PBXNativeTarget "today-extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D72CEE122E2DA1400E6AA66 /* Debug */,
+				4D72CEE222E2DA1400E6AA66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D72CF0122E2E07B00E6AA66 /* Build configuration list for PBXNativeTarget "Embedded" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D72CF0222E2E07B00E6AA66 /* Debug */,
+				4D72CF0322E2E07B00E6AA66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D72CF0522E2E07B00E6AA66 /* Build configuration list for PBXNativeTarget "EmbeddedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D72CF0622E2E07B00E6AA66 /* Debug */,
+				4D72CF0722E2E07B00E6AA66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
