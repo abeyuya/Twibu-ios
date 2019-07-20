@@ -40,6 +40,14 @@ name: FirebaseABTesting, nameSpecified:
 body: Copyright 2019 Googl…
 version: 3.0.0
 
+name: FirebaseABTesting, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 3.0.0
+
+name: FirebaseABTesting, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 3.0.0
+
 name: FirebaseAnalytics, nameSpecified: 
 body: Copyright 2019 Googl…
 version: 6.0.3
@@ -51,16 +59,6 @@ version: 6.0.3
 name: FirebaseAnalytics, nameSpecified: 
 body: Copyright 2019 Googl…
 version: 6.0.3
-
-name: FirebaseAuth, nameSpecified: 
-body: 
-                   …
-version: 6.2.0
-
-name: FirebaseAuth, nameSpecified: 
-body: 
-                   …
-version: 6.2.0
 
 name: FirebaseAuth, nameSpecified: 
 body: 
@@ -146,6 +144,22 @@ name: FirebasePerformance, nameSpecified:
 body: Copyright 2019 Googl…
 version: 3.1.1
 
+name: FirebasePerformance, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 3.1.1
+
+name: FirebasePerformance, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 3.1.1
+
+name: FirebaseRemoteConfig, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 4.2.0
+
+name: FirebaseRemoteConfig, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 4.2.0
+
 name: FirebaseRemoteConfig, nameSpecified: 
 body: Copyright 2019 Googl…
 version: 4.2.0
@@ -161,6 +175,16 @@ version: 6.0.3
 name: GoogleAppMeasurement, nameSpecified: 
 body: Copyright 2019 Googl…
 version: 6.0.3
+
+name: GoogleToolboxForMac, nameSpecified: 
+body: 
+                   …
+version: 2.2.1
+
+name: GoogleToolboxForMac, nameSpecified: 
+body: 
+                   …
+version: 2.2.1
 
 name: GoogleToolboxForMac, nameSpecified: 
 body: 
@@ -231,6 +255,14 @@ name: Kingfisher, nameSpecified:
 body: The MIT License (MIT…
 version: 5.7.0
 
+name: Kingfisher, nameSpecified: 
+body: The MIT License (MIT…
+version: 5.7.0
+
+name: Kingfisher, nameSpecified: 
+body: The MIT License (MIT…
+version: 5.7.0
+
 name: leveldb-library, nameSpecified: 
 body: Copyright (c) 2011 T…
 version: 1.20
@@ -276,14 +308,6 @@ version: 3.9.0
 name: Protobuf, nameSpecified: 
 body: Copyright 2008 Googl…
 version: 3.9.0
-
-name: ReSwift, nameSpecified: 
-body: The MIT License (MIT…
-version: 5.0.0
-
-name: ReSwift, nameSpecified: 
-body: The MIT License (MIT…
-version: 5.0.0
 
 name: ReSwift, nameSpecified: 
 body: The MIT License (MIT…

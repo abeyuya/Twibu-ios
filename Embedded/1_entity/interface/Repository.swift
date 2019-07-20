@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 public struct Repository {
     public enum FetchType {
-        case new, add(DocumentSnapshot?)
+        case new(Int), add(Int, DocumentSnapshot?)
 
         public var debugName: String {
             switch self {

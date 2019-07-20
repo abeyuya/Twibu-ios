@@ -67,7 +67,7 @@ struct UserDispatcher {
         // timelineそのものを更新
         UserRepository.kickScrapeTimeline(uid: uid) { _ in
             // timelineのbookmarkを取得
-            BookmarkDispatcher.fetchBookmark(category: .timeline, uid: uid, type: .new) { result in
+            BookmarkDispatcher.fetchBookmark(category: .timeline, uid: uid, type: .new(20)) { result in
                 switch result {
                 case .failure(let error):
                     Logger.print(error)

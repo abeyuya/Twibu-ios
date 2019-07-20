@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		35E166CFD0ADCCD6A243D389 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */; };
 		4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E20B22BA982C00995026 /* CommentViewController.swift */; };
 		4D04E20E22BA983E00995026 /* CommentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D04E20D22BA983E00995026 /* CommentViewController.storyboard */; };
 		4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */; };
@@ -19,7 +18,6 @@
 		4D11150B22B5160F000817BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150A22B5160F000817BA /* Assets.xcassets */; };
 		4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150C22B5160F000817BA /* LaunchScreen.storyboard */; };
 		4D11151922B5160F000817BA /* TwibuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11151822B5160F000817BA /* TwibuTests.swift */; };
-		4D11152A22B528AE000817BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D11152922B528AE000817BA /* GoogleService-Info.plist */; };
 		4D11152C22B531E8000817BA /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11152B22B531E8000817BA /* Device.swift */; };
 		4D11152F22B545FF000817BA /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11152E22B545FF000817BA /* UserRepository.swift */; };
 		4D11153522B570A3000817BA /* PagingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153422B570A3000817BA /* PagingRootViewController.swift */; };
@@ -66,6 +64,9 @@
 		4D72CF1B22E2FC6000E6AA66 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
 		4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */; };
 		4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
+		4D72CF2022E30A7100E6AA66 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72CF1F22E30A7100E6AA66 /* TodayCell.swift */; };
+		4D72CF2222E30A8000E6AA66 /* TodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2122E30A8000E6AA66 /* TodayCell.xib */; };
+		4D72CF2422E316BC00E6AA66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */; };
 		4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */; };
 		4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */; };
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
@@ -74,9 +75,10 @@
 		4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */; };
 		4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
-		748E1ED59E357D650D9B10E6 /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9BF3FCC7DD2D4F5AA1304D /* Pods_Embedded.framework */; };
-		C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */; };
-		F5564D36D4BF60AF39E73CA7 /* Pods_today_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A93E6DADD87F90A09C0B26 /* Pods_today_extension.framework */; };
+		7B8C30C2C4915FABA470BF8E /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C05293897027C24F7007C1F /* Pods_Embedded.framework */; };
+		930F24334C95A4F32D8175BB /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 931B8F8851A07C895F460DBF /* Pods_Twibu.framework */; };
+		CCBDFD730733C62EC0287366 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3020988FA8B7C43854B7EC66 /* Pods_TwibuTests.framework */; };
+		EB494EE7727D2EBC73164D4D /* Pods_today_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5861814BC8610FF8E2AD2C /* Pods_today_extension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,11 +145,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1D9BF3FCC7DD2D4F5AA1304D /* Pods_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2321BFC0DEB86A350B63A139 /* Pods-today-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-today-extension.debug.xcconfig"; path = "Target Support Files/Pods-today-extension/Pods-today-extension.debug.xcconfig"; sourceTree = "<group>"; };
-		23A93E6DADD87F90A09C0B26 /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B4C34F81AF3D53D7F38E124 /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2E5861814BC8610FF8E2AD2C /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3020988FA8B7C43854B7EC66 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3593C26586AEB83E34BB3A20 /* Pods-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
+		4C05293897027C24F7007C1F /* Pods_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D04E20B22BA982C00995026 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		4D04E20D22BA983E00995026 /* CommentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentViewController.storyboard; sourceTree = "<group>"; };
 		4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -166,7 +169,6 @@
 		4D11152322B5213B000817BA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4D11152522B52145000817BA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4D11152722B524C0000817BA /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		4D11152922B528AE000817BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4D11152B22B531E8000817BA /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4D11152E22B545FF000817BA /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		4D11153122B547F8000817BA /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -213,6 +215,9 @@
 		4D72CF0E22E2F37E00E6AA66 /* today-extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "today-extension.entitlements"; sourceTree = "<group>"; };
 		4D72CF0F22E2F3AB00E6AA66 /* Twibu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Twibu.entitlements; sourceTree = "<group>"; };
 		4D72CF1022E2F40300E6AA66 /* TwibuUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUserDefaults.swift; sourceTree = "<group>"; };
+		4D72CF1F22E30A7100E6AA66 /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
+		4D72CF2122E30A8000E6AA66 /* TodayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayCell.xib; sourceTree = "<group>"; };
+		4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
 		4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUser.swift; sourceTree = "<group>"; };
@@ -224,10 +229,9 @@
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		4DDB8DDD22C4F57400916F72 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
+		931B8F8851A07C895F460DBF /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		935CFDD870CED7C31CE259D1 /* Pods-Embedded.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded.debug.xcconfig"; path = "Target Support Files/Pods-Embedded/Pods-Embedded.debug.xcconfig"; sourceTree = "<group>"; };
-		A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C77B409B42E4F3903BFF141B /* Pods-Embedded.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded.release.xcconfig"; path = "Target Support Files/Pods-Embedded/Pods-Embedded.release.xcconfig"; sourceTree = "<group>"; };
 		CB6842F6391039CACEAEE1E1 /* Pods-today-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-today-extension.release.xcconfig"; path = "Target Support Files/Pods-today-extension/Pods-today-extension.release.xcconfig"; sourceTree = "<group>"; };
 		E66F2F9A420565A0D8752263 /* Pods-Twibu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.release.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.release.xcconfig"; sourceTree = "<group>"; };
@@ -239,7 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CEFF22E2E07B00E6AA66 /* Embedded.framework in Frameworks */,
-				C501B8C62196DA6A5F0D257D /* Pods_Twibu.framework in Frameworks */,
+				930F24334C95A4F32D8175BB /* Pods_Twibu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35E166CFD0ADCCD6A243D389 /* Pods_TwibuTests.framework in Frameworks */,
+				CCBDFD730733C62EC0287366 /* Pods_TwibuTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +261,7 @@
 			files = (
 				4D72CF0822E2E44900E6AA66 /* Embedded.framework in Frameworks */,
 				4D72CED622E2DA1400E6AA66 /* NotificationCenter.framework in Frameworks */,
-				F5564D36D4BF60AF39E73CA7 /* Pods_today_extension.framework in Frameworks */,
+				EB494EE7727D2EBC73164D4D /* Pods_today_extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +269,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				748E1ED59E357D650D9B10E6 /* Pods_Embedded.framework in Frameworks */,
+				7B8C30C2C4915FABA470BF8E /* Pods_Embedded.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,11 +290,11 @@
 				4D11152722B524C0000817BA /* Twitter.framework */,
 				4D11152522B52145000817BA /* SystemConfiguration.framework */,
 				4D11152322B5213B000817BA /* Security.framework */,
-				A7B43AF9BC7F3859A944F52C /* Pods_Twibu.framework */,
-				664C83D02A469D3E7E28A4B6 /* Pods_TwibuTests.framework */,
 				4D72CED522E2DA1400E6AA66 /* NotificationCenter.framework */,
-				1D9BF3FCC7DD2D4F5AA1304D /* Pods_Embedded.framework */,
-				23A93E6DADD87F90A09C0B26 /* Pods_today_extension.framework */,
+				4C05293897027C24F7007C1F /* Pods_Embedded.framework */,
+				931B8F8851A07C895F460DBF /* Pods_Twibu.framework */,
+				3020988FA8B7C43854B7EC66 /* Pods_TwibuTests.framework */,
+				2E5861814BC8610FF8E2AD2C /* Pods_today_extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -357,7 +361,6 @@
 				4D65094122BF5E0400BB0959 /* 2_usecase */,
 				4D65094222BF5E2D00BB0959 /* 3_interface */,
 				4D65094322BF5E3E00BB0959 /* 4_external */,
-				4D11152922B528AE000817BA /* GoogleService-Info.plist */,
 				4D11150F22B5160F000817BA /* Info.plist */,
 				4D72CF0F22E2F3AB00E6AA66 /* Twibu.entitlements */,
 			);
@@ -567,6 +570,7 @@
 		4D72CED722E2DA1400E6AA66 /* today-extension */ = {
 			isa = PBXGroup;
 			children = (
+				4D72CF1E22E30A4B00E6AA66 /* cell */,
 				4D72CF0E22E2F37E00E6AA66 /* today-extension.entitlements */,
 				4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */,
 				4D72CEDA22E2DA1400E6AA66 /* MainInterface.storyboard */,
@@ -583,6 +587,7 @@
 				4D72CF0B22E2E75F00E6AA66 /* 4_external */,
 				4D72CEEC22E2E07A00E6AA66 /* Embedded.h */,
 				4D72CEED22E2E07A00E6AA66 /* Info.plist */,
+				4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */,
 			);
 			path = Embedded;
 			sourceTree = "<group>";
@@ -650,6 +655,15 @@
 				4D65093022BE25CA00BB0959 /* Env.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		4D72CF1E22E30A4B00E6AA66 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				4D72CF1F22E30A7100E6AA66 /* TodayCell.swift */,
+				4D72CF2122E30A8000E6AA66 /* TodayCell.xib */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		4DA1E5DE22CB5F6B00320895 /* settings */ = {
@@ -888,7 +902,6 @@
 				4D11154722B60298000817BA /* TimelineCell.xib in Resources */,
 				4D37812422CCF8240072EEBD /* Settings.bundle in Resources */,
 				4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */,
-				4D11152A22B528AE000817BA /* GoogleService-Info.plist in Resources */,
 				4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */,
 				4D11150B22B5160F000817BA /* Assets.xcassets in Resources */,
 				4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */,
@@ -913,6 +926,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CEDC22E2DA1400E6AA66 /* MainInterface.storyboard in Resources */,
+				4D72CF2222E30A8000E6AA66 /* TodayCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,6 +934,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D72CF2422E316BC00E6AA66 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1144,6 +1159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CED922E2DA1400E6AA66 /* TodayViewController.swift in Sources */,
+				4D72CF2022E30A7100E6AA66 /* TodayCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,33 +1,34 @@
-# Uncomment the next line to define a global platform for your project
+use_frameworks!
 platform :ios, '11.0'
 
 def common_pods
   pod 'Firebase/Core'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Functions'
-  
-  pod 'ReSwift'
+  pod 'Firebase/Performance'
+  pod 'Kingfisher'
 end
 
 target 'Embedded' do
-  use_frameworks!
-  common_pods 
+  common_pods
+end
+
+target 'today-extension' do
+  common_pods
 end
 
 target 'Twibu' do
-  use_frameworks!
-  common_pods 
-  
-  pod 'Firebase/Performance'
-  
+  common_pods
+
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+
   pod 'TwitterKit'
   pod 'Fabric'
   pod 'Crashlytics'
-  
+
+  pod 'ReSwift'
   pod 'Parchment' # tab menu
-  pod 'Kingfisher'
   pod 'SwiftIcons'
   pod 'BadgeSwift'
 
@@ -39,11 +40,6 @@ target 'Twibu' do
   end
 end
 
-target 'today-extension' do
-  use_frameworks!
-  common_pods 
-end
-
 post_install do |installer|
   installer.aggregate_targets.each do |aggregate_target|
     aggregate_target.xcconfigs.each do |config_name, config_file|
@@ -53,4 +49,3 @@ post_install do |installer|
     end
   end
 end
-

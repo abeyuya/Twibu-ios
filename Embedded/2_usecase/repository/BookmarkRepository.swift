@@ -6,7 +6,6 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import FirebaseAuth
 import FirebaseFirestore
 
 public final class BookmarkRepository {
@@ -68,40 +67,40 @@ public final class BookmarkRepository {
         switch category {
         case .all:
             switch type {
-            case .new:
+            case .new(let limit):
                 return db.collection("bookmarks")
                     .order(by: "created_at", descending: true)
-                    .limit(to: 100)
-            case .add(let doc):
+                    .limit(to: limit)
+            case .add(let (limit, doc)):
                 if let d = doc {
                     return db.collection("bookmarks")
                         .order(by: "created_at", descending: true)
                         .start(afterDocument: d)
-                        .limit(to: 100)
+                        .limit(to: limit)
                 }
                 return db.collection("bookmarks")
                     .order(by: "created_at", descending: true)
-                    .limit(to: 100)
+                    .limit(to: limit)
             }
         default:
             switch type {
-            case .new:
+            case .new(let limit):
                 return db.collection("bookmarks")
                     .whereField("category", isEqualTo: category.rawValue)
                     .order(by: "created_at", descending: true)
-                    .limit(to: 30)
-            case .add(let doc):
+                    .limit(to: limit)
+            case .add(let (limit, doc)):
                 if let d = doc {
                     return db.collection("bookmarks")
                         .whereField("category", isEqualTo: category.rawValue)
                         .order(by: "created_at", descending: true)
                         .start(afterDocument: d)
-                        .limit(to: 30)
+                        .limit(to: limit)
                 }
                 return db.collection("bookmarks")
                     .whereField("category", isEqualTo: category.rawValue)
                     .order(by: "created_at", descending: true)
-                    .limit(to: 30)
+                    .limit(to: limit)
             }
         }
     }
@@ -113,26 +112,26 @@ public final class BookmarkRepository {
     ) {
         let query: Query = {
             switch type {
-            case .new:
+            case .new(let limit):
                 return db.collection("users")
                     .document(uid)
                     .collection("timeline")
                     .order(by: "post_at", descending: true)
-                    .limit(to: 20)
-            case .add(let doc):
+                    .limit(to: limit)
+            case .add(let (limit, doc)):
                 if let d = doc {
                     return db.collection("users")
                         .document(uid)
                         .collection("timeline")
                         .order(by: "post_at", descending: true)
                         .start(afterDocument: d)
-                        .limit(to: 20)
+                        .limit(to: limit)
                 }
                 return db.collection("users")
                     .document(uid)
                     .collection("timeline")
                     .order(by: "post_at", descending: true)
-                    .limit(to: 20)
+                    .limit(to: limit)
             }
         }()
 

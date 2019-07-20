@@ -65,14 +65,14 @@ final class CommentRepository {
             .order(by: "favorite_count", descending: true)
 
         switch type {
-        case .new:
-            return q.limit(to: 100)
-        case .add(let snapshot):
+        case .new(let limit):
+            return q.limit(to: limit)
+        case .add(let (limit, snapshot)):
             if let s = snapshot {
-                return q.start(afterDocument: s).limit(to: 100)
+                return q.start(afterDocument: s).limit(to: limit)
             } else {
                 // スナップショットが無い場合は先頭から取得
-                return q.limit(to: 100)
+                return q.limit(to: limit)
             }
         }
     }

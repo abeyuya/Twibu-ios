@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import TwitterKit
+import Embedded
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

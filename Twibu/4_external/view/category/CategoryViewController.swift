@@ -99,7 +99,15 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchBookmark() {
         guard let category = category, let uid = currentUser?.firebaseAuthUser?.uid else { return }
-        BookmarkDispatcher.fetchBookmark(category: category, uid: uid, type: .new) { _ in }
+
+        let limit: Int = {
+            switch category {
+            case .all: return 100
+            default: return 30
+            }
+        }()
+
+        BookmarkDispatcher.fetchBookmark(category: category, uid: uid, type: .new(limit)) { _ in }
     }
 
     @objc
@@ -134,7 +142,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             BookmarkDispatcher.fetchBookmark(
                 category: category,
                 uid: uid,
-                type: .add(result.lastSnapshot)
+                type: .add(30, result.lastSnapshot)
             ) { _ in }
         }
     }
@@ -199,10 +207,10 @@ extension CategoryViewController: UITableViewDelegate {
                 buid: b.uid,
                 title: b.title ?? "",
                 url: b.url,
-                type: .new
+                type: .new(100)
             )
         } else {
-            CommentDispatcher.fetchComments(buid: b.uid, type: .new)
+            CommentDispatcher.fetchComments(buid: b.uid, type: .new(100))
         }
 
         AnalyticsDispatcer.logging(
