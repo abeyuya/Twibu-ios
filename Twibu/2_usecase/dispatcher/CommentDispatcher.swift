@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Embedded
 
 struct CommentDispatcher {
     private static func updateBookmarkComment(

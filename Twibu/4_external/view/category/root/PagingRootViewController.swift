@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import Parchment
 import ReSwift
+import Embedded
 
 protocol PagingRootViewControllerDelegate: class {
     func reload(item: PagingIndexItem?)

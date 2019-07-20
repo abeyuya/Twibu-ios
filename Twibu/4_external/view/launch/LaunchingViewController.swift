@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Embedded
 
 final class LaunchingViewController: UIViewController, StoryboardInstantiatable {
 

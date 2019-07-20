@@ -10,10 +10,10 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFunctions
 
-final class TwibuFirebase {
+public final class TwibuFirebase {
     private init() {}
 
-    static let firestore: Firestore = {
+    public static let firestore: Firestore = {
         let settings = FirestoreSettings()
         settings.isPersistenceEnabled = true
         settings.dispatchQueue = DispatchQueue.global()
@@ -24,7 +24,7 @@ final class TwibuFirebase {
         return db
     }()
 
-    static let functions: Functions = {
+    public static let functions: Functions = {
         return Functions.functions(region: "asia-northeast1")
     }()
 }

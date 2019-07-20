@@ -12,6 +12,10 @@ name: BoringSSL-GRPC, nameSpecified:
 body: BoringSSL is a fork …
 version: 0.0.3
 
+name: BoringSSL-GRPC, nameSpecified: 
+body: BoringSSL is a fork …
+version: 0.0.3
+
 name: Crashlytics, nameSpecified: 
 body: Fabric: Copyright 20…
 version: 3.13.4
@@ -19,6 +23,10 @@ version: 3.13.4
 name: Fabric, nameSpecified: 
 body: Fabric: Copyright 20…
 version: 1.10.2
+
+name: Firebase, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 6.4.0
 
 name: Firebase, nameSpecified: 
 body: Copyright 2019 Googl…
@@ -40,6 +48,10 @@ name: FirebaseAnalytics, nameSpecified:
 body: Copyright 2019 Googl…
 version: 6.0.3
 
+name: FirebaseAnalytics, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 6.0.3
+
 name: FirebaseAuth, nameSpecified: 
 body: 
                    …
@@ -49,6 +61,16 @@ name: FirebaseAuth, nameSpecified:
 body: 
                    …
 version: 6.2.0
+
+name: FirebaseAuth, nameSpecified: 
+body: 
+                   …
+version: 6.2.0
+
+name: FirebaseAuthInterop, nameSpecified: 
+body: 
+                   …
+version: 1.0.0
 
 name: FirebaseAuthInterop, nameSpecified: 
 body: 
@@ -70,6 +92,16 @@ body:
                    …
 version: 6.0.4
 
+name: FirebaseCore, nameSpecified: 
+body: 
+                   …
+version: 6.0.4
+
+name: FirebaseFirestore, nameSpecified: 
+body: 
+                   …
+version: 1.4.1
+
 name: FirebaseFirestore, nameSpecified: 
 body: 
                    …
@@ -89,6 +121,16 @@ name: FirebaseFunctions, nameSpecified:
 body: 
                    …
 version: 2.5.1
+
+name: FirebaseFunctions, nameSpecified: 
+body: 
+                   …
+version: 2.5.1
+
+name: FirebaseInstanceID, nameSpecified: 
+body: 
+                   …
+version: 4.2.1
 
 name: FirebaseInstanceID, nameSpecified: 
 body: 
@@ -116,6 +158,10 @@ name: GoogleAppMeasurement, nameSpecified:
 body: Copyright 2019 Googl…
 version: 6.0.3
 
+name: GoogleAppMeasurement, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 6.0.3
+
 name: GoogleToolboxForMac, nameSpecified: 
 body: 
                    …
@@ -131,6 +177,16 @@ body:
                    …
 version: 6.2.3
 
+name: GoogleUtilities, nameSpecified: 
+body: 
+                   …
+version: 6.2.3
+
+name: gRPC-C++, nameSpecified: 
+body: 
+                   …
+version: 
+
 name: gRPC-C++, nameSpecified: 
 body: 
                    …
@@ -150,6 +206,16 @@ name: gRPC-Core, nameSpecified:
 body: 
                    …
 version: 1.21.0
+
+name: gRPC-Core, nameSpecified: 
+body: 
+                   …
+version: 1.21.0
+
+name: GTMSessionFetcher, nameSpecified: 
+body: 
+                   …
+version: 1.2.2
 
 name: GTMSessionFetcher, nameSpecified: 
 body: 
@@ -173,11 +239,19 @@ name: leveldb-library, nameSpecified:
 body: Copyright (c) 2011 T…
 version: 1.20
 
+name: leveldb-library, nameSpecified: 
+body: Copyright (c) 2011 T…
+version: 1.20
+
 name: LicensePlist, nameSpecified: 
 body: MIT License
 
 Copyrig…
 version: 2.5.0
+
+name: nanopb, nameSpecified: 
+body: Copyright (c) 2011 P…
+version: 0.3.901
 
 name: nanopb, nameSpecified: 
 body: Copyright (c) 2011 P…
@@ -198,6 +272,14 @@ version: 3.9.0
 name: Protobuf, nameSpecified: 
 body: Copyright 2008 Googl…
 version: 3.9.0
+
+name: Protobuf, nameSpecified: 
+body: Copyright 2008 Googl…
+version: 3.9.0
+
+name: ReSwift, nameSpecified: 
+body: The MIT License (MIT…
+version: 5.0.0
 
 name: ReSwift, nameSpecified: 
 body: The MIT License (MIT…

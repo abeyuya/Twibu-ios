@@ -11,6 +11,7 @@ import WebKit
 import ReSwift
 import SwiftIcons
 import BadgeSwift
+import Embedded
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
 

@@ -9,11 +9,11 @@
 import Foundation
 import FirebaseFirestore
 
-struct Repository {
-    enum FetchType {
+public struct Repository {
+    public enum FetchType {
         case new, add(DocumentSnapshot?)
 
-        var debugName: String {
+        public var debugName: String {
             switch self {
             case .new: return "new"
             case .add(_): return "add"
@@ -21,19 +21,25 @@ struct Repository {
         }
     }
 
-    struct Result<T> {
-        let item: T
-        let lastSnapshot: DocumentSnapshot?
-        let hasMore: Bool
+    public struct Result<T> {
+        public let item: T
+        public let lastSnapshot: DocumentSnapshot?
+        public let hasMore: Bool
+
+        public init(item: T, lastSnapshot: DocumentSnapshot?, hasMore: Bool) {
+            self.item = item
+            self.lastSnapshot = lastSnapshot
+            self.hasMore = hasMore
+        }
     }
 
-    enum Response<T> {
+    public enum Response<T> {
         case notYetLoading
         case loading(Result<T>)
         case success(Result<T>)
         case failure(TwibuError)
 
-        var item: T? {
+        public var item: T? {
             switch self {
             case .success(let result): return result.item
             case .loading(let result): return result.item

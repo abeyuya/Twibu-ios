@@ -9,6 +9,7 @@
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFunctions
+import Embedded
 
 final class UserRepository {
     private static let db = TwibuFirebase.firestore

@@ -9,10 +9,10 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-final class BookmarkRepository {
+public final class BookmarkRepository {
     private static let db = TwibuFirebase.firestore
 
-    static func fetchBookmark(
+    public static func fetchBookmark(
         category: Category,
         uid: String,
         type: Repository.FetchType,

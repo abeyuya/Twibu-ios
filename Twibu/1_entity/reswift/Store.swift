@@ -9,10 +9,11 @@
 import Foundation
 import ReSwift
 import FirebaseAuth
+import Embedded
 
 struct AppState: StateType {
     struct Response {
-        var bookmarks: [Category: Repository.Response<[Bookmark]>] = [:]
+        var bookmarks: [Embedded.Category: Repository.Response<[Bookmark]>] = [:]
         var comments: [String: Repository.Response<[Comment]>] = [:]
     }
 
@@ -21,7 +22,7 @@ struct AppState: StateType {
 }
 
 extension AppState {
-    static func toFlat(bookmarks: [Category: Repository.Response<[Bookmark]>]) -> [Bookmark] {
+    static func toFlat(bookmarks: [Embedded.Category: Repository.Response<[Bookmark]>]) -> [Bookmark] {
         let resArr = bookmarks.values.compactMap { $0 }
         let bmNestArr: [[Bookmark]] = resArr.compactMap { (res: Repository.Response<[Bookmark]>) in
             switch res {
@@ -37,7 +38,7 @@ extension AppState {
 }
 
 struct AddBookmarksAction: Action {
-    let category: Category
+    let category: Embedded.Category
     let bookmarks: Repository.Response<[Bookmark]>
 }
 struct AddCommentsAction: Action {

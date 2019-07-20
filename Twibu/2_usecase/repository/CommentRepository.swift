@@ -8,6 +8,7 @@
 
 import FirebaseAuth
 import FirebaseFirestore
+import Embedded
 
 final class CommentRepository {
     private static let shared = CommentRepository()

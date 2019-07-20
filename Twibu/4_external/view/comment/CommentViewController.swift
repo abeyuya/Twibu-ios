@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import ReSwift
+import Embedded
 
 final class CommentViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet weak var tableview: UITableView!

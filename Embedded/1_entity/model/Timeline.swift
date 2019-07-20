@@ -8,10 +8,10 @@
 
 import FirebaseFirestore
 
-struct Timeline {
-    let bookmark_ref: DocumentReference
-    let post_at: Int
-    let updated_at: Int
+public struct Timeline {
+    public let bookmark_ref: DocumentReference
+    public let post_at: Int
+    public let updated_at: Int
 
     init?(dictionary: [String: Any]) {
         guard let ref = dictionary["bookmark_ref"] as? DocumentReference else { return nil }

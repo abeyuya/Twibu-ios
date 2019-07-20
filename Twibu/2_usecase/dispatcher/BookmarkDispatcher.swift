@@ -8,10 +8,11 @@
 
 import Foundation
 import FirebasePerformance
+import Embedded
 
 struct BookmarkDispatcher {
     static func fetchBookmark(
-        category: Category,
+        category: Embedded.Category,
         uid: String,
         type: Repository.FetchType,
         completion: @escaping (Result<[Bookmark]>) -> Void

@@ -39,6 +39,11 @@ target 'Twibu' do
   end
 end
 
+target 'today-extension' do
+  use_frameworks!
+  common_pods 
+end
+
 post_install do |installer|
   installer.aggregate_targets.each do |aggregate_target|
     aggregate_target.xcconfigs.each do |config_name, config_file|

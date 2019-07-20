@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TwibuError: Error {
+public enum TwibuError: Error {
     case unknown(String?)
     case needFirebaseAuth(String?)
     case needTwitterAuth(String?)
@@ -17,7 +17,7 @@ enum TwibuError: Error {
     case firestoreError(String?)
     case firebaseFunctionsError(String?)
 
-    var displayMessage: String {
+    public var displayMessage: String {
         if Env.current == .debug {
             return [
                 userMessage,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Category: String, CaseIterable {
+public enum Category: String, CaseIterable {
     case timeline = "timeline"
     case all = "all"
     case social = "social"
@@ -20,7 +20,7 @@ enum Category: String, CaseIterable {
     case entertainment = "entertainment"
     case game = "game"
 
-    var displayString: String {
+    public var displayString: String {
         switch self {
         case .timeline: return "タイムライン"
         case .all: return "トップ"
@@ -35,15 +35,15 @@ enum Category: String, CaseIterable {
         }
     }
 
-    var index: Int {
+    public var index: Int {
         return Category.allCases.firstIndex(of: self)!
     }
 
-    init?(index: Int) {
+    public init?(index: Int) {
         self = Category.allCases[index]
     }
 
-    static func calcLogicalIndex(physicalIndex: Int) -> Int {
+    public static func calcLogicalIndex(physicalIndex: Int) -> Int {
         let i = physicalIndex % Category.allCases.count
 
         if i >= 0 {

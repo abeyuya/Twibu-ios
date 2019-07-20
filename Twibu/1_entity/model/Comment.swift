@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseFirestore
+import Embedded
 
 struct Comment: TwibuFirestoreCodable {
     let id: String

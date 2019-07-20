@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum Env {
+public enum Env {
     case debug, release
 
-    static var current: Env {
+    public static var current: Env {
         #if DEBUG
         return .debug
         #else

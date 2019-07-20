@@ -9,9 +9,9 @@
 import Foundation
 import FirebaseFirestore
 
-protocol TwibuFirestoreCodable: Codable {}
+public protocol TwibuFirestoreCodable: Codable {}
 
-extension TwibuFirestoreCodable {
+public extension TwibuFirestoreCodable {
     init?(dictionary: [String: Any]) {
         let dict: [String: Any] = {
             var newDict = dictionary

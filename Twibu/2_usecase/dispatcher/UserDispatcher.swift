@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseAnalytics
 import TwitterKit
 import Crashlytics
+import Embedded
 
 struct UserDispatcher {
     static func linkTwitterAccount(user: User, session: TWTRSession, completion: @escaping (Result<Void>) -> Void) {
@@ -50,6 +51,7 @@ struct UserDispatcher {
     static func updateFirebaseUser(user: User) {
         let a = UpdateFirebaseUser(newUser: user)
         store.dispatch(a)
+        TwibuUserDefaults.shared.setFirebaseUid(uid: user.uid)
         Crashlytics.sharedInstance().setUserIdentifier(user.uid)
 
         let twitterLinked = TwibuUser.isTwitterLogin(user: user)

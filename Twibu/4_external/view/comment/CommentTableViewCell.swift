@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftIcons
+import Embedded
 
 final class CommentTableViewCell: UITableViewCell {
 

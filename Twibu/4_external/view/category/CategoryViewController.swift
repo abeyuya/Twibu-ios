@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import Parchment
 import ReSwift
+import Embedded
 
 final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
@@ -28,9 +29,9 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private var lastContentOffset: CGFloat = 0
     private var cellHeight: [IndexPath: CGFloat] = [:]
 
-    private var category: Category? {
+    private var category: Embedded.Category? {
         guard let i = item?.index,
-            let category = Category(index: Category.calcLogicalIndex(physicalIndex: i)) else {
+            let category = Category(index: Embedded.Category.calcLogicalIndex(physicalIndex: i)) else {
                 return nil
         }
         return category

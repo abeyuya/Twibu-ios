@@ -11,6 +11,8 @@ import FirebaseAuth
 import TwitterKit
 import Parchment
 import ReSwift
+import Crashlytics
+import Embedded
 
 final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
@@ -72,7 +74,8 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
         guard let firebaseUser = currentUser?.firebaseAuthUser else {
             let e = TwibuError.needFirebaseAuth("firebase匿名ログインもできてない")
             self.showAlert(title: "Error", message: e.displayMessage)
-            Logger.log(e)
+            Logger.print(e)
+            Crashlytics.sharedInstance().recordError(e)
             return
         }
 
@@ -96,7 +99,8 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
                 AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.displayMessage)
-                Logger.log(error)
+                Logger.print(error)
+                Crashlytics.sharedInstance().recordError(error)
             }
         }
     }

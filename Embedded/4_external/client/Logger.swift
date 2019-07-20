@@ -7,20 +7,9 @@
 //
 
 import Foundation
-import Crashlytics
 
-struct Logger {
-    static func log(
-        _ error: TwibuError,
-        function: String = #function,
-        file: String = #file,
-        line: Int = #line
-    ) {
-        Swift.print("error: \(error.displayMessage)")
-        Crashlytics.sharedInstance().recordError(error)
-    }
-
-    static func print(
+public struct Logger {
+    public static func print(
         _ debug: Any = "",
         function: String = #function,
         file: String = #file,

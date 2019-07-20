@@ -8,6 +8,7 @@
 
 import UIKit
 import Parchment
+import Embedded
 
 final class CommentRootViewController: UIViewController {
 
