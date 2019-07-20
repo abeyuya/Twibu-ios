@@ -11,7 +11,20 @@ import Crashlytics
 
 struct Logger {
     static func log(_ error: TwibuError) {
-        print("error: \(error.displayMessage)")
+        Swift.print("error: \(error.displayMessage)")
         Crashlytics.sharedInstance().recordError(error)
+    }
+
+    static func print(
+        _ debug: Any = "",
+        function: String = #function,
+        file: String = #file,
+        line: Int = #line
+    ) {
+        var filename = file
+        if let match = filename.range(of: "[^/]*$", options: .regularExpression) {
+            filename = String(filename[match.upperBound...])
+        }
+        Swift.print("Logger:\(filename):L\(line):\(function) \(debug)")
     }
 }

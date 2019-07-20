@@ -45,7 +45,7 @@ struct CommentDispatcher {
                 store.mDispatch(a2)
 
             case .failure(let error):
-                print(error.displayMessage)
+                Logger.print(error.displayMessage)
 
                 // NOTE: 失敗しても何もなかったことにする
                 let a = AddCommentsAction(
@@ -94,7 +94,7 @@ struct CommentDispatcher {
         updateBookmarkComment(bookmarkUid: buid, title: title, url: url) { result in
             switch result {
             case .failure(let error):
-                print(error)
+                Logger.print(error)
                 break
             case .success(_):
                 break

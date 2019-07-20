@@ -36,7 +36,7 @@ extension TwibuFirestoreCodable {
                 from: JSONSerialization.data(withJSONObject: dict)
             )
         } catch {
-            print("\(Self.self)のdecodeに失敗しました", dict)
+            Logger.print("\(Self.self)のdecodeに失敗しました dict: \(dict)")
             return nil
         }
     }

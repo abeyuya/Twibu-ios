@@ -176,7 +176,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 //   timelineのpagingでまだ読み込み完了していない状態 & 読み込み済み記事のコメント表示
                 //   の時に通ったよ
                 //
-                print("通るのか？")
+                Logger.print("通るのか？")
                 continue
             case .success(let result):
                 let newResult = Repository.Result<[Bookmark]>(

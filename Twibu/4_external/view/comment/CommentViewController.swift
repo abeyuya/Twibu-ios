@@ -212,7 +212,7 @@ extension CommentViewController {
         DispatchQueue.main.async {
             UIApplication.shared.open(url, options: [:]) { success in
                 guard success else {
-                    print("open error")
+                    Logger.print("open error")
                     return
                 }
             }
@@ -298,9 +298,51 @@ extension CommentViewController: StoreSubscriber {
             return
         }
 
+        guard isResponseChanged(old: commentsResponse, new: res) else {
+            return
+        }
+
         commentsResponse = res
+
         DispatchQueue.main.async {
             self.render()
+        }
+    }
+
+    private func isResponseChanged(old: Repository.Response<[Comment]>, new: Repository.Response<[Comment]>) -> Bool {
+        switch old {
+        case .loading(_):
+            switch new {
+            case .loading(_):
+                return false
+            default:
+                return true
+            }
+        case .failure(_):
+            switch new {
+            case .failure(_):
+                return false
+            default:
+                return true
+            }
+        case .notYetLoading:
+            switch new {
+            case .notYetLoading:
+                return false
+            default:
+                return true
+            }
+        case .success(let oldResult):
+            switch new {
+            case .success(let newResult):
+                if Comment.isEqual(a: oldResult.item, b: newResult.item) {
+                    return false
+                }
+
+                return true
+            default:
+                return true
+            }
         }
     }
 

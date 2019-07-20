@@ -68,7 +68,7 @@ struct UserDispatcher {
             BookmarkDispatcher.fetchBookmark(category: .timeline, uid: uid, type: .new) { result in
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    Logger.print(error)
                 case .success(let bookmarks):
                     // それぞれ最新のコメントに更新
                     bookmarks.forEach { b in

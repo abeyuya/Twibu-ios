@@ -68,6 +68,27 @@ extension Comment {
 
         return result
     }
+
+    static func isEqual(a: [Comment], b: [Comment]) -> Bool {
+        if a.count != b.count {
+            return false
+        }
+
+        let notEqual = a.first(where: { ac in
+            if let same = b.first(where: { bc in bc.id == ac.id }) {
+                return ac != same
+            }
+            return false
+        })
+
+        return notEqual == nil
+    }
+}
+
+extension Comment: Equatable {
+    static func == (lhs: Comment, rhs: Comment) -> Bool {
+        return lhs.id == rhs.id && lhs.updated_at == rhs.updated_at
+    }
 }
 
 extension Comment {

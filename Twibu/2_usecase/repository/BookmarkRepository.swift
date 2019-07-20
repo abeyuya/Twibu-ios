@@ -183,19 +183,19 @@ final class BookmarkRepository {
             dispatchQueue.async(group: dispatchGroup) {
                 t.bookmark_ref.getDocument { snapshot, error in
                     if let error = error {
-                        print(error)
+                        Logger.print(error)
                         dispatchGroup.leave()
                         return
                     }
 
                     guard let snapshot = snapshot, let dict = snapshot.data() else {
-                        print("snapshotが取れず...")
+                        Logger.print("snapshotが取れず...")
                         dispatchGroup.leave()
                         return
                     }
 
                     guard let b = Bookmark(dictionary: dict) else {
-                        print("bookmark decode できず")
+                        Logger.print("bookmark decode できず")
                         dispatchGroup.leave()
                         return
                     }
