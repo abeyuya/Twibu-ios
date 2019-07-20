@@ -69,16 +69,17 @@ struct UserDispatcher {
                 switch result {
                 case .failure(let error):
                     Logger.print(error)
-                case .success(let bookmarks):
+                case .success(_):
+                    break
                     // それぞれ最新のコメントに更新
-                    bookmarks.forEach { b in
-                        CommentDispatcher.updateAndFetchComments(
-                            buid: b.uid,
-                            title: b.title ?? "",
-                            url: b.url,
-                            type: .new
-                        )
-                    }
+//                    bookmarks.forEach { b in
+//                        CommentDispatcher.updateAndFetchComments(
+//                            buid: b.uid,
+//                            title: b.title ?? "",
+//                            url: b.url,
+//                            type: .new
+//                        )
+//                    }
                 }
             }
         }
