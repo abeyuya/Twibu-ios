@@ -17,11 +17,26 @@
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xsx-fE-OQO">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="trailing" secondItem="Xsx-fE-OQO" secondAttribute="trailing" id="JQz-JB-wP0"/>
+                            <constraint firstItem="Xsx-fE-OQO" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="cXm-dj-ylR"/>
+                            <constraint firstItem="Xsx-fE-OQO" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="qmD-sH-ZHo"/>
+                            <constraint firstAttribute="bottom" secondItem="Xsx-fE-OQO" secondAttribute="bottom" id="wdr-VR-P6Y"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="37"/>
+                    <connections>
+                        <outlet property="tableView" destination="Xsx-fE-OQO" id="vru-Ug-d1X"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

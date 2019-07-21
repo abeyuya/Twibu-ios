@@ -15,6 +15,10 @@ import FirebaseFirestore
 
 final class TodayViewController: UIViewController, NCWidgetProviding {
 
+    @IBOutlet weak var tableView: UITableView!
+
+    private var bookmarks: [Bookmark] = []
+
     public let firestore: Firestore = {
         if FirebaseApp.app() == nil {
             FirebaseApp.configure()
@@ -38,20 +42,51 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
             FirebaseApp.configure()
         }
 
-        perform(completionHandler: nil)
+        setupTableview()
+        loginAndFetch() { [weak self] result in
+            switch result {
+            case .failure(let e):
+                Logger.print(e)
+            case .success(let bookmarks):
+                self?.bookmarks = bookmarks
+
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        perform(completionHandler: completionHandler)
+        loginAndFetch() { [weak self] result in
+            switch result {
+            case .failure(let e):
+                Logger.print(e)
+                completionHandler(.failed)
+            case .success(let bookmarks):
+                self?.bookmarks = bookmarks
+
+                if bookmarks.isEmpty {
+                    completionHandler(.noData)
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                    completionHandler(.newData)
+                }
+            }
+        }
     }
 
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        perform() { _ in }
+        self.tableView.reloadData()
         switch activeDisplayMode {
         case .compact:
             self.preferredContentSize = maxSize
         case .expanded:
-            self.preferredContentSize = CGSize(width: 0, height: 400)
+            let height = max(tableView.contentSize.height, 400)
+            self.preferredContentSize = CGSize(width: 0, height: height)
         @unknown default:
             self.preferredContentSize = maxSize
         }
@@ -60,28 +95,29 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
 
 private extension TodayViewController {
 
-    private func perform(completionHandler: ((NCUpdateResult) -> Void)?) {
+    private func setupTableview() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView()
+
+        tableView.register(
+            UINib(nibName: "TodayCell", bundle: nil),
+            forCellReuseIdentifier: "cell"
+        )
+    }
+
+    private func loginAndFetch(completion: @escaping (Result<[Bookmark]>) -> Void) {
         checkFirebaseLogin() { [weak self] loginResult in
             switch loginResult {
             case .failure(let e):
-                Logger.print(e)
-                self?.renderError()
-                completionHandler?(.failed)
+                completion(.failure(e))
             case .success(let user):
                 self?.fetchBookmark(uid: user.uid) { fetchResult in
                     switch fetchResult {
                     case .failure(let e):
-                        Logger.print(e)
-                        self?.renderError()
-                        completionHandler?(.failed)
+                        completion(.failure(e))
                     case .success(let bookmarks):
-                        self?.render(bookmarks: bookmarks)
-
-                        if bookmarks.isEmpty {
-                            completionHandler?(.noData)
-                        } else {
-                            completionHandler?(.newData)
-                        }
+                        completion(.success(bookmarks))
                     }
                 }
             }
@@ -138,80 +174,35 @@ private extension TodayViewController {
 
     private func renderError() {
         DispatchQueue.main.async {
-            self.view.subviews.forEach { $0.removeFromSuperview() }
             let l = UILabel()
             l.text = "ニュースが取得できませんでした"
             l.textAlignment = .center
             l.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(l)
-            l.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 12).isActive = true
-            l.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 12).isActive = true
-            l.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: 12).isActive = true
-            l.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 12).isActive = true
+            l.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+            l.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         }
     }
+}
 
-    private func render(bookmarks: [Bookmark]) {
-        DispatchQueue.main.async {
-            self.view.subviews.forEach { $0.removeFromSuperview() }
-        }
+extension TodayViewController: UITableViewDelegate {
+}
 
-        if bookmarks.isEmpty {
-            renderError()
-            return
+extension TodayViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let mode = extensionContext?.widgetActiveDisplayMode, mode == .expanded else {
+            return min(bookmarks.count, 1)
         }
-
-        guard let mode = extensionContext?.widgetActiveDisplayMode else {
-            renderError()
-            return
-        }
-
-        switch mode {
-        case .compact:
-            guard let b = bookmarks.first else {
-                self.renderError()
-                return
-            }
-            renderCompact(bookmark: b)
-        case .expanded:
-            renderExpand(bookmarks: bookmarks)
-        @unknown default:
-            renderExpand(bookmarks: bookmarks)
-        }
+        return bookmarks.count
     }
 
-    private func renderCompact(bookmark: Bookmark) {
-        DispatchQueue.main.async {
-            let v = TodayCell()
-            v.translatesAutoresizingMaskIntoConstraints = false
-            v.set(bookmark: bookmark, showImage: true)
-            self.view.addSubview(v)
-
-            v.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            v.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-            v.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-            v.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TodayCell else {
+            return UITableViewCell()
         }
-    }
 
-    private func renderExpand(bookmarks: [Bookmark]) {
-        DispatchQueue.main.async {
-            let stack = UIStackView()
-            stack.axis = .vertical
-            stack.translatesAutoresizingMaskIntoConstraints = false
-
-            bookmarks.enumerated().forEach { (index, b) in
-                let v = TodayCell()
-                v.translatesAutoresizingMaskIntoConstraints = false
-                v.set(bookmark: b, showImage: index == 0)
-                stack.addArrangedSubview(v)
-            }
-
-            self.view.addSubview(stack)
-            stack.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            stack.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-            stack.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-            stack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        }
+        let b = bookmarks[indexPath.row]
+        cell.set(bookmark: b, showImage: indexPath.row == 0)
+        return cell
     }
 }

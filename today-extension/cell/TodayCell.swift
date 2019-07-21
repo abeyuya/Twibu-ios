@@ -10,7 +10,7 @@ import UIKit
 import Embedded
 import Kingfisher
 
-final class TodayCell: UIView {
+final class TodayCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var usersCountLabel: UILabel!
@@ -19,21 +19,9 @@ final class TodayCell: UIView {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var faviconImageView: UIImageView!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        loadNib()
-    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-        loadNib()
-    }
-
-    func loadNib() {
-        if let view = Bundle(for: type(of: self)).loadNibNamed(String(describing: type(of: self)), owner: self, options: nil)?.first as? UIView {
-            view.frame = self.bounds
-            self.addSubview(view)
-        }
         thumbnailImageView.layer.cornerRadius = 4
         thumbnailImageView.clipsToBounds = true
     }
