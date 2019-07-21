@@ -186,6 +186,13 @@ private extension TodayViewController {
 }
 
 extension TodayViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let b = bookmarks[indexPath.row]
+        guard let c = extensionContext,
+            let query = b.dictionary?.queryString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+            let url = URL(string: "twibu://?\(query)") else { return }
+        c.open(url)
+    }
 }
 
 extension TodayViewController: UITableViewDataSource {

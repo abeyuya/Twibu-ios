@@ -29,6 +29,9 @@
 		4D11154C22B6A648000817BA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154B22B6A648000817BA /* WebViewController.swift */; };
 		4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154D22B6A659000817BA /* WebViewController.storyboard */; };
 		4D28F54A22E4409500156445 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D28F54922E4409500156445 /* GoogleService-Info.plist */; };
+		4D28F54C22E48B9300156445 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F54B22E48B9300156445 /* URL+Extension.swift */; };
+		4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F54E22E48FCB00156445 /* Encodable+Extension.swift */; };
+		4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F55022E4900700156445 /* Dictionary+Extension.swift */; };
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
 		4D3CBDD922D3A0F700573AF4 /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
 		4D65092622BBDB5900BB0959 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
@@ -180,6 +183,9 @@
 		4D11154B22B6A648000817BA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4D11154D22B6A659000817BA /* WebViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebViewController.storyboard; sourceTree = "<group>"; };
 		4D28F54922E4409500156445 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4D28F54B22E48B9300156445 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		4D28F54E22E48FCB00156445 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
+		4D28F55022E4900700156445 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
 		4D5CFC8722D8BDDE00F33754 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
@@ -433,6 +439,15 @@
 			path = bookmarkWeb;
 			sourceTree = "<group>";
 		};
+		4D28F54D22E48FB100156445 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				4D28F54E22E48FCB00156445 /* Encodable+Extension.swift */,
+				4D28F55022E4900700156445 /* Dictionary+Extension.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
 		4D37812222CCF8060072EEBD /* license */ = {
 			isa = PBXGroup;
 			children = (
@@ -493,6 +508,7 @@
 			children = (
 				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
 				4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */,
+				4D28F54B22E48B9300156445 /* URL+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -608,6 +624,7 @@
 		4D72CF0922E2E6FD00E6AA66 /* 1_entity */ = {
 			isa = PBXGroup;
 			children = (
+				4D28F54D22E48FB100156445 /* extension */,
 				4D72CF1222E2F89000E6AA66 /* model */,
 				4D3A9AB022C6510E00AA9C23 /* interface */,
 			);
@@ -1141,6 +1158,7 @@
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D3CBDD922D3A0F700573AF4 /* AnalyticsDispatcher.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
+				4D28F54C22E48B9300156445 /* URL+Extension.swift in Sources */,
 				4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,
@@ -1176,7 +1194,9 @@
 				4D72CF1922E2FC5700E6AA66 /* BookmarkRepository.swift in Sources */,
 				4D72CF1122E2F40300E6AA66 /* TwibuUserDefaults.swift in Sources */,
 				4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */,
+				4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */,
 				4D72CF1422E2FC3D00E6AA66 /* Bookmark.swift in Sources */,
+				4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */,
 				4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */,
 				4D72CF1622E2FC4700E6AA66 /* Timeline.swift in Sources */,
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,

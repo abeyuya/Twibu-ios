@@ -35,6 +35,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let scheme = url.scheme else {
+            return false
+        }
+
+        let query = url.queryParams()
+
+        if scheme == "twibu", let buid = query["uid"], let urlStr = query["url"] {
+            let b = Bookmark(
+                uid: buid,
+                title: query["title"],
+                image_url: query["image_url"],
+                description: query["description"],
+                comment_count: Int(query["comment_count"] ?? "0"),
+                created_at: Int(query["created_at"] ?? "0"),
+                updated_at: Int(query["updated_at"] ?? "0"),
+                url: urlStr
+            )
+            let vc = WebViewController.initFromStoryBoard()
+            vc.set(bookmark: b)
+            guard let root = window?.rootViewController as? RootViewController,
+                let pageRootNavi = root.children.first as? UINavigationController else { return false }
+            pageRootNavi.pushViewController(vc, animated: true)
+            return true
+        }
+
         return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
     }
 
