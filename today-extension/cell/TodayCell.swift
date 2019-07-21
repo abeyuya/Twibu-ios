@@ -38,7 +38,7 @@ final class TodayCell: UIView {
         thumbnailImageView.clipsToBounds = true
     }
 
-    func set(bookmark: Bookmark) {
+    func set(bookmark: Bookmark, showImage: Bool) {
         titleLabel.text = bookmark.trimmedTitle ?? "タイトルが取得できませんでした"
 
         if let count = bookmark.comment_count, count > 0 {
@@ -66,7 +66,8 @@ final class TodayCell: UIView {
         }
 
         thumbnailImageView.image = nil
-        if let imageUrl = bookmark.image_url,
+        if showImage,
+            let imageUrl = bookmark.image_url,
             imageUrl != "",
             let url = URL(string: imageUrl) {
             thumbnailImageView.kf.setImage(with: url)

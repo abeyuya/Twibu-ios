@@ -28,6 +28,7 @@
 		4D11154722B60298000817BA /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154522B60298000817BA /* TimelineCell.xib */; };
 		4D11154C22B6A648000817BA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154B22B6A648000817BA /* WebViewController.swift */; };
 		4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154D22B6A659000817BA /* WebViewController.storyboard */; };
+		4D28F54A22E4409500156445 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D28F54922E4409500156445 /* GoogleService-Info.plist */; };
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
 		4D3CBDD922D3A0F700573AF4 /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
 		4D65092622BBDB5900BB0959 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
@@ -178,6 +179,7 @@
 		4D11154822B69E15000817BA /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		4D11154B22B6A648000817BA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4D11154D22B6A659000817BA /* WebViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebViewController.storyboard; sourceTree = "<group>"; };
+		4D28F54922E4409500156445 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
 		4D5CFC8722D8BDDE00F33754 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */,
 				4D72CEDA22E2DA1400E6AA66 /* MainInterface.storyboard */,
 				4D72CEDD22E2DA1400E6AA66 /* Info.plist */,
+				4D28F54922E4409500156445 /* GoogleService-Info.plist */,
 			);
 			path = "today-extension";
 			sourceTree = "<group>";
@@ -928,6 +931,7 @@
 			files = (
 				4D72CEDC22E2DA1400E6AA66 /* MainInterface.storyboard in Resources */,
 				4D72CF2222E30A8000E6AA66 /* TodayCell.xib in Resources */,
+				4D28F54A22E4409500156445 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
