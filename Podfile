@@ -1,45 +1,41 @@
 platform :ios, '11.0'
 use_frameworks!
 
-  pod 'Firebase/Core'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
-  pod 'Firebase/Functions'
-  pod 'Firebase/Performance'
-  pod 'Kingfisher'
+pod 'Firebase/Core'
+pod 'Firebase/Analytics'
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
+pod 'Firebase/Functions'
+pod 'Firebase/Performance'
+pod 'Kingfisher'
 
-  target 'Embedded' do
+target 'Embedded' do
+end
+
+target 'today-extension' do
+end
+
+target 'Twibu' do
+  pod 'TwitterKit'
+  pod 'Fabric'
+  pod 'Crashlytics'
+
+  pod 'ReSwift'
+  pod 'Parchment' # tab menu
+  pod 'SwiftIcons'
+  pod 'BadgeSwift'
+  pod 'LicensePlist'
+
+  target 'TwibuTests' do
+    inherit! :search_paths
   end
-
-  target 'today-extension' do
-    # inherit! :search_paths
-  end
-
-  target 'Twibu' do
-    # inherit! :search_paths
-
-    pod 'TwitterKit'
-    pod 'Fabric'
-    pod 'Crashlytics'
-
-    pod 'ReSwift'
-    pod 'Parchment' # tab menu
-    pod 'SwiftIcons'
-    pod 'BadgeSwift'
-    pod 'LicensePlist'
-
-    target 'TwibuTests' do
-      inherit! :search_paths
-    end
-  end
+end
 
 post_install do |installer|
   installer.aggregate_targets.each do |aggregate_target|
     puts aggregate_target.name
 
     if aggregate_target.name != 'Pods-Embedded'
-    # if aggregate_target.name == 'Pods-All-Twibu'
       aggregate_target.xcconfigs.each do |config_name, config_file|
         # config_file.other_linker_flags[:frameworks].delete("TwitterCore")
 
@@ -62,7 +58,7 @@ post_install do |installer|
       end
     end
 
-    if aggregate_target.name == 'Pods-All-Twibu'
+    if aggregate_target.name == 'Pods-Twibu'
       aggregate_target.xcconfigs.each do |config_name, config_file|
         config_file.frameworks.delete('TwitterCore')
         xcconfig_path = aggregate_target.xcconfig_path(config_name)
