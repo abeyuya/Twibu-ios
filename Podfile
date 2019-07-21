@@ -37,16 +37,15 @@ post_install do |installer|
 
     if aggregate_target.name != 'Pods-Embedded'
       aggregate_target.xcconfigs.each do |config_name, config_file|
-        # config_file.other_linker_flags[:frameworks].delete("TwitterCore")
-
-        # config_file.libraries.delete('GoogleAnalytics')
 
         config_file.frameworks.delete('FirebaseFirestore')
-        # config_file.frameworks.delete('FirebaseAnalytics')
+        config_file.frameworks.delete('FirebaseAnalytics')
         config_file.frameworks.delete('FirebaseCore')
-        # config_file.frameworks.delete('FirebaseCoreDiagnostics')
-        # config_file.frameworks.delete('FirebaseInstanceID')
-        # config_file.frameworks.delete('FirebaseNanoPB')
+        config_file.frameworks.delete('FirebaseCoreDiagnostics')
+        config_file.frameworks.delete('FirebaseInstanceID')
+        config_file.frameworks.delete('FirebaseNanoPB')
+
+        # NOTE: この辺は消すとビルドエラーになるので消さない
         # config_file.frameworks.delete('GoogleSymbolUtilities')
         # config_file.frameworks.delete('GoogleTagManager')
         # config_file.frameworks.delete('GoogleToolboxForMac')
