@@ -98,7 +98,12 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                 return
             }
 
-            UserDispatcher.linkTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
+            UserDispatcher.linkTwitterAccount(
+                db: TwibuFirebase.shared.firestore,
+                functions: TwibuFirebase.shared.functions,
+                user: firebaseUser,
+                session: session
+            ) { [weak self] result in
                 switch result {
                 case .success(_):
                     self?.showAlert(title: "Success", message: "Twitter連携しました！")
@@ -137,7 +142,11 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                 return
             }
 
-            UserDispatcher.unlinkTwitter(user: user) { [weak self] result in
+            UserDispatcher.unlinkTwitter(
+                db: TwibuFirebase.shared.firestore,
+                functions: TwibuFirebase.shared.functions,
+                user: user
+            ) { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):

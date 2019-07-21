@@ -8,14 +8,15 @@
 
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseFunctions
 import Embedded
 
 final class CommentRepository {
     private static let shared = CommentRepository()
     private init() {}
-    private static let db = TwibuFirebase.firestore
 
     static func fetchBookmarkComment(
+        db: Firestore,
         bookmarkUid: String,
         type: Repository.FetchType,
         completion: @escaping ((Repository.Response<[Comment]>) -> Void)
@@ -25,7 +26,7 @@ final class CommentRepository {
             return
         }
 
-        buildQuery(bookmarkUid: bookmarkUid, type: type)
+        buildQuery(db: db, bookmarkUid: bookmarkUid, type: type)
             .getDocuments() { snapshot, error in
                 if let error = error {
                     completion(.failure(.firestoreError(error.localizedDescription)))
@@ -58,7 +59,7 @@ final class CommentRepository {
         }
     }
 
-    private static func buildQuery(bookmarkUid: String, type: Repository.FetchType) -> Query {
+    private static func buildQuery(db: Firestore, bookmarkUid: String, type: Repository.FetchType) -> Query {
         let q = db.collection("bookmarks")
             .document(bookmarkUid)
             .collection("comments")
@@ -81,6 +82,7 @@ final class CommentRepository {
     // NOTE: 検索で引っかかった分だけしか返さないので注意
     //
     static func execUpdateBookmarkComment(
+        functions: Functions,
         bookmarkUid: String,
         title: String,
         url: String,
@@ -92,7 +94,7 @@ final class CommentRepository {
             "url": url
         ]
 
-        TwibuFirebase.functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param) { result, error in
+        functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param) { result, error in
             if let error = error {
                 completion(.failure(.firestoreError(error.localizedDescription)))
                 return

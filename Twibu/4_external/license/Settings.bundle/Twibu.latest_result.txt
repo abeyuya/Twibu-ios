@@ -65,6 +65,16 @@ body:
                    …
 version: 6.2.0
 
+name: FirebaseAuth, nameSpecified: 
+body: 
+                   …
+version: 6.2.0
+
+name: FirebaseAuth, nameSpecified: 
+body: 
+                   …
+version: 6.2.0
+
 name: FirebaseAuthInterop, nameSpecified: 
 body: 
                    …

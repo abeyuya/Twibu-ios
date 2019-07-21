@@ -12,11 +12,10 @@ import FirebaseFunctions
 import Embedded
 
 final class UserRepository {
-    private static let db = TwibuFirebase.firestore
-    private static let functions = TwibuFirebase.functions
     private static let path = "users"
 
     static func add(
+        db: Firestore,
         uid: String,
         userName: String,
         userId: String,
@@ -44,7 +43,7 @@ final class UserRepository {
         }
     }
 
-    static func kickScrapeTimeline(uid: String, completion: @escaping (Result<HTTPSCallableResult?>) -> Void) {
+    static func kickScrapeTimeline(functions: Functions, uid: String, completion: @escaping (Result<HTTPSCallableResult?>) -> Void) {
         let data: [String: String] = ["uid": uid]
         functions.httpsCallable("execFetchUserTimeline").call(data) { result, error in
             if let error = error {
@@ -55,7 +54,7 @@ final class UserRepository {
         }
     }
 
-    static func deleteTwitterToken(uid: String) {
+    static func deleteTwitterToken(db: Firestore, uid: String) {
         let data: [String: Any] = [
             "access_token": FieldValue.delete(),
             "secret_token": FieldValue.delete(),

@@ -204,13 +204,15 @@ extension CategoryViewController: UITableViewDelegate {
 
         if let isLogin = currentUser?.isTwitterLogin, isLogin {
             CommentDispatcher.updateAndFetchComments(
+                db: TwibuFirebase.shared.firestore,
+                functions: TwibuFirebase.shared.functions,
                 buid: b.uid,
                 title: b.title ?? "",
                 url: b.url,
                 type: .new(100)
             )
         } else {
-            CommentDispatcher.fetchComments(buid: b.uid, type: .new(100))
+            CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: b.uid, type: .new(100))
         }
 
         AnalyticsDispatcer.logging(
@@ -283,7 +285,7 @@ extension CategoryViewController {
                 return
         }
 
-        UserRepository.kickScrapeTimeline(uid: uid) { [weak self] result in
+        UserRepository.kickScrapeTimeline(functions: TwibuFirebase.shared.functions, uid: uid) { [weak self] result in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {

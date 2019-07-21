@@ -7,13 +7,24 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseFirestore
 import FirebaseFunctions
 
 public final class TwibuFirebase {
-    private init() {}
+    public static let shared = TwibuFirebase()
+    private init() {
+        TwibuFirebase.checkInit()
+    }
 
-    public static let firestore: Firestore = {
+    private static func checkInit() {
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
+    }
+
+    public let firestore: Firestore = {
+        checkInit()
         let settings = FirestoreSettings()
         settings.isPersistenceEnabled = true
         settings.dispatchQueue = DispatchQueue.global()
@@ -24,7 +35,8 @@ public final class TwibuFirebase {
         return db
     }()
 
-    public static let functions: Functions = {
+    public let functions: Functions = {
+        checkInit()
         return Functions.functions(region: "asia-northeast1")
     }()
 }

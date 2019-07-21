@@ -18,7 +18,7 @@ final class LaunchingViewController: UIViewController, StoryboardInstantiatable 
         setupView()
 
         if let user = Auth.auth().currentUser {
-            UserDispatcher.updateFirebaseUser(user: user)
+            UserDispatcher.updateFirebaseUser(functions: TwibuFirebase.shared.functions, user: user)
             moveToPagingRootView()
             return
         }
@@ -36,7 +36,7 @@ final class LaunchingViewController: UIViewController, StoryboardInstantiatable 
                 return
             }
 
-            UserDispatcher.updateFirebaseUser(user: user)
+            UserDispatcher.updateFirebaseUser(functions: TwibuFirebase.shared.functions, user: user)
             self?.moveToPagingRootView()
         }
     }

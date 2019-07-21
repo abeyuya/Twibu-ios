@@ -6,23 +6,23 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
+import Foundation
 import FirebaseFirestore
 
 public final class BookmarkRepository {
-    private static let db = TwibuFirebase.firestore
-
     public static func fetchBookmark(
+        db: Firestore,
         category: Category,
         uid: String,
         type: Repository.FetchType,
         completion: @escaping (Repository.Response<[Bookmark]>) -> Void
     ) {
         if category == .timeline {
-            fetchTimelineBookmarks(uid: uid, type: type, completion: completion)
+            fetchTimelineBookmarks(db: db, uid: uid, type: type, completion: completion)
             return
         }
 
-        buildQuery(category: category, type: type).getDocuments() { snapshot, error in
+        buildQuery(db: db, category: category, type: type).getDocuments() { snapshot, error in
             if let error = error {
                 completion(.failure(.firestoreError(error.localizedDescription)))
                 return
@@ -63,7 +63,7 @@ public final class BookmarkRepository {
         }
     }
 
-    static private func buildQuery(category: Category, type: Repository.FetchType) -> Query {
+    static private func buildQuery(db: Firestore, category: Category, type: Repository.FetchType) -> Query {
         switch category {
         case .all:
             switch type {
@@ -106,6 +106,7 @@ public final class BookmarkRepository {
     }
 
     private static func fetchTimelineBookmarks(
+        db: Firestore,
         uid: String,
         type: Repository.FetchType,
         completion: @escaping (Repository.Response<[Bookmark]>) -> Void

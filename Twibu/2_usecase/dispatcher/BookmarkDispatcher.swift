@@ -25,7 +25,7 @@ struct BookmarkDispatcher {
         store.mDispatch(startLoadingAction)
 
         let trace = Performance.startTrace(name: "fetchBookmark.\(category.rawValue).\(type.debugName)")
-        BookmarkRepository.fetchBookmark(category: category, uid: uid, type: type) { result in
+        BookmarkRepository.fetchBookmark(db: TwibuFirebase.shared.firestore, category: category, uid: uid, type: type) { result in
             trace?.stop()
             let a = AddBookmarksAction(
                 category: category,

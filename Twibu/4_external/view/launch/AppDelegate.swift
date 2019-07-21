@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import TwitterKit
 import Embedded
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
+        let _ = TwibuFirebase.shared
         Fabric.with([Crashlytics.self])
         TWTRTwitter.sharedInstance().start(
             withConsumerKey: Const.twitterConsumerKey,

@@ -8,9 +8,12 @@
 
 import Foundation
 import Embedded
+import FirebaseFunctions
+import FirebaseFirestore
 
 struct CommentDispatcher {
     private static func updateBookmarkComment(
+        functions: Functions,
         bookmarkUid: String,
         title: String,
         url: String,
@@ -23,7 +26,12 @@ struct CommentDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
-        CommentRepository.execUpdateBookmarkComment(bookmarkUid: bookmarkUid, title: title, url: url) { res in
+        CommentRepository.execUpdateBookmarkComment(
+            functions: functions,
+            bookmarkUid: bookmarkUid,
+            title: title,
+            url: url
+        ) { res in
             switch res {
             case .success(let comments):
                 let result = Repository.Result<[Comment]>(
@@ -60,7 +68,7 @@ struct CommentDispatcher {
         }
     }
 
-    static func fetchComments(buid: String, type: Repository.FetchType) {
+    static func fetchComments(db: Firestore, buid: String, type: Repository.FetchType) {
         let result = Repository.Result<[Comment]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: buid,
@@ -68,7 +76,7 @@ struct CommentDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
-        CommentRepository.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
+        CommentRepository.fetchBookmarkComment(db: db, bookmarkUid: buid, type: type) { result in
             let a = AddCommentsAction(
                 bookmarkUid: buid,
                 comments: result
@@ -87,12 +95,14 @@ struct CommentDispatcher {
     }
 
     static func updateAndFetchComments(
+        db: Firestore,
+        functions: Functions,
         buid: String,
         title: String,
         url: String,
         type: Repository.FetchType
     ) {
-        updateBookmarkComment(bookmarkUid: buid, title: title, url: url) { result in
+        updateBookmarkComment(functions: functions, bookmarkUid: buid, title: title, url: url) { result in
             switch result {
             case .failure(let error):
                 Logger.print(error)
@@ -101,7 +111,7 @@ struct CommentDispatcher {
                 break
             }
 
-            fetchComments(buid: buid, type: type)
+            fetchComments(db: db, buid: buid, type: type)
         }
     }
 }

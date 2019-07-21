@@ -30,37 +30,37 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
             return
         }
 
-        BookmarkRepository.fetchBookmark(category: .all, uid: uid, type: .new(30)) { [weak self] result in
-            switch result {
-            case .notYetLoading, .loading(_):
-                completionHandler(.failed)
-                Logger.print("通らないはず")
-                return
-            case .failure(let error):
-                completionHandler(.failed)
-                Logger.print(error)
-                return
-            case .success(let res):
-                let top4 = res.item
-                    .sorted(by: { $0.comment_count ?? 0 > $1.comment_count ?? 0 })
-                    .prefix(4)
-
-                if top4.isEmpty {
-                    DispatchQueue.main.async {
-                        self?.renderError()
-                    }
-                    completionHandler(.noData)
-                    return
-                }
-
-                self?.bookmarks = Array(top4)
-
-                DispatchQueue.main.async {
-                    self?.render()
-                }
-                completionHandler(.newData)
-            }
-        }
+//        BookmarkRepository.fetchBookmark(db: TwibuFirebase.shared.firestore, category: .all, uid: uid, type: .new(30)) { [weak self] result in
+//            switch result {
+//            case .notYetLoading, .loading(_):
+//                completionHandler(.failed)
+//                Logger.print("通らないはず")
+//                return
+//            case .failure(let error):
+//                completionHandler(.failed)
+//                Logger.print(error)
+//                return
+//            case .success(let res):
+//                let top4 = res.item
+//                    .sorted(by: { $0.comment_count ?? 0 > $1.comment_count ?? 0 })
+//                    .prefix(4)
+//
+//                if top4.isEmpty {
+//                    DispatchQueue.main.async {
+//                        self?.renderError()
+//                    }
+//                    completionHandler(.noData)
+//                    return
+//                }
+//
+//                self?.bookmarks = Array(top4)
+//
+//                DispatchQueue.main.async {
+//                    self?.render()
+//                }
+//                completionHandler(.newData)
+//            }
+//        }
     }
 
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {

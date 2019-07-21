@@ -61,12 +61,12 @@
 		4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153122B547F8000817BA /* Result.swift */; };
 		4D72CF1922E2FC5700E6AA66 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
 		4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF34EF722D78D6F00E9AE80 /* Logger.swift */; };
-		4D72CF1B22E2FC6000E6AA66 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
 		4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */; };
 		4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
 		4D72CF2022E30A7100E6AA66 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72CF1F22E30A7100E6AA66 /* TodayCell.swift */; };
 		4D72CF2222E30A8000E6AA66 /* TodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2122E30A8000E6AA66 /* TodayCell.xib */; };
-		4D72CF2422E316BC00E6AA66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */; };
+		4D72CF2522E34BDF00E6AA66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */; };
+		4D72CF2622E3606700E6AA66 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
 		4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */; };
 		4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */; };
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
@@ -75,10 +75,10 @@
 		4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */; };
 		4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
-		7B8C30C2C4915FABA470BF8E /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C05293897027C24F7007C1F /* Pods_Embedded.framework */; };
-		930F24334C95A4F32D8175BB /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 931B8F8851A07C895F460DBF /* Pods_Twibu.framework */; };
-		CCBDFD730733C62EC0287366 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3020988FA8B7C43854B7EC66 /* Pods_TwibuTests.framework */; };
-		EB494EE7727D2EBC73164D4D /* Pods_today_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5861814BC8610FF8E2AD2C /* Pods_today_extension.framework */; };
+		6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */; };
+		84CCB42045C7A14BEE8C37B9 /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */; };
+		B38213C6751DDB6F106ABA54 /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */; };
+		F56BB62F7434F31EAC034D0E /* Pods_today_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,12 +145,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1412FE33549AC8AF7BBC33E0 /* Pods-All-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-All-Twibu/Pods-All-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		2321BFC0DEB86A350B63A139 /* Pods-today-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-today-extension.debug.xcconfig"; path = "Target Support Files/Pods-today-extension/Pods-today-extension.debug.xcconfig"; sourceTree = "<group>"; };
+		239E0ECCCE837E185A108ECC /* Pods-All-today-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-today-extension.release.xcconfig"; path = "Target Support Files/Pods-All-today-extension/Pods-All-today-extension.release.xcconfig"; sourceTree = "<group>"; };
 		2B4C34F81AF3D53D7F38E124 /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
-		2E5861814BC8610FF8E2AD2C /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3020988FA8B7C43854B7EC66 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3593C26586AEB83E34BB3A20 /* Pods-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
-		4C05293897027C24F7007C1F /* Pods_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37D1696317FC440B333D7E08 /* Pods-All-Embedded.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Embedded.debug.xcconfig"; path = "Target Support Files/Pods-All-Embedded/Pods-All-Embedded.debug.xcconfig"; sourceTree = "<group>"; };
+		37FB569DFCD6A034A0630F0F /* Pods-Embedded-today-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded-today-extension.release.xcconfig"; path = "Target Support Files/Pods-Embedded-today-extension/Pods-Embedded-today-extension.release.xcconfig"; sourceTree = "<group>"; };
+		384D4A79DEEE07501E99C770 /* Pods-All-Twibu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Twibu.release.xcconfig"; path = "Target Support Files/Pods-All-Twibu/Pods-All-Twibu.release.xcconfig"; sourceTree = "<group>"; };
+		3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A96765874867FF0FC193152 /* Pods-All-Embedded.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Embedded.release.xcconfig"; path = "Target Support Files/Pods-All-Embedded/Pods-All-Embedded.release.xcconfig"; sourceTree = "<group>"; };
 		4D04E20B22BA982C00995026 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		4D04E20D22BA983E00995026 /* CommentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentViewController.storyboard; sourceTree = "<group>"; };
 		4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -229,12 +233,22 @@
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		4DDB8DDD22C4F57400916F72 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		53F5372FB59634AB409FE287 /* Pods-All-today-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-today-extension.debug.xcconfig"; path = "Target Support Files/Pods-All-today-extension/Pods-All-today-extension.debug.xcconfig"; sourceTree = "<group>"; };
+		568B92B0EC527F5283427D6B /* Pods-Twibu-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-Twibu-TwibuTests/Pods-Twibu-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
+		6084C73E4D026C857C911203 /* Pods-Embedded-Twibu-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded-Twibu-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-Embedded-Twibu-TwibuTests/Pods-Embedded-Twibu-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
+		78C18E37A904EF094C746A4A /* Pods-Twibu-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-Twibu-TwibuTests/Pods-Twibu-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		862D819888B0D5B2FD3337F4 /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
-		931B8F8851A07C895F460DBF /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		935CFDD870CED7C31CE259D1 /* Pods-Embedded.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded.debug.xcconfig"; path = "Target Support Files/Pods-Embedded/Pods-Embedded.debug.xcconfig"; sourceTree = "<group>"; };
+		986FDCCB125E4E1E6FF70C3B /* Pods-Embedded-Twibu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded-Twibu.release.xcconfig"; path = "Target Support Files/Pods-Embedded-Twibu/Pods-Embedded-Twibu.release.xcconfig"; sourceTree = "<group>"; };
+		A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2015DEBDC475BB101702EA6 /* Pods-Embedded-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Embedded-Twibu/Pods-Embedded-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 		C77B409B42E4F3903BFF141B /* Pods-Embedded.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded.release.xcconfig"; path = "Target Support Files/Pods-Embedded/Pods-Embedded.release.xcconfig"; sourceTree = "<group>"; };
 		CB6842F6391039CACEAEE1E1 /* Pods-today-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-today-extension.release.xcconfig"; path = "Target Support Files/Pods-today-extension/Pods-today-extension.release.xcconfig"; sourceTree = "<group>"; };
+		CC076D4E3941A7F67E5BAD7F /* Pods-Embedded-Twibu-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded-Twibu-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-Embedded-Twibu-TwibuTests/Pods-Embedded-Twibu-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
 		E66F2F9A420565A0D8752263 /* Pods-Twibu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.release.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.release.xcconfig"; sourceTree = "<group>"; };
+		EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF98B4B213B4EE0A42E5E478 /* Pods-Embedded-today-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded-today-extension.debug.xcconfig"; path = "Target Support Files/Pods-Embedded-today-extension/Pods-Embedded-today-extension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,7 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CEFF22E2E07B00E6AA66 /* Embedded.framework in Frameworks */,
-				930F24334C95A4F32D8175BB /* Pods_Twibu.framework in Frameworks */,
+				B38213C6751DDB6F106ABA54 /* Pods_Twibu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCBDFD730733C62EC0287366 /* Pods_TwibuTests.framework in Frameworks */,
+				6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +275,7 @@
 			files = (
 				4D72CF0822E2E44900E6AA66 /* Embedded.framework in Frameworks */,
 				4D72CED622E2DA1400E6AA66 /* NotificationCenter.framework in Frameworks */,
-				EB494EE7727D2EBC73164D4D /* Pods_today_extension.framework in Frameworks */,
+				F56BB62F7434F31EAC034D0E /* Pods_today_extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +283,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B8C30C2C4915FABA470BF8E /* Pods_Embedded.framework in Frameworks */,
+				84CCB42045C7A14BEE8C37B9 /* Pods_Embedded.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,10 +305,10 @@
 				4D11152522B52145000817BA /* SystemConfiguration.framework */,
 				4D11152322B5213B000817BA /* Security.framework */,
 				4D72CED522E2DA1400E6AA66 /* NotificationCenter.framework */,
-				4C05293897027C24F7007C1F /* Pods_Embedded.framework */,
-				931B8F8851A07C895F460DBF /* Pods_Twibu.framework */,
-				3020988FA8B7C43854B7EC66 /* Pods_TwibuTests.framework */,
-				2E5861814BC8610FF8E2AD2C /* Pods_today_extension.framework */,
+				3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */,
+				B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */,
+				EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */,
+				A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -363,6 +377,7 @@
 				4D65094322BF5E3E00BB0959 /* 4_external */,
 				4D11150F22B5160F000817BA /* Info.plist */,
 				4D72CF0F22E2F3AB00E6AA66 /* Twibu.entitlements */,
+				4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */,
 			);
 			path = Twibu;
 			sourceTree = "<group>";
@@ -543,6 +558,7 @@
 		4D65094B22BF708E00BB0959 /* client */ = {
 			isa = PBXGroup;
 			children = (
+				4DD2685822C4E6FA007A9E68 /* Firebase.swift */,
 			);
 			path = client;
 			sourceTree = "<group>";
@@ -587,7 +603,6 @@
 				4D72CF0B22E2E75F00E6AA66 /* 4_external */,
 				4D72CEEC22E2E07A00E6AA66 /* Embedded.h */,
 				4D72CEED22E2E07A00E6AA66 /* Info.plist */,
-				4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */,
 			);
 			path = Embedded;
 			sourceTree = "<group>";
@@ -630,7 +645,6 @@
 			isa = PBXGroup;
 			children = (
 				4DF34EF722D78D6F00E9AE80 /* Logger.swift */,
-				4DD2685822C4E6FA007A9E68 /* Firebase.swift */,
 				4D72CF1022E2F40300E6AA66 /* TwibuUserDefaults.swift */,
 			);
 			path = client;
@@ -712,6 +726,20 @@
 				C77B409B42E4F3903BFF141B /* Pods-Embedded.release.xcconfig */,
 				2321BFC0DEB86A350B63A139 /* Pods-today-extension.debug.xcconfig */,
 				CB6842F6391039CACEAEE1E1 /* Pods-today-extension.release.xcconfig */,
+				C2015DEBDC475BB101702EA6 /* Pods-Embedded-Twibu.debug.xcconfig */,
+				986FDCCB125E4E1E6FF70C3B /* Pods-Embedded-Twibu.release.xcconfig */,
+				EF98B4B213B4EE0A42E5E478 /* Pods-Embedded-today-extension.debug.xcconfig */,
+				37FB569DFCD6A034A0630F0F /* Pods-Embedded-today-extension.release.xcconfig */,
+				6084C73E4D026C857C911203 /* Pods-Embedded-Twibu-TwibuTests.debug.xcconfig */,
+				CC076D4E3941A7F67E5BAD7F /* Pods-Embedded-Twibu-TwibuTests.release.xcconfig */,
+				78C18E37A904EF094C746A4A /* Pods-Twibu-TwibuTests.debug.xcconfig */,
+				568B92B0EC527F5283427D6B /* Pods-Twibu-TwibuTests.release.xcconfig */,
+				37D1696317FC440B333D7E08 /* Pods-All-Embedded.debug.xcconfig */,
+				3A96765874867FF0FC193152 /* Pods-All-Embedded.release.xcconfig */,
+				1412FE33549AC8AF7BBC33E0 /* Pods-All-Twibu.debug.xcconfig */,
+				384D4A79DEEE07501E99C770 /* Pods-All-Twibu.release.xcconfig */,
+				53F5372FB59634AB409FE287 /* Pods-All-today-extension.debug.xcconfig */,
+				239E0ECCCE837E185A108ECC /* Pods-All-today-extension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -911,6 +939,7 @@
 				4D65093822BE447500BB0959 /* LaunchingViewController.storyboard in Resources */,
 				4D11153D22B58091000817BA /* CategoryViewController.storyboard in Resources */,
 				4D11150922B5160E000817BA /* PagingRootViewController.storyboard in Resources */,
+				4D72CF2522E34BDF00E6AA66 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -934,7 +963,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D72CF2422E316BC00E6AA66 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1125,6 +1153,7 @@
 				4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */,
 				4D65094822BF698700BB0959 /* Array+Extension.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
+				4D72CF2622E3606700E6AA66 /* Firebase.swift in Sources */,
 				4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */,
 				4DA1E5E622CBAEBC00320895 /* UserDispatcher.swift in Sources */,
 				4D65094622BF5FD200BB0959 /* Store.swift in Sources */,
@@ -1167,7 +1196,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D72CF1B22E2FC6000E6AA66 /* Firebase.swift in Sources */,
 				4D72CF1322E2FC3900E6AA66 /* Error.swift in Sources */,
 				4D72CF1922E2FC5700E6AA66 /* BookmarkRepository.swift in Sources */,
 				4D72CF1122E2F40300E6AA66 /* TwibuUserDefaults.swift in Sources */,
@@ -1501,6 +1529,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 935CFDD870CED7C31CE259D1 /* Pods-Embedded.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -1533,6 +1562,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C77B409B42E4F3903BFF141B /* Pods-Embedded.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;

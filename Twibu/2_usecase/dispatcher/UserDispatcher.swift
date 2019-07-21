@@ -9,12 +9,14 @@
 import Foundation
 import FirebaseAuth
 import FirebaseAnalytics
+import FirebaseFirestore
+import FirebaseFunctions
 import TwitterKit
 import Crashlytics
 import Embedded
 
 struct UserDispatcher {
-    static func linkTwitterAccount(user: User, session: TWTRSession, completion: @escaping (Result<Void>) -> Void) {
+    static func linkTwitterAccount(db: Firestore, functions: Functions, user: User, session: TWTRSession, completion: @escaping (Result<Void>) -> Void) {
         let cred = TwitterAuthProvider.credential(
             withToken: session.authToken,
             secret: session.authTokenSecret
@@ -31,6 +33,7 @@ struct UserDispatcher {
             }
 
             UserRepository.add(
+                db: db,
                 uid: result.user.uid,
                 userName: session.userName,
                 userId: session.userID,
@@ -39,7 +42,7 @@ struct UserDispatcher {
             ) { addResult in
                 switch addResult {
                 case .success:
-                    updateFirebaseUser(user: result.user)
+                    updateFirebaseUser(functions: functions, user: result.user)
                     completion(.success(Void()))
                 case .failure(let error):
                     completion(.failure(TwibuError.twitterLogin(error.displayMessage)))
@@ -48,7 +51,7 @@ struct UserDispatcher {
         }
     }
 
-    static func updateFirebaseUser(user: User) {
+    static func updateFirebaseUser(functions: Functions, user: User) {
         let a = UpdateFirebaseUser(newUser: user)
         store.dispatch(a)
         TwibuUserDefaults.shared.setFirebaseUid(uid: user.uid)
@@ -59,13 +62,13 @@ struct UserDispatcher {
 
         // twitterログインしているならtimelineの情報を更新する
         if twitterLinked {
-            updateTimeline(uid: user.uid)
+            updateTimeline(functions: functions, uid: user.uid)
         }
     }
 
-    private static func updateTimeline(uid: String) {
+    private static func updateTimeline(functions: Functions, uid: String) {
         // timelineそのものを更新
-        UserRepository.kickScrapeTimeline(uid: uid) { _ in
+        UserRepository.kickScrapeTimeline(functions: functions, uid: uid) { _ in
             // timelineのbookmarkを取得
             BookmarkDispatcher.fetchBookmark(category: .timeline, uid: uid, type: .new(20)) { result in
                 switch result {
@@ -87,7 +90,7 @@ struct UserDispatcher {
         }
     }
 
-    static func unlinkTwitter(user: User, completion: @escaping (Result<Void>) -> Void) {
+    static func unlinkTwitter(db: Firestore, functions: Functions, user: User, completion: @escaping (Result<Void>) -> Void) {
         user.unlink(fromProvider: "twitter.com") { newUser, error in
             if let error = error {
                 completion(.failure(TwibuError.signOut(error.localizedDescription)))
@@ -99,8 +102,8 @@ struct UserDispatcher {
                 return
             }
 
-            UserRepository.deleteTwitterToken(uid: nu.uid)
-            updateFirebaseUser(user: nu)
+            UserRepository.deleteTwitterToken(db: db, uid: nu.uid)
+            updateFirebaseUser(functions: functions, user: nu)
             completion(.success(Void()))
         }
     }
