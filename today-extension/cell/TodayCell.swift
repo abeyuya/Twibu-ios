@@ -70,9 +70,10 @@ final class TodayCell: UIView {
             let imageUrl = bookmark.image_url,
             imageUrl != "",
             let url = URL(string: imageUrl) {
+            thumbnailImageView.isHidden = false
             thumbnailImageView.kf.setImage(with: url)
         } else {
-            // レイアウト変えたい
+            thumbnailImageView.isHidden = true
         }
 
         faviconImageView.image = nil

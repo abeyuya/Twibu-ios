@@ -15,8 +15,6 @@ import FirebaseFirestore
 
 final class TodayViewController: UIViewController, NCWidgetProviding {
 
-    var bookmarks: [Bookmark] = []
-
     public let firestore: Firestore = {
         if FirebaseApp.app() == nil {
             FirebaseApp.configure()
@@ -35,6 +33,11 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
+
         perform(completionHandler: nil)
     }
 
@@ -43,15 +46,15 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     }
 
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        perform() { _ in }
         switch activeDisplayMode {
         case .compact:
             self.preferredContentSize = maxSize
         case .expanded:
-            self.preferredContentSize = CGSize(width: 0, height: 500)
+            self.preferredContentSize = CGSize(width: 0, height: 400)
         @unknown default:
             self.preferredContentSize = maxSize
         }
-        perform(completionHandler: nil)
     }
 }
 
