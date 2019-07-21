@@ -15,7 +15,34 @@ import TwitterKit
 import Crashlytics
 import Embedded
 
-struct UserDispatcher {
+final class UserDispatcher {
+    private init() {}
+
+    static func setupUser(completion: @escaping (Result<Void>) -> Void) {
+        if let user = Auth.auth().currentUser {
+            UserDispatcher.updateFirebaseUser(functions: TwibuFirebase.shared.functions, user: user)
+            completion(.success(Void()))
+            return
+        }
+
+        Auth.auth().signInAnonymously() { result, error in
+            if let error = error {
+                let te = TwibuError.needFirebaseAuth(error.localizedDescription)
+                completion(.failure(te))
+                return
+            }
+
+            guard let user = result?.user else {
+                let e = TwibuError.needFirebaseAuth("匿名ログインしたもののユーザ情報が取れない")
+                completion(.failure(e))
+                return
+            }
+
+            UserDispatcher.updateFirebaseUser(functions: TwibuFirebase.shared.functions, user: user)
+            completion(.success(Void()))
+        }
+    }
+
     static func linkTwitterAccount(db: Firestore, functions: Functions, user: User, session: TWTRSession, completion: @escaping (Result<Void>) -> Void) {
         let cred = TwitterAuthProvider.credential(
             withToken: session.authToken,

@@ -31,6 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = RootViewController()
         window?.makeKeyAndVisible()
 
+        Router.shared.showLauncingView()
+        UserDispatcher.setupUser() { result in
+            Router.shared.showPagingRootView()
+        }
+
         return true
     }
 
@@ -54,9 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
             let vc = WebViewController.initFromStoryBoard()
             vc.set(bookmark: b)
-            guard let root = window?.rootViewController as? RootViewController,
-                let pageRootNavi = root.children.first as? UINavigationController else { return false }
-            pageRootNavi.pushViewController(vc, animated: true)
+
+            Router.shared.openBookmarkWebFromUrlScheme(vc: vc)
             return true
         }
 
