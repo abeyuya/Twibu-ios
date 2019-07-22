@@ -23,30 +23,37 @@ final class Router {
         return root
     }()
 
-    func showLauncingView() {
+    func showLauncingView(completion: @escaping () -> Void) {
         let vc = LaunchingViewController.initFromStoryBoard()
-        rootVc?.replace(vc: vc)
+        rootVc?.replace(vc: vc, completion: completion)
     }
 
-    func showPagingRootView() {
+    func showPagingRootView(completion: @escaping () -> Void) {
         let vc = PagingRootViewController.initFromStoryBoard()
         let nav = UINavigationController(rootViewController: vc)
-        rootVc?.replace(vc: nav)
+        rootVc?.replace(vc: nav, completion: completion)
+    }
+
+    private func getPresentingNavigation() -> UINavigationController? {
+        let n = self.rootVc?.children.last(where: { c in
+            return c is UINavigationController
+        })
+
+        return n as? UINavigationController
     }
 
     func openBookmarkWebFromUrlScheme(vc: UIViewController) {
         UserDispatcher.setupUser() { _ in
             DispatchQueue.main.async {
-                let navi: UINavigationController? = {
-                    if let n = self.rootVc?.children.last as? UINavigationController {
-                        return n
-                    }
+                if let navi = self.getPresentingNavigation() {
+                    navi.popViewController(animated: false)
+                    navi.pushViewController(vc, animated: true)
+                    return
+                }
 
-                    self.showPagingRootView()
-                    return self.rootVc?.children.last as? UINavigationController
-                }()
-
-                navi?.pushViewController(vc, animated: true)
+                self.showPagingRootView() {
+                    self.getPresentingNavigation()?.pushViewController(vc, animated: true)
+                }
             }
         }
     }

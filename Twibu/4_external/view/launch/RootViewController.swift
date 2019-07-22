@@ -15,21 +15,22 @@ final class RootViewController: UIViewController {
         setupView()
     }
 
-    func replace(vc: UIViewController) {
+    func replace(vc: UIViewController, completion: @escaping () -> Void) {
         DispatchQueue.main.async {
             if let childViewController = self.children.first {
                 childViewController.willMove(toParent: nil)
-                childViewController.view.removeFromSuperview()
                 childViewController.view.subviews.forEach { $0.removeFromSuperview() }
-                childViewController.removeFromParent()
+                childViewController.view.removeFromSuperview()
                 childViewController.children.forEach { $0.removeFromParent() }
+                childViewController.removeFromParent()
             }
 
-            self.set(vc: vc)
+            self.view.subviews.forEach { $0.removeFromSuperview() }
+            self.set(vc: vc, completion: completion)
         }
     }
 
-    private func set(vc: UIViewController) {
+    private func set(vc: UIViewController, completion: @escaping () -> Void) {
         DispatchQueue.main.async {
             self.addChild(vc)
             self.view.addSubview(vc.view)
@@ -38,6 +39,7 @@ final class RootViewController: UIViewController {
             vc.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
             vc.view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             vc.didMove(toParent: self)
+            completion()
         }
     }
 

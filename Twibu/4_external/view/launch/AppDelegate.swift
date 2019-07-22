@@ -31,9 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = RootViewController()
         window?.makeKeyAndVisible()
 
-        Router.shared.showLauncingView()
+        Router.shared.showLauncingView() {}
         UserDispatcher.setupUser() { result in
-            Router.shared.showPagingRootView()
+            Router.shared.showPagingRootView() {}
         }
 
         return true
