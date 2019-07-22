@@ -91,7 +91,7 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
         case .compact:
             self.preferredContentSize = maxSize
         case .expanded:
-            let height = max(tableView.contentSize.height, 400)
+            let height = min(maxSize.height, 400)
             self.preferredContentSize = CGSize(width: 0, height: height)
         @unknown default:
             self.preferredContentSize = maxSize

@@ -40,7 +40,7 @@ public final class BookmarkRepository {
                     return b.filter { $0.comment_count ?? 0 > 20 }
                 }
 
-                return b
+                return filterOut(bookmarks: b)
             }()
 
             let result: Repository.Result<[Bookmark]> = {
@@ -200,6 +200,11 @@ public final class BookmarkRepository {
                         return
                     }
 
+                    if filterOut(bookmarks: [b]).isEmpty {
+                        dispatchGroup.leave()
+                        return
+                    }
+
                     DispatchQueue.global().async {
                         dispatchGroup.leave()
                     }
@@ -216,6 +221,32 @@ public final class BookmarkRepository {
                     .map { $0.0 }
                 completion(sortedBookmarks)
             }
+        }
+    }
+
+    private static let filterOutDomainPattern = [
+        "anond.hatelabo.jp",
+        "b.hatena.ne.jp"
+    ]
+
+    private static func filterOut(bookmarks: [Bookmark]) -> [Bookmark] {
+        return bookmarks.filter { b in
+            guard let url = URL(string: b.url) else { return true }
+
+            let filterOutDomain = filterOutDomainPattern.first {
+                guard let regex = try? NSRegularExpression(pattern: $0),
+                    let host = url.host else { return false }
+
+                if regex.firstMatch(
+                    in: host,
+                    options: .anchored,
+                    range: NSRange(location: 0, length: host.count)
+                ) != nil { return true }
+
+                return false
+            }
+
+            return filterOutDomain == nil
         }
     }
 }
