@@ -84,11 +84,13 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func setupNavigation() {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+        setNavigationTitle()
     }
 
     private func setNavigationTitle() {
         DispatchQueue.main.async {
             if self.viewIfLoaded?.window != nil {
+                self.navigationItem.titleView?.removeFromSuperview()
                 let v = UIStackView()
                 v.axis = .vertical
                 v.spacing = 4
