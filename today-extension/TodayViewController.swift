@@ -135,7 +135,8 @@ private extension TodayViewController {
             db: firestore,
             category: .all,
             uid: uid,
-            type: .new(30)
+            type: .new(limit: 30),
+            commentCountOffset: 0
         ) { result in
             switch result {
             case .notYetLoading, .loading(_):
@@ -215,7 +216,8 @@ extension TodayViewController: UITableViewDataSource {
         }
 
         let b = bookmarks[indexPath.row]
-        cell.set(bookmark: b, showImage: indexPath.row == 0)
+        // 画像が重くてメモリ制限引っかかるので常にoffに
+        cell.set(bookmark: b, showImage: false)
         return cell
     }
 }

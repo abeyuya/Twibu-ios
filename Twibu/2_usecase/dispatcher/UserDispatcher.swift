@@ -97,7 +97,12 @@ final class UserDispatcher {
         // timelineそのものを更新
         UserRepository.kickScrapeTimeline(functions: functions, uid: uid) { _ in
             // timelineのbookmarkを取得
-            BookmarkDispatcher.fetchBookmark(category: .timeline, uid: uid, type: .new(20)) { result in
+            BookmarkDispatcher.fetchBookmark(
+                category: .timeline,
+                uid: uid,
+                type: .new(limit: 20),
+                commentCountOffset: 0
+            ) { result in
                 switch result {
                 case .failure(let error):
                     Logger.print(error)

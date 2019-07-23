@@ -47,12 +47,12 @@ final class Router {
             DispatchQueue.main.async {
                 if let navi = self.getPresentingNavigation() {
                     navi.popViewController(animated: false)
-                    navi.pushViewController(vc, animated: true)
+                    navi.pushViewController(vc, animated: false)
                     return
                 }
 
                 self.showPagingRootView() {
-                    self.getPresentingNavigation()?.pushViewController(vc, animated: true)
+                    self.getPresentingNavigation()?.pushViewController(vc, animated: false)
                 }
             }
         }

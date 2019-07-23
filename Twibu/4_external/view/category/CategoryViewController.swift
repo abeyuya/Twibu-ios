@@ -107,7 +107,12 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             }
         }()
 
-        BookmarkDispatcher.fetchBookmark(category: category, uid: uid, type: .new(limit)) { _ in }
+        BookmarkDispatcher.fetchBookmark(
+            category: category,
+            uid: uid,
+            type: .new(limit: limit),
+            commentCountOffset: category == .all ? 20 : 0
+        ) { _ in }
     }
 
     @objc
@@ -142,7 +147,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             BookmarkDispatcher.fetchBookmark(
                 category: category,
                 uid: uid,
-                type: .add(30, result.lastSnapshot)
+                type: .add(limit: 30, last: result.lastSnapshot),
+                commentCountOffset: category == .all ? 20 : 0
             ) { _ in }
         }
     }
@@ -209,10 +215,10 @@ extension CategoryViewController: UITableViewDelegate {
                 buid: b.uid,
                 title: b.title ?? "",
                 url: b.url,
-                type: .new(100)
+                type: .new(limit: 100)
             )
         } else {
-            CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: b.uid, type: .new(100))
+            CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: b.uid, type: .new(limit: 100))
         }
 
         AnalyticsDispatcer.logging(

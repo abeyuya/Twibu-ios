@@ -27,9 +27,9 @@ public enum Category: String, CaseIterable {
         case .social: return "社会"
         case .economics: return "政治・経済"
         case .life: return "ライフスタイル"
-        case .knowledge: return "学び"
+        case .knowledge: return "ふむふむ"
         case .it: return "テクノロジー"
-        case .fun: return "おもしろ"
+        case .fun: return "いろいろ"
         case .entertainment: return "芸能・スポーツ"
         case .game: return "アニメ・ゲーム"
         }

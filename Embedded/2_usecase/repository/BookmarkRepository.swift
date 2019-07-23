@@ -15,6 +15,7 @@ public final class BookmarkRepository {
         category: Category,
         uid: String,
         type: Repository.FetchType,
+        commentCountOffset: Int,
         completion: @escaping (Repository.Response<[Bookmark]>) -> Void
     ) {
         if category == .timeline {
@@ -35,12 +36,8 @@ public final class BookmarkRepository {
 
             let item: [Bookmark] = {
                 let b = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
-
-                if category == .all {
-                    return b.filter { $0.comment_count ?? 0 > 20 }
-                }
-
-                return filterOut(bookmarks: b)
+                let filtered = b.filter { $0.comment_count ?? 0 >= commentCountOffset }
+                return filterOut(bookmarks: filtered)
             }()
 
             let result: Repository.Result<[Bookmark]> = {

@@ -89,7 +89,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
     private func fetchComments() {
         guard let buid = bookmark?.uid, buid != "" else { return }
-        CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: buid, type: .new(100))
+        CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: buid, type: .new(limit: 100))
     }
 
     private func fetchAdditionalComments() {
@@ -109,7 +109,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             CommentDispatcher.fetchComments(
                 db: TwibuFirebase.shared.firestore,
                 buid: buid,
-                type: .add(100, result.lastSnapshot)
+                type: .add(limit: 100, last: result.lastSnapshot)
             )
         }
     }
@@ -137,7 +137,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             buid: b.uid,
             title: b.title ?? "",
             url: b.url,
-            type: .new(100)
+            type: .new(limit: 100)
         )
 
         AnalyticsDispatcer.logging(
