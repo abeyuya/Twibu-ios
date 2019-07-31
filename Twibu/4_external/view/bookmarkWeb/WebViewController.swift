@@ -73,6 +73,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func setupWebview() {
         webview.navigationDelegate = self
+        webview.scrollView.delegate = self
         webview.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(webview)
@@ -137,7 +138,8 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         }
         let commentButton = UIBarButtonItem(customView: b)
 
-        let shareButton = UIBarButtonItem.init(barButtonSystemItem: .action, target: self, action: #selector(tapShareButton))
+        let penButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(tapWriteButton))
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tapShareButton))
 
         let space = UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
@@ -151,6 +153,8 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             backPrev,
             space,
             commentButton,
+            space,
+            penButton,
             space,
             shareButton
         ]
@@ -181,6 +185,11 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             commentBadge.isHidden = true
             sender.setIcon(icon: .fontAwesomeSolid(.comment), iconSize: iconSize, forState: .normal)
         }
+    }
+
+    @objc
+    private func tapWriteButton(_ sender: UIButton) {
+
     }
 
     private func showCommentView() {
