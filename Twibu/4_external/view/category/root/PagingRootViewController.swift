@@ -159,6 +159,10 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
             let vc = CategoryViewController.initFromStoryBoard()
             vc.set(category: category)
             return vc
+
+        case .memo:
+            assertionFailure("通らないはず")
+            return UIViewController()
         }
     }
 

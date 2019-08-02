@@ -281,6 +281,8 @@ extension SettingsViewController: UITableViewDelegate {
         switch menu {
         case .memo:
             let vc = CategoryViewController.initFromStoryBoard()
+            vc.set(category: .memo)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 
