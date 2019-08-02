@@ -17,6 +17,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private let webview = WKWebView()
     private var bookmark: Bookmark!
+    private var currentUser: TwibuUser?
     private var lastContentOffset: CGFloat = 0
     private var isShowComment = false
 
@@ -40,7 +41,8 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
                 let bms = AppState.toFlat(bookmarks: state.response.bookmarks)
-                return bms.first { $0.uid == self?.bookmark.uid }
+                let b = bms.first { $0.uid == self?.bookmark.uid }
+                return Subscribe(bookmark: b, currentUser: state.currentUser)
             }
         }
     }
@@ -189,9 +191,19 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     @objc
     private func tapWriteButton(_ sender: UIButton) {
+        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
+
         let vc = MemoViewController.initFromStoryBoard()
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext
+
+        let param = MemoViewController.Param(
+            db: TwibuFirebase.shared.firestore,
+            userUid: uid,
+            bookmarkUid: bookmark.uid
+        )
+        vc.setParam(param: param)
+
         present(vc, animated: true)
     }
 
@@ -377,10 +389,16 @@ extension WebViewController: UIGestureRecognizerDelegate {
 }
 
 extension WebViewController: StoreSubscriber {
-    typealias StoreSubscriberStateType = Bookmark?
+    struct Subscribe {
+        var bookmark: Bookmark?
+        var currentUser: TwibuUser
+    }
 
-    func newState(state: Bookmark?) {
-        guard let b = state else { return }
+    typealias StoreSubscriberStateType = Subscribe
+
+    func newState(state: Subscribe) {
+        currentUser = state.currentUser
+        guard let b = state.bookmark else { return }
 
         self.bookmark = b
         setNavigationTitle()

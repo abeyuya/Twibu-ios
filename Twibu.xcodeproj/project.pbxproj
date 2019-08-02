@@ -82,6 +82,8 @@
 		4DBAB74322F1A4F800519407 /* MemoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */; };
 		4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
+		4DEDF2E822F47DC200488B55 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E722F47DC200488B55 /* Memo.swift */; };
+		4DEDF2EA22F47E4900488B55 /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E922F47E4900488B55 /* MemoRepository.swift */; };
 		6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */; };
 		84CCB42045C7A14BEE8C37B9 /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */; };
 		B38213C6751DDB6F106ABA54 /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */; };
@@ -239,6 +241,8 @@
 		4DD2685622C4D879007A9E68 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		4DDB8DDD22C4F57400916F72 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		4DEDF2E722F47DC200488B55 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
+		4DEDF2E922F47E4900488B55 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		7217761631547EC0D534046B /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -668,6 +672,7 @@
 			isa = PBXGroup;
 			children = (
 				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
+				4DEDF2E922F47E4900488B55 /* MemoRepository.swift */,
 			);
 			path = repository;
 			sourceTree = "<group>";
@@ -681,6 +686,7 @@
 				4D5CFC8722D8BDDE00F33754 /* Timeline.swift */,
 				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
 				4D65093022BE25CA00BB0959 /* Env.swift */,
+				4DEDF2E722F47DC200488B55 /* Memo.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1227,8 +1233,10 @@
 				4D72CF1322E2FC3900E6AA66 /* Error.swift in Sources */,
 				4D72CF1922E2FC5700E6AA66 /* BookmarkRepository.swift in Sources */,
 				4D72CF1122E2F40300E6AA66 /* TwibuUserDefaults.swift in Sources */,
+				4DEDF2E822F47DC200488B55 /* Memo.swift in Sources */,
 				4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */,
 				4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */,
+				4DEDF2EA22F47E4900488B55 /* MemoRepository.swift in Sources */,
 				4DBAB74122F1A4BD00519407 /* MemoViewController.swift in Sources */,
 				4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */,
 				4D72CF1422E2FC3D00E6AA66 /* Bookmark.swift in Sources */,

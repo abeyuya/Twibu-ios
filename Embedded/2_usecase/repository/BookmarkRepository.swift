@@ -223,7 +223,8 @@ public final class BookmarkRepository {
 
     private static let filterOutDomainPattern = [
         "anond.hatelabo.jp",
-        "b.hatena.ne.jp"
+        "b.hatena.ne.jp",
+        "htn.to"
     ]
 
     private static func filterOut(bookmarks: [Bookmark]) -> [Bookmark] {

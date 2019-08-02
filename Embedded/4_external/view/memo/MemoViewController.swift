@@ -8,6 +8,7 @@
 
 import UIKit
 import UnderKeyboard
+import FirebaseFirestore
 
 final public class MemoViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet private weak var navigationBar: UINavigationBar!
@@ -15,7 +16,20 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
     @IBOutlet private weak var textView: UITextView!
     @IBOutlet private weak var blurView: UIVisualEffectView!
 
-    let underKeyboardLayoutConstraint = UnderKeyboardLayoutConstraint()
+    private let underKeyboardLayoutConstraint = UnderKeyboardLayoutConstraint()
+
+    public struct Param {
+        public init(db: Firestore, userUid: String, bookmarkUid: String) {
+            self.db = db
+            self.userUid = userUid
+            self.bookmarkUid = bookmarkUid
+        }
+        public let db: Firestore
+        public let userUid: String
+        public let bookmarkUid: String
+    }
+
+    private var param: Param!
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +39,21 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
         underKeyboardLayoutConstraint.setup(bottomLayoutConstraint, view: view)
         blurView.layer.cornerRadius = 8
         blurView.clipsToBounds = true
+
+        MemoRepository.fetchMemo(
+            db: param.db,
+            userUid: param.userUid,
+            bookmarkUid: param.bookmarkUid
+        ) { [weak self] result in
+            switch result {
+            case .failure(let e):
+                Logger.print(e)
+            case .success(let memo):
+                DispatchQueue.main.async {
+                    self?.textView.text = memo.memo
+                }
+            }
+        }
     }
 
     private func setupNavigation() {
@@ -48,6 +77,10 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
         textView.textContainerInset = .init(top: 12, left: 12, bottom: 12, right: 12)
     }
 
+    public func setParam(param: Param) {
+        self.param = param
+    }
+
     @objc
     private func tapCancelButton() {
         textView.resignFirstResponder()
@@ -56,6 +89,20 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
 
     @objc
     private func tapSaveButton() {
+        textView.resignFirstResponder()
+        MemoRepository.saveMemo(
+            db: param.db,
+            userUid: param.userUid,
+            bookmarkUid: param.bookmarkUid,
+            memo: textView.text
+        ) { result in
+            switch result {
+            case .success(_):
+                break
+            case .failure(let e):
+                Logger.print(e)
+            }
+        }
         dismiss(animated: true)
     }
 }
