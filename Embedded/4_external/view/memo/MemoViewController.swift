@@ -104,5 +104,7 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
             }
         }
         dismiss(animated: true)
+
+        AnalyticsDispatcer.logging(.saveMemo, param: nil)
     }
 }

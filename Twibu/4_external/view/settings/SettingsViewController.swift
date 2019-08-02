@@ -14,13 +14,16 @@ import Crashlytics
 import Embedded
 
 final class SettingsViewController: UIViewController, StoryboardInstantiatable {
-
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     private var currentUser: TwibuUser?
     weak var delegate: PagingRootViewControllerDelegate?
 
-    private enum Menu: String, CaseIterable {
+    private enum Menu1: String, CaseIterable {
+        case memo = "メモ"
+    }
+
+    private enum Menu2: String, CaseIterable {
         case term = "利用規約"
         case privacyPolicy = "プライバシーポリシー"
         case twitter = "Twitter連携"
@@ -189,12 +192,46 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
 }
 
 extension SettingsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Menu.allCases.count
+        switch section {
+        case 0:
+            return Menu1.allCases.count
+        case 1:
+            return Menu2.allCases.count
+        default:
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let menu = Menu.allCases[indexPath.row]
+        switch indexPath.section {
+        case 0:
+            return setupMenu1Cell(index: indexPath.row)
+        case 1:
+            return setupMenu2Cell(index: indexPath.row)
+        default:
+            return UITableViewCell()
+        }
+    }
+
+    private func setupMenu1Cell(index: Int) -> UITableViewCell {
+        let menu = Menu1.allCases[index]
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+
+        switch menu {
+        case .memo:
+            cell.textLabel?.text = menu.rawValue
+            cell.accessoryType = .disclosureIndicator
+        }
+        return cell
+    }
+
+    private func setupMenu2Cell(index: Int) -> UITableViewCell {
+        let menu = Menu2.allCases[index]
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
 
         switch menu {
@@ -226,7 +263,29 @@ extension SettingsViewController: UITableViewDataSource {
 
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let menu = Menu.allCases[indexPath.row]
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        switch indexPath.section {
+        case 0:
+            didSelectMenu1(index: indexPath.row)
+        case 1:
+            didSelectMenu2(index: indexPath.row)
+        default:
+            break
+        }
+    }
+
+    private func didSelectMenu1(index: Int) {
+        let menu = Menu1.allCases[index]
+
+        switch menu {
+        case .memo:
+            let vc = CategoryViewController.initFromStoryBoard()
+        }
+    }
+
+    private func didSelectMenu2(index: Int) {
+        let menu = Menu2.allCases[index]
 
         switch menu {
         case .twitter:

@@ -31,7 +31,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private var category: Embedded.Category? {
         guard let i = item?.index,
-            let category = Category(index: Embedded.Category.calcLogicalIndex(physicalIndex: i)) else {
+            let category = Category(index: Category.calcLogicalIndex(physicalIndex: i)) else {
                 return nil
         }
         return category

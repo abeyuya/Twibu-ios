@@ -9,8 +9,8 @@
 import Foundation
 import FirebaseAnalytics
 
-struct AnalyticsDispatcer {
-    enum Event: String {
+public struct AnalyticsDispatcer {
+    public enum Event: String {
         case loginTry = "login_try"
         case login = "login"
         case logoutTry = "logout_try"
@@ -25,9 +25,10 @@ struct AnalyticsDispatcer {
         case commentTap = "comment_tap"
         case commentShowTab = "comment_show_tab"
         case showMoreTwitterTap = "show_more_twitter_tap"
+        case saveMemo = "save_memo"
     }
 
-    static func logging(_ event: Event, param: [String: Any]?) {
+    public static func logging(_ event: Event, param: [String: Any]?) {
         Analytics.logEvent(
             event.rawValue,
             parameters: param
