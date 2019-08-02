@@ -189,7 +189,10 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     @objc
     private func tapWriteButton(_ sender: UIButton) {
-
+        let vc = MemoViewController.initFromStoryBoard()
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true)
     }
 
     private func showCommentView() {

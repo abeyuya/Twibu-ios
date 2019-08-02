@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIViewController {
+public extension UIViewController {
     func showAlert(title: String?, message: String) {
         let alert = UIAlertController(
             title: title,
@@ -24,11 +24,14 @@ extension UIViewController {
     }
 }
 
-protocol StoryboardInstantiatable {}
+public protocol StoryboardInstantiatable {}
 
-extension StoryboardInstantiatable where Self: UIViewController {
+public extension StoryboardInstantiatable where Self: UIViewController {
     static func initFromStoryBoard() -> Self {
-        let storyboard = UIStoryboard(name: String(describing: self), bundle: nil)
+        let storyboard = UIStoryboard(
+            name: String(describing: self),
+            bundle: Bundle(for: Self.self)
+        )
         let vc = storyboard.instantiateInitialViewController() as! Self
         return vc
     }

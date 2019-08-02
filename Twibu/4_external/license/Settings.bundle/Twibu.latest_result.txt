@@ -335,6 +335,36 @@ name: TwitterKit, nameSpecified:
 body: Twitter Kit: Copyrig…
 version: 3.4.2
 
+name: UITextView+Placeholder, nameSpecified: 
+body: The MIT License (MIT…
+version: 
+
+name: UITextView+Placeholder, nameSpecified: 
+body: The MIT License (MIT…
+version: 
+
+name: UITextView+Placeholder, nameSpecified: 
+body: The MIT License (MIT…
+version: 
+
+name: UnderKeyboard, nameSpecified: 
+body: The MIT License
+
+Cop…
+version: 13.0.2
+
+name: UnderKeyboard, nameSpecified: 
+body: The MIT License
+
+Cop…
+version: 13.0.2
+
+name: UnderKeyboard, nameSpecified: 
+body: The MIT License
+
+Cop…
+version: 13.0.2
+
 add-version-numbers: false
 
 LicensePlist Version: 1.8.3

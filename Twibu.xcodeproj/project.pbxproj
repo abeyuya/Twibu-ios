@@ -40,7 +40,6 @@
 		4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093322BE43CD00BB0959 /* RootViewController.swift */; };
 		4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093522BE445E00BB0959 /* LaunchingViewController.swift */; };
 		4D65093822BE447500BB0959 /* LaunchingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D65093722BE447500BB0959 /* LaunchingViewController.storyboard */; };
-		4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
 		4D65093D22BE625300BB0959 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093C22BE625300BB0959 /* Const.swift */; };
 		4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */; };
 		4D65094622BF5FD200BB0959 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094522BF5FD200BB0959 /* Store.swift */; };
@@ -79,6 +78,9 @@
 		4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C022D0EA330013C198 /* CommentRootViewController.swift */; };
 		4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */; };
 		4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */; };
+		4DBAB74122F1A4BD00519407 /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAB74022F1A4BD00519407 /* MemoViewController.swift */; };
+		4DBAB74322F1A4F800519407 /* MemoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */; };
+		4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
 		6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */; };
 		84CCB42045C7A14BEE8C37B9 /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */; };
@@ -232,6 +234,8 @@
 		4DB1B4C022D0EA330013C198 /* CommentRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRootViewController.swift; sourceTree = "<group>"; };
 		4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentFooterView.swift; path = Twibu/4_external/view/comment/footer/CommentFooterView.swift; sourceTree = SOURCE_ROOT; };
 		4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentFooterView.xib; sourceTree = "<group>"; };
+		4DBAB74022F1A4BD00519407 /* MemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
+		4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoViewController.storyboard; sourceTree = "<group>"; };
 		4DD2685622C4D879007A9E68 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		4DDB8DDD22C4F57400916F72 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
@@ -509,7 +513,6 @@
 		4D65093922BE4AD500BB0959 /* extension */ = {
 			isa = PBXGroup;
 			children = (
-				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
 				4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */,
 				4D28F54B22E48B9300156445 /* URL+Extension.swift */,
 			);
@@ -645,6 +648,8 @@
 		4D72CF0B22E2E75F00E6AA66 /* 4_external */ = {
 			isa = PBXGroup;
 			children = (
+				4DBAB74422F1B8C700519407 /* extension */,
+				4DBAB73E22F1A49100519407 /* view */,
 				4D72CF0C22E2E77500E6AA66 /* client */,
 			);
 			path = 4_external;
@@ -713,6 +718,31 @@
 				4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */,
 			);
 			path = footer;
+			sourceTree = "<group>";
+		};
+		4DBAB73E22F1A49100519407 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				4DBAB73F22F1A4A100519407 /* memo */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		4DBAB73F22F1A4A100519407 /* memo */ = {
+			isa = PBXGroup;
+			children = (
+				4DBAB74022F1A4BD00519407 /* MemoViewController.swift */,
+				4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */,
+			);
+			path = memo;
+			sourceTree = "<group>";
+		};
+		4DBAB74422F1B8C700519407 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
+			);
+			path = extension;
 			sourceTree = "<group>";
 		};
 		4DD2685522C4D805007A9E68 /* extension */ = {
@@ -959,6 +989,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DBAB74322F1A4F800519407 /* MemoViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1157,7 +1188,6 @@
 				4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */,
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
 				4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */,
-				4D65093B22BE4AE900BB0959 /* UIViewController+Extension.swift in Sources */,
 				4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D3CBDD922D3A0F700573AF4 /* AnalyticsDispatcher.swift in Sources */,
@@ -1197,7 +1227,9 @@
 				4D72CF1322E2FC3900E6AA66 /* Error.swift in Sources */,
 				4D72CF1922E2FC5700E6AA66 /* BookmarkRepository.swift in Sources */,
 				4D72CF1122E2F40300E6AA66 /* TwibuUserDefaults.swift in Sources */,
+				4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */,
 				4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */,
+				4DBAB74122F1A4BD00519407 /* MemoViewController.swift in Sources */,
 				4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */,
 				4D72CF1422E2FC3D00E6AA66 /* Bookmark.swift in Sources */,
 				4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */,

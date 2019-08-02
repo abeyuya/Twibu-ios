@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Embedded
 
 final class LaunchingViewController: UIViewController, StoryboardInstantiatable {
     override func viewDidLoad() {

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y4q-Dx-Tnc">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Memo View Controller-->
+        <scene sceneID="WJE-eW-vIC">
+            <objects>
+                <viewController id="y4q-Dx-Tnc" customClass="MemoViewController" customModule="Embedded" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5dC-Cf-vbH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SK3-LU-T2l">
+                                <rect key="frame" x="24" y="68" width="366" height="770"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="QDL-Gn-5KC">
+                                    <rect key="frame" x="0.0" y="0.0" width="366" height="770"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XR0-Mc-DV8">
+                                            <rect key="frame" x="0.0" y="0.0" width="366" height="44"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="X0M-yM-75f"/>
+                                            </constraints>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <items>
+                                                <navigationItem title="メモ" id="dEO-Ed-Twa"/>
+                                            </items>
+                                        </navigationBar>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0N3-ve-Nuo">
+                                            <rect key="frame" x="0.0" y="44" width="366" height="726"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="12" maxY="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder">
+                                                    <string key="value">自分しか閲覧できないプライベートメモを保存することができます。
+メモは設定画面から確認することができます。
+メモは空欄のまま保存することもできます。</string>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="XR0-Mc-DV8" firstAttribute="leading" secondItem="QDL-Gn-5KC" secondAttribute="leading" id="0pp-0Y-Vzi"/>
+                                        <constraint firstItem="XR0-Mc-DV8" firstAttribute="top" secondItem="QDL-Gn-5KC" secondAttribute="top" id="2lZ-Wd-Mtv"/>
+                                        <constraint firstAttribute="trailing" secondItem="XR0-Mc-DV8" secondAttribute="trailing" id="4kF-ot-rgO"/>
+                                        <constraint firstAttribute="trailing" secondItem="0N3-ve-Nuo" secondAttribute="trailing" id="5Ni-jU-D10"/>
+                                        <constraint firstItem="0N3-ve-Nuo" firstAttribute="top" secondItem="XR0-Mc-DV8" secondAttribute="bottom" id="6t6-Hj-x2E"/>
+                                        <constraint firstItem="0N3-ve-Nuo" firstAttribute="leading" secondItem="QDL-Gn-5KC" secondAttribute="leading" id="B3L-0u-s32"/>
+                                        <constraint firstAttribute="bottom" secondItem="0N3-ve-Nuo" secondAttribute="bottom" id="qMA-Uw-mJl"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3008615154109589" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="UDz-o3-LxQ" firstAttribute="bottom" secondItem="SK3-LU-T2l" secondAttribute="bottom" constant="24" id="5fd-zI-4wj"/>
+                            <constraint firstItem="SK3-LU-T2l" firstAttribute="top" secondItem="UDz-o3-LxQ" secondAttribute="top" constant="24" id="E0t-tv-90b"/>
+                            <constraint firstItem="SK3-LU-T2l" firstAttribute="leading" secondItem="UDz-o3-LxQ" secondAttribute="leading" constant="24" id="fz5-48-cIa"/>
+                            <constraint firstItem="UDz-o3-LxQ" firstAttribute="trailing" secondItem="SK3-LU-T2l" secondAttribute="trailing" constant="24" id="p0P-Dw-lSI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UDz-o3-LxQ"/>
+                    </view>
+                    <connections>
+                        <outlet property="blurView" destination="SK3-LU-T2l" id="VTC-IO-lmI"/>
+                        <outlet property="bottomLayoutConstraint" destination="5fd-zI-4wj" id="DTC-mA-CB1"/>
+                        <outlet property="navigationBar" destination="XR0-Mc-DV8" id="nuL-YI-vGv"/>
+                        <outlet property="textView" destination="0N3-ve-Nuo" id="7X1-iz-8fh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SJX-31-qUR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="128.98550724637681" y="185.49107142857142"/>
+        </scene>
+    </scenes>
+</document>

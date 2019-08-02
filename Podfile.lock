@@ -153,6 +153,8 @@ PODS:
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.2):
     - TwitterCore (>= 3.2.0)
+  - "UITextView+Placeholder (1.2.1)"
+  - UnderKeyboard (13.0.2)
 
 DEPENDENCIES:
   - BadgeSwift
@@ -170,6 +172,8 @@ DEPENDENCIES:
   - ReSwift
   - SwiftIcons
   - TwitterKit
+  - "UITextView+Placeholder"
+  - UnderKeyboard
 
 SPEC REPOS:
   https://github.com/cocoapods/specs:
@@ -204,6 +208,8 @@ SPEC REPOS:
     - SwiftIcons
     - TwitterCore
     - TwitterKit
+    - "UITextView+Placeholder"
+    - UnderKeyboard
 
 SPEC CHECKSUMS:
   BadgeSwift: a81547ffde1f462bb5fc02e3fa3fdcbc1b888354
@@ -237,7 +243,9 @@ SPEC CHECKSUMS:
   SwiftIcons: e652cfd2676441c462ad57b6e92977faf577e590
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
+  "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
+  UnderKeyboard: 79ea6feb497af99c1856aaae0ab8ded3c739f745
 
-PODFILE CHECKSUM: 8a99e43e176992d7c354c84d5d49b50122141e74
+PODFILE CHECKSUM: 8592988ac3ef1b5f0575d0cfac57772c7905774e
 
 COCOAPODS: 1.7.2

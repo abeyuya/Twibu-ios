@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import Embedded
 
 final class Router {
     static let shared = Router()
