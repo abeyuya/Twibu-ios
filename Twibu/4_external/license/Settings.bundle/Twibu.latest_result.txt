@@ -343,16 +343,6 @@ name: UITextView+Placeholder, nameSpecified:
 body: The MIT License (MIT…
 version: 
 
-name: UITextView+Placeholder, nameSpecified: 
-body: The MIT License (MIT…
-version: 
-
-name: UnderKeyboard, nameSpecified: 
-body: The MIT License
-
-Cop…
-version: 13.0.2
-
 name: UnderKeyboard, nameSpecified: 
 body: The MIT License
 

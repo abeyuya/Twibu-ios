@@ -34,22 +34,4 @@ public enum Category: String, CaseIterable {
         case .game: return "アニメ・ゲーム"
         }
     }
-
-    public var index: Int {
-        return Category.allCases.firstIndex(of: self)!
-    }
-
-    public init?(index: Int) {
-        self = Category.allCases[index]
-    }
-
-    public static func calcLogicalIndex(physicalIndex: Int) -> Int {
-        let i = physicalIndex % Category.allCases.count
-
-        if i >= 0 {
-            return i
-        }
-
-        return i + Category.allCases.count
-    }
 }

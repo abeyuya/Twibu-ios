@@ -17,7 +17,6 @@ protocol PagingRootViewControllerDelegate: class {
 }
 
 final class PagingRootViewController: UIViewController, StoryboardInstantiatable {
-
     private let pagingViewController = PagingViewController<PagingIndexItem>()
     private var currentUser: TwibuUser?
 
@@ -64,7 +63,8 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         pagingViewController.borderOptions = .hidden
 
         let c = Category.all
-        pagingViewController.select(pagingItem: PagingIndexItem(index: c.index, title: c.displayString))
+        let i = PagingRootViewController.getIndex(c: c)
+        pagingViewController.select(pagingItem: PagingIndexItem(index: i, title: c.displayString))
     }
 
     private func setupNavigation() {
@@ -74,15 +74,18 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         let bb = UIBarButtonItem(customView: b)
         navigationItem.setLeftBarButton(bb, animated: false)
 
-        let icon = UIImage(named: "app_icon_29")
-        let iv = UIImageView(image: icon)
-        iv.contentMode = .scaleAspectFit
-        iv.frame.size = CGSize(width: 29, height: 29)
-        iv.clipsToBounds = true
-        iv.layer.cornerRadius = 6
-        iv.layer.borderWidth = 0.5
-        iv.layer.borderColor = UIColor.lightGray.cgColor
-        navigationItem.titleView = iv
+        let iconView: UIImageView = {
+            let icon = UIImage(named: "app_icon_29")
+            let iv = UIImageView(image: icon)
+            iv.contentMode = .scaleAspectFit
+            iv.frame.size = CGSize(width: 29, height: 29)
+            iv.clipsToBounds = true
+            iv.layer.cornerRadius = 6
+            iv.layer.borderWidth = 0.5
+            iv.layer.borderColor = UIColor.lightGray.cgColor
+            return iv
+        }()
+        navigationItem.titleView = iconView
 
         let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButtonItem
@@ -97,16 +100,47 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
     }
 }
 
+extension PagingRootViewController {
+    private static let tabCategories: [Embedded.Category] = [
+        .timeline,
+        .all,
+        .social,
+        .economics,
+        .life,
+        .knowledge,
+        .it,
+        .fun,
+        .entertainment,
+        .game
+    ]
+
+    static func getIndex(c: Embedded.Category) -> Int {
+        return PagingRootViewController.tabCategories.firstIndex(of: c)!
+    }
+
+    static func getCategory(index: Int) -> Embedded.Category {
+        return PagingRootViewController.tabCategories[index]
+    }
+
+    static func calcLogicalIndex(physicalIndex: Int) -> Int {
+        let i = physicalIndex % PagingRootViewController.tabCategories.count
+
+        if i >= 0 {
+            return i
+        }
+
+        return i + PagingRootViewController.tabCategories.count
+    }
+}
+
 extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForPagingItem pagingItem: T) -> UIViewController {
         guard let item = pagingItem as? PagingIndexItem else {
             return UIViewController()
         }
 
-        let i = Category.calcLogicalIndex(physicalIndex: item.index)
-        guard let category = Category(index: i) else {
-            return UIViewController()
-        }
+        let i = PagingRootViewController.calcLogicalIndex(physicalIndex: item.index)
+        let category = PagingRootViewController.getCategory(index: i)
 
         switch category {
         case .timeline:
@@ -118,27 +152,27 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
             }
 
             let vc = CategoryViewController.initFromStoryBoard()
-            vc.item = item
+            vc.set(category: category)
             return vc
 
         case .all, .economics, .entertainment, .fun, .game, .it, .knowledge, .social, .life:
             let vc = CategoryViewController.initFromStoryBoard()
-            vc.item = item
+            vc.set(category: category)
             return vc
         }
     }
 
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemBeforePagingItem pagingItem: T) -> T? {
         guard let currentItem = pagingItem as? PagingIndexItem else { return nil }
-        let categoryIndex = Category.calcLogicalIndex(physicalIndex: currentItem.index - 1)
-        guard let category = Category(index: categoryIndex) else { return nil }
+        let categoryIndex = PagingRootViewController.calcLogicalIndex(physicalIndex: currentItem.index - 1)
+        let category = PagingRootViewController.getCategory(index: categoryIndex)
         return PagingIndexItem(index: currentItem.index - 1, title: category.displayString) as? T
     }
 
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemAfterPagingItem pagingItem: T) -> T? {
         guard let currentItem = pagingItem as? PagingIndexItem else { return nil }
-        let categoryIndex = Category.calcLogicalIndex(physicalIndex: currentItem.index + 1)
-        guard let category = Category(index: categoryIndex) else { return nil }
+        let categoryIndex = PagingRootViewController.calcLogicalIndex(physicalIndex: currentItem.index + 1)
+        let category = PagingRootViewController.getCategory(index: categoryIndex)
         return PagingIndexItem(index: currentItem.index + 1, title: category.displayString) as? T
     }
 }
@@ -168,9 +202,8 @@ extension PagingRootViewController: PagingRootViewControllerDelegate {
                 self.pagingViewController.reloadData(around: item)
             } else {
                 let c = Category.all
-                self.pagingViewController.select(
-                    pagingItem: PagingIndexItem(index: c.index, title: c.displayString)
-                )
+                let i = PagingRootViewController.getIndex(c: c)
+                self.pagingViewController.select(pagingItem: PagingIndexItem(index: i, title: c.displayString))
             }
         }
     }

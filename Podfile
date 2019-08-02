@@ -8,10 +8,10 @@ pod 'Firebase/Firestore'
 pod 'Firebase/Functions'
 pod 'Firebase/Performance'
 pod 'Kingfisher'
-pod 'UnderKeyboard'
-pod 'UITextView+Placeholder'
 
 target 'Embedded' do
+  pod 'UnderKeyboard'
+  pod 'UITextView+Placeholder'
 end
 
 target 'today-extension' do

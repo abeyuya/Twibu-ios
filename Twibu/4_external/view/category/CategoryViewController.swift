@@ -21,7 +21,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         return i
     }()
 
-    var item: PagingIndexItem?
     private let refreshControll = UIRefreshControl()
     private var bookmarksResponse: Repository.Response<[Bookmark]> = .notYetLoading
     private var currentUser: TwibuUser?
@@ -29,14 +28,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private var lastContentOffset: CGFloat = 0
     private var cellHeight: [IndexPath: CGFloat] = [:]
 
-    private var category: Embedded.Category? {
-        guard let i = item?.index,
-            let category = Category(index: Category.calcLogicalIndex(physicalIndex: i)) else {
-                return nil
-        }
-        return category
-    }
-
+    private var category: Embedded.Category!
     private var bookmarks: [Bookmark] {
         return bookmarksResponse.item ?? []
     }
@@ -70,6 +62,10 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         store.unsubscribe(self)
+    }
+
+    func set(category: Embedded.Category) {
+        self.category = category
     }
 
     private func setupTableView() {
