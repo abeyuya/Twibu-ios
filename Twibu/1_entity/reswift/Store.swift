@@ -85,9 +85,17 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             }
         }()
 
-        let new = Bookmark
-            .merge(base: old, add: add)
-            .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
+        let new: [Bookmark] = {
+            switch a.category {
+            case .memo, .timeline:
+                // 記事作成日とは別の数字で既にソート済み
+                return Bookmark.merge(base: old, add: add)
+            default:
+                return Bookmark
+                    .merge(base: old, add: add)
+                    .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
+            }
+        }()
 
         state.response.bookmarks[a.category] = {
             switch a.bookmarks {

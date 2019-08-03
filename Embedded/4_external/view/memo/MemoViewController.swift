@@ -17,6 +17,7 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
     @IBOutlet private weak var blurView: UIVisualEffectView!
 
     private let underKeyboardLayoutConstraint = UnderKeyboardLayoutConstraint()
+    private var oldMemo: Memo?
 
     public struct Param {
         public init(db: Firestore, userUid: String, bookmarkUid: String) {
@@ -50,6 +51,7 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
                 Logger.print(e)
             case .success(let memo):
                 DispatchQueue.main.async {
+                    self?.oldMemo = memo
                     self?.textView.text = memo.memo
                 }
             }
@@ -94,7 +96,8 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
             db: param.db,
             userUid: param.userUid,
             bookmarkUid: param.bookmarkUid,
-            memo: textView.text
+            memo: textView.text,
+            isNew: oldMemo == nil
         ) { result in
             switch result {
             case .success(_):

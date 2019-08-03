@@ -12,6 +12,7 @@ import FirebaseFirestore
 public struct Memo {
     public let bookmark_ref: DocumentReference
     public let memo: String
+    public let created_at: Int
     public let updated_at: Int
 
     init?(dictionary: [String: Any]) {
@@ -20,6 +21,9 @@ public struct Memo {
 
         guard let memo = dictionary["memo"] as? String else { return nil }
         self.memo = memo
+
+        guard let createdAt = dictionary["created_at"] as? Timestamp else { return nil }
+        self.created_at = Int(createdAt.seconds)
 
         guard let updatedAt = dictionary["updated_at"] as? Timestamp else { return nil }
         self.updated_at = Int(updatedAt.seconds)

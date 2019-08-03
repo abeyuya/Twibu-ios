@@ -276,21 +276,21 @@ public enum BookmarkRepository {
                 return db.collection("users")
                     .document(uid)
                     .collection("memo")
-                    .order(by: "updated_at", descending: true)
+                    .order(by: "created_at", descending: true)
                     .limit(to: limit)
             case .add(let (limit, doc)):
                 if let d = doc {
                     return db.collection("users")
                         .document(uid)
                         .collection("memo")
-                        .order(by: "updated_at", descending: true)
+                        .order(by: "created_at", descending: true)
                         .start(afterDocument: d)
                         .limit(to: limit)
                 }
                 return db.collection("users")
                     .document(uid)
                     .collection("memo")
-                    .order(by: "updated_at", descending: true)
+                    .order(by: "created_at", descending: true)
                     .limit(to: limit)
             }
         }()
@@ -309,21 +309,12 @@ public enum BookmarkRepository {
             let memos = snapshot.documents.compactMap { Memo(dictionary: $0.data()) }
 
             execConcurrentFetch(memos: memos) { bookmarks in
-                let result: Repository.Result<[Bookmark]> = {
-                    guard let last = snapshot.documents.last else {
-                        return Repository.Result(
-                            item: bookmarks,
-                            lastSnapshot: nil,
-                            hasMore: false
-                        )
-                    }
-
-                    return Repository.Result(
-                        item: bookmarks,
-                        lastSnapshot: last,
-                        hasMore: !snapshot.documents.isEmpty
-                    )
-                }()
+                let last = snapshot.documents.last
+                let result = Repository.Result(
+                    item: bookmarks,
+                    lastSnapshot: last,
+                    hasMore: last == nil ? false : true
+                )
 
                 completion(.success(result))
             }
@@ -364,12 +355,13 @@ public enum BookmarkRepository {
                         return
                     }
 
-                    DispatchQueue.global().async {
-                        dispatchGroup.leave()
-                    }
                     // https://stackoverflow.com/questions/40080508/swift-unsafemutablepointer-deinitialize-fatal-error-with-negative-count-when-ap
                     serialQueue.sync {
-                        results.append((b, m.updated_at))
+                        results.append((b, m.created_at))
+
+                        DispatchQueue.global().async {
+                            dispatchGroup.leave()
+                        }
                     }
                 }
             }

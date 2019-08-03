@@ -131,7 +131,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         case .loading(_):
             return
         case .notYetLoading:
-            // 来ないはず
+            // view読み込み時だけ通る
             return
         case .failure(_):
             return

@@ -46,6 +46,7 @@ public final class MemoRepository {
         userUid: String,
         bookmarkUid: String,
         memo: String,
+        isNew: Bool,
         completion: @escaping (Result<Void>) -> Void
     ) {
         let ref = db.collection("users")
@@ -59,7 +60,21 @@ public final class MemoRepository {
             "updated_at": FieldValue.serverTimestamp()
         ]
 
-        ref.setData(data) { error in
+        if isNew {
+            let newMemoData = data.merging(["created_at": FieldValue.serverTimestamp()]) { $1 }
+            ref.setData(newMemoData) { error in
+                if let error = error {
+                    let e = TwibuError.firestoreError(error.localizedDescription)
+                    completion(.failure(e))
+                    return
+                }
+
+                completion(.success(Void()))
+            }
+            return
+        }
+
+        ref.updateData(data) { error in
             if let error = error {
                 let e = TwibuError.firestoreError(error.localizedDescription)
                 completion(.failure(e))
