@@ -13,7 +13,6 @@ import ReSwift
 import Embedded
 
 final class CategoryViewController: UIViewController, StoryboardInstantiatable {
-
     @IBOutlet private weak var tableView: UITableView!
     private let footerIndicator: UIActivityIndicatorView = {
         let i = UIActivityIndicatorView(style: .gray)
@@ -37,6 +36,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         super.viewDidLoad()
 
         setupTableView()
+        setupNavigation()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -91,6 +91,15 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         footerIndicator.centerYAnchor.constraint(equalTo: v.centerYAnchor).isActive = true
 
         return v
+    }
+
+    private func setupNavigation() {
+        switch category {
+        case .memo?:
+            navigationItem.title = category.displayString
+        default:
+            break
+        }
     }
 
     private func fetchBookmark() {
@@ -197,7 +206,6 @@ extension CategoryViewController: UITableViewDataSource {
 }
 
 extension CategoryViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let b = bookmarks[indexPath.row]
         let vc = WebViewController.initFromStoryBoard()

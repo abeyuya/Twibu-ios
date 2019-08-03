@@ -163,7 +163,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             let oldBookmark = bms[index]
 
             // 新しいコメント数の方が少ないなら更新しない
-            guard oldBookmark.comment_count ?? 0 < a.commentCount else { break }
+            guard oldBookmark.comment_count ?? 0 < a.commentCount else { continue }
 
             let newBookmark = Bookmark(oldBookmark, commentCount: a.commentCount)
             bms[index] = newBookmark
@@ -177,7 +177,6 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 //   timelineのpagingでまだ読み込み完了していない状態 & 読み込み済み記事のコメント表示
                 //   の時に通ったよ
                 //
-                Logger.print("通るのか？")
                 continue
             case .success(let result):
                 let newResult = Repository.Result<[Bookmark]>(

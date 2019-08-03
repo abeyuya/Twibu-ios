@@ -9,7 +9,9 @@
 import Foundation
 import FirebaseAnalytics
 
-public struct AnalyticsDispatcer {
+public final class AnalyticsDispatcer {
+    private init() {}
+
     public enum Event: String {
         case loginTry = "login_try"
         case login = "login"
