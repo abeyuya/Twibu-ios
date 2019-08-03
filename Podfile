@@ -12,6 +12,7 @@ pod 'Kingfisher'
 target 'Embedded' do
   pod 'UnderKeyboard'
   pod 'UITextView+Placeholder'
+  pod 'PromisesSwift'
 end
 
 target 'today-extension' do

@@ -307,6 +307,26 @@ name: Parchment, nameSpecified:
 body: The MIT License (MIT…
 version: 1.6.0
 
+name: PromisesObjC, nameSpecified: 
+body: 
+                   …
+version: 1.2.8
+
+name: PromisesObjC, nameSpecified: 
+body: 
+                   …
+version: 1.2.8
+
+name: PromisesSwift, nameSpecified: 
+body: 
+                   …
+version: 1.2.8
+
+name: PromisesSwift, nameSpecified: 
+body: 
+                   …
+version: 1.2.8
+
 name: Protobuf, nameSpecified: 
 body: Copyright 2008 Googl…
 version: 3.9.0

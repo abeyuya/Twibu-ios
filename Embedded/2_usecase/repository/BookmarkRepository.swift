@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseFirestore
+import Promises
 
 public enum BookmarkRepository {
     public static func fetchBookmark(
@@ -163,78 +164,61 @@ public enum BookmarkRepository {
             let timelines = snapshot.documents.compactMap { Timeline(dictionary: $0.data()) }
 
             execConcurrentFetch(timelines: timelines) { bookmarks in
-                let result: Repository.Result<[Bookmark]> = {
-                    guard let last = snapshot.documents.last else {
-                        return Repository.Result(
-                            item: bookmarks,
-                            lastSnapshot: nil,
-                            hasMore: false
-                        )
-                    }
-
-                    return Repository.Result(
-                        item: bookmarks,
-                        lastSnapshot: last,
-                        hasMore: !snapshot.documents.isEmpty
-                    )
-                }()
-
+                let last = snapshot.documents.last
+                let result = Repository.Result(
+                    item: bookmarks,
+                    lastSnapshot: last,
+                    hasMore: last == nil ? false : true
+                )
                 completion(.success(result))
             }
         }
     }
 
     private static func execConcurrentFetch(timelines: [Timeline], completion: @escaping ([Bookmark]) -> Void) {
-        let dispatchGroup = DispatchGroup()
-        let dispatchQueue = DispatchQueue(label: "queue", attributes: .concurrent)
-        let serialQueue = DispatchQueue(label: "serialQueue")
-
-        var results: [(Bookmark, Int)] = []
-
-        timelines.forEach { t in
-            dispatchGroup.enter()
-            dispatchQueue.async(group: dispatchGroup) {
+        let tasks = timelines.map { t in
+            return Promise<(Bookmark?, Int)>(on: .global()) { fulfill, reject in
                 t.bookmark_ref.getDocument { snapshot, error in
                     if let error = error {
                         Logger.print(error)
-                        dispatchGroup.leave()
+                        reject(error)
                         return
                     }
 
                     guard let snapshot = snapshot, let dict = snapshot.data() else {
                         Logger.print("snapshotが取れず...")
-                        dispatchGroup.leave()
+                        fulfill((nil, 0))
                         return
                     }
 
                     guard let b = Bookmark(dictionary: dict) else {
                         Logger.print("bookmark decode できず")
-                        dispatchGroup.leave()
+                        fulfill((nil, 0))
                         return
                     }
 
                     if filterOut(bookmarks: [b]).isEmpty {
-                        dispatchGroup.leave()
+                        fulfill((nil, 0))
                         return
                     }
 
-                    DispatchQueue.global().async {
-                        dispatchGroup.leave()
-                    }
-                    // https://stackoverflow.com/questions/40080508/swift-unsafemutablepointer-deinitialize-fatal-error-with-negative-count-when-ap
-                    serialQueue.sync {
-                        results.append((b, t.post_at))
-                    }
+                    fulfill((b, t.post_at))
                 }
             }
+        }
 
-            dispatchGroup.notify(queue: .global()) {
+        Promises.all(tasks)
+            .then { results in
                 let sortedBookmarks = results
+                    .filter { $0.0 != nil }
                     .sorted(by: { $0.1 > $1.1 })
-                    .map { $0.0 }
+                    .compactMap { $0.0 }
                 completion(sortedBookmarks)
             }
-        }
+            .catch { error in
+                Logger.print(error)
+                completion([])
+            }
     }
 
     private static let filterOutDomainPattern = [
@@ -322,56 +306,48 @@ public enum BookmarkRepository {
     }
 
     private static func execConcurrentFetch(memos: [Memo], completion: @escaping ([Bookmark]) -> Void) {
-        let dispatchGroup = DispatchGroup()
-        let dispatchQueue = DispatchQueue(label: "queue", attributes: .concurrent)
-        let serialQueue = DispatchQueue(label: "serialQueue")
-
-        var results: [(Bookmark, Int)] = []
-
-        memos.forEach { m in
-            dispatchGroup.enter()
-            dispatchQueue.async(group: dispatchGroup) {
+        let tasks = memos.map { m in
+            return Promise<(Bookmark?, Int)>(on: .global()) { fulfill, reject in
                 m.bookmark_ref.getDocument { snapshot, error in
                     if let error = error {
                         Logger.print(error)
-                        dispatchGroup.leave()
+                        reject(error)
                         return
                     }
 
                     guard let snapshot = snapshot, let dict = snapshot.data() else {
                         Logger.print("snapshotが取れず...")
-                        dispatchGroup.leave()
+                        fulfill((nil, 0))
                         return
                     }
 
                     guard let b = Bookmark(dictionary: dict) else {
                         Logger.print("bookmark decode できず")
-                        dispatchGroup.leave()
+                        fulfill((nil, 0))
                         return
                     }
 
                     if filterOut(bookmarks: [b]).isEmpty {
-                        dispatchGroup.leave()
+                        fulfill((nil, 0))
                         return
                     }
 
-                    // https://stackoverflow.com/questions/40080508/swift-unsafemutablepointer-deinitialize-fatal-error-with-negative-count-when-ap
-                    serialQueue.sync {
-                        results.append((b, m.created_at))
-
-                        DispatchQueue.global().async {
-                            dispatchGroup.leave()
-                        }
-                    }
+                    fulfill((b, m.created_at))
                 }
             }
+        }
 
-            dispatchGroup.notify(queue: .global()) {
+        Promises.all(tasks)
+            .then { results in
                 let sortedBookmarks = results
+                    .filter { $0.0 != nil }
                     .sorted(by: { $0.1 > $1.1 })
-                    .map { $0.0 }
+                    .compactMap { $0.0 }
                 completion(sortedBookmarks)
             }
-        }
+            .catch { error in
+                Logger.print(error)
+                completion([])
+            }
     }
 }

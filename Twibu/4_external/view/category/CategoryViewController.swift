@@ -206,9 +206,7 @@ extension CategoryViewController: UITableViewDataSource {
         ) { [weak self] result in
             switch result {
             case .success(_):
-                DispatchQueue.main.async {
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                }
+                break
             case .failure(let e):
                 self?.showAlert(title: "Error", message: e.displayMessage)
             }
