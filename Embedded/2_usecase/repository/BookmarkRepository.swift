@@ -326,10 +326,10 @@ public enum BookmarkRepository {
 
         var results: [(Bookmark, Int)] = []
 
-        memos.forEach { t in
+        memos.forEach { m in
             dispatchGroup.enter()
             dispatchQueue.async(group: dispatchGroup) {
-                t.bookmark_ref.getDocument { snapshot, error in
+                m.bookmark_ref.getDocument { snapshot, error in
                     if let error = error {
                         Logger.print(error)
                         dispatchGroup.leave()
@@ -358,7 +358,7 @@ public enum BookmarkRepository {
                     }
                     // https://stackoverflow.com/questions/40080508/swift-unsafemutablepointer-deinitialize-fatal-error-with-negative-count-when-ap
                     serialQueue.sync {
-                        results.append((b, t.updated_at))
+                        results.append((b, m.updated_at))
                     }
                 }
             }

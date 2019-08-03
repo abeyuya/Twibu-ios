@@ -276,12 +276,19 @@ extension SettingsViewController: UITableViewDelegate {
     }
 
     private func didSelectMenu1(index: Int) {
+        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
         let menu = Menu1.allCases[index]
 
         switch menu {
         case .memo:
             let vc = CategoryViewController.initFromStoryBoard()
             vc.set(category: .memo)
+            BookmarkDispatcher.fetchBookmark(
+                category: .memo,
+                uid: uid,
+                type: .new(limit: 30),
+                commentCountOffset: 0
+            ) { _ in }
             navigationController?.pushViewController(vc, animated: true)
         }
     }
