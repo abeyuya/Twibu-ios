@@ -15,10 +15,13 @@ public struct Logger {
         file: String = #file,
         line: Int = #line
     ) {
-        var filename = file
-        if let match = filename.range(of: "[^/]*$", options: .regularExpression) {
-            filename = String(filename[match.upperBound...])
-        }
+        let filename: String = {
+            if let last = file.split(separator: "/").last {
+                return String(last)
+            }
+            return file
+        }()
+
         Swift.print(
             "-----\n",
             "Logger:\(filename):L\(line):\(function) \(debug)",

@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-public final class BookmarkRepository {
+public enum BookmarkRepository {
     public static func fetchBookmark(
         db: Firestore,
         category: Category,

@@ -41,6 +41,10 @@ struct AddBookmarksAction: Action {
     let category: Embedded.Category
     let bookmarks: Repository.Response<[Bookmark]>
 }
+struct RemoveBookmarkAction: Action {
+    let category: Embedded.Category
+    let bookmarkUid: String
+}
 struct AddCommentsAction: Action {
     let bookmarkUid: String
     let comments: Repository.Response<[Comment]>
@@ -103,6 +107,34 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 return .loading(result)
             case .failure: return a.bookmarks
             case .notYetLoading: return .notYetLoading
+            }
+        }()
+
+    case let a as RemoveBookmarkAction:
+        state.response.bookmarks[a.category] = {
+            guard let res = state.response.bookmarks[a.category] else {
+                return nil
+            }
+
+            switch res {
+            case .failure(_), .notYetLoading:
+                return res
+            case .success(let result):
+                let newBookmarks = result.item.filter { $0.uid != a.bookmarkUid }
+                let newResult = Repository.Result(
+                    item: newBookmarks,
+                    lastSnapshot: result.lastSnapshot,
+                    hasMore: result.hasMore
+                )
+                return Repository.Response.success(newResult)
+            case .loading(let result):
+                let newBookmarks = result.item.filter { $0.uid != a.bookmarkUid }
+                let newResult = Repository.Result(
+                    item: newBookmarks,
+                    lastSnapshot: result.lastSnapshot,
+                    hasMore: result.hasMore
+                )
+                return Repository.Response.loading(newResult)
             }
         }()
 

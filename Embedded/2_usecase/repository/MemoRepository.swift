@@ -69,4 +69,26 @@ public final class MemoRepository {
             completion(.success(Void()))
         }
     }
+
+    public static func deleteMemo(
+        db: Firestore,
+        userUid: String,
+        bookmarkUid: String,
+        completion: @escaping (Result<Void>) -> Void
+    ) {
+        let ref = db.collection("users")
+            .document(userUid)
+            .collection("memo")
+            .document(bookmarkUid)
+
+        ref.delete { error in
+            if let error = error {
+                let e = TwibuError.firestoreError(error.localizedDescription)
+                completion(.failure(e))
+                return
+            }
+
+            completion(.success(Void()))
+        }
+    }
 }

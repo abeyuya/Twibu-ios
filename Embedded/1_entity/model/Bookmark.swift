@@ -97,6 +97,8 @@ public extension Bookmark {
 
 extension Bookmark: Equatable {
     public static func == (lhs: Bookmark, rhs: Bookmark) -> Bool {
-        return lhs.uid == rhs.uid && lhs.updated_at == rhs.updated_at
+        return lhs.uid == rhs.uid
+            && lhs.updated_at == rhs.updated_at
+            && lhs.comment_count == rhs.comment_count
     }
 }

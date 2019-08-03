@@ -93,15 +93,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         return v
     }
 
-    private func setupNavigation() {
-        switch category {
-        case .memo?:
-            navigationItem.title = category.displayString
-        default:
-            break
-        }
-    }
-
     private func fetchBookmark() {
         guard let category = category, let uid = currentUser?.firebaseAuthUser?.uid else { return }
 
@@ -201,6 +192,26 @@ extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if self.cellHeight.keys.contains(indexPath) == false {
             self.cellHeight[indexPath] = cell.frame.height
+        }
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
+        let b = bookmarks[indexPath.row]
+
+        MemoDispatcher.deleteMemo(
+            db: TwibuFirebase.shared.firestore,
+            userUid: uid,
+            bookmarkUid: b.uid
+        ) { [weak self] result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            case .failure(let e):
+                self?.showAlert(title: "Error", message: e.displayMessage)
+            }
         }
     }
 }
@@ -306,6 +317,29 @@ extension CategoryViewController {
                 self?.fetchBookmark()
             }
         }
+    }
+}
+
+// Category.memoの場合の処理
+extension CategoryViewController {
+    private func setupNavigation() {
+        switch category {
+        case .memo?:
+            navigationItem.title = category.displayString
+            let editButton = UIBarButtonItem(
+                barButtonSystemItem: .edit,
+                target: self,
+                action: #selector(tapEditButton)
+            )
+            navigationItem.rightBarButtonItem = editButton
+        default:
+            break
+        }
+    }
+
+    @objc
+    private func tapEditButton() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
     }
 }
 
