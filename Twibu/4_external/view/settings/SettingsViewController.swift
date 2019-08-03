@@ -184,7 +184,8 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             comment_count: nil,
             created_at: nil,
             updated_at: nil,
-            url: url
+            url: url,
+            category: .unknown
         )
         vc.set(bookmark: b)
         navigationController?.pushViewController(vc, animated: true)

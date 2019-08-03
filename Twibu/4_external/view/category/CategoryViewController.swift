@@ -261,7 +261,7 @@ extension CategoryViewController: UITableViewDelegate {
 
         // 無限スクロールするためのイベント発火
         let distanceToBottom = maxOffSet - currentPoint.y
-        if distanceToBottom < 300 {
+        if distanceToBottom < 600 {
             fetchAdditionalBookmarks()
         }
 

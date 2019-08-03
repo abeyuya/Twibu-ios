@@ -41,7 +41,18 @@ public enum BookmarkRepository {
 
             let item: [Bookmark] = {
                 let b = snapshot.documents.compactMap { Bookmark(dictionary: $0.data()) }
-                let filtered = b.filter { $0.comment_count ?? 0 >= commentCountOffset }
+                let filtered: [Bookmark] = {
+                    var f = b.filter { $0.comment_count ?? 0 >= commentCountOffset }
+
+                    switch category {
+                    case .all:
+                        f = f.filter { $0.category != .unknown }
+                    default:
+                        break
+                    }
+
+                    return f
+                }()
                 return filterOut(bookmarks: filtered)
             }()
 

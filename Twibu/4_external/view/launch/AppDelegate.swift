@@ -55,7 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 comment_count: Int(query["comment_count"] ?? "0"),
                 created_at: Int(query["created_at"] ?? "0"),
                 updated_at: Int(query["updated_at"] ?? "0"),
-                url: urlStr
+                url: urlStr,
+                category: Category(rawValue: query["category"] ?? "unknown")
             )
             let vc = WebViewController.initFromStoryBoard()
             vc.set(bookmark: b)

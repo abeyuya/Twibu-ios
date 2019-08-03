@@ -8,9 +8,11 @@
 
 import Foundation
 
-public enum Category: String {
+public enum Category: String, Codable {
+    case unknown = "unknown"
     case timeline = "timeline"
     case memo = "memo"
+
     case all = "all"
     case social = "social"
     case economics = "economics"
@@ -23,8 +25,10 @@ public enum Category: String {
 
     public var displayString: String {
         switch self {
+        case .unknown: return "カテゴリなし"
         case .timeline: return "タイムライン"
         case .memo: return "メモ"
+
         case .all: return "トップ"
         case .social: return "社会"
         case .economics: return "政治・経済"

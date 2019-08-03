@@ -18,7 +18,7 @@ public struct Bookmark: TwibuFirestoreCodable {
     public let created_at: Int?
     public let updated_at: Int?
     public let url: String
-    // let category: Category
+    public var category: Category = .unknown
 
     public var trimmedTitle: String? {
         return title?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -37,7 +37,8 @@ public struct Bookmark: TwibuFirestoreCodable {
         comment_count: Int?,
         created_at: Int?,
         updated_at: Int?,
-        url: String
+        url: String,
+        category: Category?
     ) {
         self.uid = uid
         self.title = title
@@ -47,6 +48,10 @@ public struct Bookmark: TwibuFirestoreCodable {
         self.created_at = created_at
         self.updated_at = updated_at
         self.url = url
+
+        if let c = category {
+            self.category = c
+        }
     }
 }
 
@@ -60,6 +65,7 @@ public extension Bookmark {
         created_at = bookmark.created_at
         updated_at = bookmark.updated_at
         url = bookmark.url
+        category = bookmark.category
     }
 }
 
