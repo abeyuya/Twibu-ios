@@ -100,6 +100,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
                 let l1 = UILabel()
                 l1.text = self.bookmark.trimmedTitle ?? "no title"
+                l1.textAlignment = .center
                 v.addArrangedSubview(l1)
 
                 let l2 = UILabel()
@@ -111,6 +112,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
                 )
                 l2.textColor = .darkGray
                 l2.font = .systemFont(ofSize: 12)
+                l2.textAlignment = .center
                 v.addArrangedSubview(l2)
 
                 self.navigationItem.titleView = v
