@@ -14,7 +14,6 @@ import BadgeSwift
 import Embedded
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
-
     private let webview = WKWebView()
     private var bookmark: Bookmark!
     private var currentUser: TwibuUser?

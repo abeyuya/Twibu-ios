@@ -368,12 +368,17 @@ extension CommentViewController: StoreSubscriber {
             updateFooter(mode: .finish)
             showAlert(title: "Error", message: error.displayMessage)
         case .loading(_):
-            if currentComments.isEmpty {
-                startRefreshControll()
-                updateFooter(mode: .hide)
-            } else {
-                updateFooter(mode: .hasMore)
+            guard currentComments.isEmpty else {
+                if refreshControll.isRefreshing {
+                    updateFooter(mode: .hide)
+                } else {
+                    updateFooter(mode: .hasMore)
+                }
+                return
             }
+
+            startRefreshControll()
+            updateFooter(mode: .hide)
         case .notYetLoading:
             endRefreshController()
             updateFooter(mode: .hide)
