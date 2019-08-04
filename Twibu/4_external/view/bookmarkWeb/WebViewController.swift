@@ -180,6 +180,11 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     @objc
     private func tapCommentButton(_ sender: UIButton) {
+        guard !bookmark.uid.isEmpty else {
+            showAlert(title: nil, message: "コメントが取得できませんでした")
+            return
+        }
+
         if isShowComment {
             hideCommentView()
             commentBadge.isHidden = false
@@ -194,6 +199,10 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     @objc
     private func tapWriteButton(_ sender: UIButton) {
         guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
+        guard !bookmark.uid.isEmpty else {
+            showAlert(title: nil, message: "メモの読み込みに失敗しました")
+            return
+        }
 
         let vc = MemoViewController.initFromStoryBoard()
         vc.modalTransitionStyle = .crossDissolve

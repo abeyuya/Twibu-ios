@@ -24,7 +24,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private enum Menu2: String, CaseIterable {
-        case term = "利用規約"
+//        case term = "利用規約"
         case privacyPolicy = "プライバシーポリシー"
         case twitter = "Twitter連携"
         case version = "バージョン"
@@ -236,7 +236,7 @@ extension SettingsViewController: UITableViewDataSource {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
 
         switch menu {
-        case .privacyPolicy, .term:
+        case .privacyPolicy:
             cell.textLabel?.text = menu.rawValue
             cell.accessoryType = .disclosureIndicator
         case .version:
@@ -300,10 +300,10 @@ extension SettingsViewController: UITableViewDelegate {
         switch menu {
         case .twitter:
             currentUser?.isTwitterLogin == true ? tapLogout() : tapLogin()
-        case .term:
-            openWebView(title: menu.rawValue, url: "https://github.com/abeyuya")
+//        case .term:
+//            openWebView(title: menu.rawValue, url: "https://github.com/abeyuya")
         case .privacyPolicy:
-            openWebView(title: menu.rawValue, url: "https://github.com/sikmi")
+            openWebView(title: menu.rawValue, url: "https://twibu-c4d5a.web.app/privacy_policy.html")
         case .version:
             break
         }
