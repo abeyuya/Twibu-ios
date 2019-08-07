@@ -21,6 +21,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
 
     private enum Menu1: String, CaseIterable {
         case memo = "メモ"
+        case history = "履歴"
     }
 
     private enum Menu2: String, CaseIterable {
@@ -224,7 +225,7 @@ extension SettingsViewController: UITableViewDataSource {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
 
         switch menu {
-        case .memo:
+        case .memo, .history:
             cell.textLabel?.text = menu.rawValue
             cell.accessoryType = .disclosureIndicator
         }
@@ -290,6 +291,11 @@ extension SettingsViewController: UITableViewDelegate {
                 type: .new(limit: 30),
                 commentCountOffset: 0
             ) { _ in }
+            navigationController?.pushViewController(vc, animated: true)
+
+        case .history:
+            let vc = CategoryViewController.initFromStoryBoard()
+            vc.set(category: .history)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

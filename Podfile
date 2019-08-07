@@ -13,6 +13,7 @@ target 'Embedded' do
   pod 'UnderKeyboard'
   pod 'UITextView+Placeholder'
   pod 'PromisesSwift'
+  pod 'RealmSwift'
 end
 
 target 'today-extension' do

@@ -85,6 +85,8 @@
 		4DEDF2EA22F47E4900488B55 /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E922F47E4900488B55 /* MemoRepository.swift */; };
 		4DEDF2EC22F4979E00488B55 /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
+		4DF258E222FB18AB00AC2329 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E122FB18AB00AC2329 /* History.swift */; };
+		4DF258E422FB1A2600AC2329 /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */; };
 		6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */; };
 		84CCB42045C7A14BEE8C37B9 /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */; };
 		B38213C6751DDB6F106ABA54 /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */; };
@@ -245,6 +247,8 @@
 		4DEDF2E722F47DC200488B55 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		4DEDF2E922F47E4900488B55 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDispatcher.swift; sourceTree = "<group>"; };
+		4DF258E122FB18AB00AC2329 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		7217761631547EC0D534046B /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -676,6 +680,7 @@
 			children = (
 				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
 				4DEDF2E922F47E4900488B55 /* MemoRepository.swift */,
+				4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */,
 			);
 			path = repository;
 			sourceTree = "<group>";
@@ -690,6 +695,7 @@
 				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
 				4D65093022BE25CA00BB0959 /* Env.swift */,
 				4DEDF2E722F47DC200488B55 /* Memo.swift */,
+				4DF258E122FB18AB00AC2329 /* History.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1243,6 +1249,7 @@
 			files = (
 				4D72CF1322E2FC3900E6AA66 /* Error.swift in Sources */,
 				4D72CF1922E2FC5700E6AA66 /* BookmarkRepository.swift in Sources */,
+				4DF258E222FB18AB00AC2329 /* History.swift in Sources */,
 				4D72CF1122E2F40300E6AA66 /* TwibuUserDefaults.swift in Sources */,
 				4DEDF2E822F47DC200488B55 /* Memo.swift in Sources */,
 				4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */,
@@ -1252,6 +1259,7 @@
 				4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */,
 				4D72CF1422E2FC3D00E6AA66 /* Bookmark.swift in Sources */,
 				4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */,
+				4DF258E422FB1A2600AC2329 /* HistoryRepository.swift in Sources */,
 				4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */,
 				4D72CF1622E2FC4700E6AA66 /* Timeline.swift in Sources */,
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,

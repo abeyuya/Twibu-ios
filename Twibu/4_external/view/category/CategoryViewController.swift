@@ -103,12 +103,17 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             }
         }()
 
-        BookmarkDispatcher.fetchBookmark(
-            category: category,
-            uid: uid,
-            type: .new(limit: limit),
-            commentCountOffset: category == .all ? 20 : 0
-        ) { _ in }
+        switch category {
+        case .history:
+            BookmarkDispatcher.fetchHistory(offset: 0)
+        default:
+            BookmarkDispatcher.fetchBookmark(
+                category: category,
+                uid: uid,
+                type: .new(limit: limit),
+                commentCountOffset: category == .all ? 20 : 0
+            ) { _ in }
+        }
     }
 
     @objc
@@ -140,12 +145,17 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
                 let uid = currentUser?.firebaseAuthUser?.uid,
                 result.hasMore else { return }
 
-            BookmarkDispatcher.fetchBookmark(
-                category: category,
-                uid: uid,
-                type: .add(limit: 30, last: result.lastSnapshot),
-                commentCountOffset: category == .all ? 20 : 0
-            ) { _ in }
+            switch category {
+            case .history:
+                BookmarkDispatcher.fetchHistory(offset: bookmarks.count)
+            default:
+                BookmarkDispatcher.fetchBookmark(
+                    category: category,
+                    uid: uid,
+                    type: .add(limit: 30, last: result.lastSnapshot),
+                    commentCountOffset: category == .all ? 20 : 0
+                ) { _ in }
+            }
         }
     }
 
@@ -234,6 +244,8 @@ extension CategoryViewController: UITableViewDelegate {
             CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: b.uid, type: .new(limit: 100))
         }
 
+        HistoryRepository.addHistory(bookmark: b)
+
         AnalyticsDispatcer.logging(
             .bookmarkTap,
             param: [
@@ -318,11 +330,11 @@ extension CategoryViewController {
     }
 }
 
-// Category.memoの場合の処理
+// Category.memo, .historyの場合の処理
 extension CategoryViewController {
     private func setupNavigation() {
         switch category {
-        case .memo?:
+        case .memo?, .history?:
             navigationItem.title = category.displayString
             let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
