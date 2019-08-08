@@ -294,6 +294,7 @@ extension SettingsViewController: UITableViewDelegate {
             navigationController?.pushViewController(vc, animated: true)
 
         case .history:
+            BookmarkDispatcher.fetchHistory(offset: 0)
             let vc = CategoryViewController.initFromStoryBoard()
             vc.set(category: .history)
             navigationController?.pushViewController(vc, animated: true)

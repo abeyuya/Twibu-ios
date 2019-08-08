@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
-import Parchment
-import ReSwift
 import Embedded
 
 final class CategoryViewController: UIViewController, StoryboardInstantiatable {
@@ -21,16 +18,11 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }()
 
     private let refreshControll = UIRefreshControl()
-    private var bookmarksResponse: Repository.Response<[Bookmark]> = .notYetLoading
-    private var currentUser: TwibuUser?
-
     private var lastContentOffset: CGFloat = 0
     private var cellHeight: [IndexPath: CGFloat] = [:]
 
     private var category: Embedded.Category!
-    private var bookmarks: [Bookmark] {
-        return bookmarksResponse.item ?? []
-    }
+    private var viewModel: CategoryArticleListViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,16 +34,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        store.subscribe(self) { [weak self] subcription in
-            subcription.select { state in
-                let res: Repository.Response<[Bookmark]>? = {
-                    guard let c = self?.category else { return nil }
-                    return state.response.bookmarks[c]
-                }()
-
-                return Subscribe(res: res, currentUser: state.currentUser)
-            }
-        }
+        viewModel.startSubscribe()
 
         AnalyticsDispatcer.logging(
             .categoryLoad,
@@ -61,11 +44,13 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        store.unsubscribe(self)
+        viewModel.stopSubscribe()
     }
 
     func set(category: Embedded.Category) {
         self.category = category
+        viewModel = CategoryArticleListViewModel()
+        viewModel.setup(delegate: self, category: category)
     }
 
     private func setupTableView() {
@@ -93,29 +78,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         return v
     }
 
-    private func fetchBookmark() {
-        guard let category = category, let uid = currentUser?.firebaseAuthUser?.uid else { return }
-
-        let limit: Int = {
-            switch category {
-            case .all: return 100
-            default: return 30
-            }
-        }()
-
-        switch category {
-        case .history:
-            BookmarkDispatcher.fetchHistory(offset: 0)
-        default:
-            BookmarkDispatcher.fetchBookmark(
-                category: category,
-                uid: uid,
-                type: .new(limit: limit),
-                commentCountOffset: category == .all ? 20 : 0
-            ) { _ in }
-        }
-    }
-
     @objc
     private func refresh() {
         AnalyticsDispatcer.logging(
@@ -123,40 +85,12 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             param: ["category": category?.rawValue ?? "error"]
         )
 
-        if category == .timeline, currentUser?.isTwitterLogin == true {
+        if category == .timeline, viewModel.currentUser?.isTwitterLogin == true {
             refreshForLoginUser()
             return
         }
 
-        fetchBookmark()
-    }
-
-    private func fetchAdditionalBookmarks() {
-        switch bookmarksResponse {
-        case .loading(_):
-            return
-        case .notYetLoading:
-            // view読み込み時だけ通る
-            return
-        case .failure(_):
-            return
-        case .success(let result):
-            guard let category = category,
-                let uid = currentUser?.firebaseAuthUser?.uid,
-                result.hasMore else { return }
-
-            switch category {
-            case .history:
-                BookmarkDispatcher.fetchHistory(offset: bookmarks.count)
-            default:
-                BookmarkDispatcher.fetchBookmark(
-                    category: category,
-                    uid: uid,
-                    type: .add(limit: 30, last: result.lastSnapshot),
-                    commentCountOffset: category == .all ? 20 : 0
-                ) { _ in }
-            }
-        }
+        viewModel.fetchBookmark()
     }
 
     private func startRefreshControll() {
@@ -179,7 +113,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
 extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookmarks.count
+        return viewModel.bookmarks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -187,7 +121,7 @@ extension CategoryViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let b = bookmarks[indexPath.row]
+        let b = viewModel.bookmarks[indexPath.row]
         cell.set(bookmark: b)
         return cell
     }
@@ -206,8 +140,8 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
-        let b = bookmarks[indexPath.row]
+        guard let uid = viewModel.currentUser?.firebaseAuthUser?.uid else { return }
+        let b = viewModel.bookmarks[indexPath.row]
 
         MemoDispatcher.deleteMemo(
             db: TwibuFirebase.shared.firestore,
@@ -226,12 +160,12 @@ extension CategoryViewController: UITableViewDataSource {
 
 extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let b = bookmarks[indexPath.row]
+        let b = viewModel.bookmarks[indexPath.row]
         let vc = WebViewController.initFromStoryBoard()
         vc.set(bookmark: b)
         navigationController?.pushViewController(vc, animated: true)
 
-        if let isLogin = currentUser?.isTwitterLogin, isLogin {
+        if let isLogin = viewModel.currentUser?.isTwitterLogin, isLogin {
             CommentDispatcher.updateAndFetchComments(
                 db: TwibuFirebase.shared.firestore,
                 functions: TwibuFirebase.shared.functions,
@@ -272,7 +206,7 @@ extension CategoryViewController: UITableViewDelegate {
         // 無限スクロールするためのイベント発火
         let distanceToBottom = maxOffSet - currentPoint.y
         if distanceToBottom < 600 {
-            fetchAdditionalBookmarks()
+            viewModel.fetchAdditionalBookmarks()
         }
 
         if currentPoint.y >= maxOffSet {
@@ -310,8 +244,8 @@ extension CategoryViewController: UIPageViewControllerDelegate {}
 // Category.timelineの場合の処理
 extension CategoryViewController {
     private func refreshForLoginUser() {
-        guard currentUser?.isTwitterLogin == true,
-            let uid = currentUser?.firebaseAuthUser?.uid else {
+        guard viewModel.currentUser?.isTwitterLogin == true,
+            let uid = viewModel.currentUser?.firebaseAuthUser?.uid else {
                 showAlert(title: "Error", message: TwibuError.needTwitterAuth(nil).displayMessage)
                 return
         }
@@ -324,7 +258,7 @@ extension CategoryViewController {
                     self?.showAlert(title: "Error", message: error.displayMessage)
                 }
             case .success(_):
-                self?.fetchBookmark()
+                self?.viewModel.fetchBookmark()
             }
         }
     }
@@ -353,48 +287,24 @@ extension CategoryViewController {
     }
 }
 
-extension CategoryViewController: StoreSubscriber {
-    struct Subscribe {
-        var res: Repository.Response<[Bookmark]>?
-        var currentUser: TwibuUser
-    }
-
-    typealias StoreSubscriberStateType = Subscribe
-
-    func newState(state: Subscribe) {
-        currentUser = state.currentUser
-
-        guard let res = state.res else {
-            // 初回取得前はここを通る
-            bookmarksResponse = .notYetLoading
-            render()
-            fetchBookmark()
-            return
-        }
-
-        bookmarksResponse = res
-        DispatchQueue.main.async {
-            self.render()
-        }
-    }
-
+extension CategoryViewController: CategoryArticleListViewModelDelegate {
     func render() {
-        switch self.bookmarksResponse {
+        switch self.viewModel.response {
         case .success(let result):
             self.endRefreshController()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.footerIndicator.isHidden = self.bookmarks.isEmpty || result.hasMore == false
+                self.footerIndicator.isHidden = self.viewModel.bookmarks.isEmpty || result.hasMore == false
             }
         case .failure(let error):
             self.endRefreshController()
             self.showAlert(title: "Error", message: error.displayMessage)
         case .loading(_):
-            if bookmarks.isEmpty {
+            if viewModel.bookmarks.isEmpty {
                 startRefreshControll()
             }
             DispatchQueue.main.async {
-                self.footerIndicator.isHidden = self.bookmarks.isEmpty
+                self.footerIndicator.isHidden = self.viewModel.bookmarks.isEmpty
             }
         case .notYetLoading:
             self.startRefreshControll()

@@ -34,6 +34,8 @@
 		4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F55022E4900700156445 /* Dictionary+Extension.swift */; };
 		4D28F55322E494D000156445 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F55222E494D000156445 /* Router.swift */; };
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
+		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
+		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D65092622BBDB5900BB0959 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
 		4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepository.swift */; };
 		4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093322BE43CD00BB0959 /* RootViewController.swift */; };
@@ -197,6 +199,8 @@
 		4D28F55222E494D000156445 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
+		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
+		4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticleListViewModel.swift; sourceTree = "<group>"; };
 		4D5CFC8722D8BDDE00F33754 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		4D65092522BBDB5800BB0959 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
@@ -551,6 +555,8 @@
 		4D65094222BF5E2D00BB0959 /* 3_interface */ = {
 			isa = PBXGroup;
 			children = (
+				4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */,
+				4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */,
 			);
 			path = 3_interface;
 			sourceTree = "<group>";
@@ -1193,6 +1199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D11153522B570A3000817BA /* PagingRootViewController.swift in Sources */,
+				4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */,
 				4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */,
 				4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */,
 				4D11154C22B6A648000817BA /* WebViewController.swift in Sources */,
@@ -1202,6 +1209,7 @@
 				4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */,
+				4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */,
 				4D65094822BF698700BB0959 /* Array+Extension.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
 				4D72CF2622E3606700E6AA66 /* Firebase.swift in Sources */,
