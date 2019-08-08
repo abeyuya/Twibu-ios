@@ -17,8 +17,14 @@ struct AppState: StateType {
         var comments: [String: Repository.Response<[Comment]>] = [:]
     }
 
+    struct HistoryInfo {
+        var bookmarks: [Bookmark]
+        var hasMore: Bool
+    }
+
     var response: Response = Response()
     var currentUser = TwibuUser(firebaseAuthUser: nil)
+    var history = HistoryInfo(bookmarks: [], hasMore: true)
 }
 
 extension AppState {
@@ -37,6 +43,12 @@ extension AppState {
     }
 }
 
+struct AddHistoriesAction: Action {
+    let bookmarks: [Bookmark]
+}
+struct AddNewHistoryAction: Action {
+    let bookmark: Bookmark
+}
 struct AddBookmarksAction: Action {
     let category: Embedded.Category
     let bookmarks: Repository.Response<[Bookmark]>
@@ -233,6 +245,13 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     case let a as UpdateFirebaseUser:
         let newUser = TwibuUser(firebaseAuthUser: a.newUser)
         state.currentUser = newUser
+
+    case let a as AddHistoriesAction:
+        state.history.bookmarks = state.history.bookmarks + a.bookmarks
+        state.history.hasMore = !a.bookmarks.isEmpty
+
+    case let a as AddNewHistoryAction:
+        state.history.bookmarks.insert(a.bookmark, at: 0)
 
     default:
         break

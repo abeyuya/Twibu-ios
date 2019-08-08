@@ -36,6 +36,7 @@
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
+		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
 		4D65092622BBDB5900BB0959 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
 		4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepository.swift */; };
 		4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093322BE43CD00BB0959 /* RootViewController.swift */; };
@@ -89,6 +90,7 @@
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
 		4DF258E222FB18AB00AC2329 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E122FB18AB00AC2329 /* History.swift */; };
 		4DF258E422FB1A2600AC2329 /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */; };
+		4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */; };
 		6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */; };
 		84CCB42045C7A14BEE8C37B9 /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */; };
 		B38213C6751DDB6F106ABA54 /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */; };
@@ -201,6 +203,7 @@
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
 		4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticleListViewModel.swift; sourceTree = "<group>"; };
+		4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryArticleListViewModel.swift; sourceTree = "<group>"; };
 		4D5CFC8722D8BDDE00F33754 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		4D65092522BBDB5800BB0959 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
@@ -254,6 +257,7 @@
 		4DF258E122FB18AB00AC2329 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDispatcher.swift; sourceTree = "<group>"; };
 		7217761631547EC0D534046B /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -490,6 +494,7 @@
 			children = (
 				4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */,
 				4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */,
+				4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */,
 			);
 			path = ArticleList;
 			sourceTree = "<group>";
@@ -604,6 +609,7 @@
 				4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */,
 				4DA1E5E522CBAEBC00320895 /* UserDispatcher.swift */,
 				4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */,
+				4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */,
 			);
 			path = dispatcher;
 			sourceTree = "<group>";
@@ -1223,8 +1229,10 @@
 				4D72CF2622E3606700E6AA66 /* Firebase.swift in Sources */,
 				4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */,
 				4DA1E5E622CBAEBC00320895 /* UserDispatcher.swift in Sources */,
+				4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */,
 				4D65094622BF5FD200BB0959 /* Store.swift in Sources */,
 				4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */,
+				4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */,
 				4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */,
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
 				4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */,

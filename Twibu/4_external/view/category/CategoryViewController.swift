@@ -95,6 +95,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             }
 
             viewModel.fetchBookmark()
+        case .history:
+            viewModel.fetchBookmark()
         }
     }
 
@@ -183,10 +185,10 @@ extension CategoryViewController: UITableViewDelegate {
             CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: b.uid, type: .new(limit: 100))
         }
 
-        HistoryRepository.addHistory(bookmark: b)
-
         switch viewModel.type {
         case .category(let c):
+            HistoryRepository.addHistory(bookmark: b)
+            HistoryDispatcher.addNewHistory(bookmark: b)
             AnalyticsDispatcer.logging(
                 .bookmarkTap,
                 param: [
@@ -196,6 +198,8 @@ extension CategoryViewController: UITableViewDelegate {
                     "comment_count": b.comment_count ?? -1,
                 ]
             )
+        case .history:
+            break
         }
     }
 
@@ -278,7 +282,7 @@ extension CategoryViewController {
         switch viewModel.type {
         case .category(let c):
             switch c {
-            case .memo, .history:
+            case .memo:
                 navigationItem.title = c.displayString
                 let editButton = UIBarButtonItem(
                     barButtonSystemItem: .edit,
@@ -289,6 +293,14 @@ extension CategoryViewController {
             default:
                 break
             }
+        case .history:
+            navigationItem.title = "履歴"
+            let editButton = UIBarButtonItem(
+                barButtonSystemItem: .edit,
+                target: self,
+                action: #selector(tapEditButton)
+            )
+            navigationItem.rightBarButtonItem = editButton
         }
     }
 

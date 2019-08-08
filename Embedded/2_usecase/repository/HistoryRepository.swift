@@ -30,11 +30,15 @@ public enum HistoryRepository {
 
     private static let fetchLimit: Int = 30
 
-    public static func fetchHistory(offset: Int, completion: @escaping ([History]) -> Void) {
+    public static func fetchHistory(offset: Int, completion: @escaping (([History])) -> Void) {
         let histories: [History] = {
             let result = realm
                 .objects(History.self)
                 .sorted(byKeyPath: "createdAt", ascending: false)
+
+            if result.count <= offset {
+                return []
+            }
 
             var his: [History] = []
             for i in max(0, offset) ..< min(fetchLimit, result.count) {

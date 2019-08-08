@@ -10,9 +10,7 @@ import Foundation
 import FirebasePerformance
 import Embedded
 
-final class BookmarkDispatcher {
-    private init() {}
-
+enum BookmarkDispatcher {
     static func fetchBookmark(
         category: Embedded.Category,
         uid: String,
@@ -20,11 +18,6 @@ final class BookmarkDispatcher {
         commentCountOffset: Int,
         completion: @escaping (Result<[Bookmark]>) -> Void
     ) {
-        guard category != .history else {
-            assertionFailure("historyは使わないはず")
-            return
-        }
-
         let lResult = Repository.Result<[Bookmark]>(item: [], lastSnapshot: nil, hasMore: false)
         let startLoadingAction = AddBookmarksAction(
             category: category,
@@ -56,23 +49,6 @@ final class BookmarkDispatcher {
             case .success(let r):
                 completion(.success(r.item))
             }
-        }
-    }
-
-    static func fetchHistory(offset: Int) {
-        HistoryRepository.fetchHistory(offset: offset) { histories in
-            let bookmarks = histories.compactMap { $0.decodedBookmark() }
-            let result = Repository.Result(
-                item: bookmarks,
-                lastSnapshot: nil,
-                hasMore: !bookmarks.isEmpty
-            )
-            let res = Repository.Response.success(result)
-            let a = AddBookmarksAction(
-                category: .history,
-                bookmarks: res
-            )
-            store.mDispatch(a)
         }
     }
 }

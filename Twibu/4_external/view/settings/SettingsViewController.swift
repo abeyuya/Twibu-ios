@@ -296,10 +296,10 @@ extension SettingsViewController: UITableViewDelegate {
             navigationController?.pushViewController(vc, animated: true)
 
         case .history:
-            BookmarkDispatcher.fetchHistory(offset: 0)
+            HistoryDispatcher.fetchHistory(offset: 0)
             let vc = CategoryViewController.initFromStoryBoard()
-            let vm = CategoryArticleListViewModel()
-            vm.set(delegate: vc, type: .category(.history))
+            let vm = HistoryArticleListViewModel()
+            vm.set(delegate: vc, type: .history)
             vc.set(vm: vm)
             navigationController?.pushViewController(vc, animated: true)
         }

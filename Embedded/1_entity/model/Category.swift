@@ -12,7 +12,6 @@ public enum Category: String, Codable {
     case unknown = "unknown"
     case timeline = "timeline"
     case memo = "memo"
-    case history = "history"
 
     case all = "all"
     case social = "social"
@@ -29,7 +28,6 @@ public enum Category: String, Codable {
         case .unknown: return "カテゴリなし"
         case .timeline: return "タイムライン"
         case .memo: return "メモ"
-        case .history: return "履歴"
 
         case .all: return "トップ"
         case .social: return "社会"

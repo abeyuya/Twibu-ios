@@ -164,7 +164,7 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
             vc.set(vm: vm)
             return vc
 
-        case .memo, .unknown, .history:
+        case .memo, .unknown:
             assertionFailure("通らないはず")
             return UIViewController()
         }

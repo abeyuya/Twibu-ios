@@ -16,6 +16,9 @@ final class CategoryArticleListViewModel: ArticleList {
         switch type {
         case .category(let c):
             return c
+        case .history:
+            assertionFailure("来ないはず")
+            return .all
         }
     }
 
@@ -61,8 +64,8 @@ extension CategoryArticleListViewModel {
         }()
 
         switch category {
-        case .history:
-            BookmarkDispatcher.fetchHistory(offset: 0)
+//        case .history:
+//            BookmarkDispatcher.fetchHistory(offset: 0)
         default:
             BookmarkDispatcher.fetchBookmark(
                 category: category,
@@ -86,8 +89,8 @@ extension CategoryArticleListViewModel {
             guard let uid = currentUser?.firebaseAuthUser?.uid, result.hasMore else { return }
 
             switch category {
-            case .history:
-                BookmarkDispatcher.fetchHistory(offset: bookmarks.count)
+//            case .history:
+//                BookmarkDispatcher.fetchHistory(offset: bookmarks.count)
             default:
                 BookmarkDispatcher.fetchBookmark(
                     category: category,

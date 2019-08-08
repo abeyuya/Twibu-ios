@@ -14,6 +14,7 @@ enum RenderState {
 
 enum ArticleListType {
     case category(Embedded.Category)
+    case history
 }
 
 protocol ArticleListDelegate: class {
