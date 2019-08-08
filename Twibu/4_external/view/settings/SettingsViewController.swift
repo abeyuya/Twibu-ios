@@ -284,7 +284,9 @@ extension SettingsViewController: UITableViewDelegate {
         switch menu {
         case .memo:
             let vc = CategoryViewController.initFromStoryBoard()
-            vc.set(category: .memo)
+            let vm = CategoryArticleListViewModel()
+            vm.set(delegate: vc, type: .category(.memo))
+            vc.set(vm: vm)
             BookmarkDispatcher.fetchBookmark(
                 category: .memo,
                 uid: uid,
@@ -296,7 +298,9 @@ extension SettingsViewController: UITableViewDelegate {
         case .history:
             BookmarkDispatcher.fetchHistory(offset: 0)
             let vc = CategoryViewController.initFromStoryBoard()
-            vc.set(category: .history)
+            let vm = CategoryArticleListViewModel()
+            vm.set(delegate: vc, type: .category(.history))
+            vc.set(vm: vm)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

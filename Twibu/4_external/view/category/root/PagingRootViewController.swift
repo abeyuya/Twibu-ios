@@ -152,12 +152,16 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
             }
 
             let vc = CategoryViewController.initFromStoryBoard()
-            vc.set(category: category)
+            let vm = CategoryArticleListViewModel()
+            vm.set(delegate: vc, type: .category(.timeline))
+            vc.set(vm: vm)
             return vc
 
         case .all, .economics, .entertainment, .fun, .game, .it, .knowledge, .social, .life:
             let vc = CategoryViewController.initFromStoryBoard()
-            vc.set(category: category)
+            let vm = CategoryArticleListViewModel()
+            vm.set(delegate: vc, type: .category(category))
+            vc.set(vm: vm)
             return vc
 
         case .memo, .unknown, .history:

@@ -485,6 +485,15 @@
 			path = interface;
 			sourceTree = "<group>";
 		};
+		4D5A410322FC35D700AD1620 /* ArticleList */ = {
+			isa = PBXGroup;
+			children = (
+				4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */,
+				4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */,
+			);
+			path = ArticleList;
+			sourceTree = "<group>";
+		};
 		4D5CFC8B22D96D6600F33754 /* resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,8 +564,7 @@
 		4D65094222BF5E2D00BB0959 /* 3_interface */ = {
 			isa = PBXGroup;
 			children = (
-				4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */,
-				4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */,
+				4D5A410322FC35D700AD1620 /* ArticleList */,
 			);
 			path = 3_interface;
 			sourceTree = "<group>";

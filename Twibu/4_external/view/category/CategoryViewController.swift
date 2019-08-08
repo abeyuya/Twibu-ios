@@ -21,8 +21,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private var lastContentOffset: CGFloat = 0
     private var cellHeight: [IndexPath: CGFloat] = [:]
 
-    private var category: Embedded.Category!
-    private var viewModel: CategoryArticleListViewModel!
+    private var viewModel: ArticleList!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +35,15 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
         viewModel.startSubscribe()
 
-        AnalyticsDispatcer.logging(
-            .categoryLoad,
-            param: ["category": category?.rawValue ?? "error"]
-        )
+        switch viewModel.type {
+        case .category(let c):
+            AnalyticsDispatcer.logging(
+                .categoryLoad,
+                param: ["category": c.rawValue]
+            )
+        default:
+            break
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,10 +51,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         viewModel.stopSubscribe()
     }
 
-    func set(category: Embedded.Category) {
-        self.category = category
-        viewModel = CategoryArticleListViewModel()
-        viewModel.setup(delegate: self, category: category)
+    func set(vm: ArticleList) {
+        viewModel = vm
     }
 
     private func setupTableView() {
@@ -80,17 +82,20 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     @objc
     private func refresh() {
-        AnalyticsDispatcer.logging(
-            .categoryRefresh,
-            param: ["category": category?.rawValue ?? "error"]
-        )
+        switch viewModel.type {
+        case .category(let c):
+            AnalyticsDispatcer.logging(
+                .categoryRefresh,
+                param: ["category": c.rawValue]
+            )
 
-        if category == .timeline, viewModel.currentUser?.isTwitterLogin == true {
-            refreshForLoginUser()
-            return
+            if c == .timeline, viewModel.currentUser?.isTwitterLogin == true {
+                refreshForLoginUser()
+                return
+            }
+
+            viewModel.fetchBookmark()
         }
-
-        viewModel.fetchBookmark()
     }
 
     private func startRefreshControll() {
@@ -180,15 +185,18 @@ extension CategoryViewController: UITableViewDelegate {
 
         HistoryRepository.addHistory(bookmark: b)
 
-        AnalyticsDispatcer.logging(
-            .bookmarkTap,
-            param: [
-                "category": category?.rawValue ?? "error",
-                "buid": b.uid,
-                "url": b.url,
-                "comment_count": b.comment_count ?? -1,
-            ]
-        )
+        switch viewModel.type {
+        case .category(let c):
+            AnalyticsDispatcer.logging(
+                .bookmarkTap,
+                param: [
+                    "category": c.rawValue,
+                    "buid": b.uid,
+                    "url": b.url,
+                    "comment_count": b.comment_count ?? -1,
+                ]
+            )
+        }
     }
 
     private static let humanScrollOffset: CGFloat = 100
@@ -267,17 +275,20 @@ extension CategoryViewController {
 // Category.memo, .historyの場合の処理
 extension CategoryViewController {
     private func setupNavigation() {
-        switch category {
-        case .memo?, .history?:
-            navigationItem.title = category.displayString
-            let editButton = UIBarButtonItem(
-                barButtonSystemItem: .edit,
-                target: self,
-                action: #selector(tapEditButton)
-            )
-            navigationItem.rightBarButtonItem = editButton
-        default:
-            break
+        switch viewModel.type {
+        case .category(let c):
+            switch c {
+            case .memo, .history:
+                navigationItem.title = c.displayString
+                let editButton = UIBarButtonItem(
+                    barButtonSystemItem: .edit,
+                    target: self,
+                    action: #selector(tapEditButton)
+                )
+                navigationItem.rightBarButtonItem = editButton
+            default:
+                break
+            }
         }
     }
 
@@ -287,19 +298,19 @@ extension CategoryViewController {
     }
 }
 
-extension CategoryViewController: CategoryArticleListViewModelDelegate {
-    func render() {
-        switch self.viewModel.response {
-        case .success(let result):
+extension CategoryViewController: ArticleListDelegate {
+    func render(state: RenderState) {
+        switch state {
+        case .success(let hasMore):
             self.endRefreshController()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.footerIndicator.isHidden = self.viewModel.bookmarks.isEmpty || result.hasMore == false
+                self.footerIndicator.isHidden = self.viewModel.bookmarks.isEmpty || hasMore == false
             }
         case .failure(let error):
             self.endRefreshController()
             self.showAlert(title: "Error", message: error.displayMessage)
-        case .loading(_):
+        case .loading:
             if viewModel.bookmarks.isEmpty {
                 startRefreshControll()
             }

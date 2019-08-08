@@ -9,16 +9,18 @@
 import Embedded
 import ReSwift
 
-protocol CategoryArticleListViewModelDelegate: class {
-    func render()
-}
+final class CategoryArticleListViewModel: ArticleList {
+    internal weak var delegate: ArticleListDelegate?
+    private var response: Repository.Response<[Bookmark]> = .notYetLoading
+    private var category: Embedded.Category {
+        switch type {
+        case .category(let c):
+            return c
+        }
+    }
 
-final class CategoryArticleListViewModel {
-    private weak var delegate: CategoryArticleListViewModelDelegate?
-    private var category: Embedded.Category!
-
+    var type: ArticleListType = .category(.all)
     var currentUser: TwibuUser?
-    var response: Repository.Response<[Bookmark]> = .notYetLoading
     var bookmarks: [Bookmark] {
         return response.item ?? []
     }
@@ -26,9 +28,9 @@ final class CategoryArticleListViewModel {
 
 // input
 extension CategoryArticleListViewModel {
-    func setup(delegate: CategoryArticleListViewModelDelegate, category: Embedded.Category) {
+    func set(delegate: ArticleListDelegate, type: ArticleListType) {
         self.delegate = delegate
-        self.category = category
+        self.type = type
     }
 
     func startSubscribe() {
@@ -49,7 +51,7 @@ extension CategoryArticleListViewModel {
     }
 
     func fetchBookmark() {
-        guard let category = category, let uid = currentUser?.firebaseAuthUser?.uid else { return }
+        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
 
         let limit: Int = {
             switch category {
@@ -81,9 +83,7 @@ extension CategoryArticleListViewModel {
         case .failure(_):
             return
         case .success(let result):
-            guard let category = category,
-                let uid = currentUser?.firebaseAuthUser?.uid,
-                result.hasMore else { return }
+            guard let uid = currentUser?.firebaseAuthUser?.uid, result.hasMore else { return }
 
             switch category {
             case .history:
@@ -114,12 +114,25 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         guard let res = state.res else {
             // 初回取得前はここを通る
             response = .notYetLoading
-            delegate?.render()
+            delegate?.render(state: .notYetLoading)
             fetchBookmark()
             return
         }
 
         response = res
-        delegate?.render()
+        delegate?.render(state: convert(res))
+    }
+
+    private func convert(_ res: Repository.Response<[Bookmark]>) -> RenderState {
+        switch res {
+        case .success(let result):
+            return .success(hasMore: result.hasMore)
+        case .loading(_):
+            return .loading
+        case .failure(let error):
+            return .failure(error: error)
+        case .notYetLoading:
+            return .notYetLoading
+        }
     }
 }
