@@ -12,14 +12,21 @@ import Embedded
 enum HistoryDispatcher {
     static func fetchHistory(offset: Int) {
         HistoryRepository.fetchHistory(offset: offset) { histories in
-            let bookmarks = histories.compactMap { $0.decodedBookmark() }
-            let a = AddHistoriesAction(bookmarks: bookmarks)
+            let h = histories
+                .map { (his: History) -> (Bookmark, Int)? in
+                    guard let b = his.decodedBookmark() else { return nil }
+                    return (b, his.createdAt)
+                }
+                .compactMap { $0 }
+
+            let a = AddHistoriesAction(histories: h)
             store.mDispatch(a)
         }
     }
 
     static func addNewHistory(bookmark: Bookmark) {
-        let a = AddNewHistoryAction(bookmark: bookmark)
+        let h = HistoryRepository.addHistory(bookmark: bookmark)
+        let a = AddNewHistoryAction(bookmark: bookmark, createdAt: h.createdAt)
         store.mDispatch(a)
     }
 }

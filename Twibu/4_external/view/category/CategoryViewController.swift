@@ -187,7 +187,6 @@ extension CategoryViewController: UITableViewDelegate {
 
         switch viewModel.type {
         case .category(let c):
-            HistoryRepository.addHistory(bookmark: b)
             HistoryDispatcher.addNewHistory(bookmark: b)
             AnalyticsDispatcer.logging(
                 .bookmarkTap,

@@ -18,13 +18,13 @@ struct AppState: StateType {
     }
 
     struct HistoryInfo {
-        var bookmarks: [Bookmark]
+        var histories: [(bookmark: Bookmark, createdAt: Int)]
         var hasMore: Bool
     }
 
     var response: Response = Response()
     var currentUser = TwibuUser(firebaseAuthUser: nil)
-    var history = HistoryInfo(bookmarks: [], hasMore: true)
+    var history = HistoryInfo(histories: [], hasMore: true)
 }
 
 extension AppState {
@@ -44,10 +44,11 @@ extension AppState {
 }
 
 struct AddHistoriesAction: Action {
-    let bookmarks: [Bookmark]
+    let histories: [(Bookmark, Int)]
 }
 struct AddNewHistoryAction: Action {
     let bookmark: Bookmark
+    let createdAt: Int
 }
 struct AddBookmarksAction: Action {
     let category: Embedded.Category
@@ -247,11 +248,16 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         state.currentUser = newUser
 
     case let a as AddHistoriesAction:
-        state.history.bookmarks = state.history.bookmarks + a.bookmarks
-        state.history.hasMore = !a.bookmarks.isEmpty
+        state.history.histories = (state.history.histories + a.histories)
+            .unique(by: { $0.0.uid })
+            .sorted { $0.1 > $1.1 }
+        state.history.hasMore = !a.histories.isEmpty
 
     case let a as AddNewHistoryAction:
-        state.history.bookmarks.insert(a.bookmark, at: 0)
+        state.history.histories.insert((a.bookmark, a.createdAt), at: 0)
+        state.history.histories = state.history.histories
+            .unique(by: { $0.0.uid })
+            .sorted { $0.1 > $1.1 }
 
     default:
         break

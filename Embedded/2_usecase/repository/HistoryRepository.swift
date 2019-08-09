@@ -18,7 +18,7 @@ public enum HistoryRepository {
         return try! Realm()
     }()
 
-    public static func addHistory(bookmark: Bookmark) {
+    public static func addHistory(bookmark: Bookmark) -> History {
         let h = History()
         h.bookmarkUid = bookmark.uid
         h.bookmarkData = try? JSONEncoder().encode(bookmark)
@@ -26,6 +26,8 @@ public enum HistoryRepository {
         try! realm.write {
             realm.add(h, update: .all)
         }
+
+        return h
     }
 
     private static let fetchLimit: Int = 30
@@ -41,7 +43,7 @@ public enum HistoryRepository {
             }
 
             var his: [History] = []
-            for i in max(0, offset) ..< min(fetchLimit, result.count) {
+            for i in max(0, offset) ..< min(offset + fetchLimit, result.count) {
                 his.append(result[i])
             }
             return his

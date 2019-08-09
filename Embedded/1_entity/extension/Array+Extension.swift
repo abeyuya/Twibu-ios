@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Array {
+public extension Array {
 //    func uniqyeBy(includeElement: @escaping (Element, Element) -> Bool) -> [Element] {
 //        var results = [Element]()
 //
@@ -49,7 +49,7 @@ extension Array {
     }
 }
 
-extension Sequence where Element: Equatable {
+public extension Sequence where Element: Equatable {
     var unique: [Element] {
         return self.reduce(into: []) {
             uniqueElements, element in
