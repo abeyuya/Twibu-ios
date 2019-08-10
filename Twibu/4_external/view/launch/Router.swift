@@ -59,6 +59,14 @@ final class Router {
         }
     }
 
+    func topViewController(vc: UIViewController?) -> UIViewController? {
+        guard let vc = vc ?? rootVc else { return nil }
+        if let presented = vc.presentedViewController {
+            return topViewController(vc: presented)
+        }
+        return vc
+    }
+
     func addHeadlessWebView(webView: UIView) {
         webView.isHidden = true
         rootVc?.view.addSubview(webView)

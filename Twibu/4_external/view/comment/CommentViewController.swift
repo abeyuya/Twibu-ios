@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 import FirebaseAuth
 import ReSwift
 import Embedded
@@ -217,12 +218,8 @@ extension CommentViewController: UITableViewDataSource {
 extension CommentViewController {
     private func openExternalLink(url: URL, comment: Comment) {
         DispatchQueue.main.async {
-            UIApplication.shared.open(url, options: [:]) { success in
-                guard success else {
-                    Logger.print("open error")
-                    return
-                }
-            }
+            let vc = SFSafariViewController(url: url)
+            Router.shared.topViewController(vc: nil)?.present(vc, animated: true)
         }
 
         AnalyticsDispatcer.logging(
@@ -244,7 +241,7 @@ extension CommentViewController {
             preferredStyle: .actionSheet
         )
 
-        let share = UIAlertAction(title: "詳細をシェア", style: .default) { _ in
+        let share = UIAlertAction(title: "firestoreリンク", style: .default) { _ in
             let items: [Any] = {
                 guard let buid = self.bookmark?.uid,
                     let furl = Comment.buildFirestoreDebugLink(buid: buid, cuid: comment.id) else {
