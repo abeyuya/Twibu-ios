@@ -19,7 +19,7 @@ final class WebArchiver: NSObject {
 
     static func buildLocalFileUrl(bookmarkUid: String) -> URL? {
         let archiveUrl = try? FileManager.default.url(
-            for: .cachesDirectory,
+            for: .documentDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
             create: true

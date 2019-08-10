@@ -21,6 +21,10 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private var lastContentOffset: CGFloat = 0
     private var cellHeight: [IndexPath: CGFloat] = [:]
 
+    private var tapCount: Int = 0
+    private var tappedRow: Int = -1
+    private var tapTimer: Timer?
+
     private var viewModel: ArticleList!
 
     override func viewDidLoad() {
@@ -167,6 +171,45 @@ extension CategoryViewController: UITableViewDataSource {
 
 extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // double tap
+        if tapCount == 1 && tapTimer != nil && tappedRow == indexPath.row {
+            resetTapState()
+            doubleTap(indexPath: indexPath)
+            return
+        }
+
+        // This is the first tap. If there is no tap till tapTimer is fired, it is a single tap
+        if tapCount == 0 {
+            tapCount = tapCount + 1;
+            tappedRow = indexPath.row;
+            tapTimer = Timer.scheduledTimer(
+                withTimeInterval: 0.2,
+                repeats: false
+            ) { _ in
+                self.singleTapCell(tableView, didSelectRowAt: indexPath)
+                self.resetTapState()
+            }
+            return
+        }
+
+        // tap on new row
+        if tappedRow != indexPath.row {
+            resetTapState()
+            singleTapCell(tableView, didSelectRowAt: indexPath)
+            return
+        }
+
+        assertionFailure("通らないはず")
+    }
+
+    private func resetTapState() {
+        tapTimer?.invalidate()
+        tapTimer = nil
+        tapCount = 0
+        tappedRow = -1
+    }
+
+    private func singleTapCell(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let b = viewModel.bookmarks[indexPath.row]
         let vc = WebViewController.initFromStoryBoard()
         vc.set(bookmark: b)
@@ -200,6 +243,22 @@ extension CategoryViewController: UITableViewDelegate {
         case .history:
             break
         }
+    }
+
+    private func doubleTap(indexPath: IndexPath) {
+        let b = viewModel.bookmarks[indexPath.row]
+        guard let url = URL(string: b.url) else { return }
+
+        showAlert(title: nil, message: "double tap")
+
+        //        WebArchiver.shared.save(bookmarkUid: b.uid, url: url) { [weak self] result in
+        //            switch result {
+        //            case .failure(let e):
+        //                self?.showAlert(title: nil, message: e.displayMessage)
+        //            case .success(_):
+        //                break
+        //            }
+        //        }
     }
 
     private static let humanScrollOffset: CGFloat = 100
