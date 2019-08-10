@@ -14,11 +14,16 @@ import BadgeSwift
 import Embedded
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
+    private enum ViewMode {
+        case online, offline
+    }
+
     private let webview = WKWebView()
     private var bookmark: Bookmark!
     private var currentUser: TwibuUser?
     private var lastContentOffset: CGFloat = 0
     private var isShowComment = false
+    private var viewMode: ViewMode = .online
 
     private let iconSize: CGFloat = 25
     private let commentBadge: BadgeSwift = {
@@ -141,8 +146,16 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         }
         let commentButton = UIBarButtonItem(customView: b)
 
-        let penButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(tapWriteButton))
-        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tapShareButton))
+        let shareButton = UIBarButtonItem(
+            barButtonSystemItem: .action,
+            target: self,
+            action: #selector(tapShareButton)
+        )
+        let bookmarkButton = UIBarButtonItem(
+            barButtonSystemItem: .bookmarks,
+            target: self,
+            action: #selector(tapBookmarksButton)
+        )
 
         let space = UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
@@ -157,9 +170,9 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             space,
             commentButton,
             space,
-            penButton,
+            shareButton,
             space,
-            shareButton
+            bookmarkButton
         ]
     }
 
@@ -196,7 +209,43 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }
 
     @objc
-    private func tapWriteButton(_ sender: UIButton) {
+    private func tapBookmarksButton(_ sender: UIButton) {
+        let s = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        let memo = UIAlertAction(
+            title: "メモ",
+            style: .default
+        ) { _ in self.tapWriteButton() }
+
+        let modeTitle: String = {
+            switch viewMode {
+            case .online:
+                return "ページをオフラインで読む"
+            case .offline:
+                return "ページをオンラインで読む"
+            }
+        }()
+        let mode = UIAlertAction(
+            title: modeTitle,
+            style: .default
+        ) { _ in self.tapModeButton() }
+
+        let cancel = UIAlertAction(
+            title: "キャンセル",
+            style: .cancel
+        ) { _ in }
+
+        s.addAction(cancel)
+        s.addAction(memo)
+        s.addAction(mode)
+        present(s, animated: true)
+    }
+
+    private func tapWriteButton() {
         guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
         guard !bookmark.uid.isEmpty else {
             showAlert(title: nil, message: "メモの読み込みに失敗しました")
@@ -215,6 +264,32 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         vc.setParam(param: param)
 
         present(vc, animated: true)
+    }
+
+    private func tapModeButton() {
+        guard let url = URL(string: bookmark.url) else { return }
+
+        switch viewMode {
+        case .online:
+            if localFileUrl() != nil {
+                self.loadPageOffline()
+                self.viewMode = .offline
+                return
+            }
+
+            WebArchiver.shared.save(bookmarkUid: bookmark.uid, url: url) { result in
+                switch result {
+                case .failure(let e):
+                    self.showAlert(title: nil, message: e.displayMessage)
+                case .success(_):
+                    self.loadPageOffline()
+                    self.viewMode = .offline
+                }
+            }
+        case .offline:
+            loadPageOnline(url: url)
+            viewMode = .online
+        }
     }
 
     private func showCommentView() {
@@ -297,28 +372,34 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     func set(bookmark: Bookmark) {
         self.bookmark = bookmark
 
-        if let localFileUrl = WebArchiver.buildLocalFileUrl(bookmarkUid: bookmark.uid),
-            FileManager.default.fileExists(atPath: localFileUrl.path) {
-            webview.loadFileURL(localFileUrl, allowingReadAccessTo: localFileUrl)
-            return
-        }
-
         guard let url = URL(string: bookmark.url) else {
             assert(false)
             return
         }
 
+        loadPageOnline(url: url)
+    }
+
+    private func loadPageOnline(url: URL) {
         let request = URLRequest(url: url)
         webview.load(request)
+    }
 
-        WebArchiver.shared.save(bookmarkUid: bookmark.uid, url: url) { result in
-            switch result {
-            case .failure(let e):
-                self.showAlert(title: nil, message: e.displayMessage)
-            case .success(_):
-                break
-            }
+    private func localFileUrl() -> URL? {
+        if let localFileUrl = WebArchiver.buildLocalFileUrl(bookmarkUid: bookmark.uid),
+            FileManager.default.fileExists(atPath: localFileUrl.path) {
+                return localFileUrl
         }
+        return nil
+    }
+
+    private func loadPageOffline() {
+        guard let localFileUrl = localFileUrl() else {
+            showAlert(title: nil, message: "webページをダウンロードしていないため、オフラインで表示できませんでした")
+            return
+        }
+
+        webview.loadFileURL(localFileUrl, allowingReadAccessTo: localFileUrl)
     }
 
     private func setBadgeCount(count: Int) {
