@@ -297,6 +297,12 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     func set(bookmark: Bookmark) {
         self.bookmark = bookmark
 
+        if let localFileUrl = WebArchiver.buildLocalFileUrl(bookmarkUid: bookmark.uid),
+            FileManager.default.fileExists(atPath: localFileUrl.path) {
+            webview.loadFileURL(localFileUrl, allowingReadAccessTo: localFileUrl)
+            return
+        }
+
         guard let url = URL(string: bookmark.url) else {
             assert(false)
             return
@@ -304,6 +310,15 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
         let request = URLRequest(url: url)
         webview.load(request)
+
+        WebArchiver.shared.save(bookmarkUid: bookmark.uid, url: url) { result in
+            switch result {
+            case .failure(let e):
+                self.showAlert(title: nil, message: e.displayMessage)
+            case .success(_):
+                break
+            }
+        }
     }
 
     private func setBadgeCount(count: Int) {
