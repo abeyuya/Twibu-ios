@@ -16,6 +16,7 @@ final class HistoryArticleListViewModel: ArticleList {
     var currentUser: TwibuUser?
     var bookmarks: [Bookmark] = []
     var hasMore = true
+    var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
 }
 
 // input

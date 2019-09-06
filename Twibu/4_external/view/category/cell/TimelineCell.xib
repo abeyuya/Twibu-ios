@@ -60,9 +60,15 @@ search/universal は公式のConsumerKey/ConsumerSecretでないと使用でき�
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EC4-kg-Xhi">
-                                <rect key="frame" x="97.5" y="0.0" width="116.5" height="16"/>
+                                <rect key="frame" x="97.5" y="0.0" width="26.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yf1-Y5-j5L">
+                                <rect key="frame" x="132" y="0.0" width="82" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -86,6 +92,7 @@ search/universal は公式のConsumerKey/ConsumerSecretでないと使用でき�
                 <outlet property="createdAtLabel" destination="EC4-kg-Xhi" id="Sng-fe-eQ0"/>
                 <outlet property="domainLabel" destination="OXQ-yd-kOE" id="WPh-Mm-ZJK"/>
                 <outlet property="faviconImageView" destination="yNz-ZX-euq" id="3d7-vQ-MCd"/>
+                <outlet property="saveStateLabel" destination="yf1-Y5-j5L" id="Sz8-Gt-CSD"/>
                 <outlet property="thumbnailImageView" destination="LGg-GY-SC3" id="90E-eP-9Qy"/>
                 <outlet property="titleLabel" destination="Y1H-Zg-SCQ" id="FPz-b8-Upg"/>
                 <outlet property="usersCountLabel" destination="VDb-zh-WaS" id="tn8-Xj-67x"/>

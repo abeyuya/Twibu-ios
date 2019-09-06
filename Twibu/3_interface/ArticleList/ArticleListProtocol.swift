@@ -19,6 +19,7 @@ enum ArticleListType {
 
 protocol ArticleListDelegate: class {
     func render(state: RenderState)
+    func update(results: [(String, WebArchiver.SaveResult)])
 }
 
 protocol ArticleList {
@@ -26,6 +27,7 @@ protocol ArticleList {
     var currentUser: TwibuUser? { get }
     var bookmarks: [Bookmark] { get }
     var type: ArticleListType { get }
+    var webArchiveResults: [(String, WebArchiver.SaveResult)] { get }
 
     // input
     func set(delegate: ArticleListDelegate, type: ArticleListType)

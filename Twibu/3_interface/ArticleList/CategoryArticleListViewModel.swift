@@ -27,6 +27,7 @@ final class CategoryArticleListViewModel: ArticleList {
     var bookmarks: [Bookmark] {
         return response.item ?? []
     }
+    var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
 }
 
 // input
@@ -44,7 +45,11 @@ extension CategoryArticleListViewModel {
                     return state.response.bookmarks[c]
                 }()
 
-                return Props(res: res, currentUser: state.currentUser)
+                return Props(
+                    res: res,
+                    currentUser: state.currentUser,
+                    webArchiveResults: state.webArchive.results
+                )
             }
         }
     }
@@ -107,6 +112,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
     struct Props {
         var res: Repository.Response<[Bookmark]>?
         var currentUser: TwibuUser
+        var webArchiveResults: [(String, WebArchiver.SaveResult)]
     }
 
     typealias StoreSubscriberStateType = Props
@@ -124,6 +130,63 @@ extension CategoryArticleListViewModel: StoreSubscriber {
 
         response = res
         delegate?.render(state: convert(res))
+
+        let changed = changedResults(
+            a: webArchiveResults,
+            b: state.webArchiveResults
+        )
+        if !changed.isEmpty {
+            webArchiveResults = state.webArchiveResults
+            delegate?.update(results: changed)
+        }
+    }
+
+    private func changedResults(
+        a: [(String, WebArchiver.SaveResult)],
+        b: [(String, WebArchiver.SaveResult)]
+    ) -> [(String, WebArchiver.SaveResult)] {
+        let aKeys = a.map { $0.0 }
+        let bKeys = b.map { $0.0 }
+
+        let changedUids = bKeys.filter { bKey in
+            guard let depKey = aKeys.first(where: { $0 == bKey }) else {
+                return true
+            }
+
+            guard let aResult = a.first(where: { $0.0 == depKey }),
+                let bResult = b.first(where: { $0.0 == depKey }) else {
+                    return true
+            }
+
+            switch aResult.1 {
+            case .success:
+                switch bResult.1 {
+                case .success:
+                    return false
+                default:
+                    return true
+                }
+            case .progress(let aProgress):
+                switch bResult.1 {
+                case .progress(let bProgress):
+                    if aProgress == bProgress {
+                        return false
+                    }
+                    return true
+                default:
+                    return true
+                }
+            case .failure(_):
+                switch bResult.1 {
+                case .failure(_):
+                    return false
+                default:
+                    return true
+                }
+            }
+        }
+
+        return b.filter { changedUids.contains($0.0) }
     }
 
     private func convert(_ res: Repository.Response<[Bookmark]>) -> RenderState {

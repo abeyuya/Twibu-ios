@@ -22,9 +22,15 @@ struct AppState: StateType {
         var hasMore: Bool
     }
 
+    struct WebArchiveInfo {
+        var tasks: [WebArchiver] = []
+        var results: [(bookmarkUid: String, result: WebArchiver.SaveResult)] = []
+    }
+
     var response: Response = Response()
     var currentUser = TwibuUser(firebaseAuthUser: nil)
     var history = HistoryInfo(histories: [], hasMore: true)
+    var webArchive = WebArchiveInfo(tasks: [], results: [])
 }
 
 extension AppState {
@@ -68,6 +74,13 @@ struct UpdateBookmarkCommentCountIfOverAction: Action {
 }
 struct UpdateFirebaseUser: Action {
     let newUser: User
+}
+struct AddWebArchiveTask: Action {
+    let webArchiver: WebArchiver
+}
+struct UpdateWebArchiveResult: Action {
+    let bookmarkUid: String
+    let result: WebArchiver.SaveResult
 }
 
 func appReducer(action: Action, state: AppState?) -> AppState {
@@ -258,6 +271,16 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         state.history.histories = state.history.histories
             .unique(by: { $0.0.uid })
             .sorted { $0.1 > $1.1 }
+
+    case let a as AddWebArchiveTask:
+        state.webArchive.tasks.append(a.webArchiver)
+
+    case let a as UpdateWebArchiveResult:
+        if let i = state.webArchive.results.firstIndex(where: { $0.0 == a.bookmarkUid}) {
+            state.webArchive.results[i] = (a.bookmarkUid, a.result)
+        } else {
+            state.webArchive.results.append((a.bookmarkUid, a.result))
+        }
 
     default:
         break

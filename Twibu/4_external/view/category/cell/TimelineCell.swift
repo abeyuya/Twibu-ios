@@ -10,14 +10,20 @@ import UIKit
 import Kingfisher
 import Embedded
 
-class TimelineCell: UITableViewCell {
+final class TimelineCell: UITableViewCell {
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var usersCountLabel: UILabel!
+    @IBOutlet private weak var domainLabel: UILabel!
+    @IBOutlet private weak var createdAtLabel: UILabel!
+    @IBOutlet private weak var thumbnailImageView: UIImageView!
+    @IBOutlet private weak var faviconImageView: UIImageView!
+    @IBOutlet private weak var saveStateLabel: UILabel!
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var usersCountLabel: UILabel!
-    @IBOutlet weak var domainLabel: UILabel!
-    @IBOutlet weak var createdAtLabel: UILabel!
-    @IBOutlet weak var thumbnailImageView: UIImageView!
-    @IBOutlet weak var faviconImageView: UIImageView!
+    enum SaveState {
+        case none, saving(Double), saved
+    }
+
+    var saveState: SaveState = .none
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -90,6 +96,34 @@ class TimelineCell: UITableViewCell {
                         break
                     }
             })
+        }
+
+        updateSaveStateLabel()
+    }
+
+    func set(saveState: SaveState) {
+        self.saveState = saveState
+        updateSaveStateLabel()
+    }
+
+    private func updateSaveStateLabel() {
+        switch saveState {
+        case .none:
+            saveStateLabel.isHidden = true
+        case .saving(let progress):
+            saveStateLabel.isHidden = false
+            let percentage = Int(progress * 100)
+            saveStateLabel.text = "保存中...\(percentage)%"
+        case .saved:
+            saveStateLabel.isHidden = false
+            saveStateLabel.setIcon(
+                prefixText: "",
+                icon: .fontAwesomeSolid(.save),
+                iconColor: .green,
+                postfixText: "  保存済み",
+                postfixTextColor: .darkGray,
+                size: nil
+            )
         }
     }
 }

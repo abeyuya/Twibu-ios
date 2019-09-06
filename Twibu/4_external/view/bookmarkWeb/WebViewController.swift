@@ -276,16 +276,8 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
                 self.viewMode = .offline
                 return
             }
+            WebArchiveDispatcher.save(bookmarkUid: bookmark.uid, url: url)
 
-            WebArchiver.shared.save(bookmarkUid: bookmark.uid, url: url) { result in
-                switch result {
-                case .failure(let e):
-                    self.showAlert(title: nil, message: e.displayMessage)
-                case .success(_):
-                    self.loadPageOffline()
-                    self.viewMode = .offline
-                }
-            }
         case .offline:
             loadPageOnline(url: url)
             viewMode = .online

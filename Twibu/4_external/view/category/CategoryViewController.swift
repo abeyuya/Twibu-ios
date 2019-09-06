@@ -11,6 +11,7 @@ import Embedded
 
 final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet private weak var tableView: UITableView!
+
     private let footerIndicator: UIActivityIndicatorView = {
         let i = UIActivityIndicatorView(style: .gray)
         i.startAnimating()
@@ -134,6 +135,25 @@ extension CategoryViewController: UITableViewDataSource {
 
         let b = viewModel.bookmarks[indexPath.row]
         cell.set(bookmark: b)
+
+        if WebArchiver.existLocalFile(bookmarkUid: b.uid) {
+            cell.set(saveState: .saved)
+            return cell
+        }
+
+        if let r = viewModel.webArchiveResults.first(where: { $0.0 == b.uid }) {
+            switch r.1 {
+            case .success:
+                cell.set(saveState: .saved)
+            case .failure(_):
+                cell.set(saveState: .none)
+            case .progress(let progress):
+                cell.set(saveState: .saving(progress))
+            }
+            return cell
+        }
+
+        cell.set(saveState: .none)
         return cell
     }
 
@@ -171,45 +191,6 @@ extension CategoryViewController: UITableViewDataSource {
 
 extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // double tap
-        if tapCount == 1 && tapTimer != nil && tappedRow == indexPath.row {
-            resetTapState()
-            doubleTap(indexPath: indexPath)
-            return
-        }
-
-        // This is the first tap. If there is no tap till tapTimer is fired, it is a single tap
-        if tapCount == 0 {
-            tapCount = tapCount + 1;
-            tappedRow = indexPath.row;
-            tapTimer = Timer.scheduledTimer(
-                withTimeInterval: 0.2,
-                repeats: false
-            ) { _ in
-                self.singleTapCell(tableView, didSelectRowAt: indexPath)
-                self.resetTapState()
-            }
-            return
-        }
-
-        // tap on new row
-        if tappedRow != indexPath.row {
-            resetTapState()
-            singleTapCell(tableView, didSelectRowAt: indexPath)
-            return
-        }
-
-        assertionFailure("通らないはず")
-    }
-
-    private func resetTapState() {
-        tapTimer?.invalidate()
-        tapTimer = nil
-        tapCount = 0
-        tappedRow = -1
-    }
-
-    private func singleTapCell(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let b = viewModel.bookmarks[indexPath.row]
         let vc = WebViewController.initFromStoryBoard()
         vc.set(bookmark: b)
@@ -243,22 +224,6 @@ extension CategoryViewController: UITableViewDelegate {
         case .history:
             break
         }
-    }
-
-    private func doubleTap(indexPath: IndexPath) {
-        let b = viewModel.bookmarks[indexPath.row]
-        guard let url = URL(string: b.url) else { return }
-
-        showAlert(title: nil, message: "double tap")
-
-        //        WebArchiver.shared.save(bookmarkUid: b.uid, url: url) { [weak self] result in
-        //            switch result {
-        //            case .failure(let e):
-        //                self?.showAlert(title: nil, message: e.displayMessage)
-        //            case .success(_):
-        //                break
-        //            }
-        //        }
     }
 
     private static let humanScrollOffset: CGFloat = 100
@@ -369,6 +334,21 @@ extension CategoryViewController {
 }
 
 extension CategoryViewController: ArticleListDelegate {
+    func update(results: [(String, WebArchiver.SaveResult)]) {
+        let updatedUids = results.map { $0.0 }
+        var indexes: [Int] = []
+        for (index, b) in viewModel.bookmarks.enumerated() {
+            if updatedUids.contains(b.uid) {
+                indexes.append(index)
+            }
+        }
+        if indexes.isEmpty {
+            return
+        }
+        let indexPaths = indexes.map { IndexPath.init(row: $0, section: 0) }
+        tableView.reloadRows(at: indexPaths, with: .none)
+    }
+
     func render(state: RenderState) {
         switch state {
         case .success(let hasMore):

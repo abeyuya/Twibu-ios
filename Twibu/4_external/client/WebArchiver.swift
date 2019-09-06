@@ -11,11 +11,15 @@ import WebKit
 import Embedded
 
 final class WebArchiver: NSObject {
-    static let shared = WebArchiver()
-    private override init() {}
+    enum SaveResult {
+        case success
+        case failure(TwibuError)
+        case progress(Double)
+    }
 
-    private var completion: ((Result<Void>) -> Void)!
+    private var callback: ((SaveResult) -> Void)!
     private var bookmarkUid: String!
+    private var progressObserver: NSKeyValueObservation?
 
     static func buildLocalFileUrl(bookmarkUid: String) -> URL? {
         let archiveUrl = try? FileManager.default.url(
@@ -30,13 +34,21 @@ final class WebArchiver: NSObject {
         return archiveUrl
     }
 
-    func save(bookmarkUid: String, url: URL, completion: @escaping (Result<Void>) -> Void) {
+    static func existLocalFile(bookmarkUid: String) -> Bool {
+        if let localFileUrl = WebArchiver.buildLocalFileUrl(bookmarkUid: bookmarkUid),
+            FileManager.default.fileExists(atPath: localFileUrl.path) {
+            return true
+        }
+        return false
+    }
+
+    func save(bookmarkUid: String, url: URL, callback: @escaping (SaveResult) -> Void) {
         if WebArchiver.buildLocalFileUrl(bookmarkUid: bookmarkUid) == nil {
-            completion(.failure(TwibuError.webArchiveError("localFileUrlが取得できませんでした")))
+            callback(.failure(TwibuError.webArchiveError("localFileUrlが取得できませんでした")))
             return
         }
 
-        self.completion = completion
+        self.callback = callback
         self.bookmarkUid = bookmarkUid
 
         let webView = WKWebView(
@@ -50,23 +62,31 @@ final class WebArchiver: NSObject {
         webView.isHidden = true
         webView.navigationDelegate = self
         webView.scrollView.zoomScale = UIScreen.main.scale
+        progressObserver = webView.observe(\.estimatedProgress, options: [.new]) { _, change in
+            guard let value = change.newValue else { return }
+            callback(.progress(value))
+        }
 
         Router.shared.addHeadlessWebView(webView: webView)
         webView.load(.init(url: url))
     }
 
+    deinit {
+        progressObserver?.invalidate()
+    }
+
     private func execSave(webView: WKWebView) {
         guard let url = WebArchiver.buildLocalFileUrl(bookmarkUid: bookmarkUid) else {
-            completion(.failure(TwibuError.webArchiveError("localFileUrlが取得できませんでした")))
+            callback(.failure(TwibuError.webArchiveError("localFileUrlが取得できませんでした")))
             return
         }
         let d = webView.createPdfFile()
 
         do {
             try d.write(to: url)
-            completion(.success(Void()))
+            callback(.success)
         } catch {
-            completion(.failure(TwibuError.webArchiveError(error.localizedDescription)))
+            callback(.failure(TwibuError.webArchiveError(error.localizedDescription)))
         }
     }
 }
