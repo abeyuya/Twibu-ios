@@ -18,7 +18,7 @@ version: 0.0.3
 
 name: Crashlytics, nameSpecified: 
 body: Fabric: Copyright 20…
-version: 3.13.4
+version: 3.14.0
 
 name: Fabric, nameSpecified: 
 body: Fabric: Copyright 20…
@@ -26,54 +26,72 @@ version: 1.10.2
 
 name: Firebase, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.4.0
+version: 6.8.1
 
 name: Firebase, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.4.0
+version: 6.8.1
 
 name: Firebase, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.4.0
+version: 6.8.1
 
 name: FirebaseABTesting, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 3.0.0
+body: 
+                   …
+version: 3.1.1
 
 name: FirebaseABTesting, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 3.0.0
+body: 
+                   …
+version: 3.1.1
 
 name: FirebaseABTesting, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 3.0.0
+body: 
+                   …
+version: 3.1.1
 
 name: FirebaseAnalytics, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.0.3
+version: 6.1.1
 
 name: FirebaseAnalytics, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.0.3
+version: 6.1.1
 
 name: FirebaseAnalytics, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.0.3
+version: 6.1.1
+
+name: FirebaseAnalyticsInterop, nameSpecified: 
+body: 
+                   …
+version: 1.4.0
+
+name: FirebaseAnalyticsInterop, nameSpecified: 
+body: 
+                   …
+version: 1.4.0
+
+name: FirebaseAnalyticsInterop, nameSpecified: 
+body: 
+                   …
+version: 1.4.0
 
 name: FirebaseAuth, nameSpecified: 
 body: 
                    …
-version: 6.2.0
+version: 6.2.3
 
 name: FirebaseAuth, nameSpecified: 
 body: 
                    …
-version: 6.2.0
+version: 6.2.3
 
 name: FirebaseAuth, nameSpecified: 
 body: 
                    …
-version: 6.2.0
+version: 6.2.3
 
 name: FirebaseAuthInterop, nameSpecified: 
 body: 
@@ -93,32 +111,62 @@ version: 1.0.0
 name: FirebaseCore, nameSpecified: 
 body: 
                    …
-version: 6.0.4
+version: 6.2.3
 
 name: FirebaseCore, nameSpecified: 
 body: 
                    …
-version: 6.0.4
+version: 6.2.3
 
 name: FirebaseCore, nameSpecified: 
 body: 
                    …
-version: 6.0.4
+version: 6.2.3
+
+name: FirebaseCoreDiagnostics, nameSpecified: 
+body: 
+                   …
+version: 1.0.1
+
+name: FirebaseCoreDiagnostics, nameSpecified: 
+body: 
+                   …
+version: 1.0.1
+
+name: FirebaseCoreDiagnostics, nameSpecified: 
+body: 
+                   …
+version: 1.0.1
+
+name: FirebaseCoreDiagnosticsInterop, nameSpecified: 
+body: 
+                   …
+version: 1.0.0
+
+name: FirebaseCoreDiagnosticsInterop, nameSpecified: 
+body: 
+                   …
+version: 1.0.0
+
+name: FirebaseCoreDiagnosticsInterop, nameSpecified: 
+body: 
+                   …
+version: 1.0.0
 
 name: FirebaseFirestore, nameSpecified: 
 body: 
                    …
-version: 1.4.1
+version: 1.5.0
 
 name: FirebaseFirestore, nameSpecified: 
 body: 
                    …
-version: 1.4.1
+version: 1.5.0
 
 name: FirebaseFirestore, nameSpecified: 
 body: 
                    …
-version: 1.4.1
+version: 1.5.0
 
 name: FirebaseFunctions, nameSpecified: 
 body: 
@@ -138,53 +186,86 @@ version: 2.5.1
 name: FirebaseInstanceID, nameSpecified: 
 body: 
                    …
-version: 4.2.1
+version: 4.2.5
 
 name: FirebaseInstanceID, nameSpecified: 
 body: 
                    …
-version: 4.2.1
+version: 4.2.5
 
 name: FirebaseInstanceID, nameSpecified: 
 body: 
                    …
-version: 4.2.1
+version: 4.2.5
 
 name: FirebasePerformance, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 3.1.1
+version: 3.1.4
 
 name: FirebasePerformance, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 3.1.1
+version: 3.1.4
 
 name: FirebasePerformance, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 3.1.1
+version: 3.1.4
 
 name: FirebaseRemoteConfig, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 4.2.0
+body: 
+                   …
+version: 4.4.0
 
 name: FirebaseRemoteConfig, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 4.2.0
+body: 
+                   …
+version: 4.4.0
 
 name: FirebaseRemoteConfig, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 4.2.0
+body: 
+                   …
+version: 4.4.0
 
 name: GoogleAppMeasurement, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.0.3
+version: 6.1.1
 
 name: GoogleAppMeasurement, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.0.3
+version: 6.1.1
 
 name: GoogleAppMeasurement, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.0.3
+version: 6.1.1
+
+name: GoogleDataTransport, nameSpecified: 
+body: 
+                   …
+version: 1.2.0
+
+name: GoogleDataTransport, nameSpecified: 
+body: 
+                   …
+version: 1.2.0
+
+name: GoogleDataTransport, nameSpecified: 
+body: 
+                   …
+version: 1.2.0
+
+name: GoogleDataTransportCCTSupport, nameSpecified: 
+body: 
+                   …
+version: 1.0.4
+
+name: GoogleDataTransportCCTSupport, nameSpecified: 
+body: 
+                   …
+version: 1.0.4
+
+name: GoogleDataTransportCCTSupport, nameSpecified: 
+body: 
+                   …
+version: 1.0.4
 
 name: GoogleToolboxForMac, nameSpecified: 
 body: 
@@ -204,17 +285,17 @@ version: 2.2.1
 name: GoogleUtilities, nameSpecified: 
 body: 
                    …
-version: 6.2.3
+version: 6.3.0
 
 name: GoogleUtilities, nameSpecified: 
 body: 
                    …
-version: 6.2.3
+version: 6.3.0
 
 name: GoogleUtilities, nameSpecified: 
 body: 
                    …
-version: 6.2.3
+version: 6.3.0
 
 name: gRPC-C++, nameSpecified: 
 body: 
@@ -263,33 +344,33 @@ version: 1.2.2
 
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
-version: 5.7.0
+version: 5.7.1
 
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
-version: 5.7.0
+version: 5.7.1
 
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
-version: 5.7.0
+version: 5.7.1
 
 name: leveldb-library, nameSpecified: 
 body: Copyright (c) 2011 T…
-version: 1.20
+version: 1.22
 
 name: leveldb-library, nameSpecified: 
 body: Copyright (c) 2011 T…
-version: 1.20
+version: 1.22
 
 name: leveldb-library, nameSpecified: 
 body: Copyright (c) 2011 T…
-version: 1.20
+version: 1.22
 
 name: LicensePlist, nameSpecified: 
 body: MIT License
 
 Copyrig…
-version: 2.5.0
+version: 2.5.8
 
 name: nanopb, nameSpecified: 
 body: Copyright (c) 2011 P…
@@ -329,39 +410,39 @@ version: 1.2.8
 
 name: Protobuf, nameSpecified: 
 body: Copyright 2008 Googl…
-version: 3.9.0
+version: 3.9.2
 
 name: Protobuf, nameSpecified: 
 body: Copyright 2008 Googl…
-version: 3.9.0
+version: 3.9.2
 
 name: Protobuf, nameSpecified: 
 body: Copyright 2008 Googl…
-version: 3.9.0
+version: 3.9.2
 
 name: Realm, nameSpecified: 
 body: TABLE OF CONTENTS
 
 1…
-version: 3.17.1
+version: 3.18.0
 
 name: Realm, nameSpecified: 
 body: TABLE OF CONTENTS
 
 1…
-version: 3.17.1
+version: 3.18.0
 
 name: RealmSwift, nameSpecified: 
 body: TABLE OF CONTENTS
 
 1…
-version: 3.17.1
+version: 3.18.0
 
 name: RealmSwift, nameSpecified: 
 body: TABLE OF CONTENTS
 
 1…
-version: 3.17.1
+version: 3.18.0
 
 name: ReSwift, nameSpecified: 
 body: The MIT License (MIT…
