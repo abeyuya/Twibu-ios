@@ -11,10 +11,7 @@ import FirebaseFirestore
 import FirebaseFunctions
 import Embedded
 
-final class CommentRepository {
-    private static let shared = CommentRepository()
-    private init() {}
-
+enum CommentRepository {
     static func fetchBookmarkComment(
         db: Firestore,
         bookmarkUid: String,

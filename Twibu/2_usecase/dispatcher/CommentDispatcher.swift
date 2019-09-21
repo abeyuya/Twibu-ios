@@ -11,7 +11,7 @@ import Embedded
 import FirebaseFunctions
 import FirebaseFirestore
 
-struct CommentDispatcher {
+enum CommentDispatcher {
     private static func updateBookmarkComment(
         functions: Functions,
         bookmarkUid: String,

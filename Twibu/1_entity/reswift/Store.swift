@@ -224,6 +224,14 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     case let a as UpdateBookmarkCommentCountIfOverAction:
         var new = state.response.bookmarks
         for (category, res) in new {
+            // そもそも読み込み完了していない場合は更新しない
+            switch res {
+            case .success(_):
+                break
+            default:
+                continue
+            }
+
             guard var bms = res.item else { continue }
             guard let index = bms.firstIndex(where: { $0.uid == a.bookmarkUid }) else { continue }
             let oldBookmark = bms[index]

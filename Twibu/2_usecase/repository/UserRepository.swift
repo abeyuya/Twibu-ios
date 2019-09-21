@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseFunctions
 import Embedded
 
-final class UserRepository {
+enum UserRepository {
     private static let path = "users"
 
     static func add(
