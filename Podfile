@@ -29,6 +29,7 @@ target 'Twibu' do
   pod 'SwiftIcons'
   pod 'BadgeSwift'
   pod 'LicensePlist'
+  pod 'PKHUD'
 
   target 'TwibuTests' do
     inherit! :search_paths

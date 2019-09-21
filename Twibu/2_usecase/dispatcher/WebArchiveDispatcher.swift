@@ -6,11 +6,15 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
 import Embedded
+import WebKit
 
 enum WebArchiveDispatcher {
-    static func save(bookmarkUid: String, url: URL) {
+    static func save(
+        webView: WKWebView,
+        bookmarkUid: String,
+        callback: @escaping (WebArchiver.SaveResult) -> Void
+    ) {
         if let r = store.state.webArchive.results.first(where: { $0.bookmarkUid == bookmarkUid}) {
             switch r.result {
             case .success, .progress(_): // 既に保存済み or 保存中なら何もしない
@@ -20,12 +24,12 @@ enum WebArchiveDispatcher {
             }
         }
 
-        let t = WebArchiver()
-        t.save(bookmarkUid: bookmarkUid, url: url) { result in
+        WebArchiver.save(webView: webView, bookmarkUid: bookmarkUid) { result in
             WebArchiveDispatcher.update(bookmarkUid: bookmarkUid, result: result)
+            callback(result)
         }
-        let a = AddWebArchiveTask(webArchiver: t)
-        store.mDispatch(a)
+//        let a = AddWebArchiveTask(webArchiver: t)
+//        store.mDispatch(a)
     }
 
     static func update(bookmarkUid: String, result: WebArchiver.SaveResult) {

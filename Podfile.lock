@@ -162,6 +162,7 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Parchment (1.6.0)
+  - PKHUD (5.3.0)
   - PromisesObjC (1.2.8)
   - PromisesSwift (1.2.8):
     - PromisesObjC (= 1.2.8)
@@ -192,6 +193,7 @@ DEPENDENCIES:
   - Kingfisher
   - LicensePlist
   - Parchment
+  - PKHUD
   - PromisesSwift
   - RealmSwift
   - ReSwift
@@ -233,6 +235,7 @@ SPEC REPOS:
     - LicensePlist
     - nanopb
     - Parchment
+    - PKHUD
     - PromisesObjC
     - PromisesSwift
     - Protobuf
@@ -277,6 +280,7 @@ SPEC CHECKSUMS:
   LicensePlist: 3ad60988ec640a2aeae74cdd2e6d01531c03b7cd
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Parchment: d3a7b367c529fa6ef51aa43f5717a7ff36d4b1f5
+  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
   Protobuf: 67fb42ba613def994e61854de2b3164f13790cc4
@@ -289,6 +293,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
   UnderKeyboard: 79ea6feb497af99c1856aaae0ab8ded3c739f745
 
-PODFILE CHECKSUM: d87fda38c864063cf0444cdb46f8d6304be2f8fc
+PODFILE CHECKSUM: 3cb493342d3a74abec2064ee892726914f3b52eb
 
 COCOAPODS: 1.7.5

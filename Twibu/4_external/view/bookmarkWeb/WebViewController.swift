@@ -11,7 +11,10 @@ import WebKit
 import ReSwift
 import SwiftIcons
 import BadgeSwift
+import PKHUD
 import Embedded
+
+private let iconSize: CGFloat = 25
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
     private enum ViewMode {
@@ -25,7 +28,6 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     private var isShowComment = false
     private var viewMode: ViewMode = .online
 
-    private let iconSize: CGFloat = 25
     private let commentBadge: BadgeSwift = {
         let badge = BadgeSwift()
         badge.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +35,20 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         badge.font = .systemFont(ofSize: 11)
 
         return badge
+    }()
+
+    private lazy var commentContainerView: UIView = {
+        let vc = CommentRootViewController.build(bookmark: bookmark)
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+
+        addChild(vc)
+        vc.view.frame = container.frame
+
+        container.addSubview(vc.view)
+        vc.didMove(toParent: self)
+
+        return container
     }()
 
     override func viewDidLoad() {
@@ -77,6 +93,19 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
+    func set(bookmark: Bookmark) {
+        self.bookmark = bookmark
+
+        guard let url = URL(string: bookmark.url) else {
+            assert(false)
+            return
+        }
+
+        loadPageOnline(url: url)
+    }
+}
+
+private extension WebViewController {
     private func setupWebview() {
         webview.navigationDelegate = self
         webview.scrollView.delegate = self
@@ -96,31 +125,33 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func setNavigationTitle() {
         DispatchQueue.main.async {
-            if self.viewIfLoaded?.window != nil {
-                self.navigationItem.titleView?.removeFromSuperview()
-                let v = UIStackView()
-                v.axis = .vertical
-                v.spacing = 4
-
-                let l1 = UILabel()
-                l1.text = self.bookmark.trimmedTitle ?? "no title"
-                l1.textAlignment = .center
-                v.addArrangedSubview(l1)
-
-                let l2 = UILabel()
-                l2.text = self.bookmark.url.replacingOccurrences(
-                    of: "^https?://(.+)$",
-                    with: "$1",
-                    options: .regularExpression,
-                    range: nil
-                )
-                l2.textColor = .darkGray
-                l2.font = .systemFont(ofSize: 12)
-                l2.textAlignment = .center
-                v.addArrangedSubview(l2)
-
-                self.navigationItem.titleView = v
+            if self.viewIfLoaded?.window == nil {
+                return
             }
+
+            self.navigationItem.titleView?.removeFromSuperview()
+            let v = UIStackView()
+            v.axis = .vertical
+            v.spacing = 4
+
+            let l1 = UILabel()
+            l1.text = self.bookmark.trimmedTitle ?? "no title"
+            l1.textAlignment = .center
+            v.addArrangedSubview(l1)
+
+            let l2 = UILabel()
+            l2.text = self.bookmark.url.replacingOccurrences(
+                of: "^https?://(.+)$",
+                with: "$1",
+                options: .regularExpression,
+                range: nil
+            )
+            l2.textColor = .darkGray
+            l2.font = .systemFont(ofSize: 12)
+            l2.textAlignment = .center
+            v.addArrangedSubview(l2)
+
+            self.navigationItem.titleView = v
         }
     }
 
@@ -176,20 +207,6 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         ]
     }
 
-    private lazy var commentContainerView: UIView  = {
-        let commentRootViewController = CommentRootViewController.build(bookmark: bookmark)
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-
-        addChild(commentRootViewController)
-        commentRootViewController.view.frame = container.frame
-
-        container.addSubview(commentRootViewController.view)
-        commentRootViewController.didMove(toParent: self)
-
-        return container
-    }()
-
     @objc
     private func tapCommentButton(_ sender: UIButton) {
         guard !bookmark.uid.isEmpty else {
@@ -221,16 +238,13 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             style: .default
         ) { _ in self.tapWriteButton() }
 
-        let modeTitle: String = {
-            switch viewMode {
-            case .online:
-                return "ページをオフラインで読む"
-            case .offline:
-                return "ページをオンラインで読む"
-            }
-        }()
+        let save = UIAlertAction(
+            title: "PDFとして保存する",
+            style: .default
+        ) { _ in self.saveAsPdf() }
+
         let mode = UIAlertAction(
-            title: modeTitle,
+            title: viewMode == .online ? "PDFで読む" : "WEBサイトを読み込む",
             style: .default
         ) { _ in self.tapModeButton() }
 
@@ -239,9 +253,10 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
             style: .cancel
         ) { _ in }
 
-        s.addAction(cancel)
         s.addAction(memo)
+        s.addAction(save)
         s.addAction(mode)
+        s.addAction(cancel)
         present(s, animated: true)
     }
 
@@ -266,19 +281,42 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         present(vc, animated: true)
     }
 
-    private func tapModeButton() {
-        guard let url = URL(string: bookmark.url) else { return }
+    private func saveAsPdf() {
+        if viewMode == .offline {
+            showAlert(title: nil, message: "WEBサイトとして閲覧中でないとPDFは保存できません")
+            return
+        }
 
+        HUD.show(.progress)
+        WebArchiveDispatcher.save(webView: webview, bookmarkUid: bookmark.uid) { [weak self] result in
+            switch result {
+            case .success:
+                HUD.flash(.success)
+                self?.loadPageOffline()
+                self?.viewMode = .offline
+            case .failure(let error):
+                HUD.flash(.labeledError(title: nil, subtitle: error.displayMessage))
+            case .progress(_):
+                break
+            }
+        }
+    }
+
+    private func tapModeButton() {
         switch viewMode {
         case .online:
             if localFileUrl() == nil {
-                WebArchiveDispatcher.save(bookmarkUid: bookmark.uid, url: url)
+                showAlert(title: nil, message: "PDFが保存されていません")
                 return
             }
-            self.loadPageOffline()
-            self.viewMode = .offline
+            loadPageOffline()
+            viewMode = .offline
 
         case .offline:
+            guard let url = URL(string: bookmark.url) else {
+                showAlert(title: nil, message: "URLが取得できませんでした")
+                return
+            }
             loadPageOnline(url: url)
             viewMode = .online
         }
@@ -361,17 +399,6 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         )
     }
 
-    func set(bookmark: Bookmark) {
-        self.bookmark = bookmark
-
-        guard let url = URL(string: bookmark.url) else {
-            assert(false)
-            return
-        }
-
-        loadPageOnline(url: url)
-    }
-
     private func loadPageOnline(url: URL) {
         let request = URLRequest(url: url)
         webview.load(request)
@@ -387,7 +414,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private func loadPageOffline() {
         guard let localFileUrl = localFileUrl() else {
-            showAlert(title: nil, message: "webページをダウンロードしていないため、オフラインで表示できませんでした")
+            showAlert(title: nil, message: "PDFが保存されていません")
             return
         }
 
