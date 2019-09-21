@@ -271,12 +271,12 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
         switch viewMode {
         case .online:
-            if localFileUrl() != nil {
-                self.loadPageOffline()
-                self.viewMode = .offline
+            if localFileUrl() == nil {
+                WebArchiveDispatcher.save(bookmarkUid: bookmark.uid, url: url)
                 return
             }
-            WebArchiveDispatcher.save(bookmarkUid: bookmark.uid, url: url)
+            self.loadPageOffline()
+            self.viewMode = .offline
 
         case .offline:
             loadPageOnline(url: url)

@@ -22,10 +22,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     private var lastContentOffset: CGFloat = 0
     private var cellHeight: [IndexPath: CGFloat] = [:]
 
-    private var tapCount: Int = 0
-    private var tappedRow: Int = -1
-    private var tapTimer: Timer?
-
     private var viewModel: ArticleList!
 
     override func viewDidLoad() {
@@ -277,7 +273,7 @@ extension CategoryViewController: UITableViewDelegate {
 extension CategoryViewController: UIPageViewControllerDelegate {}
 
 // Category.timelineの場合の処理
-extension CategoryViewController {
+private extension CategoryViewController {
     private func refreshForLoginUser() {
         guard viewModel.currentUser?.isTwitterLogin == true,
             let uid = viewModel.currentUser?.firebaseAuthUser?.uid else {
@@ -300,7 +296,7 @@ extension CategoryViewController {
 }
 
 // Category.memo, .historyの場合の処理
-extension CategoryViewController {
+private extension CategoryViewController {
     private func setupNavigation() {
         switch viewModel.type {
         case .category(let c):
@@ -345,7 +341,7 @@ extension CategoryViewController: ArticleListDelegate {
         if indexes.isEmpty {
             return
         }
-        let indexPaths = indexes.map { IndexPath.init(row: $0, section: 0) }
+        let indexPaths = indexes.map { IndexPath(row: $0, section: 0) }
         tableView.reloadRows(at: indexPaths, with: .none)
     }
 
