@@ -55,9 +55,9 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         pagingViewController.infiniteDataSource = self
 //        pagingViewController.delegate = self
         pagingViewController.menuItemSize = .sizeToFit(minWidth: 120, height: 40)
-        pagingViewController.indicatorColor = .mainBlack
+        pagingViewController.indicatorColor = .mainTint
         pagingViewController.textColor = .tabUnselectGray
-        pagingViewController.selectedTextColor = .mainBlack
+        pagingViewController.selectedTextColor = .mainTint
         pagingViewController.selectedBackgroundColor = .tabBgGray
         pagingViewController.backgroundColor = .tabBgGray
         pagingViewController.borderOptions = .hidden
@@ -68,10 +68,14 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
     }
 
     private func setupNavigation() {
-        let b = UIButton()
-        b.setIcon(icon: .fontAwesomeSolid(.cog), forState: .normal)
-        b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
-        let bb = UIBarButtonItem(customView: b)
+        navigationController?.navigationBar.backgroundColor = .dynamicColor(light: .white, dark: .black)
+
+        let bb: UIBarButtonItem = {
+            let b = UIButton()
+            b.setIcon(icon: .fontAwesomeSolid(.cog), forState: .normal)
+            b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
+            return UIBarButtonItem(customView: b)
+        }()
         navigationItem.setLeftBarButton(bb, animated: false)
 
         let iconView: UIImageView = {

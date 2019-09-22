@@ -11,26 +11,19 @@ import SwiftIcons
 import Embedded
 
 final class CommentTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var commentLabel: UILabel!
-    @IBOutlet weak var displayNameLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var retweetCountLabel: UILabel!
-    @IBOutlet weak var favoriteCountLabel: UILabel!
-    @IBOutlet weak var tweetAtLabel: UILabel!
-    @IBOutlet weak var verifiedLabel: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+    @IBOutlet private weak var profileImageView: UIImageView! {
+        didSet {
+            profileImageView.clipsToBounds = true
+            profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+    @IBOutlet private weak var commentLabel: UILabel!
+    @IBOutlet private weak var displayNameLabel: UILabel!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var retweetCountLabel: UILabel!
+    @IBOutlet private weak var favoriteCountLabel: UILabel!
+    @IBOutlet private weak var tweetAtLabel: UILabel!
+    @IBOutlet private weak var verifiedLabel: UILabel!
 
     func set(bookmark: Bookmark?, comment: Comment) {
         if let p = comment.parsed_comment {
@@ -60,17 +53,17 @@ final class CommentTableViewCell: UITableViewCell {
         retweetCountLabel.setIcon(
             prefixText: "",
             icon: .fontAwesomeSolid(.retweet),
-            iconColor: .darkGray,
+            iconColor: .originSecondaryLabel,
             postfixText: "  \(comment.retweet_count)",
-            postfixTextColor: .darkGray,
+            postfixTextColor: .originSecondaryLabel,
             size: nil
         )
         favoriteCountLabel.setIcon(
             prefixText: "",
             icon: .fontAwesomeRegular(.heart),
-            iconColor: .darkGray,
+            iconColor: .originSecondaryLabel,
             postfixText: "  \(comment.favorite_count)",
-            postfixTextColor: .darkGray,
+            postfixTextColor: .originSecondaryLabel,
             size: nil
         )
         tweetAtLabel.text = parseTwitterDate(twitterDate: comment.tweet_at)
@@ -124,7 +117,7 @@ final class CommentTableViewCell: UITableViewCell {
     private func buildNormalAttrStr(str: String) -> NSAttributedString {
         let att: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 14),
-            .foregroundColor: UIColor.darkText
+            .foregroundColor: UIColor.originLabel
         ]
         return NSAttributedString(
             string: str.manualHtmlDecode(),
@@ -135,7 +128,7 @@ final class CommentTableViewCell: UITableViewCell {
     private func buildTitleAttrStr(str: String) -> NSAttributedString {
         let att: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 10),
-            .foregroundColor: UIColor.darkGray
+            .foregroundColor: UIColor.originSecondaryLabel
         ]
         return NSAttributedString(string: "<title>", attributes: att)
     }
@@ -143,7 +136,7 @@ final class CommentTableViewCell: UITableViewCell {
     private func buildUrlAttrStr(str: String) -> NSAttributedString {
         let att: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 10),
-            .foregroundColor: UIColor.darkGray
+            .foregroundColor: UIColor.originSecondaryLabel
         ]
         return NSAttributedString(string: "<url>", attributes: att)
     }
@@ -151,7 +144,7 @@ final class CommentTableViewCell: UITableViewCell {
     private func buildHashtagAttrStr(str: String) -> NSAttributedString {
         let att: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 10),
-            .foregroundColor: UIColor.darkGray
+            .foregroundColor: UIColor.originSecondaryLabel
         ]
         return NSAttributedString(string: str, attributes: att)
     }

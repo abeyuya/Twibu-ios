@@ -15,7 +15,12 @@ final class TimelineCell: UITableViewCell {
     @IBOutlet private weak var usersCountLabel: UILabel!
     @IBOutlet private weak var domainLabel: UILabel!
     @IBOutlet private weak var createdAtLabel: UILabel!
-    @IBOutlet private weak var thumbnailImageView: UIImageView!
+    @IBOutlet private weak var thumbnailImageView: UIImageView! {
+        didSet {
+            thumbnailImageView.layer.cornerRadius = 4
+            thumbnailImageView.clipsToBounds = true
+        }
+    }
     @IBOutlet private weak var faviconImageView: UIImageView!
     @IBOutlet private weak var saveStateLabel: UILabel!
 
@@ -23,20 +28,7 @@ final class TimelineCell: UITableViewCell {
         case none, saving(Double), saved
     }
 
-    var saveState: SaveState = .none
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        thumbnailImageView.layer.cornerRadius = 4
-        thumbnailImageView.clipsToBounds = true
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    private var saveState: SaveState = .none
 
     func set(bookmark: Bookmark) {
         titleLabel.text = bookmark.trimmedTitle ?? "タイトルが取得できませんでした"
@@ -121,7 +113,7 @@ final class TimelineCell: UITableViewCell {
                 icon: .fontAwesomeSolid(.save),
                 iconColor: .green,
                 postfixText: "  保存済み",
-                postfixTextColor: .darkGray,
+                postfixTextColor: .originSecondaryLabel,
                 size: nil
             )
         }

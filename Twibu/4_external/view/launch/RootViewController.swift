@@ -44,15 +44,15 @@ final class RootViewController: UIViewController {
     }
 
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .mainBackground
 
         UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.mainBlack
+            NSAttributedString.Key.foregroundColor: UIColor.mainTint
         ]
-        UINavigationBar.appearance().barTintColor = .white
-        UINavigationBar.appearance().tintColor = .mainBlack
+        UINavigationBar.appearance().barTintColor = .mainBackground
+        UINavigationBar.appearance().tintColor = .mainTint
 
         UIToolbar.appearance().barTintColor = .white
-        UIToolbar.appearance().tintColor = .mainBlack
+        UIToolbar.appearance().tintColor = .mainTint
     }
 }
