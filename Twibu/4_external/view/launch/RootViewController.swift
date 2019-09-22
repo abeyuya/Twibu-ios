@@ -52,7 +52,7 @@ final class RootViewController: UIViewController {
         UINavigationBar.appearance().barTintColor = .mainBackground
         UINavigationBar.appearance().tintColor = .mainTint
 
-        UIToolbar.appearance().barTintColor = .white
+        UIToolbar.appearance().barTintColor = .mainBackground
         UIToolbar.appearance().tintColor = .mainTint
     }
 }

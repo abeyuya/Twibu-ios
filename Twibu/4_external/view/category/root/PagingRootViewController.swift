@@ -68,11 +68,15 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
     }
 
     private func setupNavigation() {
-        navigationController?.navigationBar.backgroundColor = .dynamicColor(light: .white, dark: .black)
-
         let bb: UIBarButtonItem = {
             let b = UIButton()
-            b.setIcon(icon: .fontAwesomeSolid(.cog), forState: .normal)
+            b.setIcon(
+                icon: .fontAwesomeSolid(.cog),
+                iconSize: nil,
+                color: .mainTint,
+                backgroundColor: .clear,
+                forState: .normal
+            )
             b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
             return UIBarButtonItem(customView: b)
         }()

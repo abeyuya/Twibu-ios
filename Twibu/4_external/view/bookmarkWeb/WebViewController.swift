@@ -146,7 +146,7 @@ private extension WebViewController {
                 options: .regularExpression,
                 range: nil
             )
-            l2.textColor = .darkGray
+            l2.textColor = .originSecondaryLabel
             l2.font = .systemFont(ofSize: 12)
             l2.textAlignment = .center
             v.addArrangedSubview(l2)
@@ -156,26 +156,44 @@ private extension WebViewController {
     }
 
     private func setupToolbar() {
-        let br = UIButton()
-        br.setIcon(icon: .icofont(.thinDoubleLeft), iconSize: iconSize, forState: .normal)
-        br.addTarget(self, action: #selector(tapBackRootButton), for: .touchUpInside)
-        let backRoot = UIBarButtonItem(customView: br)
+        let backRoot: UIBarButtonItem = {
+            let b = UIButton()
+            b.setIcon(
+                icon: .icofont(.thinDoubleLeft),
+                iconSize: nil,
+                color: .mainTint,
+                backgroundColor: .clear,
+                forState: .normal
+            )
+            b.addTarget(self, action: #selector(tapBackRootButton), for: .touchUpInside)
+            return UIBarButtonItem(customView: b)
+        }()
 
-        let bp = UIButton()
-        bp.setIcon(icon: .icofont(.thinLeft), iconSize: iconSize, forState: .normal)
-        bp.addTarget(self, action: #selector(tapBackPrevButton), for: .touchUpInside)
-        let backPrev = UIBarButtonItem(customView: bp)
+        let backPrev: UIBarButtonItem = {
+            let b = UIButton()
+            b.setIcon(
+                icon: .icofont(.thinLeft),
+                iconSize: nil,
+                color: .mainTint,
+                backgroundColor: .clear,
+                forState: .normal
+            )
+            b.addTarget(self, action: #selector(tapBackPrevButton), for: .touchUpInside)
+            return UIBarButtonItem(customView: b)
+        }()
 
-        let b = UIButton()
-        b.setIcon(icon: .fontAwesomeRegular(.comment), iconSize: iconSize, forState: .normal)
-        b.addTarget(self, action: #selector(tapCommentButton(_:)), for: .touchUpInside)
-        if let count = bookmark.comment_count {
-            commentBadge.text = String(count)
-            b.addSubview(commentBadge)
-            commentBadge.centerXAnchor.constraint(equalTo: b.trailingAnchor).isActive = true
-            commentBadge.topAnchor.constraint(equalTo: b.topAnchor).isActive = true
-        }
-        let commentButton = UIBarButtonItem(customView: b)
+        let commentButton: UIBarButtonItem = {
+            let b = UIButton()
+            updateCommentButton(button: b, isShowComment: false)
+            b.addTarget(self, action: #selector(tapCommentButton(_:)), for: .touchUpInside)
+            if let count = bookmark.comment_count {
+                commentBadge.text = String(count)
+                b.addSubview(commentBadge)
+                commentBadge.centerXAnchor.constraint(equalTo: b.trailingAnchor).isActive = true
+                commentBadge.topAnchor.constraint(equalTo: b.topAnchor).isActive = true
+            }
+            return UIBarButtonItem(customView: b)
+        }()
 
         let shareButton = UIBarButtonItem(
             barButtonSystemItem: .action,
@@ -187,7 +205,6 @@ private extension WebViewController {
             target: self,
             action: #selector(tapBookmarksButton)
         )
-
         let space = UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
             target: nil,
@@ -207,6 +224,20 @@ private extension WebViewController {
         ]
     }
 
+    private func updateCommentButton(button: UIButton, isShowComment: Bool) {
+        let icon: FontType = isShowComment
+            ? .fontAwesomeSolid(.comment)
+            : .fontAwesomeRegular(.comment)
+
+        button.setIcon(
+            icon: icon,
+            iconSize: iconSize,
+            color: .mainTint,
+            backgroundColor: .clear,
+            forState: .normal
+        )
+    }
+
     @objc
     private func tapCommentButton(_ sender: UIButton) {
         guard !bookmark.uid.isEmpty else {
@@ -217,12 +248,12 @@ private extension WebViewController {
         if isShowComment {
             hideCommentView()
             commentBadge.isHidden = false
-            sender.setIcon(icon: .fontAwesomeRegular(.comment), iconSize: iconSize, forState: .normal)
         } else {
             showCommentView()
             commentBadge.isHidden = true
-            sender.setIcon(icon: .fontAwesomeSolid(.comment), iconSize: iconSize, forState: .normal)
         }
+
+        updateCommentButton(button: sender, isShowComment: isShowComment)
     }
 
     @objc

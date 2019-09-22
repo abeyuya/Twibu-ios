@@ -62,10 +62,18 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     private func setupNavigation() {
         title = "設定"
 
-        let b = UIButton()
-        b.setIcon(icon: .linearIcons(.cross), forState: .normal)
-        b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
-        let bb = UIBarButtonItem(customView: b)
+        let bb: UIBarButtonItem = {
+            let b = UIButton()
+            b.setIcon(
+                icon: .linearIcons(.cross),
+                iconSize: nil,
+                color: .mainTint,
+                backgroundColor: .clear,
+                forState: .normal
+            )
+            b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
+            return UIBarButtonItem(customView: b)
+        }()
         navigationItem.setLeftBarButton(bb, animated: false)
     }
 
