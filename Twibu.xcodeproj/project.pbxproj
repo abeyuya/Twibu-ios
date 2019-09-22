@@ -63,7 +63,6 @@
 		4D72CF1522E2FC4200E6AA66 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092C22BE01D500BB0959 /* Category.swift */; };
 		4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153122B547F8000817BA /* Result.swift */; };
 		4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF34EF722D78D6F00E9AE80 /* Logger.swift */; };
-		4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */; };
 		4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
 		4D72CF2022E30A7100E6AA66 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72CF1F22E30A7100E6AA66 /* TodayCell.swift */; };
 		4D72CF2222E30A8000E6AA66 /* TodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2122E30A8000E6AA66 /* TodayCell.xib */; };
@@ -76,7 +75,6 @@
 		4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C022D0EA330013C198 /* CommentRootViewController.swift */; };
 		4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */; };
 		4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */; };
-		4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
 		4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
 		4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */; };
@@ -88,9 +86,12 @@
 		4DD369DB2337707700D2D10D /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */; };
 		4DD369DC233770E900D2D10D /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAB74022F1A4BD00519407 /* MemoViewController.swift */; };
 		4DD369DD233770FF00D2D10D /* MemoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */; };
-		4DEDF2EC22F4979E00488B55 /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
+		4DD369DE233772A800D2D10D /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E122FB18AB00AC2329 /* History.swift */; };
+		4DD369DF233772B800D2D10D /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
+		4DD369E02337730300D2D10D /* TwibuFirebaseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */; };
+		4DD369E22337731300D2D10D /* Bookmark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD369E12337731300D2D10D /* Bookmark+Extension.swift */; };
+		4DD369E32337737400D2D10D /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
-		4DF258E222FB18AB00AC2329 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E122FB18AB00AC2329 /* History.swift */; };
 		4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */; };
 		4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
 		4DFC605B22FDFEAC00C7CFE7 /* WebArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */; };
@@ -255,6 +256,7 @@
 		4DD2685622C4D879007A9E68 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkApiRepository.swift; sourceTree = "<group>"; };
+		4DD369E12337731300D2D10D /* Bookmark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookmark+Extension.swift"; sourceTree = "<group>"; };
 		4DDB8DDD22C4F57400916F72 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		4DEDF2E722F47DC200488B55 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		4DEDF2E922F47E4900488B55 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
@@ -426,6 +428,9 @@
 				4D5CFC8722D8BDDE00F33754 /* Timeline.swift */,
 				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 				4DEDF2E722F47DC200488B55 /* Memo.swift */,
+				4DF258E122FB18AB00AC2329 /* History.swift */,
+				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
+				4DD369E12337731300D2D10D /* Bookmark+Extension.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -491,14 +496,6 @@
 			path = license;
 			sourceTree = "<group>";
 		};
-		4D3A9AB022C6510E00AA9C23 /* interface */ = {
-			isa = PBXGroup;
-			children = (
-				4D11153122B547F8000817BA /* Result.swift */,
-			);
-			path = interface;
-			sourceTree = "<group>";
-		};
 		4D5A410322FC35D700AD1620 /* ArticleList */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +553,7 @@
 			children = (
 				4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */,
 				4D28F54B22E48B9300156445 /* URL+Extension.swift */,
+				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -619,6 +617,7 @@
 		4D65094E22BF8C1900BB0959 /* dispatcher */ = {
 			isa = PBXGroup;
 			children = (
+				4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */,
 				4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */,
 				4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */,
 				4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */,
@@ -677,7 +676,6 @@
 			children = (
 				4D28F54D22E48FB100156445 /* extension */,
 				4D72CF1222E2F89000E6AA66 /* model */,
-				4D3A9AB022C6510E00AA9C23 /* interface */,
 			);
 			path = 1_entity;
 			sourceTree = "<group>";
@@ -685,7 +683,6 @@
 		4D72CF0A22E2E71000E6AA66 /* 2_usecase */ = {
 			isa = PBXGroup;
 			children = (
-				4DEDF2EB22F4978B00488B55 /* dispatcher */,
 				4D72CF0D22E2E79600E6AA66 /* repository */,
 			);
 			path = 2_usecase;
@@ -694,7 +691,6 @@
 		4D72CF0B22E2E75F00E6AA66 /* 4_external */ = {
 			isa = PBXGroup;
 			children = (
-				4DBAB74422F1B8C700519407 /* extension */,
 				4D72CF0C22E2E77500E6AA66 /* client */,
 			);
 			path = 4_external;
@@ -723,9 +719,8 @@
 				4D65092E22BE213400BB0959 /* Error.swift */,
 				4D11154822B69E15000817BA /* Bookmark.swift */,
 				4D65092C22BE01D500BB0959 /* Category.swift */,
-				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
 				4D65093022BE25CA00BB0959 /* Env.swift */,
-				4DF258E122FB18AB00AC2329 /* History.swift */,
+				4D11153122B547F8000817BA /* Result.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -774,28 +769,12 @@
 			path = memo;
 			sourceTree = "<group>";
 		};
-		4DBAB74422F1B8C700519407 /* extension */ = {
-			isa = PBXGroup;
-			children = (
-				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
-			);
-			path = extension;
-			sourceTree = "<group>";
-		};
 		4DD2685522C4D805007A9E68 /* extension */ = {
 			isa = PBXGroup;
 			children = (
 				4DD2685622C4D879007A9E68 /* String+Extension.swift */,
 			);
 			path = extension;
-			sourceTree = "<group>";
-		};
-		4DEDF2EB22F4978B00488B55 /* dispatcher */ = {
-			isa = PBXGroup;
-			children = (
-				4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */,
-			);
-			path = dispatcher;
 			sourceTree = "<group>";
 		};
 		BE96F5C735459C2F19058E09 /* Pods */ = {
@@ -1221,10 +1200,12 @@
 				4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */,
 				4D11154C22B6A648000817BA /* WebViewController.swift in Sources */,
 				4D11152F22B545FF000817BA /* UserRepository.swift in Sources */,
+				4DD369E02337730300D2D10D /* TwibuFirebaseCodable.swift in Sources */,
 				4D28F55322E494D000156445 /* Router.swift in Sources */,
 				4D65092622BBDB5900BB0959 /* Comment.swift in Sources */,
 				4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */,
 				4DD369D823376FEE00D2D10D /* Repository.swift in Sources */,
+				4DD369DF233772B800D2D10D /* UIViewController+Extension.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */,
 				4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */,
@@ -1240,6 +1221,7 @@
 				4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */,
 				4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */,
 				4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */,
+				4DD369E22337731300D2D10D /* Bookmark+Extension.swift in Sources */,
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
 				4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */,
 				4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */,
@@ -1247,7 +1229,9 @@
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4DD369DC233770E900D2D10D /* MemoViewController.swift in Sources */,
 				4D28F54C22E48B9300156445 /* URL+Extension.swift in Sources */,
+				4DD369E32337737400D2D10D /* AnalyticsDispatcher.swift in Sources */,
 				4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */,
+				4DD369DE233772A800D2D10D /* History.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,
 				4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */,
@@ -1281,10 +1265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CF1322E2FC3900E6AA66 /* Error.swift in Sources */,
-				4DF258E222FB18AB00AC2329 /* History.swift in Sources */,
 				4D72CF1122E2F40300E6AA66 /* TwibuUserDefaults.swift in Sources */,
-				4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */,
-				4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */,
 				4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */,
 				4D72CF1422E2FC3D00E6AA66 /* Bookmark.swift in Sources */,
 				4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */,
@@ -1292,7 +1273,6 @@
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,
 				4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */,
 				4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */,
-				4DEDF2EC22F4979E00488B55 /* AnalyticsDispatcher.swift in Sources */,
 				4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */,
 				4D72CF1522E2FC4200E6AA66 /* Category.swift in Sources */,
 			);

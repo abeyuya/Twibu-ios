@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import FirebaseFirestore
 
-public struct Bookmark: TwibuFirestoreCodable {
+public struct Bookmark: Codable {
     public let uid: String
     public let title: String?
     public let image_url: String?
