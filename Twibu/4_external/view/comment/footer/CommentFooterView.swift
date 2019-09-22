@@ -11,7 +11,13 @@ import SafariServices
 import Embedded
 
 final class CommentFooterView: UIView {
-    @IBOutlet private weak var indicator: UIActivityIndicatorView!
+    @IBOutlet private weak var indicator: UIActivityIndicatorView! {
+        didSet {
+            if #available(iOS 13, *) {
+                indicator.style = .medium
+            }
+        }
+    }
     @IBOutlet private weak var showTwitterButton: UIButton! {
         didSet {
             showTwitterButton.setIcon(
