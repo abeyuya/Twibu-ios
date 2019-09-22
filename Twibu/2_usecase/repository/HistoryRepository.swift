@@ -6,6 +6,7 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
+import Embedded
 import RealmSwift
 
 public enum HistoryRepository {

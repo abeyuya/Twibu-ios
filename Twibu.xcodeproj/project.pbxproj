@@ -61,10 +61,7 @@
 		4D72CF1322E2FC3900E6AA66 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092E22BE213400BB0959 /* Error.swift */; };
 		4D72CF1422E2FC3D00E6AA66 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154822B69E15000817BA /* Bookmark.swift */; };
 		4D72CF1522E2FC4200E6AA66 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092C22BE01D500BB0959 /* Category.swift */; };
-		4D72CF1622E2FC4700E6AA66 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5CFC8722D8BDDE00F33754 /* Timeline.swift */; };
-		4D72CF1722E2FC4C00E6AA66 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
 		4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153122B547F8000817BA /* Result.swift */; };
-		4D72CF1922E2FC5700E6AA66 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
 		4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF34EF722D78D6F00E9AE80 /* Logger.swift */; };
 		4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */; };
 		4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
@@ -79,18 +76,21 @@
 		4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C022D0EA330013C198 /* CommentRootViewController.swift */; };
 		4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */; };
 		4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */; };
-		4DBAB74122F1A4BD00519407 /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAB74022F1A4BD00519407 /* MemoViewController.swift */; };
-		4DBAB74322F1A4F800519407 /* MemoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */; };
 		4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */; };
 		4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
 		4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */; };
-		4DEDF2E822F47DC200488B55 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E722F47DC200488B55 /* Memo.swift */; };
-		4DEDF2EA22F47E4900488B55 /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E922F47E4900488B55 /* MemoRepository.swift */; };
+		4DD369D623376F8C00D2D10D /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5CFC8722D8BDDE00F33754 /* Timeline.swift */; };
+		4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
+		4DD369D823376FEE00D2D10D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
+		4DD369D92337703500D2D10D /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E722F47DC200488B55 /* Memo.swift */; };
+		4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E922F47E4900488B55 /* MemoRepository.swift */; };
+		4DD369DB2337707700D2D10D /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */; };
+		4DD369DC233770E900D2D10D /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAB74022F1A4BD00519407 /* MemoViewController.swift */; };
+		4DD369DD233770FF00D2D10D /* MemoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */; };
 		4DEDF2EC22F4979E00488B55 /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
 		4DF258E222FB18AB00AC2329 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E122FB18AB00AC2329 /* History.swift */; };
-		4DF258E422FB1A2600AC2329 /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */; };
 		4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */; };
 		4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
 		4DFC605B22FDFEAC00C7CFE7 /* WebArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */; };
@@ -423,6 +423,9 @@
 				4D65093C22BE625300BB0959 /* Const.swift */,
 				4D65092522BBDB5800BB0959 /* Comment.swift */,
 				4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */,
+				4D5CFC8722D8BDDE00F33754 /* Timeline.swift */,
+				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
+				4DEDF2E722F47DC200488B55 /* Memo.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 		4D11153322B56F97000817BA /* view */ = {
 			isa = PBXGroup;
 			children = (
+				4DBAB73F22F1A4A100519407 /* memo */,
 				4DA1E5DE22CB5F6B00320895 /* settings */,
 				4D65093222BE2AE100BB0959 /* launch */,
 				4D65092B22BBE7F600BB0959 /* login */,
@@ -490,7 +494,6 @@
 		4D3A9AB022C6510E00AA9C23 /* interface */ = {
 			isa = PBXGroup;
 			children = (
-				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 				4D11153122B547F8000817BA /* Result.swift */,
 			);
 			path = interface;
@@ -517,6 +520,9 @@
 		4D65092422BBDB3700BB0959 /* repository */ = {
 			isa = PBXGroup;
 			children = (
+				4DEDF2E922F47E4900488B55 /* MemoRepository.swift */,
+				4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */,
+				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
 				4D65092922BBDCC400BB0959 /* CommentRepository.swift */,
 				4D11152E22B545FF000817BA /* UserRepository.swift */,
 			);
@@ -689,7 +695,6 @@
 			isa = PBXGroup;
 			children = (
 				4DBAB74422F1B8C700519407 /* extension */,
-				4DBAB73E22F1A49100519407 /* view */,
 				4D72CF0C22E2E77500E6AA66 /* client */,
 			);
 			path = 4_external;
@@ -707,9 +712,6 @@
 		4D72CF0D22E2E79600E6AA66 /* repository */ = {
 			isa = PBXGroup;
 			children = (
-				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
-				4DEDF2E922F47E4900488B55 /* MemoRepository.swift */,
-				4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */,
 				4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */,
 			);
 			path = repository;
@@ -721,10 +723,8 @@
 				4D65092E22BE213400BB0959 /* Error.swift */,
 				4D11154822B69E15000817BA /* Bookmark.swift */,
 				4D65092C22BE01D500BB0959 /* Category.swift */,
-				4D5CFC8722D8BDDE00F33754 /* Timeline.swift */,
 				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
 				4D65093022BE25CA00BB0959 /* Env.swift */,
-				4DEDF2E722F47DC200488B55 /* Memo.swift */,
 				4DF258E122FB18AB00AC2329 /* History.swift */,
 			);
 			path = model;
@@ -763,14 +763,6 @@
 				4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */,
 			);
 			path = footer;
-			sourceTree = "<group>";
-		};
-		4DBAB73E22F1A49100519407 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				4DBAB73F22F1A4A100519407 /* memo */,
-			);
-			path = view;
 			sourceTree = "<group>";
 		};
 		4DBAB73F22F1A4A100519407 /* memo */ = {
@@ -1004,6 +996,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */,
+				4DD369DD233770FF00D2D10D /* MemoViewController.storyboard in Resources */,
 				4D11154722B60298000817BA /* TimelineCell.xib in Resources */,
 				4D37812422CCF8240072EEBD /* Settings.bundle in Resources */,
 				4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */,
@@ -1041,7 +1034,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DBAB74322F1A4F800519407 /* MemoViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1221,6 +1213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD369D623376F8C00D2D10D /* Timeline.swift in Sources */,
 				4D11153522B570A3000817BA /* PagingRootViewController.swift in Sources */,
 				4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */,
 				4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */,
@@ -1231,9 +1224,12 @@
 				4D28F55322E494D000156445 /* Router.swift in Sources */,
 				4D65092622BBDB5900BB0959 /* Comment.swift in Sources */,
 				4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */,
+				4DD369D823376FEE00D2D10D /* Repository.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
+				4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */,
 				4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */,
 				4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */,
+				4DD369DB2337707700D2D10D /* HistoryRepository.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
 				4D72CF2622E3606700E6AA66 /* Firebase.swift in Sources */,
 				4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */,
@@ -1249,11 +1245,14 @@
 				4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
+				4DD369DC233770E900D2D10D /* MemoViewController.swift in Sources */,
 				4D28F54C22E48B9300156445 /* URL+Extension.swift in Sources */,
 				4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,
+				4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */,
 				4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */,
+				4DD369D92337703500D2D10D /* Memo.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,
 				4D65093D22BE625300BB0959 /* Const.swift in Sources */,
 			);
@@ -1282,27 +1281,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CF1322E2FC3900E6AA66 /* Error.swift in Sources */,
-				4D72CF1922E2FC5700E6AA66 /* BookmarkRepository.swift in Sources */,
 				4DF258E222FB18AB00AC2329 /* History.swift in Sources */,
 				4D72CF1122E2F40300E6AA66 /* TwibuUserDefaults.swift in Sources */,
-				4DEDF2E822F47DC200488B55 /* Memo.swift in Sources */,
 				4DBAB74522F1B8D600519407 /* UIViewController+Extension.swift in Sources */,
 				4D72CF1C22E2FDC100E6AA66 /* TwibuFirebaseCodable.swift in Sources */,
-				4DEDF2EA22F47E4900488B55 /* MemoRepository.swift in Sources */,
-				4DBAB74122F1A4BD00519407 /* MemoViewController.swift in Sources */,
 				4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */,
 				4D72CF1422E2FC3D00E6AA66 /* Bookmark.swift in Sources */,
 				4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */,
-				4DF258E422FB1A2600AC2329 /* HistoryRepository.swift in Sources */,
 				4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */,
-				4D72CF1622E2FC4700E6AA66 /* Timeline.swift in Sources */,
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,
 				4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */,
 				4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */,
 				4DEDF2EC22F4979E00488B55 /* AnalyticsDispatcher.swift in Sources */,
 				4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */,
 				4D72CF1522E2FC4200E6AA66 /* Category.swift in Sources */,
-				4D72CF1722E2FC4C00E6AA66 /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

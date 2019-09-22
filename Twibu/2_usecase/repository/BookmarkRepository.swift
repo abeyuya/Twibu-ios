@@ -6,14 +6,14 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
+import Embedded
 import FirebaseFirestore
 import Promises
 
 public enum BookmarkRepository {
     public static func fetchBookmark(
         db: Firestore,
-        category: Category,
+        category: Embedded.Category,
         uid: String,
         type: Repository.FetchType,
         commentCountOffset: Int,
@@ -79,7 +79,7 @@ public enum BookmarkRepository {
 }
 
 private extension BookmarkRepository {
-    static private func buildQuery(db: Firestore, category: Category, type: Repository.FetchType) -> Query {
+    static private func buildQuery(db: Firestore, category: Embedded.Category, type: Repository.FetchType) -> Query {
         switch category {
         case .all:
             switch type {

@@ -6,7 +6,7 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
+import Embedded
 import FirebaseFirestore
 
 public struct Repository {
