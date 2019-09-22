@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import SafariServices
 import Embedded
 
 final class CommentFooterView: UIView {
-
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    @IBOutlet weak var showTwitterButton: UIButton! {
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
+    @IBOutlet private weak var showTwitterButton: UIButton! {
         didSet {
             showTwitterButton.setIcon(
                 prefixText: "",
@@ -20,7 +20,7 @@ final class CommentFooterView: UIView {
                 icon: .fontAwesomeBrands(.twitter),
                 iconColor: .twitter,
                 postfixText: " Twitterでもっと見る",
-                postfixTextColor: .darkGray,
+                postfixTextColor: .originLabel,
                 backgroundColor: .clear,
                 forState: .normal,
                 textSize: nil,
@@ -60,35 +60,29 @@ final class CommentFooterView: UIView {
     func set(mode: Mode, url: URL) {
         self.url = url
 
-        switch mode {
-        case .hasMore:
-            DispatchQueue.main.async {
-                self.indicator.isHidden = false
-                self.showTwitterButton.isHidden = true
-            }
-        case .finish:
-            DispatchQueue.main.async {
-                self.indicator.isHidden = true
-                self.showTwitterButton.isHidden = false
-            }
-        case .hide:
-            DispatchQueue.main.async {
-                self.indicator.isHidden = true
-                self.showTwitterButton.isHidden = true
-            }
+        defer {
+            setNeedsLayout()
+            layoutIfNeeded()
         }
 
-        setNeedsLayout()
-        layoutIfNeeded()
+        switch mode {
+        case .hasMore:
+            self.indicator.isHidden = false
+            self.showTwitterButton.isHidden = true
+        case .finish:
+            self.indicator.isHidden = true
+            self.showTwitterButton.isHidden = false
+        case .hide:
+            self.indicator.isHidden = true
+            self.showTwitterButton.isHidden = true
+        }
     }
 
     @objc
     private func tapShowTwitterButton() {
         guard let url = url else { return }
-
-        DispatchQueue.main.async {
-            UIApplication.shared.open(url, options: [:])
-        }
+        let vc = SFSafariViewController(url: url)
+        Router.shared.topViewController(vc: nil)?.present(vc, animated: true)
 
         AnalyticsDispatcer.logging(
             .showMoreTwitterTap,
