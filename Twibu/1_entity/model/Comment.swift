@@ -45,8 +45,18 @@ struct Comment: TwibuFirestoreCodable {
     }
 
     struct TextBlock: Codable {
-        var type: TextBlockType = .error
+        let type: TextBlockType
         let text: String
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            type = {
+                guard let typeRawValue = try? container.decode(String.self, forKey: .type) else { return .error }
+                guard let value = TextBlockType(rawValue: typeRawValue) else { return .error }
+                return value
+            }()
+            text = try container.decode(String.self, forKey: .text)
+        }
     }
 
     var tweetUrl: URL? {

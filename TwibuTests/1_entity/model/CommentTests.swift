@@ -19,7 +19,7 @@ class CommentTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testJsonDecode() {
+    func testJsonDecodeSuccessIfIncludeBadInvalidType() {
         let json = """
 {
     "id": "aaabbbb",
@@ -47,11 +47,17 @@ class CommentTests: XCTestCase {
     ]
 }
 """
-        let result = try? JSONDecoder().decode(
-            Comment.self,
-            from: json.data(using: .utf8)!
-        )
 
-        assert(result != nil)
+        do {
+            let result = try JSONDecoder().decode(
+                Comment.self,
+                from: json.data(using: .utf8)!
+            )
+            assert(result.id == "aaabbbb")
+            assert(result.parsed_comment![0].type == .url)
+            assert(result.parsed_comment![1].type == .error)
+        } catch {
+            assert(false, error.localizedDescription)
+        }
     }
 }
