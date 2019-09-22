@@ -26,11 +26,6 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
 
     private var bookmarks: [Bookmark] = []
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-    }
-
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         BookmarkApiRepository.fetchBookmarks { [weak self] result in
             switch result {
@@ -39,16 +34,14 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
                 completionHandler(.failed)
             case .success(let bookmarks):
                 if Bookmark.isEqual(a: self?.bookmarks ?? [], b: bookmarks) {
-                    DispatchQueue.main.async {
-                        self?.tableView.reloadData()
-                    }
+                    self?.reloadTable()
                     completionHandler(.noData)
                     return
                 }
 
                 DispatchQueue.main.async {
                     self?.bookmarks = bookmarks
-                    self?.tableView.reloadData()
+                    self?.reloadTable()
                 }
 
                 if bookmarks.isEmpty {
@@ -62,12 +55,11 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
     }
 
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        self.tableView.reloadData()
         switch activeDisplayMode {
         case .compact:
             self.preferredContentSize = maxSize
         case .expanded:
-            let height = min(maxSize.height, 400)
+            let height = min(maxSize.height, tableView.contentSize.height)
             self.preferredContentSize = CGSize(width: 0, height: height)
         @unknown default:
             self.preferredContentSize = maxSize
@@ -76,6 +68,19 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
 }
 
 private extension TodayViewController {
+    private func reloadTable() {
+        DispatchQueue.main.async {
+            UIView.animate(
+                withDuration: 0,
+                animations: { self.tableView.reloadData() },
+                completion: { finished in
+                    guard finished else { return }
+                    self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+                }
+            )
+        }
+    }
+
     private func renderError() {
         DispatchQueue.main.async {
             let l = UILabel()

@@ -11,20 +11,17 @@ import Embedded
 import Kingfisher
 
 final class TodayCell: UITableViewCell {
-
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var usersCountLabel: UILabel!
-    @IBOutlet weak var domainLabel: UILabel!
-    @IBOutlet weak var createdAtLabel: UILabel!
-    @IBOutlet weak var thumbnailImageView: UIImageView!
-    @IBOutlet weak var faviconImageView: UIImageView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        thumbnailImageView.layer.cornerRadius = 4
-        thumbnailImageView.clipsToBounds = true
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var usersCountLabel: UILabel!
+    @IBOutlet private weak var domainLabel: UILabel!
+    @IBOutlet private weak var createdAtLabel: UILabel!
+    @IBOutlet private weak var thumbnailImageView: UIImageView! {
+        didSet {
+            thumbnailImageView.layer.cornerRadius = 4
+            thumbnailImageView.clipsToBounds = true
+        }
     }
+    @IBOutlet private weak var faviconImageView: UIImageView!
 
     func set(bookmark: Bookmark, showImage: Bool) {
         titleLabel.text = bookmark.trimmedTitle ?? "タイトルが取得できませんでした"
