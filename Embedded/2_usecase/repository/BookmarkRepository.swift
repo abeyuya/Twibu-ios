@@ -76,7 +76,9 @@ public enum BookmarkRepository {
             completion(.success(result))
         }
     }
+}
 
+private extension BookmarkRepository {
     static private func buildQuery(db: Firestore, category: Category, type: Repository.FetchType) -> Query {
         switch category {
         case .all:

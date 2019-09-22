@@ -9,78 +9,50 @@
 import UIKit
 import NotificationCenter
 import Embedded
-import FirebaseCore
-import FirebaseAuth
-import FirebaseFirestore
 
 final class TodayViewController: UIViewController, NCWidgetProviding {
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.tableFooterView = UIView()
 
-    @IBOutlet weak var tableView: UITableView!
+            tableView.register(
+                UINib(nibName: "TodayCell", bundle: nil),
+                forCellReuseIdentifier: "cell"
+            )
+        }
+    }
 
     private var bookmarks: [Bookmark] = []
-
-    public let firestore: Firestore = {
-        if FirebaseApp.app() == nil {
-            FirebaseApp.configure()
-        }
-
-        let settings = FirestoreSettings()
-        settings.isPersistenceEnabled = true
-        settings.dispatchQueue = DispatchQueue.global()
-
-        let db = Firestore.firestore()
-        db.settings = settings
-
-        return db
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-
-        if FirebaseApp.app() == nil {
-            FirebaseApp.configure()
-        }
-
-        setupTableview()
-        loginAndFetch() { [weak self] result in
-            switch result {
-            case .failure(let e):
-                Logger.print(e)
-            case .success(let bookmarks):
-                self?.bookmarks = bookmarks
-
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            }
-        }
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        loginAndFetch() { [weak self] result in
+        BookmarkApiRepository.fetchBookmarks { [weak self] result in
             switch result {
             case .failure(let e):
                 Logger.print(e)
                 completionHandler(.failed)
             case .success(let bookmarks):
                 if Bookmark.isEqual(a: self?.bookmarks ?? [], b: bookmarks) {
-                    completionHandler(.noData)
-                    return
-                }
-
-                if bookmarks.isEmpty {
-                    self?.bookmarks = bookmarks
+                    self?.tableView.reloadData()
                     completionHandler(.noData)
                     return
                 }
 
                 self?.bookmarks = bookmarks
+                self?.tableView.reloadData()
 
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                    completionHandler(.newData)
+                if bookmarks.isEmpty {
+                    completionHandler(.noData)
+                    return
                 }
+
+                completionHandler(.newData)
             }
         }
     }
@@ -100,85 +72,6 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
 }
 
 private extension TodayViewController {
-
-    private func setupTableview() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.tableFooterView = UIView()
-
-        tableView.register(
-            UINib(nibName: "TodayCell", bundle: nil),
-            forCellReuseIdentifier: "cell"
-        )
-    }
-
-    private func loginAndFetch(completion: @escaping (Result<[Bookmark]>) -> Void) {
-        checkFirebaseLogin() { [weak self] loginResult in
-            switch loginResult {
-            case .failure(let e):
-                completion(.failure(e))
-            case .success(let user):
-                self?.fetchBookmark(uid: user.uid) { fetchResult in
-                    switch fetchResult {
-                    case .failure(let e):
-                        completion(.failure(e))
-                    case .success(let bookmarks):
-                        completion(.success(bookmarks))
-                    }
-                }
-            }
-        }
-    }
-
-    private func fetchBookmark(uid: String, completion: @escaping (Result<[Bookmark]>) -> Void) {
-        BookmarkRepository.fetchBookmark(
-            db: firestore,
-            category: .all,
-            uid: uid,
-            type: .new(limit: 30),
-            commentCountOffset: 0
-        ) { result in
-            switch result {
-            case .notYetLoading, .loading(_):
-                let e = TwibuError.firestoreError("通らないはず")
-                completion(.failure(e))
-                return
-            case .failure(let e):
-                completion(.failure(e))
-                return
-            case .success(let res):
-                let top4 = res.item
-                    .sorted(by: { $0.comment_count ?? 0 > $1.comment_count ?? 0 })
-                    .prefix(4)
-
-                completion(.success(Array(top4)))
-            }
-        }
-    }
-
-    private func checkFirebaseLogin(completion: @escaping (Result<User>) -> Void) {
-        if let user = Auth.auth().currentUser {
-            completion(.success(user))
-            return
-        }
-
-        Auth.auth().signInAnonymously() { result, error in
-            if let error = error {
-                let te = TwibuError.needFirebaseAuth(error.localizedDescription)
-                completion(.failure(te))
-                return
-            }
-
-            guard let user = result?.user else {
-                let e = TwibuError.needFirebaseAuth("匿名ログインしたもののユーザ情報が取れない")
-                completion(.failure(e))
-                return
-            }
-
-            completion(.success(user))
-        }
-    }
-
     private func renderError() {
         DispatchQueue.main.async {
             let l = UILabel()

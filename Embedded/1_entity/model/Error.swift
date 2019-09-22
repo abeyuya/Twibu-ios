@@ -17,6 +17,7 @@ public enum TwibuError: Error {
     case firestoreError(String?)
     case firebaseFunctionsError(String?)
     case webArchiveError(String?)
+    case apiError(String?)
 
     public var displayMessage: String {
         if Env.current == .debug {
@@ -41,6 +42,7 @@ public enum TwibuError: Error {
         case .firestoreError(_): return "通信に失敗しました"
         case .firebaseFunctionsError(_): return "通信に失敗しました"
         case .webArchiveError(_): return "予期せぬエラーが発生しました"
+        case .apiError(_): return "通信に失敗しました"
         }
     }
 
@@ -54,6 +56,7 @@ public enum TwibuError: Error {
         case .firestoreError(let message): return message
         case .firebaseFunctionsError(let message): return message
         case .webArchiveError(let message): return message
+        case .apiError(let message): return message
         }
     }
 }
