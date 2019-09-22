@@ -66,9 +66,4 @@ final class Router {
         }
         return vc
     }
-
-    func addHeadlessWebView(webView: UIView) {
-        webView.isHidden = true
-        rootVc?.view.addSubview(webView)
-    }
 }
