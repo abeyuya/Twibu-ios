@@ -14,48 +14,18 @@ public enum BookmarkApiRepository {
     private struct BookmarkResponse: Codable {
         let bookmarks: [Bookmark]
 
-        //
-        // 日付はこんな構造で返ってくる
-        //
-        //  "created_at": {
-        //    "_seconds": 1569144510,
-        //    "_nanoseconds": 299000000
-        //  },
-        //
-
         init?(data: Data) {
-            guard let d = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                let oldBookmarksDict = d["bookmarks"] as? Array<[String: Any]> else {
-                    return nil
+            guard let d = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                return nil
             }
-
-            let newBookmarksDict = oldBookmarksDict.map { (d: [String: Any]) -> [String : Any] in
-                var new = d
-
-                if let createdAt = d["created_at"] as? [String: Any] {
-                    new["created_at"] = createdAt["_seconds"]
-                } else {
-                    new.removeValue(forKey: "created_at")
-                }
-
-                if let updatedAt = d["updated_at"] as? [String: Any] {
-                    new["updated_at"] = updatedAt["_seconds"]
-                } else {
-                    new.removeValue(forKey: "updated_at")
-                }
-
-                return new
-            }
-
-            let dict = ["bookmarks": newBookmarksDict]
 
             do {
                 self = try JSONDecoder().decode(
                     Self.self,
-                    from: JSONSerialization.data(withJSONObject: dict)
+                    from: JSONSerialization.data(withJSONObject: d)
                 )
             } catch {
-                Logger.print("\(Self.self)のdecodeに失敗しました dict: \(dict)")
+                Logger.print("\(Self.self)のdecodeに失敗しました dict: \(d)")
                 return nil
             }
         }

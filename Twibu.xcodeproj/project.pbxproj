@@ -74,6 +74,10 @@
 		4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C022D0EA330013C198 /* CommentRootViewController.swift */; };
 		4DB1B4C522D1F5010013C198 /* CommentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C422D1F5010013C198 /* CommentFooterView.swift */; };
 		4DB1B4C822D1F51D0013C198 /* CommentFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */; };
+		4DC5AD472337A744002BFE0D /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD462337A744002BFE0D /* Media.xcassets */; };
+		4DC5AD492337A744002BFE0D /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5AD482337A744002BFE0D /* ActionViewController.swift */; };
+		4DC5AD4C2337A745002BFE0D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */; };
+		4DC5AD502337A745002BFE0D /* Twibuでコメントを読む.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
 		4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */; };
@@ -95,9 +99,9 @@
 		4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
 		4DFC605B22FDFEAC00C7CFE7 /* WebArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */; };
 		6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */; };
-		84CCB42045C7A14BEE8C37B9 /* Pods_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */; };
+		6A0D7C1A7809D434E3B9C93F /* Pods_action_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FED9A0ECCDBAE6768B8C073 /* Pods_action_extension.framework */; };
+		790AAFBB89370F55AA10CD1C /* Pods_today_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12437B7DA1DB27E02534BA90 /* Pods_today_extension.framework */; };
 		B38213C6751DDB6F106ABA54 /* Pods_Twibu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */; };
-		F56BB62F7434F31EAC034D0E /* Pods_today_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +140,13 @@
 			remoteGlobalIDString = 4D72CEE922E2E07A00E6AA66;
 			remoteInfo = Embedded;
 		};
+		4DC5AD4E2337A745002BFE0D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D1114F822B5160E000817BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DC5AD432337A744002BFE0D;
+			remoteInfo = "action-extension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -145,6 +156,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				4DC5AD502337A745002BFE0D /* Twibuでコメントを読む.appex in Embed App Extensions */,
 				4D72CEE022E2DA1400E6AA66 /* today-extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -164,9 +176,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		331E80626100C24D31E861DC /* Pods-Embedded.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded.debug.xcconfig"; path = "Target Support Files/Pods-Embedded/Pods-Embedded.debug.xcconfig"; sourceTree = "<group>"; };
+		12437B7DA1DB27E02534BA90 /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D3B6F0B62D2C400982C84BE /* Pods-today-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-today-extension.debug.xcconfig"; path = "Target Support Files/Pods-today-extension/Pods-today-extension.debug.xcconfig"; sourceTree = "<group>"; };
 		4D04E20B22BA982C00995026 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		4D04E20D22BA983E00995026 /* CommentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentViewController.storyboard; sourceTree = "<group>"; };
 		4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -250,6 +261,11 @@
 		4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentFooterView.xib; sourceTree = "<group>"; };
 		4DBAB74022F1A4BD00519407 /* MemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
 		4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoViewController.storyboard; sourceTree = "<group>"; };
+		4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Twibuでコメントを読む.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DC5AD462337A744002BFE0D /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		4DC5AD482337A744002BFE0D /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
+		4DC5AD4B2337A745002BFE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		4DC5AD4D2337A745002BFE0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebArchiveDispatcher.swift; sourceTree = "<group>"; };
 		4DD2685622C4D879007A9E68 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
@@ -264,13 +280,14 @@
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDispatcher.swift; sourceTree = "<group>"; };
 		4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebArchiver.swift; sourceTree = "<group>"; };
+		4FED9A0ECCDBAE6768B8C073 /* Pods_action_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_action_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		564A642E296D4868EFF13E98 /* Pods-today-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-today-extension.debug.xcconfig"; path = "Target Support Files/Pods-today-extension/Pods-today-extension.debug.xcconfig"; sourceTree = "<group>"; };
+		5FB044CC992B506962981912 /* Pods-action-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-action-extension.release.xcconfig"; path = "Target Support Files/Pods-action-extension/Pods-action-extension.release.xcconfig"; sourceTree = "<group>"; };
+		678BE8FFD998194D4DDFA566 /* Pods-today-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-today-extension.release.xcconfig"; path = "Target Support Files/Pods-today-extension/Pods-today-extension.release.xcconfig"; sourceTree = "<group>"; };
 		7217761631547EC0D534046B /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_today_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC7B4A5CBECB6BDBEB4298AD /* Pods-today-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-today-extension.release.xcconfig"; path = "Target Support Files/Pods-today-extension/Pods-today-extension.release.xcconfig"; sourceTree = "<group>"; };
+		A90AE295E8D371E71921FBCC /* Pods-action-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-action-extension.debug.xcconfig"; path = "Target Support Files/Pods-action-extension/Pods-action-extension.debug.xcconfig"; sourceTree = "<group>"; };
 		D85953FA5E0ABE62D81DDB5D /* Pods-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA134BF2A3BD1CD9A3817A1D /* Pods-Twibu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.release.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.release.xcconfig"; sourceTree = "<group>"; };
-		E455BEDCA9686D414317A90C /* Pods-Embedded.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Embedded.release.xcconfig"; path = "Target Support Files/Pods-Embedded/Pods-Embedded.release.xcconfig"; sourceTree = "<group>"; };
 		EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twibu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F28CFE76E7A0C1DFE5AA0ADA /* Pods-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-Twibu/Pods-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,7 +316,7 @@
 			files = (
 				4D72CF0822E2E44900E6AA66 /* Embedded.framework in Frameworks */,
 				4D72CED622E2DA1400E6AA66 /* NotificationCenter.framework in Frameworks */,
-				F56BB62F7434F31EAC034D0E /* Pods_today_extension.framework in Frameworks */,
+				790AAFBB89370F55AA10CD1C /* Pods_today_extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +324,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84CCB42045C7A14BEE8C37B9 /* Pods_Embedded.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +332,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CEF322E2E07B00E6AA66 /* Embedded.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DC5AD412337A744002BFE0D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A0D7C1A7809D434E3B9C93F /* Pods_action_extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,9 +354,9 @@
 				4D11152322B5213B000817BA /* Security.framework */,
 				4D72CED522E2DA1400E6AA66 /* NotificationCenter.framework */,
 				3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */,
-				B44F0785A4F6EDE544A0BE19 /* Pods_Embedded.framework */,
 				EF596CD0F951D93FD9DDB9CE /* Pods_Twibu.framework */,
-				A94155E76184AAB21A59FA16 /* Pods_today_extension.framework */,
+				4FED9A0ECCDBAE6768B8C073 /* Pods_action_extension.framework */,
+				12437B7DA1DB27E02534BA90 /* Pods_today_extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -374,6 +398,7 @@
 				4D11150222B5160E000817BA /* Twibu */,
 				4D11151722B5160F000817BA /* TwibuTests */,
 				4D72CED722E2DA1400E6AA66 /* today-extension */,
+				4DC5AD452337A744002BFE0D /* action-extension */,
 				4D11150122B5160E000817BA /* Products */,
 				BE96F5C735459C2F19058E09 /* Pods */,
 				04C4ACB6453732AD38B3F5D8 /* Frameworks */,
@@ -388,6 +413,7 @@
 				4D72CED422E2DA1400E6AA66 /* today-extension.appex */,
 				4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */,
 				4D72CEF222E2E07B00E6AA66 /* EmbeddedTests.xctest */,
+				4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -766,6 +792,17 @@
 			path = memo;
 			sourceTree = "<group>";
 		};
+		4DC5AD452337A744002BFE0D /* action-extension */ = {
+			isa = PBXGroup;
+			children = (
+				4DC5AD462337A744002BFE0D /* Media.xcassets */,
+				4DC5AD482337A744002BFE0D /* ActionViewController.swift */,
+				4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */,
+				4DC5AD4D2337A745002BFE0D /* Info.plist */,
+			);
+			path = "action-extension";
+			sourceTree = "<group>";
+		};
 		4DD2685522C4D805007A9E68 /* extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,14 +814,14 @@
 		BE96F5C735459C2F19058E09 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				331E80626100C24D31E861DC /* Pods-Embedded.debug.xcconfig */,
-				E455BEDCA9686D414317A90C /* Pods-Embedded.release.xcconfig */,
 				F28CFE76E7A0C1DFE5AA0ADA /* Pods-Twibu.debug.xcconfig */,
 				DA134BF2A3BD1CD9A3817A1D /* Pods-Twibu.release.xcconfig */,
 				7217761631547EC0D534046B /* Pods-TwibuTests.debug.xcconfig */,
 				D85953FA5E0ABE62D81DDB5D /* Pods-TwibuTests.release.xcconfig */,
-				3D3B6F0B62D2C400982C84BE /* Pods-today-extension.debug.xcconfig */,
-				CC7B4A5CBECB6BDBEB4298AD /* Pods-today-extension.release.xcconfig */,
+				A90AE295E8D371E71921FBCC /* Pods-action-extension.debug.xcconfig */,
+				5FB044CC992B506962981912 /* Pods-action-extension.release.xcconfig */,
+				564A642E296D4868EFF13E98 /* Pods-today-extension.debug.xcconfig */,
+				678BE8FFD998194D4DDFA566 /* Pods-today-extension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -823,6 +860,7 @@
 			dependencies = (
 				4D72CEDF22E2DA1400E6AA66 /* PBXTargetDependency */,
 				4D72CEFE22E2E07B00E6AA66 /* PBXTargetDependency */,
+				4DC5AD4F2337A745002BFE0D /* PBXTargetDependency */,
 			);
 			name = Twibu;
 			productName = Twibu;
@@ -852,7 +890,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D72CEE322E2DA1400E6AA66 /* Build configuration list for PBXNativeTarget "today-extension" */;
 			buildPhases = (
-				63D4899AAD662A10CA14F52B /* [CP] Check Pods Manifest.lock */,
+				155A9B3044EC9791C2B7CA68 /* [CP] Check Pods Manifest.lock */,
 				4D72CED022E2DA1400E6AA66 /* Sources */,
 				4D72CED122E2DA1400E6AA66 /* Frameworks */,
 				4D72CED222E2DA1400E6AA66 /* Resources */,
@@ -870,7 +908,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D72CF0122E2E07B00E6AA66 /* Build configuration list for PBXNativeTarget "Embedded" */;
 			buildPhases = (
-				FDC8F1B072D32BF8B0BC2BEB /* [CP] Check Pods Manifest.lock */,
 				4D72CEE522E2E07A00E6AA66 /* Headers */,
 				4D72CEE622E2E07A00E6AA66 /* Sources */,
 				4D72CEE722E2E07A00E6AA66 /* Frameworks */,
@@ -904,13 +941,31 @@
 			productReference = 4D72CEF222E2E07B00E6AA66 /* EmbeddedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		4DC5AD432337A744002BFE0D /* action-extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4DC5AD532337A745002BFE0D /* Build configuration list for PBXNativeTarget "action-extension" */;
+			buildPhases = (
+				A42127C0C77C218768412810 /* [CP] Check Pods Manifest.lock */,
+				4DC5AD402337A744002BFE0D /* Sources */,
+				4DC5AD412337A744002BFE0D /* Frameworks */,
+				4DC5AD422337A744002BFE0D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "action-extension";
+			productName = "action-extension";
+			productReference = 4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		4D1114F822B5160E000817BA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = abeyuya;
 				TargetAttributes = {
@@ -942,6 +997,9 @@
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 4D1114FF22B5160E000817BA;
 					};
+					4DC5AD432337A744002BFE0D = {
+						CreatedOnToolsVersion = 11.0;
+					};
 				};
 			};
 			buildConfigurationList = 4D1114FB22B5160E000817BA /* Build configuration list for PBXProject "Twibu" */;
@@ -959,9 +1017,10 @@
 			targets = (
 				4D1114FF22B5160E000817BA /* Twibu */,
 				4D11151322B5160F000817BA /* TwibuTests */,
-				4D72CED322E2DA1400E6AA66 /* today-extension */,
 				4D72CEE922E2E07A00E6AA66 /* Embedded */,
 				4D72CEF122E2E07B00E6AA66 /* EmbeddedTests */,
+				4D72CED322E2DA1400E6AA66 /* today-extension */,
+				4DC5AD432337A744002BFE0D /* action-extension */,
 			);
 		};
 /* End PBXProject section */
@@ -1019,6 +1078,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4DC5AD422337A744002BFE0D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DC5AD472337A744002BFE0D /* Media.xcassets in Resources */,
+				4DC5AD4C2337A745002BFE0D /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1038,6 +1106,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Twibu-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		155A9B3044EC9791C2B7CA68 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-today-extension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1098,7 +1188,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\" cae329db8be2f87c9eeb9b24b9f52df7f927570a a420636f6187c53cb206ee2870706fe9a33a0218a3525f51842661837a81b9ee\n";
 		};
-		63D4899AAD662A10CA14F52B /* [CP] Check Pods Manifest.lock */ = {
+		A42127C0C77C218768412810 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1113,7 +1203,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-today-extension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-action-extension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1157,28 +1247,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Twibu/Pods-Twibu-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FDC8F1B072D32BF8B0BC2BEB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Embedded-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1282,6 +1350,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4DC5AD402337A744002BFE0D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DC5AD492337A744002BFE0D /* ActionViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1310,6 +1386,11 @@
 			target = 4D72CEE922E2E07A00E6AA66 /* Embedded */;
 			targetProxy = 4D72CEFD22E2E07B00E6AA66 /* PBXContainerItemProxy */;
 		};
+		4DC5AD4F2337A745002BFE0D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DC5AD432337A744002BFE0D /* action-extension */;
+			targetProxy = 4DC5AD4E2337A745002BFE0D /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1333,6 +1414,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				4D72CEDB22E2DA1400E6AA66 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4DC5AD4B2337A745002BFE0D /* Base */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -1468,7 +1557,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = Twibu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1491,7 +1580,7 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = Twibu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1549,14 +1638,14 @@
 		};
 		4D72CEE122E2DA1400E6AA66 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D3B6F0B62D2C400982C84BE /* Pods-today-extension.debug.xcconfig */;
+			baseConfigurationReference = 564A642E296D4868EFF13E98 /* Pods-today-extension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "today-extension/today-extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = "today-extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1572,14 +1661,14 @@
 		};
 		4D72CEE222E2DA1400E6AA66 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC7B4A5CBECB6BDBEB4298AD /* Pods-today-extension.release.xcconfig */;
+			baseConfigurationReference = 678BE8FFD998194D4DDFA566 /* Pods-today-extension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "today-extension/today-extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = "today-extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1595,7 +1684,6 @@
 		};
 		4D72CF0222E2E07B00E6AA66 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 331E80626100C24D31E861DC /* Pods-Embedded.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -1609,7 +1697,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Embedded/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1628,7 +1716,6 @@
 		};
 		4D72CF0322E2E07B00E6AA66 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E455BEDCA9686D414317A90C /* Pods-Embedded.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -1642,7 +1729,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Embedded/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1695,6 +1782,50 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Twibu.app/Twibu";
+			};
+			name = Release;
+		};
+		4DC5AD512337A745002BFE0D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A90AE295E8D371E71921FBCC /* Pods-action-extension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				INFOPLIST_FILE = "action-extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension";
+				PRODUCT_NAME = "Twibuでコメントを読む";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4DC5AD522337A745002BFE0D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FB044CC992B506962981912 /* Pods-action-extension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				INFOPLIST_FILE = "action-extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension";
+				PRODUCT_NAME = "Twibuでコメントを読む";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1751,6 +1882,15 @@
 			buildConfigurations = (
 				4D72CF0622E2E07B00E6AA66 /* Debug */,
 				4D72CF0722E2E07B00E6AA66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DC5AD532337A745002BFE0D /* Build configuration list for PBXNativeTarget "action-extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DC5AD512337A745002BFE0D /* Debug */,
+				4DC5AD522337A745002BFE0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
