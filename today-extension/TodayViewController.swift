@@ -39,13 +39,17 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
                 completionHandler(.failed)
             case .success(let bookmarks):
                 if Bookmark.isEqual(a: self?.bookmarks ?? [], b: bookmarks) {
-                    self?.tableView.reloadData()
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                    }
                     completionHandler(.noData)
                     return
                 }
 
-                self?.bookmarks = bookmarks
-                self?.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self?.bookmarks = bookmarks
+                    self?.tableView.reloadData()
+                }
 
                 if bookmarks.isEmpty {
                     completionHandler(.noData)
