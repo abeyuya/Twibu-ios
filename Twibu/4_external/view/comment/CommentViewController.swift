@@ -8,8 +8,6 @@
 
 import UIKit
 import SafariServices
-import FirebaseAuth
-import ReSwift
 import Embedded
 
 final class CommentViewController: UIViewController, StoryboardInstantiatable {
