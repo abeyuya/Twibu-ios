@@ -11,7 +11,7 @@ import ReSwift
 
 final class CategoryArticleListViewModel: ArticleList {
     internal weak var delegate: ArticleListDelegate?
-    private var response: Repository.Response<[Bookmark]> = .notYetLoading
+    private var response: FirestoreRepo.Response<[Bookmark]> = .notYetLoading
     private var category: Embedded.Category {
         switch type {
         case .category(let c):
@@ -40,7 +40,7 @@ extension CategoryArticleListViewModel {
     func startSubscribe() {
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
-                let res: Repository.Response<[Bookmark]>? = {
+                let res: FirestoreRepo.Response<[Bookmark]>? = {
                     guard let c = self?.category else { return nil }
                     return state.response.bookmarks[c]
                 }()
@@ -95,7 +95,7 @@ extension CategoryArticleListViewModel {
                 BookmarkDispatcher.fetchBookmark(
                     category: category,
                     uid: uid,
-                    type: .add(limit: 30, last: result.lastSnapshot),
+                    type: .add(limit: 30, pagingInfo: result.pagingInfo),
                     commentCountOffset: category == .all ? 20 : 0
                 ) { _ in }
             }
@@ -105,7 +105,7 @@ extension CategoryArticleListViewModel {
 
 extension CategoryArticleListViewModel: StoreSubscriber {
     struct Props {
-        var res: Repository.Response<[Bookmark]>?
+        var res: FirestoreRepo.Response<[Bookmark]>?
         var currentUser: TwibuUser
         var webArchiveResults: [(String, WebArchiver.SaveResult)]
     }
@@ -184,7 +184,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         return b.filter { changedUids.contains($0.0) }
     }
 
-    private func convert(_ res: Repository.Response<[Bookmark]>) -> ArticleRenderState {
+    private func convert(_ res: FirestoreRepo.Response<[Bookmark]>) -> ArticleRenderState {
         switch res {
         case .success(let result):
             return .success(hasMore: result.hasMore)

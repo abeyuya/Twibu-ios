@@ -11,12 +11,12 @@ import FirebaseFirestore
 import FirebaseFunctions
 import Embedded
 
-enum CommentRepository {
+enum CommentRepositoryFirestore {
     static func fetchBookmarkComment(
         db: Firestore,
         bookmarkUid: String,
-        type: Repository.FetchType,
-        completion: @escaping ((Repository.Response<[Comment]>) -> Void)
+        type: FirestoreRepo.FetchType,
+        completion: @escaping ((FirestoreRepo.Response<[Comment]>) -> Void)
     ) {
         guard Auth.auth().currentUser != nil else {
             completion(.failure(.needFirebaseAuth("need firebase login")))
@@ -36,18 +36,18 @@ enum CommentRepository {
                 }
 
                 let comments = snapshot.documents.compactMap { Comment(dictionary: $0.data()) }
-                let result: Repository.Result<[Comment]> = {
+                let result: FirestoreRepo.Result<[Comment]> = {
                     guard let last = snapshot.documents.last else {
                         return Repository.Result(
                             item: comments,
-                            lastSnapshot: nil,
+                            pagingInfo: nil,
                             hasMore: false
                         )
                     }
 
                     return Repository.Result(
                         item: comments,
-                        lastSnapshot: last,
+                        pagingInfo: FirestoreRepositoryPagingInfo(lastSnapshot: last),
                         hasMore: !snapshot.documents.isEmpty
                     )
                 }()
@@ -56,7 +56,7 @@ enum CommentRepository {
         }
     }
 
-    private static func buildQuery(db: Firestore, bookmarkUid: String, type: Repository.FetchType) -> Query {
+    private static func buildQuery(db: Firestore, bookmarkUid: String, type: FirestoreRepo.FetchType) -> Query {
         let q = db.collection("bookmarks")
             .document(bookmarkUid)
             .collection("comments")
@@ -65,13 +65,13 @@ enum CommentRepository {
         switch type {
         case .new(let limit):
             return q.limit(to: limit)
-        case .add(let (limit, snapshot)):
-            if let s = snapshot {
-                return q.start(afterDocument: s).limit(to: limit)
-            } else {
-                // スナップショットが無い場合は先頭から取得
-                return q.limit(to: limit)
+        case .add(let (limit, info)):
+            guard let i = info as? FirestoreRepositoryPagingInfo,
+                let d = i.lastSnapshot else {
+                    // スナップショットが無い場合は先頭から取得
+                    return q.limit(to: limit)
             }
+            return q.start(afterDocument: d).limit(to: limit)
         }
     }
 

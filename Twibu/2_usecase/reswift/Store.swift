@@ -13,8 +13,8 @@ import Embedded
 
 struct AppState: StateType {
     struct Response {
-        var bookmarks: [Embedded.Category: Repository.Response<[Bookmark]>] = [:]
-        var comments: [String: Repository.Response<[Comment]>] = [:]
+        var bookmarks: [Embedded.Category: FirestoreRepo.Response<[Bookmark]>] = [:]
+        var comments: [String: FirestoreRepo.Response<[Comment]>] = [:]
     }
 
     struct HistoryInfo {
@@ -34,9 +34,9 @@ struct AppState: StateType {
 }
 
 extension AppState {
-    static func toFlat(bookmarks: [Embedded.Category: Repository.Response<[Bookmark]>]) -> [Bookmark] {
+    static func toFlat(bookmarks: [Embedded.Category: FirestoreRepo.Response<[Bookmark]>]) -> [Bookmark] {
         let resArr = bookmarks.values.compactMap { $0 }
-        let bmNestArr: [[Bookmark]] = resArr.compactMap { (res: Repository.Response<[Bookmark]>) in
+        let bmNestArr: [[Bookmark]] = resArr.compactMap { (res: FirestoreRepo.Response<[Bookmark]>) in
             switch res {
             case .success(let result): return result.item
             case .loading(let result): return result.item
@@ -58,7 +58,7 @@ struct AddNewHistoryAction: Action {
 }
 struct AddBookmarksAction: Action {
     let category: Embedded.Category
-    let bookmarks: Repository.Response<[Bookmark]>
+    let bookmarks: FirestoreRepo.Response<[Bookmark]>
 }
 struct RemoveBookmarkAction: Action {
     let category: Embedded.Category
@@ -66,7 +66,7 @@ struct RemoveBookmarkAction: Action {
 }
 struct AddCommentsAction: Action {
     let bookmarkUid: String
-    let comments: Repository.Response<[Comment]>
+    let comments: FirestoreRepo.Response<[Comment]>
 }
 struct UpdateBookmarkCommentCountIfOverAction: Action {
     let bookmarkUid: String
@@ -126,16 +126,16 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         state.response.bookmarks[a.category] = {
             switch a.bookmarks {
             case .success(let old):
-                let result = Repository.Result(
+                let result = FirestoreRepo.Result(
                     item: new,
-                    lastSnapshot: old.lastSnapshot,
+                    pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
                 )
                 return .success(result)
             case .loading(let old):
-                let result = Repository.Result(
+                let result = FirestoreRepo.Result(
                     item: new,
-                    lastSnapshot: old.lastSnapshot,
+                    pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
                 )
                 return .loading(result)
@@ -155,17 +155,17 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 return res
             case .success(let result):
                 let newBookmarks = result.item.filter { $0.uid != a.bookmarkUid }
-                let newResult = Repository.Result(
+                let newResult = FirestoreRepo.Result(
                     item: newBookmarks,
-                    lastSnapshot: result.lastSnapshot,
+                    pagingInfo: result.pagingInfo,
                     hasMore: result.hasMore
                 )
                 return Repository.Response.success(newResult)
             case .loading(let result):
                 let newBookmarks = result.item.filter { $0.uid != a.bookmarkUid }
-                let newResult = Repository.Result(
+                let newResult = FirestoreRepo.Result(
                     item: newBookmarks,
-                    lastSnapshot: result.lastSnapshot,
+                    pagingInfo: result.pagingInfo,
                     hasMore: result.hasMore
                 )
                 return Repository.Response.loading(newResult)
@@ -203,16 +203,16 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         state.response.comments[a.bookmarkUid] = {
             switch a.comments {
             case .success(let old):
-                let result = Repository.Result<[Comment]>(
+                let result = FirestoreRepo.Result<[Comment]>(
                     item: new,
-                    lastSnapshot: old.lastSnapshot,
+                    pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
                 )
                 return .success(result)
             case .loading(let old):
-                let result = Repository.Result<[Comment]>(
+                let result = FirestoreRepo.Result<[Comment]>(
                     item: new,
-                    lastSnapshot: old.lastSnapshot,
+                    pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
                 )
                 return .loading(result)
@@ -253,9 +253,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 //
                 continue
             case .success(let result):
-                let newResult = Repository.Result<[Bookmark]>(
+                let newResult = FirestoreRepo.Result<[Bookmark]>(
                     item: bms,
-                    lastSnapshot: result.lastSnapshot,
+                    pagingInfo: result.pagingInfo,
                     hasMore: result.hasMore
                 )
                 new[category] = .success(newResult)

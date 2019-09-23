@@ -6,13 +6,12 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Embedded
-import FirebaseFirestore
+public protocol RepositoryPagingInfo {}
 
-public struct Repository {
+public struct Repository<P: RepositoryPagingInfo> {
     public enum FetchType {
         case new(limit: Int)
-        case add(limit: Int, last: DocumentSnapshot?)
+        case add(limit: Int, pagingInfo: RepositoryPagingInfo?)
 
         public var debugName: String {
             switch self {
@@ -24,12 +23,12 @@ public struct Repository {
 
     public struct Result<T> {
         public let item: T
-        public let lastSnapshot: DocumentSnapshot?
+        public let pagingInfo: P?
         public let hasMore: Bool
 
-        public init(item: T, lastSnapshot: DocumentSnapshot?, hasMore: Bool) {
+        public init(item: T, pagingInfo: P?, hasMore: Bool) {
             self.item = item
-            self.lastSnapshot = lastSnapshot
+            self.pagingInfo = pagingInfo
             self.hasMore = hasMore
         }
     }

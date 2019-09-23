@@ -36,11 +36,14 @@
 		4D3059342337FE9A001F0605 /* Comment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059332337FE9A001F0605 /* Comment+Extension.swift */; };
 		4D3059372338855A001F0605 /* CommentListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059362338855A001F0605 /* CommentListProtocol.swift */; };
 		4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */; };
+		4D3059532338A13B001F0605 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059522338A13B001F0605 /* CommentRepository.swift */; };
+		4D3059542338A40D001F0605 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
+		4D3059562338A436001F0605 /* FirestoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059552338A436001F0605 /* FirestoreRepository.swift */; };
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
-		4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepository.swift */; };
+		4D65092A22BBDCC400BB0959 /* CommentRepositoryFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepositoryFirestore.swift */; };
 		4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093322BE43CD00BB0959 /* RootViewController.swift */; };
 		4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093522BE445E00BB0959 /* LaunchingViewController.swift */; };
 		4D65093822BE447500BB0959 /* LaunchingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D65093722BE447500BB0959 /* LaunchingViewController.storyboard */; };
@@ -86,7 +89,6 @@
 		4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */; };
 		4DD369D623376F8C00D2D10D /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5CFC8722D8BDDE00F33754 /* Timeline.swift */; };
 		4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
-		4DD369D823376FEE00D2D10D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
 		4DD369D92337703500D2D10D /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E722F47DC200488B55 /* Memo.swift */; };
 		4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E922F47E4900488B55 /* MemoRepository.swift */; };
 		4DD369DB2337707700D2D10D /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */; };
@@ -218,6 +220,8 @@
 		4D3059332337FE9A001F0605 /* Comment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment+Extension.swift"; sourceTree = "<group>"; };
 		4D3059362338855A001F0605 /* CommentListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListProtocol.swift; sourceTree = "<group>"; };
 		4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentListViewModel.swift; sourceTree = "<group>"; };
+		4D3059522338A13B001F0605 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
+		4D3059552338A436001F0605 /* FirestoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRepository.swift; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
@@ -226,7 +230,7 @@
 		4D5CFC8722D8BDDE00F33754 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		4D65092522BBDB5800BB0959 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
-		4D65092922BBDCC400BB0959 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
+		4D65092922BBDCC400BB0959 /* CommentRepositoryFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepositoryFirestore.swift; sourceTree = "<group>"; };
 		4D65092C22BE01D500BB0959 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4D65092E22BE213400BB0959 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4D65093022BE25CA00BB0959 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
@@ -454,7 +458,6 @@
 				4D65093C22BE625300BB0959 /* Const.swift */,
 				4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */,
 				4D5CFC8722D8BDDE00F33754 /* Timeline.swift */,
-				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 				4DEDF2E722F47DC200488B55 /* Memo.swift */,
 				4DF258E122FB18AB00AC2329 /* History.swift */,
 				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
@@ -555,10 +558,11 @@
 		4D65092422BBDB3700BB0959 /* repository */ = {
 			isa = PBXGroup;
 			children = (
+				4D3059552338A436001F0605 /* FirestoreRepository.swift */,
 				4DEDF2E922F47E4900488B55 /* MemoRepository.swift */,
 				4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */,
 				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
-				4D65092922BBDCC400BB0959 /* CommentRepository.swift */,
+				4D65092922BBDCC400BB0959 /* CommentRepositoryFirestore.swift */,
 				4D11152E22B545FF000817BA /* UserRepository.swift */,
 			);
 			path = repository;
@@ -600,7 +604,6 @@
 			isa = PBXGroup;
 			children = (
 				4DD2685522C4D805007A9E68 /* extension */,
-				4D65094422BF5F9500BB0959 /* reswift */,
 				4D11152D22B545F2000817BA /* model */,
 			);
 			path = 1_entity;
@@ -609,6 +612,7 @@
 		4D65094122BF5E0400BB0959 /* 2_usecase */ = {
 			isa = PBXGroup;
 			children = (
+				4D65094422BF5F9500BB0959 /* reswift */,
 				4D65094E22BF8C1900BB0959 /* dispatcher */,
 				4D65092422BBDB3700BB0959 /* repository */,
 			);
@@ -748,6 +752,7 @@
 			isa = PBXGroup;
 			children = (
 				4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */,
+				4D3059522338A13B001F0605 /* CommentRepository.swift */,
 			);
 			path = repository;
 			sourceTree = "<group>";
@@ -761,6 +766,7 @@
 				4D65092522BBDB5800BB0959 /* Comment.swift */,
 				4D65093022BE25CA00BB0959 /* Env.swift */,
 				4D11153122B547F8000817BA /* Result.swift */,
+				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1285,11 +1291,10 @@
 				4DD369E02337730300D2D10D /* TwibuFirebaseCodable.swift in Sources */,
 				4D28F55322E494D000156445 /* Router.swift in Sources */,
 				4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */,
-				4DD369D823376FEE00D2D10D /* Repository.swift in Sources */,
 				4DD369DF233772B800D2D10D /* UIViewController+Extension.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */,
-				4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */,
+				4D65092A22BBDCC400BB0959 /* CommentRepositoryFirestore.swift in Sources */,
 				4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */,
 				4DD369DB2337707700D2D10D /* HistoryRepository.swift in Sources */,
 				4D11152C22B531E8000817BA /* Device.swift in Sources */,
@@ -1318,6 +1323,7 @@
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,
 				4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */,
+				4D3059562338A436001F0605 /* FirestoreRepository.swift in Sources */,
 				4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */,
 				4DD369D92337703500D2D10D /* Memo.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,
@@ -1354,6 +1360,8 @@
 				4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */,
 				4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */,
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,
+				4D3059542338A40D001F0605 /* Repository.swift in Sources */,
+				4D3059532338A13B001F0605 /* CommentRepository.swift in Sources */,
 				4D3059322337FE75001F0605 /* Comment.swift in Sources */,
 				4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */,
 				4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */,

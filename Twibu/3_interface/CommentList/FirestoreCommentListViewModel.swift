@@ -10,7 +10,7 @@ import Embedded
 import ReSwift
 
 final class FirestoreCommentListViewModel: CommentList {
-    private var response: Repository.Response<[Comment]> = .notYetLoading
+    private var response: FirestoreRepo.Response<[Comment]> = .notYetLoading
     private var comments: [Comment] {
         return response.item ?? []
     }
@@ -39,7 +39,7 @@ extension FirestoreCommentListViewModel {
     func startSubscribe() {
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
-                let res: Repository.Response<[Comment]>? = {
+                let res: FirestoreRepo.Response<[Comment]>? = {
                     guard let buid = self?.bookmark?.uid else { return nil }
                     guard let res = state.response.comments[buid] else { return nil }
                     return res
@@ -76,7 +76,7 @@ extension FirestoreCommentListViewModel {
             CommentDispatcher.fetchComments(
                 db: TwibuFirebase.shared.firestore,
                 buid: buid,
-                type: .add(limit: 100, last: result.lastSnapshot)
+                type: .add(limit: 100, pagingInfo: result.pagingInfo)
             )
         }
     }
@@ -84,7 +84,7 @@ extension FirestoreCommentListViewModel {
 
 extension FirestoreCommentListViewModel: StoreSubscriber {
     struct Props {
-        var res: Repository.Response<[Comment]>?
+        var res: FirestoreRepo.Response<[Comment]>?
         var currentUser: TwibuUser?
     }
 
@@ -112,7 +112,10 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
         }
     }
 
-    private func isResponseChanged(old: Repository.Response<[Comment]>, new: Repository.Response<[Comment]>) -> Bool {
+    private func isResponseChanged(
+        old: FirestoreRepo.Response<[Comment]>,
+        new: FirestoreRepo.Response<[Comment]>
+    ) -> Bool {
         switch old {
         case .loading(_):
             switch new {
@@ -149,7 +152,7 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
         }
     }
 
-    private func convert(_ res: Repository.Response<[Comment]>) -> CommentRenderState {
+    private func convert(_ res: FirestoreRepo.Response<[Comment]>) -> CommentRenderState {
         switch res {
         case .success(let result):
             return .success(hasMore: result.hasMore)

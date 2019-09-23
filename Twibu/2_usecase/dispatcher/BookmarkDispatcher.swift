@@ -14,11 +14,11 @@ enum BookmarkDispatcher {
     static func fetchBookmark(
         category: Embedded.Category,
         uid: String,
-        type: Repository.FetchType,
+        type: FirestoreRepo.FetchType,
         commentCountOffset: Int,
         completion: @escaping (Result<[Bookmark]>) -> Void
     ) {
-        let lResult = Repository.Result<[Bookmark]>(item: [], lastSnapshot: nil, hasMore: false)
+        let lResult = FirestoreRepo.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
         let startLoadingAction = AddBookmarksAction(
             category: category,
             bookmarks: .loading(lResult)
