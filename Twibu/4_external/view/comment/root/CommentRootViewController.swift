@@ -11,7 +11,6 @@ import Parchment
 import Embedded
 
 final class CommentRootViewController: UIViewController {
-
     private var pagingViewController: FixedPagingViewController!
     var bookmark: Bookmark!
 

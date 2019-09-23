@@ -55,10 +55,22 @@ extension FirestoreCommentListViewModel {
     }
 
     func fetchComments() {
-        guard let buid = bookmark?.uid, buid != "" else { return }
+        guard let b = bookmark, b.uid != "" else { return }
+
+        if currentUser?.isTwitterLogin == true {
+            CommentDispatcher.updateAndFetchComments(
+                repo: CommentRepositoryFirestore.shared,
+                buid: b.uid,
+                title: b.title ?? "",
+                url: b.url,
+                type: .new(limit: 100)
+            )
+            return
+        }
+
         CommentDispatcher.fetchComments(
             repo: CommentRepositoryFirestore.shared,
-            buid: buid,
+            buid: b.uid,
             type: .new(limit: 100)
         )
     }

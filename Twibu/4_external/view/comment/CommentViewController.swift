@@ -69,30 +69,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
     @objc
     private func refresh() {
-        guard let b = viewModel.bookmark else { return }
-
-        guard viewModel.currentUser?.isTwitterLogin == true else {
-            viewModel.fetchComments()
-            return
-        }
-
-        CommentDispatcher.updateAndFetchComments(
-            repo: CommentRepositoryFirestore.shared,
-            buid: b.uid,
-            title: b.title ?? "",
-            url: b.url,
-            type: .new(limit: 100)
-        )
-
-        AnalyticsDispatcer.logging(
-            .commentRefresh,
-            param: [
-                "buid": viewModel.bookmark?.uid ?? "error",
-                "url": viewModel.bookmark?.url ?? "error",
-                "comment_count": viewModel.bookmark?.comment_count ?? -1,
-                "comment_type": "\(viewModel.commentType)"
-            ]
-        )
+        viewModel.fetchComments()
     }
 
     @objc
@@ -158,23 +135,26 @@ extension CommentViewController: UITableViewDataSource {
     }
 }
 
-extension CommentViewController {
+private extension CommentViewController {
     private func openExternalLink(url: URL, comment: Comment) {
         DispatchQueue.main.async {
             let vc = SFSafariViewController(url: url)
-            Router.shared.topViewController(vc: nil)?.present(vc, animated: true)
-        }
 
-        AnalyticsDispatcer.logging(
-            .commentTap,
-            param: [
-                "uid": comment.id,
-                "twitter_user_id": comment.user.twitter_user_id,
-                "favorite_count": comment.favorite_count,
-                "retweet_count": comment.retweet_count,
-                "has_comment": comment.has_comment ?? false
-            ]
-        )
+            if let nav = self.navigationController {
+                nav.pushViewController(vc, animated: true)
+                return
+            }
+
+            self.topViewController(vc: nil)?.present(vc, animated: true)
+        }
+    }
+
+    private func topViewController(vc: UIViewController?) -> UIViewController? {
+        guard let vc = vc ?? UIApplication.shared.keyWindow?.rootViewController else { return nil }
+        if let presented = vc.presentedViewController {
+            return topViewController(vc: presented)
+        }
+        return vc
     }
 
     private func openAdminMenu(url: URL, comment: Comment) {
