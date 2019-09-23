@@ -13,20 +13,32 @@ import ReSwift
 import Embedded
 
 final class CommentViewController: UIViewController, StoryboardInstantiatable {
-    @IBOutlet weak var tableview: UITableView!
+    @IBOutlet private weak var tableview: UITableView! {
+        didSet {
+            let footer = CommentFooterView()
+            footer.frame = CGRect(x: 0, y: 0, width: tableview.frame.width, height: 80)
+            tableview.tableFooterView = footer
+            tableview.delegate = self
+            tableview.dataSource = self
+            tableview.register(
+                UINib(nibName: "CommentTableViewCell", bundle: nil),
+                forCellReuseIdentifier: "CommentTableViewCell"
+            )
+            tableview.refreshControl = refreshControll
+        }
+    }
 
-    private let refreshControll = UIRefreshControl()
+    private let refreshControll: UIRefreshControl = {
+        let r = UIRefreshControl()
+        r.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return r
+    }()
     private var cellHeight: [IndexPath: CGFloat] = [:]
 
     private var viewModel: CommentList!
 
     func set(vm: CommentList) {
         viewModel = vm
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupTableview()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,21 +59,6 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewModel.stopSubscribe()
-    }
-
-    private func setupTableview() {
-        let footer = CommentFooterView()
-        footer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-        tableview.tableFooterView = footer
-
-        tableview.delegate = self
-        tableview.dataSource = self
-        tableview.register(
-            UINib(nibName: "CommentTableViewCell", bundle: nil),
-            forCellReuseIdentifier: "CommentTableViewCell"
-        )
-        refreshControll.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableview.refreshControl = refreshControll
     }
 
     private func updateFooter(mode: CommentFooterView.Mode) {

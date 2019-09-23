@@ -10,15 +10,39 @@ import UIKit
 import Embedded
 
 final class CategoryViewController: UIViewController, StoryboardInstantiatable {
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView! {
+        didSet {
+            let footer: UIView = {
+                let v = UIView()
+                v.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 80)
+                v.addSubview(footerIndicator)
+                footerIndicator.centerXAnchor.constraint(equalTo: v.centerXAnchor).isActive = true
+                footerIndicator.centerYAnchor.constraint(equalTo: v.centerYAnchor).isActive = true
+                return v
+            }()
+
+            tableView.tableFooterView = footer
+            tableView.register(
+                UINib(nibName: "TimelineCell", bundle: nil),
+                forCellReuseIdentifier: "TimelineCell"
+            )
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.refreshControl = refreshControll
+        }
+    }
 
     private let footerIndicator: UIActivityIndicatorView = {
         let i = UIActivityIndicatorView(style: .gray)
         i.startAnimating()
+        i.translatesAutoresizingMaskIntoConstraints = false
         return i
     }()
-
-    private let refreshControll = UIRefreshControl()
+    private let refreshControll: UIRefreshControl = {
+        let r = UIRefreshControl()
+        r.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return r
+    }()
     private var lastContentOffset: CGFloat = 0
     private var cellHeight: [IndexPath: CGFloat] = [:]
 
@@ -26,8 +50,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupTableView()
         setupNavigation()
     }
 
@@ -54,31 +76,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     func set(vm: ArticleList) {
         viewModel = vm
-    }
-
-    private func setupTableView() {
-        tableView.tableFooterView = buildFooterView()
-
-        tableView.register(
-            UINib(nibName: "TimelineCell", bundle: nil),
-            forCellReuseIdentifier: "TimelineCell"
-        )
-        tableView.delegate = self
-        tableView.dataSource = self
-        refreshControll.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableView.refreshControl = refreshControll
-    }
-
-    private func buildFooterView() -> UIView {
-        let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-
-        footerIndicator.translatesAutoresizingMaskIntoConstraints = false
-        v.addSubview(footerIndicator)
-        footerIndicator.centerXAnchor.constraint(equalTo: v.centerXAnchor).isActive = true
-        footerIndicator.centerYAnchor.constraint(equalTo: v.centerYAnchor).isActive = true
-
-        return v
     }
 
     @objc
