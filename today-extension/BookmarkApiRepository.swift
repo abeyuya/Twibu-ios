@@ -6,7 +6,7 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
+import Embedded
 
 public enum BookmarkApiRepository {
     private static let endpoint = "https://asia-northeast1-twibu-c4d5a.cloudfunctions.net/execFetchTop"

@@ -8,9 +8,8 @@
 
 import Foundation
 import Embedded
-import FirebaseFirestore
 
-enum CommentDispatcher {
+public enum CommentDispatcher {
     private static func updateBookmarkComment(
         repo: CommentRepository,
         bookmarkUid: String,
@@ -66,7 +65,7 @@ enum CommentDispatcher {
         }
     }
 
-    static func fetchComments(repo: CommentRepository, buid: String, type: Repository.FetchType) {
+    public static func fetchComments(repo: CommentRepository, buid: String, type: Repository.FetchType) {
         let result = Repository.Result<[Comment]>(item: [], pagingInfo: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: buid,
@@ -92,7 +91,7 @@ enum CommentDispatcher {
         }
     }
 
-    static func updateAndFetchComments(
+    public static func updateAndFetchComments(
         repo: CommentRepository,
         buid: String,
         title: String,

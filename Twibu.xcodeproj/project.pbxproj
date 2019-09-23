@@ -38,8 +38,9 @@
 		4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */; };
 		4D3059532338A13B001F0605 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059522338A13B001F0605 /* CommentRepository.swift */; };
 		4D3059542338A40D001F0605 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
-		4D3059562338A436001F0605 /* FirestoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059552338A436001F0605 /* FirestoreRepository.swift */; };
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
+		4D3D26712338EE4A00BFD408 /* CommentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */; };
+		4D3D26722338EE7000BFD408 /* BookmarkApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
@@ -51,7 +52,6 @@
 		4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */; };
 		4D65094622BF5FD200BB0959 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094522BF5FD200BB0959 /* Store.swift */; };
 		4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */; };
-		4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */; };
 		4D72CED622E2DA1400E6AA66 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D72CED522E2DA1400E6AA66 /* NotificationCenter.framework */; };
 		4D72CED922E2DA1400E6AA66 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */; };
 		4D72CEDC22E2DA1400E6AA66 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CEDA22E2DA1400E6AA66 /* MainInterface.storyboard */; };
@@ -86,7 +86,6 @@
 		4DC5AD502337A745002BFE0D /* Twibuでコメントを読む.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */; };
 		4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685622C4D879007A9E68 /* String+Extension.swift */; };
-		4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */; };
 		4DD369D623376F8C00D2D10D /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5CFC8722D8BDDE00F33754 /* Timeline.swift */; };
 		4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
 		4DD369D92337703500D2D10D /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2E722F47DC200488B55 /* Memo.swift */; };
@@ -221,7 +220,6 @@
 		4D3059362338855A001F0605 /* CommentListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListProtocol.swift; sourceTree = "<group>"; };
 		4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentListViewModel.swift; sourceTree = "<group>"; };
 		4D3059522338A13B001F0605 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
-		4D3059552338A436001F0605 /* FirestoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRepository.swift; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
@@ -537,6 +535,13 @@
 			path = license;
 			sourceTree = "<group>";
 		};
+		4D3D266F2338EE0D00BFD408 /* dispatcher */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = dispatcher;
+			sourceTree = "<group>";
+		};
 		4D5A410322FC35D700AD1620 /* ArticleList */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,7 +563,6 @@
 		4D65092422BBDB3700BB0959 /* repository */ = {
 			isa = PBXGroup;
 			children = (
-				4D3059552338A436001F0605 /* FirestoreRepository.swift */,
 				4DEDF2E922F47E4900488B55 /* MemoRepository.swift */,
 				4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */,
 				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
@@ -660,10 +664,10 @@
 		4D65094E22BF8C1900BB0959 /* dispatcher */ = {
 			isa = PBXGroup;
 			children = (
+				4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */,
 				4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */,
 				4D65094F22BF8C7200BB0959 /* BookmarkDispatcher.swift */,
 				4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */,
-				4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */,
 				4DA1E5E522CBAEBC00320895 /* UserDispatcher.swift */,
 				4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */,
 				4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */,
@@ -685,6 +689,7 @@
 			children = (
 				4D72CF1E22E30A4B00E6AA66 /* cell */,
 				4D72CF0E22E2F37E00E6AA66 /* today-extension.entitlements */,
+				4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */,
 				4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */,
 				4D72CEDA22E2DA1400E6AA66 /* MainInterface.storyboard */,
 				4D72CEDD22E2DA1400E6AA66 /* Info.plist */,
@@ -726,6 +731,7 @@
 		4D72CF0A22E2E71000E6AA66 /* 2_usecase */ = {
 			isa = PBXGroup;
 			children = (
+				4D3D266F2338EE0D00BFD408 /* dispatcher */,
 				4D72CF0D22E2E79600E6AA66 /* repository */,
 			);
 			path = 2_usecase;
@@ -751,7 +757,6 @@
 		4D72CF0D22E2E79600E6AA66 /* repository */ = {
 			isa = PBXGroup;
 			children = (
-				4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */,
 				4D3059522338A13B001F0605 /* CommentRepository.swift */,
 			);
 			path = repository;
@@ -1291,6 +1296,7 @@
 				4DD369E02337730300D2D10D /* TwibuFirebaseCodable.swift in Sources */,
 				4D28F55322E494D000156445 /* Router.swift in Sources */,
 				4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */,
+				4D3D26712338EE4A00BFD408 /* CommentDispatcher.swift in Sources */,
 				4DD369DF233772B800D2D10D /* UIViewController+Extension.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */,
@@ -1312,7 +1318,6 @@
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
 				4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */,
 				4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */,
-				4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4DD369DC233770E900D2D10D /* MemoViewController.swift in Sources */,
@@ -1323,7 +1328,6 @@
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4D65093F22BEA11900BB0959 /* UIColor+Extension.swift in Sources */,
 				4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */,
-				4D3059562338A436001F0605 /* FirestoreRepository.swift in Sources */,
 				4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */,
 				4DD369D92337703500D2D10D /* Memo.swift in Sources */,
 				4D11150422B5160E000817BA /* AppDelegate.swift in Sources */,
@@ -1344,6 +1348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3D26722338EE7000BFD408 /* BookmarkApiRepository.swift in Sources */,
 				4D72CED922E2DA1400E6AA66 /* TodayViewController.swift in Sources */,
 				4D72CF2022E30A7100E6AA66 /* TodayCell.swift in Sources */,
 			);
@@ -1363,7 +1368,6 @@
 				4D3059542338A40D001F0605 /* Repository.swift in Sources */,
 				4D3059532338A13B001F0605 /* CommentRepository.swift in Sources */,
 				4D3059322337FE75001F0605 /* Comment.swift in Sources */,
-				4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */,
 				4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */,
 				4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */,
 				4D72CF1522E2FC4200E6AA66 /* Category.swift in Sources */,

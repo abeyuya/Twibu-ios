@@ -12,7 +12,6 @@ import FirebaseFunctions
 import Embedded
 
 final class CommentRepositoryFirestore: CommentRepository {
-
     static let shared = CommentRepositoryFirestore()
     private init() {}
 
@@ -82,7 +81,7 @@ final class CommentRepositoryFirestore: CommentRepository {
     }
 
     //
-    // NOTE: 検索で引っかかった分だけしか返さないので注意
+    // NOTE: 更新後の全てのコメントを返却する
     //
     func execUpdateBookmarkComment(
         bookmarkUid: String,
