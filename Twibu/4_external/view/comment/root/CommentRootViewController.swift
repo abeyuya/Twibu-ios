@@ -15,19 +15,6 @@ final class CommentRootViewController: UIViewController {
     private var pagingViewController: FixedPagingViewController!
     var bookmark: Bookmark!
 
-    enum CommentType {
-        case left, right
-
-        var title: String {
-            switch self {
-            case .left:
-                return "みんなのコメント"
-            case .right:
-                return "その他のツイート"
-            }
-        }
-    }
-
     static func build(bookmark: Bookmark) -> CommentRootViewController {
         let vc = CommentRootViewController()
         vc.bookmark = bookmark
@@ -66,8 +53,9 @@ final class CommentRootViewController: UIViewController {
 
     private func buildCommentVc(type: CommentType) -> UIViewController {
         let vc = CommentViewController.initFromStoryBoard()
-        vc.bookmark = bookmark
-        vc.commentType = type
+        let vm = FirestoreCommentListViewModel()
+        vm.set(delegate: vc, type: type, bookmark: bookmark)
+        vc.set(vm: vm)
         vc.title = type.title
         return vc
     }

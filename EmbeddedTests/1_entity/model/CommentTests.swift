@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Embedded
 @testable import Twibu
 
 class CommentTests: XCTestCase {
@@ -50,7 +51,7 @@ class CommentTests: XCTestCase {
 
         do {
             let result = try JSONDecoder().decode(
-                Comment.self,
+                Embedded.Comment.self,
                 from: json.data(using: .utf8)!
             )
             assert(result.id == "aaabbbb")

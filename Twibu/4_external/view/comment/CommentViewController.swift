@@ -16,61 +16,37 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet weak var tableview: UITableView!
 
     private let refreshControll = UIRefreshControl()
-
-    var bookmark: Bookmark?
-    var commentType: CommentRootViewController.CommentType = .left
-
     private var cellHeight: [IndexPath: CGFloat] = [:]
-    private var commentsResponse: Repository.Response<[Comment]> = .notYetLoading
-    private var currentUser: TwibuUser?
-    private var comments: [Comment] {
-        return commentsResponse.item ?? []
-    }
 
-    private var currentComments: [Comment] {
-        switch commentType {
-        case .left:
-            return comments.filter { $0.has_comment == true }
-        case .right:
-            return comments.filter { $0.has_comment == nil || $0.has_comment == false }
-        }
+    private var viewModel: CommentList!
+
+    func set(vm: CommentList) {
+        viewModel = vm
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupTableview()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        store.subscribe(self) { [weak self] subcription in
-            subcription.select { state in
-                let res: Repository.Response<[Comment]>? = {
-                    guard let buid = self?.bookmark?.uid else { return nil }
-                    guard let res = state.response.comments[buid] else { return nil }
-                    return res
-                }()
-
-                return Subscribe(res: res, currentUser: state.currentUser)
-            }
-        }
+        viewModel.startSubscribe()
 
         // 初回表示時に追加読み込みが必要ならする
-        if tableview.contentSize.height < tableview.frame.height, !currentComments.isEmpty {
-            fetchAdditionalComments()
+        if tableview.contentSize.height < tableview.frame.height, !viewModel.currentComments.isEmpty {
+            viewModel.fetchAdditionalComments()
         }
 
         AnalyticsDispatcer.logging(
             .commentShowTab,
-            param: ["comment_type": "\(commentType)"]
+            param: ["comment_type": "\(viewModel.commentType)"]
         )
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        store.unsubscribe(self)
+        viewModel.stopSubscribe()
     }
 
     private func setupTableview() {
@@ -88,47 +64,20 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         tableview.refreshControl = refreshControll
     }
 
-    private func fetchComments() {
-        guard let buid = bookmark?.uid, buid != "" else { return }
-        CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: buid, type: .new(limit: 100))
-    }
-
-    private func fetchAdditionalComments() {
-        switch commentsResponse {
-        case .loading(_):
-            return
-        case .notYetLoading:
-            // 来ないはず
-            return
-        case .failure(_):
-            return
-        case .success(let result):
-            guard let buid = bookmark?.uid, result.hasMore else {
-                return
-            }
-
-            CommentDispatcher.fetchComments(
-                db: TwibuFirebase.shared.firestore,
-                buid: buid,
-                type: .add(limit: 100, last: result.lastSnapshot)
-            )
-        }
-    }
-
     private func updateFooter(mode: CommentFooterView.Mode) {
         guard let t = tableview.tableFooterView as? CommentFooterView else { return }
 
-        if let url = bookmark?.twitterSearchUrl {
+        if let url = viewModel.bookmark?.twitterSearchUrl {
             t.set(mode: mode, url: url)
         }
     }
 
     @objc
     private func refresh() {
-        guard let b = bookmark else { return }
+        guard let b = viewModel.bookmark else { return }
 
-        guard currentUser?.isTwitterLogin == true else {
-            fetchComments()
+        guard viewModel.currentUser?.isTwitterLogin == true else {
+            viewModel.fetchComments()
             return
         }
 
@@ -144,10 +93,10 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         AnalyticsDispatcer.logging(
             .commentRefresh,
             param: [
-                "buid": bookmark?.uid ?? "error",
-                "url": bookmark?.url ?? "error",
-                "comment_count": bookmark?.comment_count ?? -1,
-                "comment_type": "\(commentType)"
+                "buid": viewModel.bookmark?.uid ?? "error",
+                "url": viewModel.bookmark?.url ?? "error",
+                "comment_count": viewModel.bookmark?.comment_count ?? -1,
+                "comment_type": "\(viewModel.commentType)"
             ]
         )
     }
@@ -177,7 +126,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
 
 extension CommentViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentComments.count
+        return viewModel.currentComments.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -185,16 +134,16 @@ extension CommentViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let c = currentComments[indexPath.row]
-        cell.set(bookmark: bookmark, comment: c)
+        let c = viewModel.currentComments[indexPath.row]
+        cell.set(bookmark: viewModel.bookmark, comment: c)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let c = currentComments[indexPath.row]
+        let c = viewModel.currentComments[indexPath.row]
         guard let url = c.tweetUrl else { return }
 
-        if currentUser?.isAdmin == true {
+        if viewModel.currentUser?.isAdmin == true {
             openAdminMenu(url: url, comment: c)
         } else {
             openExternalLink(url: url, comment: c)
@@ -243,7 +192,7 @@ extension CommentViewController {
 
         let share = UIAlertAction(title: "firestoreリンク", style: .default) { _ in
             let items: [Any] = {
-                guard let buid = self.bookmark?.uid,
+                guard let buid = self.viewModel.bookmark?.uid,
                     let furl = Comment.buildFirestoreDebugLink(buid: buid, cuid: comment.id) else {
                     return ["\(comment)"]
                 }
@@ -277,84 +226,18 @@ extension CommentViewController: UITableViewDelegate {
         // 無限スクロールするためのイベント発火
         let distanceToBottom = maxOffSet - currentPoint.y
         if distanceToBottom < 300 {
-            fetchAdditionalComments()
+            viewModel.fetchAdditionalComments()
             return
         }
     }
 }
 
-extension CommentViewController: StoreSubscriber {
-    struct Subscribe {
-        var res: Repository.Response<[Comment]>?
-        var currentUser: TwibuUser
-    }
-
-    typealias StoreSubscriberStateType = Subscribe
-
-    func newState(state: Subscribe) {
-        currentUser = state.currentUser
-
-        guard let res = state.res else {
-            // 初回取得前はここを通る
-            commentsResponse = .notYetLoading
-            render()
-            fetchComments()
-            return
-        }
-
-        guard isResponseChanged(old: commentsResponse, new: res) else {
-            return
-        }
-
-        commentsResponse = res
-
-        DispatchQueue.main.async {
-            self.render()
-        }
-    }
-
-    private func isResponseChanged(old: Repository.Response<[Comment]>, new: Repository.Response<[Comment]>) -> Bool {
-        switch old {
-        case .loading(_):
-            switch new {
-            case .loading(_):
-                return false
-            default:
-                return true
-            }
-        case .failure(_):
-            switch new {
-            case .failure(_):
-                return false
-            default:
-                return true
-            }
-        case .notYetLoading:
-            switch new {
-            case .notYetLoading:
-                return false
-            default:
-                return true
-            }
-        case .success(let oldResult):
-            switch new {
-            case .success(let newResult):
-                if Comment.isEqual(a: oldResult.item, b: newResult.item) {
-                    return false
-                }
-
-                return true
-            default:
-                return true
-            }
-        }
-    }
-
-    private func render() {
-        switch commentsResponse {
-        case .success(let result):
+extension CommentViewController: CommentListDelegate {
+    internal func render(state: CommentRenderState) {
+        switch state {
+        case .success(let hasMore):
             endRefreshController()
-            if result.hasMore {
+            if hasMore {
                 updateFooter(mode: .hide)
             } else {
                 updateFooter(mode: .finish)
@@ -364,8 +247,8 @@ extension CommentViewController: StoreSubscriber {
             endRefreshController()
             updateFooter(mode: .finish)
             showAlert(title: "Error", message: error.displayMessage)
-        case .loading(_):
-            guard currentComments.isEmpty else {
+        case .loading:
+            guard viewModel.currentComments.isEmpty else {
                 if refreshControll.isRefreshing {
                     updateFooter(mode: .hide)
                 } else {
@@ -379,7 +262,7 @@ extension CommentViewController: StoreSubscriber {
         case .notYetLoading:
             endRefreshController()
             updateFooter(mode: .hide)
-            fetchComments()
+            viewModel.fetchComments()
         }
     }
 }

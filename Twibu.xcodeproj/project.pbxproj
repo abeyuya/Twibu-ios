@@ -32,11 +32,14 @@
 		4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F54E22E48FCB00156445 /* Encodable+Extension.swift */; };
 		4D28F55122E4900700156445 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F55022E4900700156445 /* Dictionary+Extension.swift */; };
 		4D28F55322E494D000156445 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F55222E494D000156445 /* Router.swift */; };
+		4D3059322337FE75001F0605 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
+		4D3059342337FE9A001F0605 /* Comment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059332337FE9A001F0605 /* Comment+Extension.swift */; };
+		4D3059372338855A001F0605 /* CommentListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059362338855A001F0605 /* CommentListProtocol.swift */; };
+		4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */; };
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
-		4D65092622BBDB5900BB0959 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
 		4D65092A22BBDCC400BB0959 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092922BBDCC400BB0959 /* CommentRepository.swift */; };
 		4D65093422BE43CD00BB0959 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093322BE43CD00BB0959 /* RootViewController.swift */; };
 		4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093522BE445E00BB0959 /* LaunchingViewController.swift */; };
@@ -212,6 +215,9 @@
 		4D28F54E22E48FCB00156445 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
 		4D28F55022E4900700156445 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		4D28F55222E494D000156445 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		4D3059332337FE9A001F0605 /* Comment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment+Extension.swift"; sourceTree = "<group>"; };
+		4D3059362338855A001F0605 /* CommentListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListProtocol.swift; sourceTree = "<group>"; };
+		4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentListViewModel.swift; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
@@ -435,7 +441,6 @@
 		4D11151722B5160F000817BA /* TwibuTests */ = {
 			isa = PBXGroup;
 			children = (
-				4D0CE0DF22C36A7000FC33FA /* 1_entity */,
 				4D11151822B5160F000817BA /* TwibuTests.swift */,
 				4D11151A22B5160F000817BA /* Info.plist */,
 			);
@@ -447,7 +452,6 @@
 			children = (
 				4D11152B22B531E8000817BA /* Device.swift */,
 				4D65093C22BE625300BB0959 /* Const.swift */,
-				4D65092522BBDB5800BB0959 /* Comment.swift */,
 				4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */,
 				4D5CFC8722D8BDDE00F33754 /* Timeline.swift */,
 				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
@@ -455,6 +459,7 @@
 				4DF258E122FB18AB00AC2329 /* History.swift */,
 				4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */,
 				4DD369E12337731300D2D10D /* Bookmark+Extension.swift */,
+				4D3059332337FE9A001F0605 /* Comment+Extension.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -510,6 +515,15 @@
 				4D65094722BF698700BB0959 /* Array+Extension.swift */,
 			);
 			path = extension;
+			sourceTree = "<group>";
+		};
+		4D30593523388546001F0605 /* CommentList */ = {
+			isa = PBXGroup;
+			children = (
+				4D3059362338855A001F0605 /* CommentListProtocol.swift */,
+				4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */,
+			);
+			path = CommentList;
 			sourceTree = "<group>";
 		};
 		4D37812222CCF8060072EEBD /* license */ = {
@@ -604,6 +618,7 @@
 		4D65094222BF5E2D00BB0959 /* 3_interface */ = {
 			isa = PBXGroup;
 			children = (
+				4D30593523388546001F0605 /* CommentList */,
 				4D5A410322FC35D700AD1620 /* ArticleList */,
 			);
 			path = 3_interface;
@@ -688,6 +703,7 @@
 		4D72CEF822E2E07B00E6AA66 /* EmbeddedTests */ = {
 			isa = PBXGroup;
 			children = (
+				4D0CE0DF22C36A7000FC33FA /* 1_entity */,
 				4D72CEF922E2E07B00E6AA66 /* EmbeddedTests.swift */,
 				4D72CEFB22E2E07B00E6AA66 /* Info.plist */,
 			);
@@ -742,6 +758,7 @@
 				4D65092E22BE213400BB0959 /* Error.swift */,
 				4D11154822B69E15000817BA /* Bookmark.swift */,
 				4D65092C22BE01D500BB0959 /* Category.swift */,
+				4D65092522BBDB5800BB0959 /* Comment.swift */,
 				4D65093022BE25CA00BB0959 /* Env.swift */,
 				4D11153122B547F8000817BA /* Result.swift */,
 			);
@@ -1261,12 +1278,12 @@
 				4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */,
 				4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */,
 				4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */,
+				4D3059372338855A001F0605 /* CommentListProtocol.swift in Sources */,
 				4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */,
 				4D11154C22B6A648000817BA /* WebViewController.swift in Sources */,
 				4D11152F22B545FF000817BA /* UserRepository.swift in Sources */,
 				4DD369E02337730300D2D10D /* TwibuFirebaseCodable.swift in Sources */,
 				4D28F55322E494D000156445 /* Router.swift in Sources */,
-				4D65092622BBDB5900BB0959 /* Comment.swift in Sources */,
 				4DD2685722C4D879007A9E68 /* String+Extension.swift in Sources */,
 				4DD369D823376FEE00D2D10D /* Repository.swift in Sources */,
 				4DD369DF233772B800D2D10D /* UIViewController+Extension.swift in Sources */,
@@ -1285,9 +1302,11 @@
 				4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */,
 				4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */,
 				4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */,
+				4D3059342337FE9A001F0605 /* Comment+Extension.swift in Sources */,
 				4DD369E22337731300D2D10D /* Bookmark+Extension.swift in Sources */,
 				4D04E21122BA9AAC00995026 /* CommentTableViewCell.swift in Sources */,
 				4DB1B4C122D0EA330013C198 /* CommentRootViewController.swift in Sources */,
+				4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */,
 				4D65095222BFB5CE00BB0959 /* CommentDispatcher.swift in Sources */,
 				4D04E20C22BA982C00995026 /* CommentViewController.swift in Sources */,
 				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
@@ -1335,6 +1354,7 @@
 				4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */,
 				4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */,
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,
+				4D3059322337FE75001F0605 /* Comment.swift in Sources */,
 				4DD369D523376BC600D2D10D /* BookmarkApiRepository.swift in Sources */,
 				4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */,
 				4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */,

@@ -345,7 +345,7 @@ extension CategoryViewController: ArticleListDelegate {
         tableView.reloadRows(at: indexPaths, with: .none)
     }
 
-    func render(state: RenderState) {
+    func render(state: ArticleRenderState) {
         switch state {
         case .success(let hasMore):
             self.endRefreshController()

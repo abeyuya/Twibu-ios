@@ -7,30 +7,28 @@
 //
 
 import Foundation
-import FirebaseFirestore
-import Embedded
 
-struct Comment: TwibuFirestoreCodable {
-    let id: String
-    let text: String
-    let user: User
-    let favorite_count: Int
-    let retweet_count: Int
-    let tweet_at: String
-    let created_at: Int?
-    let updated_at: Int?
-    let parsed_comment: [TextBlock]?
-    let has_comment: Bool?
+public struct Comment: Codable {
+    public let id: String
+    public let text: String
+    public let user: User
+    public let favorite_count: Int
+    public let retweet_count: Int
+    public let tweet_at: String
+    public let created_at: Int?
+    public let updated_at: Int?
+    public let parsed_comment: [TextBlock]?
+    public let has_comment: Bool?
 
-    struct User: Codable {
-        let twitter_user_id: String
-        let name: String
-        let profile_image_url: String
-        let screen_name: String
-        let verified: Bool?
+    public struct User: Codable {
+        public let twitter_user_id: String
+        public let name: String
+        public let profile_image_url: String
+        public let screen_name: String
+        public let verified: Bool?
     }
 
-    enum TextBlockType: String, Codable {
+    public enum TextBlockType: String, Codable {
         case unknown = "unknown"
         case comment = "comment"
         case title = "title"
@@ -44,11 +42,11 @@ struct Comment: TwibuFirestoreCodable {
         case error = "error" // サーバ側で新しいtypeが追加された時に使う
     }
 
-    struct TextBlock: Codable {
-        let type: TextBlockType
-        let text: String
+    public struct TextBlock: Codable {
+        public let type: TextBlockType
+        public let text: String
 
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             type = {
                 guard let typeRawValue = try? container.decode(String.self, forKey: .type) else { return .error }
@@ -59,13 +57,13 @@ struct Comment: TwibuFirestoreCodable {
         }
     }
 
-    var tweetUrl: URL? {
+    public var tweetUrl: URL? {
         let str = "https://twitter.com/\(user.screen_name)/status/\(id)"
         return URL(string: str)
     }
 }
 
-extension Comment {
+public extension Comment {
     // 古いものを新しいもので置き換えつつ合体する
     static func merge(base: [Comment], add: [Comment]) -> [Comment] {
         var result = base
@@ -98,12 +96,12 @@ extension Comment {
 }
 
 extension Comment: Equatable {
-    static func == (lhs: Comment, rhs: Comment) -> Bool {
+    public static func == (lhs: Comment, rhs: Comment) -> Bool {
         return lhs.id == rhs.id && lhs.updated_at == rhs.updated_at
     }
 }
 
-extension Comment {
+public extension Comment {
     static func buildFirestoreDebugLink(buid: String, cuid: String) -> URL? {
         let str = "https://console.firebase.google.com/project/twibu-c4d5a/database/firestore/data~2Fbookmarks~2F\(buid)~2Fcomments~2F\(cuid)"
 

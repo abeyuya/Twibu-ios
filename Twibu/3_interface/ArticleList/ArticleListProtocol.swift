@@ -8,7 +8,7 @@
 
 import Embedded
 
-enum RenderState {
+enum ArticleRenderState {
     case success(hasMore: Bool), failure(error: TwibuError), loading, notYetLoading
 }
 
@@ -18,7 +18,7 @@ enum ArticleListType {
 }
 
 protocol ArticleListDelegate: class {
-    func render(state: RenderState)
+    func render(state: ArticleRenderState)
     func update(results: [(String, WebArchiver.SaveResult)])
 }
 

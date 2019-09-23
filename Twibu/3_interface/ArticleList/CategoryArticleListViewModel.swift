@@ -68,17 +68,12 @@ extension CategoryArticleListViewModel {
             }
         }()
 
-        switch category {
-//        case .history:
-//            BookmarkDispatcher.fetchHistory(offset: 0)
-        default:
-            BookmarkDispatcher.fetchBookmark(
-                category: category,
-                uid: uid,
-                type: .new(limit: limit),
-                commentCountOffset: category == .all ? 20 : 0
-            ) { _ in }
-        }
+        BookmarkDispatcher.fetchBookmark(
+            category: category,
+            uid: uid,
+            type: .new(limit: limit),
+            commentCountOffset: category == .all ? 20 : 0
+        ) { _ in }
     }
 
     func fetchAdditionalBookmarks() {
@@ -189,7 +184,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         return b.filter { changedUids.contains($0.0) }
     }
 
-    private func convert(_ res: Repository.Response<[Bookmark]>) -> RenderState {
+    private func convert(_ res: Repository.Response<[Bookmark]>) -> ArticleRenderState {
         switch res {
         case .success(let result):
             return .success(hasMore: result.hasMore)
