@@ -5,10 +5,15 @@ use_frameworks!
 # 共通のpod
 #
 pod 'Kingfisher'
+pod 'Parchment'
+pod 'SwiftIcons'
 
 #
 # 各自必要なpod
 #
+target 'Embedded' do
+end
+
 target 'today-extension' do
 end
 
@@ -31,8 +36,6 @@ target 'Twibu' do
   pod 'UITextView+Placeholder'
   pod 'RealmSwift'
   pod 'ReSwift'
-  pod 'Parchment' # tab menu
-  pod 'SwiftIcons'
   pod 'BadgeSwift'
   pod 'LicensePlist'
   pod 'PKHUD'

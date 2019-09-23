@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension URL {
+public extension URL {
     func queryParams() -> [String : String] {
         var params = [String : String]()
 

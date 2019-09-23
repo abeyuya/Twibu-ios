@@ -39,7 +39,7 @@ private extension UIColor {
     }
 }
 
-extension UIColor {
+public extension UIColor {
     class var twitter: UIColor {
         return .rgba(red: 85, green: 172, blue: 238, alpha: 1)
     }

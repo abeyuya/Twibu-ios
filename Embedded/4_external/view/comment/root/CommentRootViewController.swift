@@ -8,19 +8,18 @@
 
 import UIKit
 import Parchment
-import Embedded
 
-final class CommentRootViewController: UIViewController {
+final public class CommentRootViewController<T: CommentList>: UIViewController {
     private var pagingViewController: FixedPagingViewController!
     var bookmark: Bookmark!
 
-    static func build(bookmark: Bookmark) -> CommentRootViewController {
+    public static func build(bookmark: Bookmark) -> CommentRootViewController {
         let vc = CommentRootViewController()
         vc.bookmark = bookmark
         return vc
     }
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         setupPaging()
     }
@@ -52,7 +51,7 @@ final class CommentRootViewController: UIViewController {
 
     private func buildCommentVc(type: CommentType) -> UIViewController {
         let vc = CommentViewController.initFromStoryBoard()
-        let vm = FirestoreCommentListViewModel()
+        let vm = T.init()
         vm.set(delegate: vc, type: type, bookmark: bookmark)
         vc.set(vm: vm)
         vc.title = type.title

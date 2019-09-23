@@ -6,17 +6,19 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Embedded
+import Foundation
 
-enum CommentRenderState {
+public enum CommentRenderState {
     case success(hasMore: Bool), failure(error: TwibuError), loading, notYetLoading
 }
 
-protocol CommentListDelegate: class {
+public protocol CommentListDelegate: class {
     func render(state: CommentRenderState)
+    func openAdminMenu(comment: Comment)
+    func openExternalLink(comment: Comment)
 }
 
-enum CommentType {
+public enum CommentType {
     case left, right
 
     var title: String {
@@ -29,12 +31,13 @@ enum CommentType {
     }
 }
 
-protocol CommentList {
+public protocol CommentList {
     var delegate: CommentListDelegate? { get }
-    var currentUser: TwibuUser? { get }
     var bookmark: Bookmark? { get }
     var commentType: CommentType { get }
     var currentComments: [Comment] { get }
+
+    init()
 
     // input
     func set(delegate: CommentListDelegate, type: CommentType, bookmark: Bookmark)
@@ -42,4 +45,5 @@ protocol CommentList {
     func stopSubscribe()
     func fetchComments()
     func fetchAdditionalComments()
+    func didTapComment(comment: Comment)
 }

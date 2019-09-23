@@ -8,7 +8,6 @@
 
 import UIKit
 import SafariServices
-import Embedded
 
 final class CommentFooterView: UIView {
     @IBOutlet private weak var indicator: UIActivityIndicatorView! {
@@ -38,6 +37,7 @@ final class CommentFooterView: UIView {
     }
 
     private var url: URL?
+    private var tapAction: () -> Void = {}
 
     enum Mode {
         case hasMore, finish, hide
@@ -63,8 +63,9 @@ final class CommentFooterView: UIView {
         self.addSubview(view)
     }
 
-    func set(mode: Mode, url: URL) {
+    func set(mode: Mode, url: URL, tapAction: @escaping () -> Void) {
         self.url = url
+        self.tapAction = tapAction
 
         defer {
             setNeedsLayout()
@@ -86,13 +87,6 @@ final class CommentFooterView: UIView {
 
     @objc
     private func tapShowTwitterButton() {
-        guard let url = url else { return }
-        let vc = SFSafariViewController(url: url)
-        Router.shared.topViewController(vc: nil)?.present(vc, animated: true)
-
-        AnalyticsDispatcer.logging(
-            .showMoreTwitterTap,
-            param: ["url": url]
-        )
+        tapAction()
     }
 }

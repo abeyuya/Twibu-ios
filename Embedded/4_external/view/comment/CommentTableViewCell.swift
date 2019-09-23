@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftIcons
-import Embedded
+import Kingfisher
 
 final class CommentTableViewCell: UITableViewCell {
     @IBOutlet private weak var profileImageView: UIImageView! {

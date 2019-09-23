@@ -96,6 +96,14 @@ extension FirestoreCommentListViewModel {
             )
         }
     }
+
+    func didTapComment(comment: Comment) {
+        if currentUser?.isAdmin == true {
+            delegate?.openAdminMenu(comment: comment)
+        } else {
+            delegate?.openExternalLink(comment: comment)
+        }
+    }
 }
 
 extension FirestoreCommentListViewModel: StoreSubscriber {

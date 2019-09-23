@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     // 結構重いので使わないようにしている
     init?(htmlEncodedString: String) {
         guard let data = htmlEncodedString.data(using: .utf8) else {

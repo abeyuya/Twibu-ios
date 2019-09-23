@@ -38,7 +38,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }()
 
     private lazy var commentContainerView: UIView = {
-        let vc = CommentRootViewController.build(bookmark: bookmark)
+        let vc = CommentRootViewController<FirestoreCommentListViewModel>.build(bookmark: bookmark)
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
 

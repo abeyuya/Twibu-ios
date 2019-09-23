@@ -8,7 +8,6 @@
 
 import UIKit
 import SafariServices
-import Embedded
 
 final class CommentViewController: UIViewController, StoryboardInstantiatable {
     @IBOutlet private weak var tableview: UITableView! {
@@ -19,7 +18,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             tableview.delegate = self
             tableview.dataSource = self
             tableview.register(
-                UINib(nibName: "CommentTableViewCell", bundle: nil),
+                UINib(nibName: "CommentTableViewCell", bundle: Bundle(for: Self.self)),
                 forCellReuseIdentifier: "CommentTableViewCell"
             )
             tableview.refreshControl = refreshControll
@@ -47,11 +46,6 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         if tableview.contentSize.height < tableview.frame.height, !viewModel.currentComments.isEmpty {
             viewModel.fetchAdditionalComments()
         }
-
-        AnalyticsDispatcer.logging(
-            .commentShowTab,
-            param: ["comment_type": "\(viewModel.commentType)"]
-        )
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -63,7 +57,10 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         guard let t = tableview.tableFooterView as? CommentFooterView else { return }
 
         if let url = viewModel.bookmark?.twitterSearchUrl {
-            t.set(mode: mode, url: url)
+            t.set(mode: mode, url: url) {
+                let vc = SFSafariViewController(url: url)
+                self.topViewController(vc: nil)?.present(vc, animated: true)
+            }
         }
     }
 
@@ -112,13 +109,7 @@ extension CommentViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let c = viewModel.currentComments[indexPath.row]
-        guard let url = c.tweetUrl else { return }
-
-        if viewModel.currentUser?.isAdmin == true {
-            openAdminMenu(url: url, comment: c)
-        } else {
-            openExternalLink(url: url, comment: c)
-        }
+        viewModel.didTapComment(comment: c)
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -132,61 +123,6 @@ extension CommentViewController: UITableViewDataSource {
         if self.cellHeight.keys.contains(indexPath) == false {
             self.cellHeight[indexPath] = cell.frame.height
         }
-    }
-}
-
-private extension CommentViewController {
-    private func openExternalLink(url: URL, comment: Comment) {
-        DispatchQueue.main.async {
-            let vc = SFSafariViewController(url: url)
-
-            if let nav = self.navigationController {
-                nav.pushViewController(vc, animated: true)
-                return
-            }
-
-            self.topViewController(vc: nil)?.present(vc, animated: true)
-        }
-    }
-
-    private func topViewController(vc: UIViewController?) -> UIViewController? {
-        guard let vc = vc ?? UIApplication.shared.keyWindow?.rootViewController else { return nil }
-        if let presented = vc.presentedViewController {
-            return topViewController(vc: presented)
-        }
-        return vc
-    }
-
-    private func openAdminMenu(url: URL, comment: Comment) {
-        let sheet = UIAlertController(
-            title: "管理者メニュー",
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-
-        let share = UIAlertAction(title: "firestoreリンク", style: .default) { _ in
-            let items: [Any] = {
-                guard let buid = self.viewModel.bookmark?.uid,
-                    let furl = Comment.buildFirestoreDebugLink(buid: buid, cuid: comment.id) else {
-                    return ["\(comment)"]
-                }
-                return [furl, "```\n\(comment)\n```"]
-            }()
-
-            let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
-            self.present(vc, animated: true)
-        }
-
-        let normal = UIAlertAction(title: "通常ユーザの挙動", style: .default) { _ in
-            self.openExternalLink(url: url, comment: comment)
-        }
-
-        let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { _ in }
-
-        sheet.addAction(share)
-        sheet.addAction(normal)
-        sheet.addAction(cancel)
-        present(sheet, animated: true)
     }
 }
 
@@ -207,6 +143,60 @@ extension CommentViewController: UITableViewDelegate {
 }
 
 extension CommentViewController: CommentListDelegate {
+    func openExternalLink(comment: Comment) {
+        guard let url = comment.tweetUrl else { return }
+        DispatchQueue.main.async {
+            let vc = SFSafariViewController(url: url)
+
+            if let nav = self.navigationController {
+                nav.pushViewController(vc, animated: true)
+                return
+            }
+
+            self.topViewController(vc: nil)?.present(vc, animated: true)
+        }
+    }
+
+    private func topViewController(vc: UIViewController?) -> UIViewController? {
+        guard let vc = vc ?? UIApplication.shared.keyWindow?.rootViewController else { return nil }
+        if let presented = vc.presentedViewController {
+            return topViewController(vc: presented)
+        }
+        return vc
+    }
+
+    func openAdminMenu(comment: Comment) {
+        let sheet = UIAlertController(
+            title: "管理者メニュー",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        let share = UIAlertAction(title: "firestoreリンク", style: .default) { _ in
+            let items: [Any] = {
+                guard let buid = self.viewModel.bookmark?.uid,
+                    let furl = Comment.buildFirestoreDebugLink(buid: buid, cuid: comment.id) else {
+                        return ["\(comment)"]
+                }
+                return [furl, "```\n\(comment)\n```"]
+            }()
+
+            let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            self.present(vc, animated: true)
+        }
+
+        let normal = UIAlertAction(title: "通常ユーザの挙動", style: .default) { _ in
+            self.openExternalLink(comment: comment)
+        }
+
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { _ in }
+
+        sheet.addAction(share)
+        sheet.addAction(normal)
+        sheet.addAction(cancel)
+        present(sheet, animated: true)
+    }
+
     internal func render(state: CommentRenderState) {
         switch state {
         case .success(let hasMore):

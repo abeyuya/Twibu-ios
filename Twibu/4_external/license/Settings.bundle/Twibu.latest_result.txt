@@ -134,6 +134,10 @@ name: Kingfisher, nameSpecified:
 body: The MIT License (MIT…
 version: 5.7.1
 
+name: Kingfisher, nameSpecified: 
+body: The MIT License (MIT…
+version: 5.7.1
+
 name: leveldb-library, nameSpecified: 
 body: Copyright (c) 2011 T…
 version: 1.22
@@ -147,6 +151,18 @@ version: 2.5.8
 name: nanopb, nameSpecified: 
 body: Copyright (c) 2011 P…
 version: 0.3.901
+
+name: Parchment, nameSpecified: 
+body: The MIT License (MIT…
+version: 1.6.0
+
+name: Parchment, nameSpecified: 
+body: The MIT License (MIT…
+version: 1.6.0
+
+name: Parchment, nameSpecified: 
+body: The MIT License (MIT…
+version: 1.6.0
 
 name: Parchment, nameSpecified: 
 body: The MIT License (MIT…
@@ -185,6 +201,18 @@ version: 3.18.0
 name: ReSwift, nameSpecified: 
 body: The MIT License (MIT…
 version: 5.0.0
+
+name: SwiftIcons, nameSpecified: 
+body: The MIT License (MIT…
+version: 2.3.2
+
+name: SwiftIcons, nameSpecified: 
+body: The MIT License (MIT…
+version: 2.3.2
+
+name: SwiftIcons, nameSpecified: 
+body: The MIT License (MIT…
+version: 2.3.2
 
 name: SwiftIcons, nameSpecified: 
 body: The MIT License (MIT…
