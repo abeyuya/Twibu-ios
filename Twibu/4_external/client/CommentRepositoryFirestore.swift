@@ -11,20 +11,22 @@ import FirebaseFirestore
 import FirebaseFunctions
 import Embedded
 
-enum CommentRepositoryFirestore: CommentRepository {
-    typealias Info = FirestoreRepositoryPagingInfo
+final class CommentRepositoryFirestore: CommentRepository {
 
-    static func fetchBookmarkComment(
+    static let shared = CommentRepositoryFirestore()
+    private init() {}
+
+    func fetchBookmarkComment(
         bookmarkUid: String,
-        type: FirestoreRepo.FetchType,
-        completion: @escaping ((FirestoreRepo.Response<[Comment]>) -> Void)
+        type: Repository.FetchType,
+        completion: @escaping ((Repository.Response<[Comment]>) -> Void)
     ) {
         guard Auth.auth().currentUser != nil else {
             completion(.failure(.needFirebaseAuth("need firebase login")))
             return
         }
 
-        buildQuery(bookmarkUid: bookmarkUid, type: type)
+        CommentRepositoryFirestore.buildQuery(bookmarkUid: bookmarkUid, type: type)
             .getDocuments() { snapshot, error in
                 if let error = error {
                     completion(.failure(.firestoreError(error.localizedDescription)))
@@ -37,18 +39,18 @@ enum CommentRepositoryFirestore: CommentRepository {
                 }
 
                 let comments = snapshot.documents.compactMap { Comment(dictionary: $0.data()) }
-                let result: Repository<FirestoreRepositoryPagingInfo>.Result<[Comment]> = {
+                let result: Repository.Result<[Comment]> = {
                     guard let last = snapshot.documents.last else {
-                        return Repository<FirestoreRepositoryPagingInfo>.Result<[Comment]>(
+                        return Repository.Result<[Comment]>(
                             item: comments,
                             pagingInfo: nil,
                             hasMore: false
                         )
                     }
 
-                    return Repository<FirestoreRepositoryPagingInfo>.Result<[Comment]>(
+                    return Repository.Result<[Comment]>(
                         item: comments,
-                        pagingInfo: FirestoreRepositoryPagingInfo(lastSnapshot: last),
+                        pagingInfo: RepositoryPagingInfo(lastSnapshot: last),
                         hasMore: !snapshot.documents.isEmpty
                     )
                 }()
@@ -57,7 +59,10 @@ enum CommentRepositoryFirestore: CommentRepository {
         }
     }
 
-    private static func buildQuery(bookmarkUid: String, type: FirestoreRepo.FetchType) -> Query {
+    private static func buildQuery(
+        bookmarkUid: String,
+        type: Repository.FetchType
+    ) -> Query {
         let q = TwibuFirebase.shared.firestore
             .collection("bookmarks")
             .document(bookmarkUid)
@@ -68,10 +73,9 @@ enum CommentRepositoryFirestore: CommentRepository {
         case .new(let limit):
             return q.limit(to: limit)
         case .add(let (limit, info)):
-            guard let i = info as? FirestoreRepositoryPagingInfo,
-                let d = i.lastSnapshot else {
-                    // スナップショットが無い場合は先頭から取得
-                    return q.limit(to: limit)
+            guard let d = info?.lastSnapshot as? DocumentSnapshot else {
+                // スナップショットが無い場合は先頭から取得
+                return q.limit(to: limit)
             }
             return q.start(afterDocument: d).limit(to: limit)
         }
@@ -80,8 +84,7 @@ enum CommentRepositoryFirestore: CommentRepository {
     //
     // NOTE: 検索で引っかかった分だけしか返さないので注意
     //
-    static func execUpdateBookmarkComment(
-        functions: Functions,
+    func execUpdateBookmarkComment(
         bookmarkUid: String,
         title: String,
         url: String,
@@ -93,31 +96,33 @@ enum CommentRepositoryFirestore: CommentRepository {
             "url": url
         ]
 
-        functions.httpsCallable("execCreateOrUpdateBookmarkComment").call(param) { result, error in
-            if let error = error {
-                completion(.failure(.firestoreError(error.localizedDescription)))
-                return
-            }
+        TwibuFirebase.shared.functions
+            .httpsCallable("execCreateOrUpdateBookmarkComment")
+            .call(param) { result, error in
+                if let error = error {
+                    completion(.failure(.firestoreError(error.localizedDescription)))
+                    return
+                }
 
-            guard let res = result?.data as? [String: Any] else {
-                completion(.failure(.firestoreError("")))
-                return
-            }
+                guard let res = result?.data as? [String: Any] else {
+                    completion(.failure(.firestoreError("")))
+                    return
+                }
 
-            guard let rawComments = res["comments"] as? [[String: Any]] else {
-                completion(.failure(.firestoreError("")))
-                return
-            }
+                guard let rawComments = res["comments"] as? [[String: Any]] else {
+                    completion(.failure(.firestoreError("")))
+                    return
+                }
 
-            let comments = rawComments.compactMap { Comment(dictionary: $0) }
+                let comments = rawComments.compactMap { Comment(dictionary: $0) }
 
-            // NOTE: APIリミットエラーとかでも0件で返ってくるので、0件はエラーとして扱う
-            if comments.isEmpty {
-                completion(.failure(.firestoreError("response comments is empty")))
-                return
-            }
+                // NOTE: APIリミットエラーとかでも0件で返ってくるので、0件はエラーとして扱う
+                if comments.isEmpty {
+                    completion(.failure(.firestoreError("response comments is empty")))
+                    return
+                }
 
-            completion(.success(comments))
+                completion(.success(comments))
         }
     }
 }

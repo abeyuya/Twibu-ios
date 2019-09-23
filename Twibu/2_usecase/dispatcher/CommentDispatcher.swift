@@ -8,33 +8,31 @@
 
 import Foundation
 import Embedded
-import FirebaseFunctions
 import FirebaseFirestore
 
 enum CommentDispatcher {
     private static func updateBookmarkComment(
-        functions: Functions,
+        repo: CommentRepository,
         bookmarkUid: String,
         title: String,
         url: String,
         completion: @escaping (Result<[Comment]>) -> Void
     ) {
-        let dummyResult = FirestoreRepo.Result<[Comment]>(item: [], pagingInfo: nil, hasMore: false)
+        let dummyResult = Repository.Result<[Comment]>(item: [], pagingInfo: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: bookmarkUid,
             comments: .loading(dummyResult)
         )
         store.mDispatch(startLoadingAction)
 
-        CommentRepositoryFirestore.execUpdateBookmarkComment(
-            functions: functions,
+        repo.execUpdateBookmarkComment(
             bookmarkUid: bookmarkUid,
             title: title,
             url: url
         ) { res in
             switch res {
             case .success(let comments):
-                let result = FirestoreRepo.Result<[Comment]>(
+                let result = Repository.Result<[Comment]>(
                     item: comments,
                     pagingInfo: nil,
                     hasMore: true
@@ -68,15 +66,15 @@ enum CommentDispatcher {
         }
     }
 
-    static func fetchComments(buid: String, type: FirestoreRepo.FetchType) {
-        let result = FirestoreRepo.Result<[Comment]>(item: [], pagingInfo: nil, hasMore: false)
+    static func fetchComments(repo: CommentRepository, buid: String, type: Repository.FetchType) {
+        let result = Repository.Result<[Comment]>(item: [], pagingInfo: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: buid,
             comments: .loading(result)
         )
         store.mDispatch(startLoadingAction)
 
-        CommentRepositoryFirestore.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
+        repo.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
             let a = AddCommentsAction(
                 bookmarkUid: buid,
                 comments: result
@@ -95,13 +93,18 @@ enum CommentDispatcher {
     }
 
     static func updateAndFetchComments(
-        functions: Functions,
+        repo: CommentRepository,
         buid: String,
         title: String,
         url: String,
-        type: FirestoreRepo.FetchType
+        type: Repository.FetchType
     ) {
-        updateBookmarkComment(functions: functions, bookmarkUid: buid, title: title, url: url) { result in
+        updateBookmarkComment(
+            repo: repo,
+            bookmarkUid: buid,
+            title: title,
+            url: url
+        ) { result in
             switch result {
             case .failure(let error):
                 Logger.print(error)
@@ -110,7 +113,7 @@ enum CommentDispatcher {
                 break
             }
 
-            fetchComments(buid: buid, type: type)
+            fetchComments(repo: repo, buid: buid, type: type)
         }
     }
 }

@@ -6,9 +6,15 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-public protocol RepositoryPagingInfo {}
+// NOTE: firestoreの依存性を持ち込まないためにAnyにしているけど、どうにかしたい
+public struct RepositoryPagingInfo {
+    public var lastSnapshot: Any?
+    public init(lastSnapshot: Any?) {
+        self.lastSnapshot = lastSnapshot
+    }
+}
 
-public struct Repository<P: RepositoryPagingInfo> {
+public enum Repository {
     public enum FetchType {
         case new(limit: Int)
         case add(limit: Int, pagingInfo: RepositoryPagingInfo?)
@@ -23,10 +29,10 @@ public struct Repository<P: RepositoryPagingInfo> {
 
     public struct Result<T> {
         public let item: T
-        public let pagingInfo: P?
+        public let pagingInfo: RepositoryPagingInfo?
         public let hasMore: Bool
 
-        public init(item: T, pagingInfo: P?, hasMore: Bool) {
+        public init(item: T, pagingInfo: RepositoryPagingInfo?, hasMore: Bool) {
             self.item = item
             self.pagingInfo = pagingInfo
             self.hasMore = hasMore

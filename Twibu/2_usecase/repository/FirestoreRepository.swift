@@ -1,5 +1,5 @@
 //
-//  FirestoreRepositoryPagingInfo.swift
+//  RepositorysitoryPagingInfo.swift
 //  Twibu
 //
 //  Created by abeyuya on 2019/09/23.
@@ -9,8 +9,12 @@
 import Embedded
 import FirebaseFirestore
 
-struct FirestoreRepositoryPagingInfo: RepositoryPagingInfo {
-    let lastSnapshot: DocumentSnapshot?
-}
-
-typealias FirestoreRepo = Repository<FirestoreRepositoryPagingInfo>
+//class RepositorysitoryPagingInfo: RepositoryPagingInfo {
+//    let lastSnapshot: DocumentSnapshot?
+//
+//    required init(lastSnapshot: DocumentSnapshot?) {
+//        self.lastSnapshot = lastSnapshot
+//    }
+//}
+//
+//typealias Repository = Repository<RepositorysitoryPagingInfo>

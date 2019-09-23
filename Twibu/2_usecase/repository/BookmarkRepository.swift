@@ -15,9 +15,9 @@ enum BookmarkRepository {
         db: Firestore,
         category: Embedded.Category,
         uid: String,
-        type: FirestoreRepo.FetchType,
+        type: Repository.FetchType,
         commentCountOffset: Int,
-        completion: @escaping (FirestoreRepo.Response<[Bookmark]>) -> Void
+        completion: @escaping (Repository.Response<[Bookmark]>) -> Void
     ) {
         if category == .timeline {
             fetchTimelineBookmarks(db: db, uid: uid, type: type, completion: completion)
@@ -57,7 +57,7 @@ enum BookmarkRepository {
                 return filterOut(bookmarks: filtered)
             }()
 
-            let result: FirestoreRepo.Result<[Bookmark]> = {
+            let result: Repository.Result<[Bookmark]> = {
                 guard let last = snapshot.documents.last else {
                     return Repository.Result(
                         item: item,
@@ -68,7 +68,7 @@ enum BookmarkRepository {
 
                 return Repository.Result(
                     item: item,
-                    pagingInfo: FirestoreRepositoryPagingInfo(lastSnapshot: last),
+                    pagingInfo: RepositoryPagingInfo(lastSnapshot: last),
                     hasMore: !snapshot.documents.isEmpty
                 )
             }()
@@ -79,7 +79,7 @@ enum BookmarkRepository {
 }
 
 private extension BookmarkRepository {
-    static private func buildQuery(db: Firestore, category: Embedded.Category, type: FirestoreRepo.FetchType) -> Query {
+    static private func buildQuery(db: Firestore, category: Embedded.Category, type: Repository.FetchType) -> Query {
         switch category {
         case .all:
             switch type {
@@ -88,11 +88,10 @@ private extension BookmarkRepository {
                     .order(by: "created_at", descending: true)
                     .limit(to: limit)
             case .add(let (limit, info)):
-                guard let i = info as? FirestoreRepositoryPagingInfo,
-                    let d = i.lastSnapshot else {
-                        return db.collection("bookmarks")
-                            .order(by: "created_at", descending: true)
-                            .limit(to: limit)
+                guard let d = info?.lastSnapshot as? DocumentSnapshot else {
+                    return db.collection("bookmarks")
+                        .order(by: "created_at", descending: true)
+                        .limit(to: limit)
                 }
                 return db.collection("bookmarks")
                     .order(by: "created_at", descending: true)
@@ -107,12 +106,11 @@ private extension BookmarkRepository {
                     .order(by: "created_at", descending: true)
                     .limit(to: limit)
             case .add(let (limit, info)):
-                guard let i = info as? FirestoreRepositoryPagingInfo,
-                    let d = i.lastSnapshot else {
-                        return db.collection("bookmarks")
-                            .whereField("category", isEqualTo: category.rawValue)
-                            .order(by: "created_at", descending: true)
-                            .limit(to: limit)
+                guard let d = info?.lastSnapshot as? DocumentSnapshot else {
+                    return db.collection("bookmarks")
+                        .whereField("category", isEqualTo: category.rawValue)
+                        .order(by: "created_at", descending: true)
+                        .limit(to: limit)
                 }
                 return db.collection("bookmarks")
                     .whereField("category", isEqualTo: category.rawValue)
@@ -126,8 +124,8 @@ private extension BookmarkRepository {
     private static func fetchTimelineBookmarks(
         db: Firestore,
         uid: String,
-        type: FirestoreRepo.FetchType,
-        completion: @escaping (FirestoreRepo.Response<[Bookmark]>) -> Void
+        type: Repository.FetchType,
+        completion: @escaping (Repository.Response<[Bookmark]>) -> Void
     ) {
         let query: Query = {
             switch type {
@@ -138,13 +136,12 @@ private extension BookmarkRepository {
                     .order(by: "post_at", descending: true)
                     .limit(to: limit)
             case .add(let (limit, info)):
-                guard let i = info as? FirestoreRepositoryPagingInfo,
-                    let d = i.lastSnapshot else {
-                        return db.collection("users")
-                            .document(uid)
-                            .collection("timeline")
-                            .order(by: "post_at", descending: true)
-                            .limit(to: limit)
+                guard let d = info?.lastSnapshot as? DocumentSnapshot else {
+                    return db.collection("users")
+                        .document(uid)
+                        .collection("timeline")
+                        .order(by: "post_at", descending: true)
+                        .limit(to: limit)
                 }
                 return db.collection("users")
                     .document(uid)
@@ -170,9 +167,9 @@ private extension BookmarkRepository {
 
             execConcurrentFetch(timelines: timelines) { bookmarks in
                 let last = snapshot.documents.last
-                let result = FirestoreRepo.Result(
+                let result = Repository.Result(
                     item: bookmarks,
-                    pagingInfo: FirestoreRepositoryPagingInfo(lastSnapshot: last),
+                    pagingInfo: RepositoryPagingInfo(lastSnapshot: last),
                     hasMore: last == nil ? false : true
                 )
                 completion(.success(result))
@@ -256,8 +253,8 @@ private extension BookmarkRepository {
     private static func fetchMemoBookmarks(
         db: Firestore,
         uid: String,
-        type: FirestoreRepo.FetchType,
-        completion: @escaping (FirestoreRepo.Response<[Bookmark]>) -> Void
+        type: Repository.FetchType,
+        completion: @escaping (Repository.Response<[Bookmark]>) -> Void
     ) {
         let query: Query = {
             switch type {
@@ -268,13 +265,12 @@ private extension BookmarkRepository {
                     .order(by: "created_at", descending: true)
                     .limit(to: limit)
             case .add(let (limit, info)):
-                guard let info = info as? FirestoreRepositoryPagingInfo,
-                    let last = info.lastSnapshot else {
-                        return db.collection("users")
-                            .document(uid)
-                            .collection("memo")
-                            .order(by: "created_at", descending: true)
-                            .limit(to: limit)
+                guard let last = info?.lastSnapshot as? DocumentSnapshot else {
+                    return db.collection("users")
+                        .document(uid)
+                        .collection("memo")
+                        .order(by: "created_at", descending: true)
+                        .limit(to: limit)
                 }
 
                 return db.collection("users")
@@ -301,9 +297,9 @@ private extension BookmarkRepository {
 
             execConcurrentFetch(memos: memos) { bookmarks in
                 let last = snapshot.documents.last
-                let result = FirestoreRepo.Result(
+                let result = Repository.Result(
                     item: bookmarks,
-                    pagingInfo: FirestoreRepositoryPagingInfo(lastSnapshot: last),
+                    pagingInfo: RepositoryPagingInfo(lastSnapshot: last),
                     hasMore: last == nil ? false : true
                 )
 

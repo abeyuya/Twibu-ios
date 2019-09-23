@@ -9,11 +9,16 @@
 import Foundation
 
 public protocol CommentRepository {
-    associatedtype Info: RepositoryPagingInfo
-
-    static func fetchBookmarkComment(
+    func fetchBookmarkComment(
         bookmarkUid: String,
-        type: Repository<Info>.FetchType,
-        completion: @escaping ((Repository<Info>.Response<[Comment]>) -> Void)
+        type: Repository.FetchType,
+        completion: @escaping ((Repository.Response<[Comment]>) -> Void)
+    )
+
+    func execUpdateBookmarkComment(
+        bookmarkUid: String,
+        title: String,
+        url: String,
+        completion: @escaping (Result<[Comment]>) -> Void
     )
 }

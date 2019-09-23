@@ -191,14 +191,18 @@ extension CategoryViewController: UITableViewDelegate {
 
         if let isLogin = viewModel.currentUser?.isTwitterLogin, isLogin {
             CommentDispatcher.updateAndFetchComments(
-                functions: TwibuFirebase.shared.functions,
+                repo: CommentRepositoryFirestore.shared,
                 buid: b.uid,
                 title: b.title ?? "",
                 url: b.url,
                 type: .new(limit: 100)
             )
         } else {
-            CommentDispatcher.fetchComments(buid: b.uid, type: .new(limit: 100))
+            CommentDispatcher.fetchComments(
+                repo: CommentRepositoryFirestore.shared,
+                buid: b.uid,
+                type: .new(limit: 100)
+            )
         }
 
         switch viewModel.type {
