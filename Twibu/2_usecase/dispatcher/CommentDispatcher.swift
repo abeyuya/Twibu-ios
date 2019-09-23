@@ -68,7 +68,7 @@ enum CommentDispatcher {
         }
     }
 
-    static func fetchComments(db: Firestore, buid: String, type: FirestoreRepo.FetchType) {
+    static func fetchComments(buid: String, type: FirestoreRepo.FetchType) {
         let result = FirestoreRepo.Result<[Comment]>(item: [], pagingInfo: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: buid,
@@ -76,7 +76,7 @@ enum CommentDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
-        CommentRepositoryFirestore.fetchBookmarkComment(db: db, bookmarkUid: buid, type: type) { result in
+        CommentRepositoryFirestore.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
             let a = AddCommentsAction(
                 bookmarkUid: buid,
                 comments: result
@@ -95,7 +95,6 @@ enum CommentDispatcher {
     }
 
     static func updateAndFetchComments(
-        db: Firestore,
         functions: Functions,
         buid: String,
         title: String,
@@ -111,7 +110,7 @@ enum CommentDispatcher {
                 break
             }
 
-            fetchComments(db: db, buid: buid, type: type)
+            fetchComments(buid: buid, type: type)
         }
     }
 }

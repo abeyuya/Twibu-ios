@@ -562,7 +562,6 @@
 				4DEDF2E922F47E4900488B55 /* MemoRepository.swift */,
 				4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */,
 				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
-				4D65092922BBDCC400BB0959 /* CommentRepositoryFirestore.swift */,
 				4D11152E22B545FF000817BA /* UserRepository.swift */,
 			);
 			path = repository;
@@ -651,6 +650,7 @@
 		4D65094B22BF708E00BB0959 /* client */ = {
 			isa = PBXGroup;
 			children = (
+				4D65092922BBDCC400BB0959 /* CommentRepositoryFirestore.swift */,
 				4DD2685822C4E6FA007A9E68 /* Firebase.swift */,
 				4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */,
 			);

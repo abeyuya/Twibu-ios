@@ -77,7 +77,6 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         }
 
         CommentDispatcher.updateAndFetchComments(
-            db: TwibuFirebase.shared.firestore,
             functions: TwibuFirebase.shared.functions,
             buid: b.uid,
             title: b.title ?? "",

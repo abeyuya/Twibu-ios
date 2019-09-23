@@ -11,9 +11,10 @@ import FirebaseFirestore
 import FirebaseFunctions
 import Embedded
 
-enum CommentRepositoryFirestore {
+enum CommentRepositoryFirestore: CommentRepository {
+    typealias Info = FirestoreRepositoryPagingInfo
+
     static func fetchBookmarkComment(
-        db: Firestore,
         bookmarkUid: String,
         type: FirestoreRepo.FetchType,
         completion: @escaping ((FirestoreRepo.Response<[Comment]>) -> Void)
@@ -23,7 +24,7 @@ enum CommentRepositoryFirestore {
             return
         }
 
-        buildQuery(db: db, bookmarkUid: bookmarkUid, type: type)
+        buildQuery(bookmarkUid: bookmarkUid, type: type)
             .getDocuments() { snapshot, error in
                 if let error = error {
                     completion(.failure(.firestoreError(error.localizedDescription)))
@@ -36,16 +37,16 @@ enum CommentRepositoryFirestore {
                 }
 
                 let comments = snapshot.documents.compactMap { Comment(dictionary: $0.data()) }
-                let result: FirestoreRepo.Result<[Comment]> = {
+                let result: Repository<FirestoreRepositoryPagingInfo>.Result<[Comment]> = {
                     guard let last = snapshot.documents.last else {
-                        return Repository.Result(
+                        return Repository<FirestoreRepositoryPagingInfo>.Result<[Comment]>(
                             item: comments,
                             pagingInfo: nil,
                             hasMore: false
                         )
                     }
 
-                    return Repository.Result(
+                    return Repository<FirestoreRepositoryPagingInfo>.Result<[Comment]>(
                         item: comments,
                         pagingInfo: FirestoreRepositoryPagingInfo(lastSnapshot: last),
                         hasMore: !snapshot.documents.isEmpty
@@ -56,8 +57,9 @@ enum CommentRepositoryFirestore {
         }
     }
 
-    private static func buildQuery(db: Firestore, bookmarkUid: String, type: FirestoreRepo.FetchType) -> Query {
-        let q = db.collection("bookmarks")
+    private static func buildQuery(bookmarkUid: String, type: FirestoreRepo.FetchType) -> Query {
+        let q = TwibuFirebase.shared.firestore
+            .collection("bookmarks")
             .document(bookmarkUid)
             .collection("comments")
             .order(by: "favorite_count", descending: true)

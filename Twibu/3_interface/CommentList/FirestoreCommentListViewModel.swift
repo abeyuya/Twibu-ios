@@ -56,7 +56,7 @@ extension FirestoreCommentListViewModel {
 
     func fetchComments() {
         guard let buid = bookmark?.uid, buid != "" else { return }
-        CommentDispatcher.fetchComments(db: TwibuFirebase.shared.firestore, buid: buid, type: .new(limit: 100))
+        CommentDispatcher.fetchComments(buid: buid, type: .new(limit: 100))
     }
 
     func fetchAdditionalComments() {
@@ -74,7 +74,6 @@ extension FirestoreCommentListViewModel {
             }
 
             CommentDispatcher.fetchComments(
-                db: TwibuFirebase.shared.firestore,
                 buid: buid,
                 type: .add(limit: 100, pagingInfo: result.pagingInfo)
             )
