@@ -8,50 +8,101 @@
 
 import UIKit
 import MobileCoreServices
+import Embedded
 
-class ActionViewController: UIViewController {
+private let typeId = kUTTypeURL as String
 
-    @IBOutlet weak var imageView: UIImageView!
+final class ActionViewController: UIViewController {
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        // Get the item[s] we're handling from the extension context.
-        
-        // For example, look for an image and place it into an image view.
-        // Replace this with something appropriate for the type[s] your extension supports.
-        var imageFound = false
-        for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
-            for provider in item.attachments! {
-                if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
-                    // This is an image. We'll load it, then place it in our image view.
-                    weak var weakImageView = self.imageView
-                    provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, error) in
-                        OperationQueue.main.addOperation {
-                            if let strongImageView = weakImageView {
-                                if let imageURL = imageURL as? URL {
-                                    strongImageView.image = UIImage(data: try! Data(contentsOf: imageURL))
-                                }
-                            }
+        setupCloseButton()
+
+        getUrlItem { result in
+            switch result {
+            case .failure(let e):
+                self.showAlert(title: nil, message: e.displayMessage)
+            case .success(let urlStr):
+                CommentRepositoryApi.shared.fetchBookmarkAndCommentsApi(bookmarkUrl: urlStr) { [weak self] result in
+                    self?.indicator.stopAnimating()
+                    switch result {
+                    case .failure(let e):
+                        self?.showAlert(title: nil, message: e.displayMessage)
+                    case .success(let res):
+                        DispatchQueue.main.async {
+                            self?.setupCommentView(res: res)
                         }
-                    })
-                    
-                    imageFound = true
-                    break
+                    }
                 }
-            }
-            
-            if (imageFound) {
-                // We only handle one image, so stop looking for more.
-                break
             }
         }
     }
 
-    @IBAction func done() {
-        // Return any edited content to the host app.
-        // This template doesn't do anything, so we just echo the passed in items.
-        self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
+    private func setupCommentView(res: CommentRepositoryApi.ApiResponse) {
+        let v: UIView = {
+            let vc = CommentRootViewController<ApiCommentListViewModel>.build(bookmark: res.bookmark)
+            let container = UIView()
+            container.translatesAutoresizingMaskIntoConstraints = false
+
+            addChild(vc)
+            vc.view.frame = container.frame
+
+            container.addSubview(vc.view)
+            vc.didMove(toParent: self)
+            return container
+        }()
+
+        self.view.addSubview(v)
+        v.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        v.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        v.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        v.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     }
 
+    private func setupCloseButton() {
+        let b = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        navigationItem.setLeftBarButton(b, animated: false)
+    }
+
+    private func getUrlItem(completion: @escaping (Result<String>) -> Void) {
+        guard let inputItems = extensionContext?.inputItems as? [NSExtensionItem] else {
+            completion(.failure(TwibuError.unknown("inputItemsがない")))
+            return
+        }
+
+        guard let provider = inputItems[0].attachments?[0] else {
+            completion(.failure(TwibuError.unknown("attachments.providerがない")))
+            return
+        }
+
+        guard provider.hasItemConformingToTypeIdentifier(typeId) else {
+            completion(.failure(TwibuError.unknown("itemTypeがURLじゃない")))
+            return
+        }
+
+        provider.loadItem(forTypeIdentifier: typeId, options: nil) { item, error in
+            if let error = error {
+                completion(.failure(TwibuError.unknown(error.localizedDescription)))
+                return
+            }
+
+            guard let url = item as? URL else {
+                completion(.failure(TwibuError.unknown("URLが不正")))
+                return
+            }
+
+            completion(.success(url.absoluteString))
+        }
+    }
+    
+    @objc
+    private func done() {
+        // Return any edited content to the host app.
+        // This template doesn't do anything, so we just echo the passed in items.
+        self.extensionContext!.completeRequest(
+            returningItems: self.extensionContext!.inputItems,
+            completionHandler: nil
+        )
+    }
 }

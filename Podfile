@@ -2,7 +2,7 @@ platform :ios, '11.0'
 use_frameworks!
 
 #
-# 共通のpod
+# Embeddedで利用しているpod
 #
 pod 'Kingfisher'
 pod 'Parchment'

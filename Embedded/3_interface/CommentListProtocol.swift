@@ -6,8 +6,6 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
-
 public enum CommentRenderState {
     case success(hasMore: Bool), failure(error: TwibuError), loading, notYetLoading
 }

@@ -47,6 +47,8 @@
 		4D3D267D2338F91500BFD408 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093E22BEA11900BB0959 /* UIColor+Extension.swift */; };
 		4D3D267E2338F91500BFD408 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F54B22E48B9300156445 /* URL+Extension.swift */; };
 		4D3D26802338F9A500BFD408 /* CommentListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059362338855A001F0605 /* CommentListProtocol.swift */; };
+		4D3D2682233909E500BFD408 /* CommentRepositoryApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3D2681233909E500BFD408 /* CommentRepositoryApi.swift */; };
+		4D3D26842339129300BFD408 /* ApiCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3D26832339129300BFD408 /* ApiCommentListViewModel.swift */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
@@ -82,6 +84,7 @@
 		4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */; };
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
 		4DA1E5E622CBAEBC00320895 /* UserDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E522CBAEBC00320895 /* UserDispatcher.swift */; };
+		4DBDAF45233A4B4400D12C03 /* Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */; };
 		4DC5AD472337A744002BFE0D /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD462337A744002BFE0D /* Media.xcassets */; };
 		4DC5AD492337A744002BFE0D /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5AD482337A744002BFE0D /* ActionViewController.swift */; };
 		4DC5AD4C2337A745002BFE0D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */; };
@@ -139,6 +142,13 @@
 			remoteInfo = Twibu;
 		};
 		4D72CEFD22E2E07B00E6AA66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D1114F822B5160E000817BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D72CEE922E2E07A00E6AA66;
+			remoteInfo = Embedded;
+		};
+		4DBDAF47233A4B4400D12C03 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D1114F822B5160E000817BA /* Project object */;
 			proxyType = 1;
@@ -224,6 +234,8 @@
 		4D3059522338A13B001F0605 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
+		4D3D2681233909E500BFD408 /* CommentRepositoryApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepositoryApi.swift; sourceTree = "<group>"; };
+		4D3D26832339129300BFD408 /* ApiCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCommentListViewModel.swift; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
 		4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticleListViewModel.swift; sourceTree = "<group>"; };
 		4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryArticleListViewModel.swift; sourceTree = "<group>"; };
@@ -352,6 +364,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DBDAF45233A4B4400D12C03 /* Embedded.framework in Frameworks */,
 				6A0D7C1A7809D434E3B9C93F /* Pods_action_extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -841,6 +854,8 @@
 				4DC5AD482337A744002BFE0D /* ActionViewController.swift */,
 				4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */,
 				4DC5AD4D2337A745002BFE0D /* Info.plist */,
+				4D3D2681233909E500BFD408 /* CommentRepositoryApi.swift */,
+				4D3D26832339129300BFD408 /* ApiCommentListViewModel.swift */,
 			);
 			path = "action-extension";
 			sourceTree = "<group>";
@@ -990,6 +1005,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4DBDAF48233A4B4400D12C03 /* PBXTargetDependency */,
 			);
 			name = "action-extension";
 			productName = "action-extension";
@@ -1417,6 +1433,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3D26842339129300BFD408 /* ApiCommentListViewModel.swift in Sources */,
+				4D3D2682233909E500BFD408 /* CommentRepositoryApi.swift in Sources */,
 				4DC5AD492337A744002BFE0D /* ActionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1448,6 +1466,11 @@
 			isa = PBXTargetDependency;
 			target = 4D72CEE922E2E07A00E6AA66 /* Embedded */;
 			targetProxy = 4D72CEFD22E2E07B00E6AA66 /* PBXContainerItemProxy */;
+		};
+		4DBDAF48233A4B4400D12C03 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D72CEE922E2E07A00E6AA66 /* Embedded */;
+			targetProxy = 4DBDAF47233A4B4400D12C03 /* PBXContainerItemProxy */;
 		};
 		4DC5AD4F2337A745002BFE0D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
