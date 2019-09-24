@@ -11,11 +11,8 @@ import FirebaseFirestore
 import FirebaseFunctions
 import Embedded
 
-final class CommentRepositoryFirestore: CommentRepository {
-    static let shared = CommentRepositoryFirestore()
-    private init() {}
-
-    func fetchBookmarkComment(
+enum CommentRepositoryFirestore {
+    static func fetchBookmarkComment(
         bookmarkUid: String,
         type: Repository.FetchType,
         completion: @escaping ((Repository.Response<[Comment]>) -> Void)
@@ -80,7 +77,7 @@ final class CommentRepositoryFirestore: CommentRepository {
     //
     // NOTE: 更新後の全てのコメントを返却する
     //
-    func execUpdateBookmarkComment(
+    static func execUpdateBookmarkComment(
         bookmarkUid: String,
         title: String,
         url: String,

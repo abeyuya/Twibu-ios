@@ -11,7 +11,6 @@ import Embedded
 
 public enum CommentDispatcher {
     private static func updateBookmarkComment(
-        repo: CommentRepository,
         bookmarkUid: String,
         title: String,
         url: String,
@@ -24,7 +23,7 @@ public enum CommentDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
-        repo.execUpdateBookmarkComment(
+        CommentRepositoryFirestore.execUpdateBookmarkComment(
             bookmarkUid: bookmarkUid,
             title: title,
             url: url
@@ -65,7 +64,7 @@ public enum CommentDispatcher {
         }
     }
 
-    public static func fetchComments(repo: CommentRepository, buid: String, type: Repository.FetchType) {
+    public static func fetchComments(buid: String, type: Repository.FetchType) {
         let result = Repository.Result<[Comment]>(item: [], pagingInfo: nil, hasMore: false)
         let startLoadingAction = AddCommentsAction(
             bookmarkUid: buid,
@@ -73,7 +72,7 @@ public enum CommentDispatcher {
         )
         store.mDispatch(startLoadingAction)
 
-        repo.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
+        CommentRepositoryFirestore.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
             let a = AddCommentsAction(
                 bookmarkUid: buid,
                 comments: result
@@ -92,14 +91,12 @@ public enum CommentDispatcher {
     }
 
     public static func updateAndFetchComments(
-        repo: CommentRepository,
         buid: String,
         title: String,
         url: String,
         type: Repository.FetchType
     ) {
         updateBookmarkComment(
-            repo: repo,
             bookmarkUid: buid,
             title: title,
             url: url
@@ -112,7 +109,7 @@ public enum CommentDispatcher {
                 break
             }
 
-            fetchComments(repo: repo, buid: buid, type: type)
+            fetchComments(buid: buid, type: type)
         }
     }
 }

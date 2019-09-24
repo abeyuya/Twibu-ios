@@ -59,7 +59,6 @@ extension FirestoreCommentListViewModel {
 
         if currentUser?.isTwitterLogin == true {
             CommentDispatcher.updateAndFetchComments(
-                repo: CommentRepositoryFirestore.shared,
                 buid: b.uid,
                 title: b.title ?? "",
                 url: b.url,
@@ -69,7 +68,6 @@ extension FirestoreCommentListViewModel {
         }
 
         CommentDispatcher.fetchComments(
-            repo: CommentRepositoryFirestore.shared,
             buid: b.uid,
             type: .new(limit: 100)
         )
@@ -90,7 +88,6 @@ extension FirestoreCommentListViewModel {
             }
 
             CommentDispatcher.fetchComments(
-                repo: CommentRepositoryFirestore.shared,
                 buid: buid,
                 type: .add(limit: 100, pagingInfo: result.pagingInfo)
             )

@@ -30,7 +30,6 @@
 		4D3059322337FE75001F0605 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
 		4D3059342337FE9A001F0605 /* Comment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059332337FE9A001F0605 /* Comment+Extension.swift */; };
 		4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */; };
-		4D3059532338A13B001F0605 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059522338A13B001F0605 /* CommentRepository.swift */; };
 		4D3059542338A40D001F0605 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB8DDD22C4F57400916F72 /* Repository.swift */; };
 		4D37812422CCF8240072EEBD /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D37812322CCF8240072EEBD /* Settings.bundle */; };
 		4D3D26712338EE4A00BFD408 /* CommentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65095122BFB5CE00BB0959 /* CommentDispatcher.swift */; };
@@ -231,7 +230,6 @@
 		4D3059332337FE9A001F0605 /* Comment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment+Extension.swift"; sourceTree = "<group>"; };
 		4D3059362338855A001F0605 /* CommentListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListProtocol.swift; sourceTree = "<group>"; };
 		4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentListViewModel.swift; sourceTree = "<group>"; };
-		4D3059522338A13B001F0605 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
 		4D37812322CCF8240072EEBD /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
 		4D3D2681233909E500BFD408 /* CommentRepositoryApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepositoryApi.swift; sourceTree = "<group>"; };
@@ -556,13 +554,6 @@
 			path = license;
 			sourceTree = "<group>";
 		};
-		4D3D266F2338EE0D00BFD408 /* dispatcher */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = dispatcher;
-			sourceTree = "<group>";
-		};
 		4D3D26732338F7EA00BFD408 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -757,8 +748,6 @@
 		4D72CF0A22E2E71000E6AA66 /* 2_usecase */ = {
 			isa = PBXGroup;
 			children = (
-				4D3D266F2338EE0D00BFD408 /* dispatcher */,
-				4D72CF0D22E2E79600E6AA66 /* repository */,
 			);
 			path = 2_usecase;
 			sourceTree = "<group>";
@@ -779,14 +768,6 @@
 				4D72CF1022E2F40300E6AA66 /* TwibuUserDefaults.swift */,
 			);
 			path = client;
-			sourceTree = "<group>";
-		};
-		4D72CF0D22E2E79600E6AA66 /* repository */ = {
-			isa = PBXGroup;
-			children = (
-				4D3059522338A13B001F0605 /* CommentRepository.swift */,
-			);
-			path = repository;
 			sourceTree = "<group>";
 		};
 		4D72CF1222E2F89000E6AA66 /* model */ = {
@@ -1412,7 +1393,6 @@
 				4D3D267B2338F90A00BFD408 /* String+Extension.swift in Sources */,
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,
 				4D3059542338A40D001F0605 /* Repository.swift in Sources */,
-				4D3059532338A13B001F0605 /* CommentRepository.swift in Sources */,
 				4D3059322337FE75001F0605 /* Comment.swift in Sources */,
 				4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */,
 				4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */,

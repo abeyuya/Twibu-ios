@@ -191,7 +191,6 @@ extension CategoryViewController: UITableViewDelegate {
 
         if let isLogin = viewModel.currentUser?.isTwitterLogin, isLogin {
             CommentDispatcher.updateAndFetchComments(
-                repo: CommentRepositoryFirestore.shared,
                 buid: b.uid,
                 title: b.title ?? "",
                 url: b.url,
@@ -199,7 +198,6 @@ extension CategoryViewController: UITableViewDelegate {
             )
         } else {
             CommentDispatcher.fetchComments(
-                repo: CommentRepositoryFirestore.shared,
                 buid: b.uid,
                 type: .new(limit: 100)
             )
