@@ -1857,6 +1857,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A90AE295E8D371E71921FBCC /* Pods-action-extension.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
@@ -1879,6 +1880,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5FB044CC992B506962981912 /* Pods-action-extension.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;

@@ -67,7 +67,7 @@ final class ActionViewController: UIViewController {
     }
 
     private func setupCloseButton() {
-        let b = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        let b = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(done))
         navigationItem.setRightBarButton(b, animated: false)
     }
 

@@ -80,7 +80,7 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
             b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
             return UIBarButtonItem(customView: b)
         }()
-        navigationItem.setLeftBarButton(bb, animated: false)
+        navigationItem.setRightBarButton(bb, animated: false)
 
         let iconView: UIImageView = {
             let icon = UIImage(named: "app_icon_29")

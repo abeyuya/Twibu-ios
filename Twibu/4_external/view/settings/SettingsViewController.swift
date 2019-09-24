@@ -14,7 +14,13 @@ import Crashlytics
 import Embedded
 
 final class SettingsViewController: UIViewController, StoryboardInstantiatable {
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.tableFooterView = UIView()
+        }
+    }
 
     private var currentUser: TwibuUser?
     weak var delegate: PagingRootViewControllerDelegate?
@@ -33,8 +39,6 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupTableview()
         setupNavigation()
     }
 
@@ -53,28 +57,10 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
         store.unsubscribe(self)
     }
 
-    private func setupTableview() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.tableFooterView = UIView()
-    }
-
     private func setupNavigation() {
         title = "設定"
-
-        let bb: UIBarButtonItem = {
-            let b = UIButton()
-            b.setIcon(
-                icon: .linearIcons(.cross),
-                iconSize: nil,
-                color: .mainTint,
-                backgroundColor: .clear,
-                forState: .normal
-            )
-            b.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
-            return UIBarButtonItem(customView: b)
-        }()
-        navigationItem.setLeftBarButton(bb, animated: false)
+        let bb = UIBarButtonItem.init(barButtonSystemItem: .stop, target: self, action: #selector(tapMenuButton))
+        navigationItem.setRightBarButton(bb, animated: false)
     }
 
     @objc
