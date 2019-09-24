@@ -60,7 +60,7 @@ public extension UIColor {
 
     class var tabBgGray: UIColor {
         if #available(iOS 13, *) {
-            return dynamicColor(light: .mainGray, dark: .secondarySystemBackground)
+            return dynamicColor(light: .mainGray, dark: .tertiarySystemBackground)
         }
         return .mainGray
     }

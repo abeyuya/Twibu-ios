@@ -13,7 +13,13 @@ import Embedded
 private let typeId = kUTTypeURL as String
 
 final class ActionViewController: UIViewController {
-    @IBOutlet private weak var indicator: UIActivityIndicatorView!
+    @IBOutlet private weak var indicator: UIActivityIndicatorView! {
+        didSet {
+            if #available(iOS 13, *) {
+                indicator.style = .medium
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +68,7 @@ final class ActionViewController: UIViewController {
 
     private func setupCloseButton() {
         let b = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-        navigationItem.setLeftBarButton(b, animated: false)
+        navigationItem.setRightBarButton(b, animated: false)
     }
 
     private func getUrlItem(completion: @escaping (Result<String>) -> Void) {

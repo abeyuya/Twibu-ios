@@ -58,10 +58,7 @@ final class CommentRepositoryFirestore: CommentRepository {
         }
     }
 
-    private static func buildQuery(
-        bookmarkUid: String,
-        type: Repository.FetchType
-    ) -> Query {
+    private static func buildQuery(bookmarkUid: String, type: Repository.FetchType) -> Query {
         let q = TwibuFirebase.shared.firestore
             .collection("bookmarks")
             .document(bookmarkUid)
