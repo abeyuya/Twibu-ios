@@ -8,9 +8,8 @@
 
 import UIKit
 import Kingfisher
-import Embedded
 
-final class TimelineCell: UITableViewCell {
+final public class TimelineCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var usersCountLabel: UILabel!
     @IBOutlet private weak var domainLabel: UILabel!
@@ -24,13 +23,13 @@ final class TimelineCell: UITableViewCell {
     @IBOutlet private weak var faviconImageView: UIImageView!
     @IBOutlet private weak var saveStateLabel: UILabel!
 
-    enum SaveState {
+    public enum SaveState {
         case none, saving(Double), saved
     }
 
     private var saveState: SaveState = .none
 
-    func set(bookmark: Bookmark) {
+    public func set(bookmark: Bookmark) {
         titleLabel.text = bookmark.trimmedTitle ?? "タイトルが取得できませんでした"
 
         if let count = bookmark.comment_count, count > 0 {
@@ -93,7 +92,7 @@ final class TimelineCell: UITableViewCell {
         updateSaveStateLabel()
     }
 
-    func set(saveState: SaveState) {
+    public func set(saveState: SaveState) {
         self.saveState = saveState
         updateSaveStateLabel()
     }

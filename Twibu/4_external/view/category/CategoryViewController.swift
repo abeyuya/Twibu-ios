@@ -23,7 +23,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
             tableView.tableFooterView = footer
             tableView.register(
-                UINib(nibName: "TimelineCell", bundle: nil),
+                UINib(nibName: "TimelineCell", bundle: Bundle(for: TimelineCell.self)),
                 forCellReuseIdentifier: "TimelineCell"
             )
             tableView.delegate = self

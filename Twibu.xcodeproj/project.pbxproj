@@ -20,8 +20,6 @@
 		4D11153922B57697000817BA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153722B57697000817BA /* CategoryViewController.swift */; };
 		4D11153D22B58091000817BA /* CategoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11153C22B58091000817BA /* CategoryViewController.storyboard */; };
 		4D11153F22B5FFD0000817BA /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11153E22B5FFD0000817BA /* LoginViewController.storyboard */; };
-		4D11154622B60298000817BA /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154422B60298000817BA /* TimelineCell.swift */; };
-		4D11154722B60298000817BA /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154522B60298000817BA /* TimelineCell.xib */; };
 		4D11154C22B6A648000817BA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154B22B6A648000817BA /* WebViewController.swift */; };
 		4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154D22B6A659000817BA /* WebViewController.storyboard */; };
 		4D28F54F22E48FCB00156445 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F54E22E48FCB00156445 /* Encodable+Extension.swift */; };
@@ -104,6 +102,8 @@
 		4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */; };
 		4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
 		4DFC605B22FDFEAC00C7CFE7 /* WebArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */; };
+		4DFFDBC6233BB5B90037AA8A /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154422B60298000817BA /* TimelineCell.swift */; };
+		4DFFDBC7233BB5BE0037AA8A /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154522B60298000817BA /* TimelineCell.xib */; };
 		6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */; };
 		70DEC8D237DC9923AA88E9DF /* Pods_All_action_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722EEC8A8EEA56D1DDA2502C /* Pods_All_action_extension.framework */; };
 		8A481F6367C0A7B4130F71B5 /* Pods_All_today_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CA55A91F63BF3C5E19BA843 /* Pods_All_today_extension.framework */; };
@@ -509,8 +509,6 @@
 		4D11153B22B576A6000817BA /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				4D11154422B60298000817BA /* TimelineCell.swift */,
-				4D11154522B60298000817BA /* TimelineCell.xib */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -557,6 +555,7 @@
 		4D3D26732338F7EA00BFD408 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				4DFFDBC5233BB5A10037AA8A /* bookmark */,
 				4D04E20A22BA981400995026 /* comment */,
 			);
 			path = view;
@@ -841,6 +840,15 @@
 			path = "action-extension";
 			sourceTree = "<group>";
 		};
+		4DFFDBC5233BB5A10037AA8A /* bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				4D11154422B60298000817BA /* TimelineCell.swift */,
+				4D11154522B60298000817BA /* TimelineCell.xib */,
+			);
+			path = bookmark;
+			sourceTree = "<group>";
+		};
 		BE96F5C735459C2F19058E09 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1066,7 +1074,6 @@
 			files = (
 				4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */,
 				4DD369DD233770FF00D2D10D /* MemoViewController.storyboard in Resources */,
-				4D11154722B60298000817BA /* TimelineCell.xib in Resources */,
 				4D37812422CCF8240072EEBD /* Settings.bundle in Resources */,
 				4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */,
 				4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */,
@@ -1099,6 +1106,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DFFDBC7233BB5BE0037AA8A /* TimelineCell.xib in Resources */,
 				4D3D26782338F82600BFD408 /* CommentViewController.storyboard in Resources */,
 				4D3D267A2338F82600BFD408 /* CommentTableViewCell.xib in Resources */,
 				4D3D26752338F82600BFD408 /* CommentFooterView.xib in Resources */,
@@ -1341,7 +1349,6 @@
 				4D3059342337FE9A001F0605 /* Comment+Extension.swift in Sources */,
 				4DD369E22337731300D2D10D /* Bookmark+Extension.swift in Sources */,
 				4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */,
-				4D11154622B60298000817BA /* TimelineCell.swift in Sources */,
 				4DD369DC233770E900D2D10D /* MemoViewController.swift in Sources */,
 				4DD369E32337737400D2D10D /* AnalyticsDispatcher.swift in Sources */,
 				4DD369DE233772A800D2D10D /* History.swift in Sources */,
@@ -1393,6 +1400,7 @@
 				4D3D267B2338F90A00BFD408 /* String+Extension.swift in Sources */,
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,
 				4D3059542338A40D001F0605 /* Repository.swift in Sources */,
+				4DFFDBC6233BB5B90037AA8A /* TimelineCell.swift in Sources */,
 				4D3059322337FE75001F0605 /* Comment.swift in Sources */,
 				4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */,
 				4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */,
