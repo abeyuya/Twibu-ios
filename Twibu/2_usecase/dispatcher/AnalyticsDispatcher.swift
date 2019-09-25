@@ -9,23 +9,21 @@
 import Foundation
 import FirebaseAnalytics
 
-public final class AnalyticsDispatcer {
-    private init() {}
-
+public enum AnalyticsDispatcer {
     public enum Event: String {
         case loginTry = "login_try"
         case login = "login"
         case logoutTry = "logout_try"
         case logout = "logout"
         case categoryRefresh = "category_refresh"
-        case categoryLoad = "category_load"
+//        case categoryLoad = "category_load"
         case bookmarkTap = "bookmark_tap"
         case share = "share"
         case commentShow = "comment_show"
-        case commentHide = "comment_hide"
-        case commentRefresh = "comment_refresh"
+//        case commentHide = "comment_hide"
+//        case commentRefresh = "comment_refresh"
         case commentTap = "comment_tap"
-        case commentShowTab = "comment_show_tab"
+//        case commentShowTab = "comment_show_tab"
         case showMoreTwitterTap = "show_more_twitter_tap"
         case saveMemo = "save_memo"
     }

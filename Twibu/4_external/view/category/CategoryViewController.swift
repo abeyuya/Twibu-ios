@@ -55,18 +55,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         viewModel.startSubscribe()
-
-        switch viewModel.type {
-        case .category(let c):
-            AnalyticsDispatcer.logging(
-                .categoryLoad,
-                param: ["category": c.rawValue]
-            )
-        default:
-            break
-        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

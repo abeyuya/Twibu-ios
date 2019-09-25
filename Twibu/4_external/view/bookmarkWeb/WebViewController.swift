@@ -392,15 +392,6 @@ private extension WebViewController {
             },
             completion: { _ in }
         )
-
-        AnalyticsDispatcer.logging(
-            .commentHide,
-            param: [
-                "buid": bookmark.uid,
-                "url": bookmark.url,
-                "comment_count": bookmark.comment_count ?? -1
-            ]
-        )
     }
 
     @objc
