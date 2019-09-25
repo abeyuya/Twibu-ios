@@ -22,6 +22,7 @@ final public class BookmarkCell: UITableViewCell {
     }
     @IBOutlet private weak var faviconImageView: UIImageView!
     @IBOutlet private weak var saveStateLabel: UILabel!
+    @IBOutlet private weak var thumbnailWidthConstraint: NSLayoutConstraint!
 
     public enum SaveState {
         case none, saving(Double), saved
@@ -29,7 +30,7 @@ final public class BookmarkCell: UITableViewCell {
 
     private var saveState: SaveState = .none
 
-    public func set(bookmark: Bookmark) {
+    public func set(bookmark: Bookmark, showImage: Bool) {
         titleLabel.text = bookmark.trimmedTitle ?? "タイトルが取得できませんでした"
 
         if let count = bookmark.comment_count, count > 0 {
@@ -57,12 +58,16 @@ final public class BookmarkCell: UITableViewCell {
         }
 
         thumbnailImageView.image = nil
-        if let imageUrl = bookmark.image_url,
-            imageUrl != "",
-            let url = URL(string: imageUrl) {
-            thumbnailImageView.kf.setImage(with: url)
+        if showImage {
+            thumbnailWidthConstraint.constant = 70
+            if let imageUrl = bookmark.image_url, !imageUrl.isEmpty, let url = URL(string: imageUrl) {
+                thumbnailImageView.kf.setImage(with: url)
+                thumbnailImageView.isHidden = false
+            } else {
+            }
         } else {
-            // レイアウト変えたい
+            thumbnailWidthConstraint.constant = 0
+            thumbnailImageView.isHidden = true
         }
 
         faviconImageView.image = nil

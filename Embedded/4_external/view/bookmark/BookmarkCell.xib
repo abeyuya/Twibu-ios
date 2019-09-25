@@ -92,6 +92,7 @@ search/universal は公式のConsumerKey/ConsumerSecretでないと使用でき�
                 <outlet property="faviconImageView" destination="yNz-ZX-euq" id="eRN-hZ-pdN"/>
                 <outlet property="saveStateLabel" destination="yf1-Y5-j5L" id="56W-FN-gbb"/>
                 <outlet property="thumbnailImageView" destination="LGg-GY-SC3" id="Vkt-Qg-rwa"/>
+                <outlet property="thumbnailWidthConstraint" destination="D2P-Hz-Pa3" id="zaw-L9-d7A"/>
                 <outlet property="titleLabel" destination="Y1H-Zg-SCQ" id="oF5-Yq-ULb"/>
                 <outlet property="usersCountLabel" destination="VDb-zh-WaS" id="IC0-Aa-uND"/>
             </connections>

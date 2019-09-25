@@ -16,9 +16,8 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.tableFooterView = UIView()
-
             tableView.register(
-                UINib(nibName: "TodayCell", bundle: nil),
+                UINib(nibName: "BookmarkCell", bundle: Bundle(for: BookmarkCell.self)),
                 forCellReuseIdentifier: "cell"
             )
         }
@@ -113,7 +112,7 @@ extension TodayViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TodayCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? BookmarkCell else {
             return UITableViewCell()
         }
 
