@@ -38,6 +38,7 @@ final class ActionViewController: UIViewController {
                     case .success(let res):
                         DispatchQueue.main.async {
                             self?.setupCommentView(res: res)
+                            self?.setupNavigationTitle(bookmark: res.bookmark)
                         }
                     }
                 }
@@ -64,6 +65,36 @@ final class ActionViewController: UIViewController {
         v.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         v.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         v.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    }
+
+    private func setupNavigationTitle(bookmark: Bookmark) {
+        if self.viewIfLoaded?.window == nil {
+            return
+        }
+
+        self.navigationItem.titleView?.removeFromSuperview()
+        let v = UIStackView()
+        v.axis = .vertical
+        v.spacing = 4
+
+        let l1 = UILabel()
+        l1.text = bookmark.trimmedTitle ?? "no title"
+        l1.textAlignment = .center
+        v.addArrangedSubview(l1)
+
+        let l2 = UILabel()
+        l2.text = bookmark.url.replacingOccurrences(
+            of: "^https?://(.+)$",
+            with: "$1",
+            options: .regularExpression,
+            range: nil
+        )
+        l2.textColor = .originSecondaryLabel
+        l2.font = .systemFont(ofSize: 12)
+        l2.textAlignment = .center
+        v.addArrangedSubview(l2)
+
+        self.navigationItem.titleView = v
     }
 
     private func setupCloseButton() {
