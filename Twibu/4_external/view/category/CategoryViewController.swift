@@ -56,6 +56,18 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.startSubscribe()
+
+        switch viewModel.type {
+        case .category(let c):
+            guard c == .timeline else { return }
+// NOTE: twitterログアウト状態だったらログイン画面に差し替えたい
+// PagingRootでそういう処理書いてるけど、新規の場合はOKだけど使い回しの場合にうまく反映されていない
+//            guard user = viewModel.currentUser else {
+//                return
+//            }
+        default:
+            break
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

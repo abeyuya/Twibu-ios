@@ -156,7 +156,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                     }
                 }
         }
-        let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { _ in }
+        let cancel = UIAlertAction(title: "キャンセル", style: .default) { _ in }
 
         alert.addAction(ok)
         alert.addAction(cancel)
@@ -211,7 +211,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             }
         }
 
-        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .default)
         alert.addAction(cancelAction)
         alert.addAction(logoutAction)
         present(alert, animated: true)

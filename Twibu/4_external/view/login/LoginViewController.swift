@@ -38,12 +38,15 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if self.currentUser?.isTwitterLogin == true, let d = delegate {
+        guard let isTwitterLogin = self.currentUser?.isTwitterLogin, isTwitterLogin else {
+            return
+        }
+
+        if let d = delegate {
             DispatchQueue.main.async {
                 let indicator = UIActivityIndicatorView(style: .gray)
                 indicator.startAnimating()
                 self.stackView.addArrangedSubview(indicator)
-
                 d.reload(item: self.item)
             }
         }
