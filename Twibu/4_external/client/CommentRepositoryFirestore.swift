@@ -109,11 +109,7 @@ enum CommentRepositoryFirestore {
 
                 let comments = rawComments.compactMap { Comment(dictionary: $0) }
 
-                // NOTE: APIリミットエラーとかでも0件で返ってくるので、0件はエラーとして扱う
-                if comments.isEmpty {
-                    completion(.failure(.firestoreError("response comments is empty")))
-                    return
-                }
+                // NOTE: APIリミットエラーとかでも0件で返ってくる
 
                 completion(.success(comments))
         }
