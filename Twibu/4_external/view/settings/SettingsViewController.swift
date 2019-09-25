@@ -28,12 +28,12 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     private enum Menu1: String, CaseIterable {
         case memo = "メモ"
         case history = "履歴"
+        case twitter = "Twitter連携"
     }
 
     private enum Menu2: String, CaseIterable {
 //        case term = "利用規約"
         case privacyPolicy = "プライバシーポリシー"
-        case twitter = "Twitter連携"
         case version = "バージョン"
     }
 
@@ -69,6 +69,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func tapLogin() {
+        // TODO: loading indicatorだしたいね
         TWTRTwitter.sharedInstance().logIn { (session, error) in
             AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
 
@@ -96,26 +97,70 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                 return
             }
 
-            UserDispatcher.linkTwitterAccount(
-                db: TwibuFirebase.shared.firestore,
-                functions: TwibuFirebase.shared.functions,
-                user: firebaseUser,
-                session: session
-            ) { [weak self] result in
-                switch result {
-                case .success(_):
-                    self?.showAlert(title: "Success", message: "Twitter連携しました！")
-                    DispatchQueue.main.async {
-                        self?.tableView.reloadData()
-                    }
-                    AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
-                case .failure(let error):
+            self.performTwitterLink(firebaseUser: firebaseUser, session: session)
+        }
+    }
+
+    private func performTwitterLink(firebaseUser: User, session: TWTRSession) {
+        UserDispatcher.linkTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.showAlert(title: "Success", message: "Twitter連携しました！")
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
+            case .failure(let error):
+                switch error {
+                case .twitterLoginAlreadyExist(_):
+                    self?.showUserSwitchConfirm(firebaseUser: firebaseUser, session: session)
+                default:
                     self?.showAlert(title: "Error", message: error.displayMessage)
                     Logger.print(error)
                     Crashlytics.sharedInstance().recordError(error)
                 }
             }
         }
+    }
+
+    private func showUserSwitchConfirm(firebaseUser: User, session: TWTRSession) {
+        let alert = UIAlertController(
+            title: nil,
+            message: "このTwitterアカウントは既に利用されています。連携してもよろしいですか？(現在の「メモ」は破棄されます)",
+            preferredStyle: .alert
+        )
+
+        let ok = UIAlertAction(
+            title: "連携する",
+            style: .destructive) { _ in
+                do {
+                    try Auth.auth().signOut()
+                } catch {
+                    let e = TwibuError.unknown("Twitter紐付けのためのログアウトに失敗")
+                    self.showAlert(title: nil, message: e.localizedDescription)
+                    return
+                }
+
+                UserDispatcher.loginAsTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
+                    switch result {
+                    case .success(_):
+                        self?.showAlert(title: "Success", message: "Twitter連携しました！")
+                        DispatchQueue.main.async {
+                            self?.tableView.reloadData()
+                        }
+                        AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
+                    case .failure(let error):
+                        self?.showAlert(title: "Error", message: error.displayMessage)
+                        Logger.print(error)
+                        Crashlytics.sharedInstance().recordError(error)
+                    }
+                }
+        }
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { _ in }
+
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        present(alert, animated: true)
     }
 
     private func tapLogout() {
@@ -134,9 +179,12 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             preferredStyle: .alert
         )
 
-        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
+        let logoutAction = UIAlertAction(title: "解除する", style: .destructive) { _ in
             guard let user = Auth.auth().currentUser else {
-                self.showAlert(title: "Error", message: TwibuError.needFirebaseAuth("ログアウトしようとした").displayMessage)
+                self.showAlert(
+                    title: "Error",
+                    message: TwibuError.needFirebaseAuth("ログアウトしようとした").displayMessage
+                )
                 return
             }
 
@@ -163,7 +211,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             }
         }
 
-        let cancelAction = UIAlertAction(title: "cancel", style: .default)
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
         alert.addAction(cancelAction)
         alert.addAction(logoutAction)
         present(alert, animated: true)
@@ -222,21 +270,6 @@ extension SettingsViewController: UITableViewDataSource {
         case .memo, .history:
             cell.textLabel?.text = menu.rawValue
             cell.accessoryType = .disclosureIndicator
-        }
-        return cell
-    }
-
-    private func setupMenu2Cell(index: Int) -> UITableViewCell {
-        let menu = Menu2.allCases[index]
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
-
-        switch menu {
-        case .privacyPolicy:
-            cell.textLabel?.text = menu.rawValue
-            cell.accessoryType = .disclosureIndicator
-        case .version:
-            cell.textLabel?.text = menu.rawValue
-            cell.detailTextLabel?.text = "\(Const.version) (\(Const.build))"
         case .twitter:
             cell.textLabel?.text = currentUser?.isTwitterLogin == true
                 ? "Twitter連携を取り消す"
@@ -252,6 +285,21 @@ extension SettingsViewController: UITableViewDataSource {
                 size: 17,
                 iconSize: 17
             )
+        }
+        return cell
+    }
+
+    private func setupMenu2Cell(index: Int) -> UITableViewCell {
+        let menu = Menu2.allCases[index]
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+
+        switch menu {
+        case .privacyPolicy:
+            cell.textLabel?.text = menu.rawValue
+            cell.accessoryType = .disclosureIndicator
+        case .version:
+            cell.textLabel?.text = menu.rawValue
+            cell.detailTextLabel?.text = "\(Const.version) (\(Const.build))"
         }
         return cell
     }
@@ -288,7 +336,6 @@ extension SettingsViewController: UITableViewDelegate {
                 commentCountOffset: 0
             ) { _ in }
             navigationController?.pushViewController(vc, animated: true)
-
         case .history:
             HistoryDispatcher.fetchHistory(offset: 0)
             let vc = CategoryViewController.initFromStoryBoard()
@@ -296,6 +343,8 @@ extension SettingsViewController: UITableViewDelegate {
             vm.set(delegate: vc, type: .history)
             vc.set(vm: vm)
             navigationController?.pushViewController(vc, animated: true)
+        case .twitter:
+            currentUser?.isTwitterLogin == true ? tapLogout() : tapLogin()
         }
     }
 
@@ -303,8 +352,6 @@ extension SettingsViewController: UITableViewDelegate {
         let menu = Menu2.allCases[index]
 
         switch menu {
-        case .twitter:
-            currentUser?.isTwitterLogin == true ? tapLogout() : tapLogin()
 //        case .term:
 //            openWebView(title: menu.rawValue, url: "https://github.com/abeyuya")
         case .privacyPolicy:

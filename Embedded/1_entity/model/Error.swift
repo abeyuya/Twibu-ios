@@ -14,10 +14,13 @@ public enum TwibuError: Error {
     case needTwitterAuth(String?)
     case signOut(String?)
     case twitterLogin(String?)
+    case twitterLoginAlreadyExist(String?)
     case firestoreError(String?)
     case firebaseFunctionsError(String?)
     case webArchiveError(String?)
     case apiError(String?)
+
+    public static let alreadyExistTwitterAccountErrorCode = 17025
 
     public var displayMessage: String {
         if Env.current == .debug {
@@ -39,6 +42,7 @@ public enum TwibuError: Error {
         case .needTwitterAuth(_): return "Twitterでログインしてください"
         case .signOut(_): return "ログアウトに失敗しました"
         case .twitterLogin(_): return "Twitterログインに失敗しました"
+        case .twitterLoginAlreadyExist(_): return "Twitterログインに失敗しました"
         case .firestoreError(_): return "通信に失敗しました"
         case .firebaseFunctionsError(_): return "通信に失敗しました"
         case .webArchiveError(_): return "予期せぬエラーが発生しました"
@@ -53,6 +57,7 @@ public enum TwibuError: Error {
         case .needTwitterAuth(let message): return message
         case .signOut(let message): return message
         case .twitterLogin(let message): return message
+        case .twitterLoginAlreadyExist(let message): return message
         case .firestoreError(let message): return message
         case .firebaseFunctionsError(let message): return message
         case .webArchiveError(let message): return message

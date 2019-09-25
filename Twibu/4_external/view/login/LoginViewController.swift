@@ -91,12 +91,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
         indicator.startAnimating()
         stackView.addArrangedSubview(indicator)
 
-        UserDispatcher.linkTwitterAccount(
-            db: TwibuFirebase.shared.firestore,
-            functions: TwibuFirebase.shared.functions,
-            user: firebaseUser,
-            session: session
-        ) { [weak self] result in
+        UserDispatcher.linkTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
                 self?.showAlert(title: "Success", message: "Twitter連携しました！")

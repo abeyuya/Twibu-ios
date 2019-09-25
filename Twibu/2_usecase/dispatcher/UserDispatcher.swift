@@ -15,9 +15,7 @@ import TwitterKit
 import Crashlytics
 import Embedded
 
-final class UserDispatcher {
-    private init() {}
-
+enum UserDispatcher {
     static func setupUser(completion: @escaping (Result<Void>) -> Void) {
         if let user = Auth.auth().currentUser {
             UserDispatcher.updateFirebaseUser(functions: TwibuFirebase.shared.functions, user: user)
@@ -43,15 +41,23 @@ final class UserDispatcher {
         }
     }
 
-    static func linkTwitterAccount(db: Firestore, functions: Functions, user: User, session: TWTRSession, completion: @escaping (Result<Void>) -> Void) {
+    static func loginAsTwitterAccount(
+        user: User,
+        session: TWTRSession,
+        completion: @escaping (Result<Void>) -> Void
+    ) {
         let cred = TwitterAuthProvider.credential(
             withToken: session.authToken,
             secret: session.authTokenSecret
         )
 
-        user.link(with: cred) { result, error in
+        Auth.auth().signIn(with: cred) { result, error in
             if let error = error {
-                completion(.failure(TwibuError.twitterLogin(error.localizedDescription)))
+                if (error as NSError).code == TwibuError.alreadyExistTwitterAccountErrorCode {
+                    completion(.failure(TwibuError.twitterLoginAlreadyExist(error.localizedDescription)))
+                } else {
+                    completion(.failure(TwibuError.twitterLogin(error.localizedDescription)))
+                }
                 return
             }
             guard let result = result else {
@@ -60,7 +66,7 @@ final class UserDispatcher {
             }
 
             UserRepository.add(
-                db: db,
+                db: TwibuFirebase.shared.firestore,
                 uid: result.user.uid,
                 userName: session.userName,
                 userId: session.userID,
@@ -69,7 +75,50 @@ final class UserDispatcher {
             ) { addResult in
                 switch addResult {
                 case .success:
-                    updateFirebaseUser(functions: functions, user: result.user)
+                    updateFirebaseUser(functions: TwibuFirebase.shared.functions, user: result.user)
+                    completion(.success(Void()))
+                case .failure(let error):
+                    completion(.failure(TwibuError.twitterLogin(error.displayMessage)))
+                }
+            }
+        }
+    }
+
+    static func linkTwitterAccount(
+        user: User,
+        session: TWTRSession,
+        completion: @escaping (Result<Void>) -> Void
+    ) {
+        let cred = TwitterAuthProvider.credential(
+            withToken: session.authToken,
+            secret: session.authTokenSecret
+        )
+
+        user.link(with: cred) { result, error in
+            if let error = error {
+                if (error as NSError).code == TwibuError.alreadyExistTwitterAccountErrorCode {
+                    completion(.failure(TwibuError.twitterLoginAlreadyExist(error.localizedDescription)))
+                } else {
+                    completion(.failure(TwibuError.twitterLogin(error.localizedDescription)))
+                }
+                return
+            }
+            guard let result = result else {
+                completion(.failure(TwibuError.twitterLogin("Twitterユーザが取得できませんでした")))
+                return
+            }
+
+            UserRepository.add(
+                db: TwibuFirebase.shared.firestore,
+                uid: result.user.uid,
+                userName: session.userName,
+                userId: session.userID,
+                accessToken: session.authToken,
+                secretToken: session.authTokenSecret
+            ) { addResult in
+                switch addResult {
+                case .success:
+                    updateFirebaseUser(functions: TwibuFirebase.shared.functions, user: result.user)
                     completion(.success(Void()))
                 case .failure(let error):
                     completion(.failure(TwibuError.twitterLogin(error.displayMessage)))
