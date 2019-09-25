@@ -2,46 +2,50 @@ platform :ios, '11.0'
 use_frameworks!
 
 #
-# Embeddedで利用しているpod
-#
-pod 'Kingfisher'
-pod 'Parchment'
-pod 'SwiftIcons'
-
-#
 # 各自必要なpod
 #
-target 'Embedded' do
-end
 
-target 'today-extension' do
-end
+abstract_target 'All' do
+  pod 'Kingfisher'
 
-target 'action-extension' do
-end
+  target 'Embedded' do
+    pod 'SwiftIcons'
+    pod 'Parchment'
+  end
 
-target 'Twibu' do
-  pod 'Firebase/Core'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
-  pod 'Firebase/Functions'
-  pod 'Firebase/Performance'
-  pod 'TwitterKit'
-  pod 'Fabric'
-  pod 'Crashlytics'
+  target 'today-extension' do
+    pod 'SwiftIcons'
+  end
 
-  pod 'PromisesSwift'
-  pod 'UnderKeyboard'
-  pod 'UITextView+Placeholder'
-  pod 'RealmSwift'
-  pod 'ReSwift'
-  pod 'BadgeSwift'
-  pod 'LicensePlist'
-  pod 'PKHUD'
+  target 'action-extension' do
+    pod 'Parchment'
+  end
 
-  target 'TwibuTests' do
-    inherit! :search_paths
+  target 'Twibu' do
+    pod 'Firebase/Core'
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Firestore'
+    pod 'Firebase/Functions'
+    pod 'Firebase/Performance'
+    pod 'TwitterKit'
+    pod 'Fabric'
+    pod 'Crashlytics'
+
+    pod 'PromisesSwift'
+    pod 'UnderKeyboard'
+    pod 'UITextView+Placeholder'
+    pod 'RealmSwift'
+    pod 'ReSwift'
+    pod 'BadgeSwift'
+    pod 'LicensePlist'
+    pod 'PKHUD'
+    pod 'SwiftIcons'
+    pod 'Parchment'
+
+    target 'TwibuTests' do
+      inherit! :search_paths
+    end
   end
 end
 

@@ -164,10 +164,6 @@ name: Parchment, nameSpecified:
 body: The MIT License (MIT…
 version: 1.6.0
 
-name: Parchment, nameSpecified: 
-body: The MIT License (MIT…
-version: 1.6.0
-
 name: PKHUD, nameSpecified: 
 body: The MIT License (MIT…
 version: 5.3.0
@@ -201,10 +197,6 @@ version: 3.18.0
 name: ReSwift, nameSpecified: 
 body: The MIT License (MIT…
 version: 5.0.0
-
-name: SwiftIcons, nameSpecified: 
-body: The MIT License (MIT…
-version: 2.3.2
 
 name: SwiftIcons, nameSpecified: 
 body: The MIT License (MIT…
