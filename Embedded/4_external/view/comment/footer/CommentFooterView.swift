@@ -36,7 +36,6 @@ final class CommentFooterView: UIView {
         }
     }
 
-    private var url: URL?
     private var tapAction: () -> Void = {}
 
     enum Mode {
@@ -63,8 +62,7 @@ final class CommentFooterView: UIView {
         self.addSubview(view)
     }
 
-    func set(mode: Mode, url: URL, tapAction: @escaping () -> Void) {
-        self.url = url
+    func set(mode: Mode, tapAction: @escaping () -> Void) {
         self.tapAction = tapAction
 
         defer {

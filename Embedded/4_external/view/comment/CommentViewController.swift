@@ -57,7 +57,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         guard let t = tableview.tableFooterView as? CommentFooterView else { return }
 
         if let url = viewModel.bookmark?.twitterSearchUrl {
-            t.set(mode: mode, url: url) {
+            t.set(mode: mode) {
                 let vc = SFSafariViewController(url: url)
                 self.topViewController(vc: nil)?.present(vc, animated: true)
             }
