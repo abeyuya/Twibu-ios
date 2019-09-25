@@ -102,8 +102,8 @@
 		4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */; };
 		4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
 		4DFC605B22FDFEAC00C7CFE7 /* WebArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */; };
-		4DFFDBC6233BB5B90037AA8A /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154422B60298000817BA /* TimelineCell.swift */; };
-		4DFFDBC7233BB5BE0037AA8A /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154522B60298000817BA /* TimelineCell.xib */; };
+		4DFFDBC6233BB5B90037AA8A /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154422B60298000817BA /* BookmarkCell.swift */; };
+		4DFFDBC7233BB5BE0037AA8A /* BookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D11154522B60298000817BA /* BookmarkCell.xib */; };
 		6327AEB916C5F908F26D9190 /* Pods_TwibuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */; };
 		70DEC8D237DC9923AA88E9DF /* Pods_All_action_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722EEC8A8EEA56D1DDA2502C /* Pods_All_action_extension.framework */; };
 		8A481F6367C0A7B4130F71B5 /* Pods_All_today_extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CA55A91F63BF3C5E19BA843 /* Pods_All_today_extension.framework */; };
@@ -216,8 +216,8 @@
 		4D11153722B57697000817BA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		4D11153C22B58091000817BA /* CategoryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoryViewController.storyboard; sourceTree = "<group>"; };
 		4D11153E22B5FFD0000817BA /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
-		4D11154422B60298000817BA /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
-		4D11154522B60298000817BA /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
+		4D11154422B60298000817BA /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
+		4D11154522B60298000817BA /* BookmarkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkCell.xib; sourceTree = "<group>"; };
 		4D11154822B69E15000817BA /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		4D11154B22B6A648000817BA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		4D11154D22B6A659000817BA /* WebViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebViewController.storyboard; sourceTree = "<group>"; };
@@ -843,8 +843,8 @@
 		4DFFDBC5233BB5A10037AA8A /* bookmark */ = {
 			isa = PBXGroup;
 			children = (
-				4D11154422B60298000817BA /* TimelineCell.swift */,
-				4D11154522B60298000817BA /* TimelineCell.xib */,
+				4D11154422B60298000817BA /* BookmarkCell.swift */,
+				4D11154522B60298000817BA /* BookmarkCell.xib */,
 			);
 			path = bookmark;
 			sourceTree = "<group>";
@@ -1106,7 +1106,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DFFDBC7233BB5BE0037AA8A /* TimelineCell.xib in Resources */,
+				4DFFDBC7233BB5BE0037AA8A /* BookmarkCell.xib in Resources */,
 				4D3D26782338F82600BFD408 /* CommentViewController.storyboard in Resources */,
 				4D3D267A2338F82600BFD408 /* CommentTableViewCell.xib in Resources */,
 				4D3D26752338F82600BFD408 /* CommentFooterView.xib in Resources */,
@@ -1400,7 +1400,7 @@
 				4D3D267B2338F90A00BFD408 /* String+Extension.swift in Sources */,
 				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,
 				4D3059542338A40D001F0605 /* Repository.swift in Sources */,
-				4DFFDBC6233BB5B90037AA8A /* TimelineCell.swift in Sources */,
+				4DFFDBC6233BB5B90037AA8A /* BookmarkCell.swift in Sources */,
 				4D3059322337FE75001F0605 /* Comment.swift in Sources */,
 				4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */,
 				4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */,

@@ -23,8 +23,8 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
             tableView.tableFooterView = footer
             tableView.register(
-                UINib(nibName: "TimelineCell", bundle: Bundle(for: TimelineCell.self)),
-                forCellReuseIdentifier: "TimelineCell"
+                UINib(nibName: "BookmarkCell", bundle: Bundle(for: BookmarkCell.self)),
+                forCellReuseIdentifier: "BookmarkCell"
             )
             tableView.delegate = self
             tableView.dataSource = self
@@ -122,7 +122,7 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TimelineCell") as? TimelineCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookmarkCell") as? BookmarkCell else {
             return UITableViewCell()
         }
 

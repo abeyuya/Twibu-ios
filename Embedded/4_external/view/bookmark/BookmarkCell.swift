@@ -1,5 +1,5 @@
 //
-//  TimelineCell.swift
+//  BookmarkCell.swift
 //  Twibu
 //
 //  Created by abeyuya on 2019/06/16.
@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-final public class TimelineCell: UITableViewCell {
+final public class BookmarkCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var usersCountLabel: UILabel!
     @IBOutlet private weak var domainLabel: UILabel!
