@@ -53,7 +53,7 @@ post_install do |installer|
   installer.aggregate_targets.each do |aggregate_target|
     puts aggregate_target.name
     
-    if aggregate_target.name == 'Pods-Twibu'
+    if aggregate_target.name == 'Pods-All-Twibu'
       aggregate_target.xcconfigs.each do |config_name, config_file|
         config_file.frameworks.delete('TwitterCore')
         xcconfig_path = aggregate_target.xcconfig_path(config_name)
