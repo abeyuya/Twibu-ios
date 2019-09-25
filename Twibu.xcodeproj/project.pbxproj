@@ -73,8 +73,6 @@
 		4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153122B547F8000817BA /* Result.swift */; };
 		4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF34EF722D78D6F00E9AE80 /* Logger.swift */; };
 		4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
-		4D72CF2022E30A7100E6AA66 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D72CF1F22E30A7100E6AA66 /* TodayCell.swift */; };
-		4D72CF2222E30A8000E6AA66 /* TodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2122E30A8000E6AA66 /* TodayCell.xib */; };
 		4D72CF2522E34BDF00E6AA66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */; };
 		4D72CF2622E3606700E6AA66 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
 		4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */; };
@@ -267,8 +265,6 @@
 		4D72CF0E22E2F37E00E6AA66 /* today-extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "today-extension.entitlements"; sourceTree = "<group>"; };
 		4D72CF0F22E2F3AB00E6AA66 /* Twibu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Twibu.entitlements; sourceTree = "<group>"; };
 		4D72CF1022E2F40300E6AA66 /* TwibuUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUserDefaults.swift; sourceTree = "<group>"; };
-		4D72CF1F22E30A7100E6AA66 /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
-		4D72CF2122E30A8000E6AA66 /* TodayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayCell.xib; sourceTree = "<group>"; };
 		4D72CF2322E316BC00E6AA66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
@@ -702,7 +698,6 @@
 		4D72CED722E2DA1400E6AA66 /* today-extension */ = {
 			isa = PBXGroup;
 			children = (
-				4D72CF1E22E30A4B00E6AA66 /* cell */,
 				4D72CF0E22E2F37E00E6AA66 /* today-extension.entitlements */,
 				4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */,
 				4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */,
@@ -781,15 +776,6 @@
 				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 			);
 			path = model;
-			sourceTree = "<group>";
-		};
-		4D72CF1E22E30A4B00E6AA66 /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				4D72CF1F22E30A7100E6AA66 /* TodayCell.swift */,
-				4D72CF2122E30A8000E6AA66 /* TodayCell.xib */,
-			);
-			path = cell;
 			sourceTree = "<group>";
 		};
 		4DA1E5DE22CB5F6B00320895 /* settings */ = {
@@ -1098,7 +1084,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CEDC22E2DA1400E6AA66 /* MainInterface.storyboard in Resources */,
-				4D72CF2222E30A8000E6AA66 /* TodayCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1376,7 +1361,6 @@
 			files = (
 				4D3D26722338EE7000BFD408 /* BookmarkApiRepository.swift in Sources */,
 				4D72CED922E2DA1400E6AA66 /* TodayViewController.swift in Sources */,
-				4D72CF2022E30A7100E6AA66 /* TodayCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
