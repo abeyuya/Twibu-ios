@@ -93,19 +93,55 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
         let indicator = UIActivityIndicatorView(style: .gray)
         indicator.startAnimating()
         stackView.addArrangedSubview(indicator)
+        performTwitterLink(firebaseUser: firebaseUser, session: session)
+    }
 
-        UserDispatcher.linkTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
+    private func performTwitterLink(firebaseUser: User, session: TWTRSession) {
+        UserDispatcher.linkTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
                 self?.showAlert(title: "Success", message: "Twitter連携しました！")
                 self?.delegate?.reload(item: self?.item)
                 AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
             case .failure(let error):
-                self?.showAlert(title: "Error", message: error.displayMessage)
-                Logger.print(error)
-                Crashlytics.sharedInstance().recordError(error)
+                switch error {
+                case .twitterLoginAlreadyExist(_):
+                    self?.showUserSwitchConfirm(firebaseUser: firebaseUser, session: session)
+                default:
+                    self?.showAlert(title: "Error", message: error.displayMessage)
+                    Logger.print(error)
+                    Crashlytics.sharedInstance().recordError(error)
+                }
             }
         }
+    }
+
+    private func showUserSwitchConfirm(firebaseUser: User, session: TWTRSession) {
+        let alert = UIAlertController(
+            title: nil,
+            message: "このTwitterアカウントは既に利用されています。連携してもよろしいですか？(現在の「メモ」は破棄されます)",
+            preferredStyle: .alert
+        )
+
+        let ok = UIAlertAction(title: "連携する", style: .destructive) { _ in
+            UserDispatcher.loginAsTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
+                switch result {
+                case .success(_):
+                    self?.showAlert(title: "Success", message: "Twitter連携しました！")
+                    self?.delegate?.reload(item: self?.item)
+                    AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
+                case .failure(let error):
+                    self?.showAlert(title: "Error", message: error.displayMessage)
+                    Logger.print(error)
+                    Crashlytics.sharedInstance().recordError(error)
+                }
+            }
+        }
+        let cancel = UIAlertAction(title: "キャンセル", style: .default) { _ in }
+
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        present(alert, animated: true)
     }
 }
 

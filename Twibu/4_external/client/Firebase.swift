@@ -25,9 +25,12 @@ public final class TwibuFirebase {
 
     public let firestore: Firestore = {
         checkInit()
-        let settings = FirestoreSettings()
-        settings.isPersistenceEnabled = false
-        settings.dispatchQueue = DispatchQueue.global()
+        let settings: FirestoreSettings = {
+            let s = FirestoreSettings()
+            s.isPersistenceEnabled = false
+            s.dispatchQueue = DispatchQueue.global()
+            return s
+        }()
 
         let db = Firestore.firestore()
         db.settings = settings

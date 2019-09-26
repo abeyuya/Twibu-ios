@@ -280,7 +280,7 @@ private extension CategoryViewController {
                 return
         }
 
-        UserRepository.kickScrapeTimeline(functions: TwibuFirebase.shared.functions, uid: uid) { [weak self] result in
+        UserRepository.kickScrapeTimeline(uid: uid) { [weak self] result in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {

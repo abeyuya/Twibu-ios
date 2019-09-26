@@ -70,39 +70,39 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
 
     private func tapLogin() {
         // TODO: loading indicatorだしたいね
-        TWTRTwitter.sharedInstance().logIn { (session, error) in
+        TWTRTwitter.sharedInstance().logIn { [weak self] (session, error) in
             AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
 
             if let error = error {
-                self.showAlert(
+                self?.showAlert(
                     title: "Error",
                     message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
                 )
                 return
             }
 
-            guard let firebaseUser = self.currentUser?.firebaseAuthUser else {
+            guard let firebaseUser = self?.currentUser?.firebaseAuthUser else {
                 let e = TwibuError.needFirebaseAuth("firebase匿名ログインもできてない")
-                self.showAlert(title: "Error", message: e.displayMessage)
+                self?.showAlert(title: "Error", message: e.displayMessage)
                 Logger.print(e)
                 Crashlytics.sharedInstance().recordError(e)
                 return
             }
 
             guard let session = session else {
-                self.showAlert(
+                self?.showAlert(
                     title: "Error",
                     message: TwibuError.twitterLogin("sessionがnil").displayMessage
                 )
                 return
             }
 
-            self.performTwitterLink(firebaseUser: firebaseUser, session: session)
+            self?.performTwitterLink(firebaseUser: firebaseUser, session: session)
         }
     }
 
     private func performTwitterLink(firebaseUser: User, session: TWTRSession) {
-        UserDispatcher.linkTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
+        UserDispatcher.linkTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
                 self?.showAlert(title: "Success", message: "Twitter連携しました！")
@@ -130,36 +130,26 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             preferredStyle: .alert
         )
 
-        let ok = UIAlertAction(
-            title: "連携する",
-            style: .destructive) { _ in
-                do {
-                    try Auth.auth().signOut()
-                } catch {
-                    let e = TwibuError.unknown("Twitter紐付けのためのログアウトに失敗")
-                    self.showAlert(title: nil, message: e.localizedDescription)
-                    return
-                }
-
-                UserDispatcher.loginAsTwitterAccount(user: firebaseUser, session: session) { [weak self] result in
-                    switch result {
-                    case .success(_):
-                        self?.showAlert(title: "Success", message: "Twitter連携しました！")
-                        DispatchQueue.main.async {
-                            self?.tableView.reloadData()
-                        }
-                        AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
-                    case .failure(let error):
-                        self?.showAlert(title: "Error", message: error.displayMessage)
-                        Logger.print(error)
-                        Crashlytics.sharedInstance().recordError(error)
+        let ok = UIAlertAction(title: "連携する", style: .destructive) { _ in
+            UserDispatcher.loginAsTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
+                switch result {
+                case .success(_):
+                    self?.showAlert(title: "Success", message: "Twitter連携しました！")
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
                     }
+                    AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
+                case .failure(let error):
+                    self?.showAlert(title: "Error", message: error.displayMessage)
+                    Logger.print(error)
+                    Crashlytics.sharedInstance().recordError(error)
                 }
+            }
         }
-        let cancel = UIAlertAction(title: "キャンセル", style: .default) { _ in }
+        let cancel = UIAlertAction(title: "キャンセル", style: .default)
 
-        alert.addAction(ok)
         alert.addAction(cancel)
+        alert.addAction(ok)
         present(alert, animated: true)
     }
 
@@ -188,11 +178,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                 return
             }
 
-            UserDispatcher.unlinkTwitter(
-                db: TwibuFirebase.shared.firestore,
-                functions: TwibuFirebase.shared.functions,
-                user: user
-            ) { [weak self] result in
+            UserDispatcher.unlinkTwitter(firebaseUser: user) { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):

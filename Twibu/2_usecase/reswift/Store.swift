@@ -72,7 +72,7 @@ struct UpdateBookmarkCommentCountIfOverAction: Action {
     let bookmarkUid: String
     let commentCount: Int
 }
-struct UpdateFirebaseUser: Action {
+struct UpdateFirebaseUserAction: Action {
     let newUser: User
 }
 struct AddWebArchiveTask: Action {
@@ -264,7 +264,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         }
         state.response.bookmarks = new
 
-    case let a as UpdateFirebaseUser:
+    case let a as UpdateFirebaseUserAction:
         let newUser = TwibuUser(firebaseAuthUser: a.newUser)
         state.currentUser = newUser
 

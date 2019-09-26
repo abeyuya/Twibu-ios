@@ -15,7 +15,6 @@ enum UserRepository {
     private static let path = "users"
 
     static func add(
-        db: Firestore,
         uid: String,
         userName: String,
         userId: String,
@@ -32,7 +31,8 @@ enum UserRepository {
             "created_at": FieldValue.serverTimestamp()
         ]
 
-        db.collection(path)
+        TwibuFirebase.shared.firestore
+            .collection(path)
             .document(uid)
             .setData(data, mergeFields: ["access_token", "secret_token"]) { error in
                 if let error = error {
@@ -43,24 +43,30 @@ enum UserRepository {
         }
     }
 
-    static func kickScrapeTimeline(functions: Functions, uid: String, completion: @escaping (Result<HTTPSCallableResult?>) -> Void) {
+    static func kickScrapeTimeline(
+        uid: String,
+        completion: @escaping (Result<HTTPSCallableResult?>) -> Void
+    ) {
         let data: [String: String] = ["uid": uid]
-        functions.httpsCallable("execFetchUserTimeline").call(data) { result, error in
-            if let error = error {
-                completion(.failure(.firebaseFunctionsError(error.localizedDescription)))
-                return
-            }
-            completion(.success(result))
+        TwibuFirebase.shared.functions
+            .httpsCallable("execFetchUserTimeline")
+            .call(data) { result, error in
+                if let error = error {
+                    completion(.failure(.firebaseFunctionsError(error.localizedDescription)))
+                    return
+                }
+                completion(.success(result))
         }
     }
 
-    static func deleteTwitterToken(db: Firestore, uid: String) {
+    static func deleteTwitterToken(uid: String) {
         let data: [String: Any] = [
             "access_token": FieldValue.delete(),
             "secret_token": FieldValue.delete(),
             "updated_at": FieldValue.serverTimestamp()
         ]
-        db.collection(path)
+        TwibuFirebase.shared.firestore
+            .collection(path)
             .document(uid)
             .updateData(data)
     }
