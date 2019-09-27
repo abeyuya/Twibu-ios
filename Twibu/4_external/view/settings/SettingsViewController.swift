@@ -97,12 +97,12 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                 return
             }
 
-            self?.performTwitterLink(firebaseUser: firebaseUser, session: session)
+            self?.performLoginAsTwitter(firebaseUser: firebaseUser, session: session)
         }
     }
 
-    private func performTwitterLink(firebaseUser: User, session: TWTRSession) {
-        UserDispatcher.linkTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
+    private func performLoginAsTwitter(firebaseUser: User, session: TWTRSession) {
+        UserDispatcher.loginAsTwitterAccount(anonymousFirebaseUser: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
                 self?.showAlert(title: "Success", message: "Twitter連携しました！")
@@ -111,14 +111,9 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                 }
                 AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
             case .failure(let error):
-                switch error {
-                case .twitterLoginAlreadyExist(_):
-                    self?.showUserSwitchConfirm(firebaseUser: firebaseUser, session: session)
-                default:
-                    self?.showAlert(title: "Error", message: error.displayMessage)
-                    Logger.print(error)
-                    Crashlytics.sharedInstance().recordError(error)
-                }
+                self?.showAlert(title: "Error", message: error.displayMessage)
+                Logger.print(error)
+                Crashlytics.sharedInstance().recordError(error)
             }
         }
     }
@@ -131,20 +126,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
         )
 
         let ok = UIAlertAction(title: "連携する", style: .destructive) { _ in
-            UserDispatcher.loginAsTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
-                switch result {
-                case .success(_):
-                    self?.showAlert(title: "Success", message: "Twitter連携しました！")
-                    DispatchQueue.main.async {
-                        self?.tableView.reloadData()
-                    }
-                    AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
-                case .failure(let error):
-                    self?.showAlert(title: "Error", message: error.displayMessage)
-                    Logger.print(error)
-                    Crashlytics.sharedInstance().recordError(error)
-                }
-            }
+            self.performLoginAsTwitter(firebaseUser: firebaseUser, session: session)
         }
         let cancel = UIAlertAction(title: "キャンセル", style: .default)
 
@@ -343,7 +325,27 @@ extension SettingsViewController: UITableViewDelegate {
         case .privacyPolicy:
             openWebView(title: menu.rawValue, url: "https://twibu-c4d5a.web.app/privacy_policy.html")
         case .version:
-            break
+            switch Env.current {
+            case .debug:
+                let message: String = {
+                    guard let u = currentUser else {
+                        return "おかしい: ログインユーザが存在しません"
+                    }
+
+                    let twitterState: String = {
+                        guard let fu = u.firebaseAuthUser else { return "してません" }
+                        return TwibuUser.isTwitterLogin(user: fu) ? "してます" : "してません"
+                    }()
+
+                    return [
+                        "uid: \(u.firebaseAuthUser?.uid ?? "no uid")",
+                        "isTwitterLogin: \(twitterState)"
+                    ].joined(separator: "\n")
+                }()
+                self.showAlert(title: "デバッグ情報", message: message)
+            case .release:
+                break
+            }
         }
     }
 }

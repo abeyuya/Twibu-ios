@@ -23,6 +23,10 @@ public final class TwibuFirebase {
         }
     }
 
+    static func forceReload() {
+        FirebaseApp.configure()
+    }
+
     public let firestore: Firestore = {
         checkInit()
         let settings: FirestoreSettings = {

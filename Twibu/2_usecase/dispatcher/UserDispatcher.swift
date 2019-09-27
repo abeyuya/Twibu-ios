@@ -25,8 +25,8 @@ enum UserDispatcher {
 
         Auth.auth().signInAnonymously() { result, error in
             if let error = error {
-                let te = TwibuError.needFirebaseAuth(error.localizedDescription)
-                completion(.failure(te))
+                let e = TwibuError.needFirebaseAuth(error.localizedDescription)
+                completion(.failure(e))
                 return
             }
 
@@ -42,10 +42,13 @@ enum UserDispatcher {
     }
 
     static func loginAsTwitterAccount(
-        firebaseUser: User,
+        anonymousFirebaseUser: User,
         session: TWTRSession,
         completion: @escaping (Result<Void>) -> Void
     ) {
+        //
+        // TODO: ログアウトする前に、現在ログイン中の匿名ユーザのメモとかの情報をTwitterアカウントの方に移植したい
+        //
         do {
             try Auth.auth().signOut()
         } catch let error {
@@ -72,7 +75,7 @@ enum UserDispatcher {
                 return
             }
 
-            UserRepository.add(
+            UserRepository.createOrUpdate(
                 uid: result.user.uid,
                 userName: session.userName,
                 userId: session.userID,
@@ -114,7 +117,7 @@ enum UserDispatcher {
                 return
             }
 
-            UserRepository.add(
+            UserRepository.createOrUpdate(
                 uid: result.user.uid,
                 userName: session.userName,
                 userId: session.userID,

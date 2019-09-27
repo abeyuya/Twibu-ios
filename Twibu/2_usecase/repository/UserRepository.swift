@@ -14,7 +14,7 @@ import Embedded
 enum UserRepository {
     private static let path = "users"
 
-    static func add(
+    static func createOrUpdate(
         uid: String,
         userName: String,
         userId: String,
@@ -34,8 +34,9 @@ enum UserRepository {
         TwibuFirebase.shared.firestore
             .collection(path)
             .document(uid)
-            .setData(data, mergeFields: ["access_token", "secret_token"]) { error in
+            .setData(data, merge: true) { error in
                 if let error = error {
+                    Logger.print(data)
                     completion(.failure(.firestoreError(error.localizedDescription)))
                     return
                 }
