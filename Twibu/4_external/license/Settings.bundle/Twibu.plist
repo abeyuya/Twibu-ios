@@ -310,25 +310,17 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>Twibu/Swifter</string>
+			<key>Title</key>
+			<string>Swifter</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>Twibu/SwiftIcons</string>
 			<key>Title</key>
 			<string>SwiftIcons</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>Twibu/TwitterCore</string>
-			<key>Title</key>
-			<string>TwitterCore</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>Twibu/TwitterKit</string>
-			<key>Title</key>
-			<string>TwitterKit</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>

@@ -198,6 +198,10 @@ name: ReSwift, nameSpecified:
 body: The MIT License (MIT…
 version: 5.0.0
 
+name: Swifter, nameSpecified: 
+body: The MIT License (MIT…
+version: 2.3.0
+
 name: SwiftIcons, nameSpecified: 
 body: The MIT License (MIT…
 version: 2.3.2
@@ -209,14 +213,6 @@ version: 2.3.2
 name: SwiftIcons, nameSpecified: 
 body: The MIT License (MIT…
 version: 2.3.2
-
-name: TwitterCore, nameSpecified: 
-body: Copyright Twitter, I…
-version: 3.2.0
-
-name: TwitterKit, nameSpecified: 
-body: Twitter Kit: Copyrig…
-version: 3.4.2
 
 name: UITextView+Placeholder, nameSpecified: 
 body: The MIT License (MIT…

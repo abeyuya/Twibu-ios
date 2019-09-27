@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import SafariServices
+
 import FirebaseAuth
 import ReSwift
-import TwitterKit
 import Crashlytics
+import Swifter
 import Embedded
 
 final class SettingsViewController: UIViewController, StoryboardInstantiatable {
@@ -69,44 +71,53 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func tapLogin() {
-        // TODO: loading indicatorだしたいね
-        TWTRTwitter.sharedInstance().logIn { [weak self] (session, error) in
-            AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
-
-            if let error = error {
-                self?.showAlert(
+        guard let url = URL(string: Const.twitterCallbackUrlProtocol + "://") else { return }
+        let s = Swifter(consumerKey: Const.twitterConsumerKey, consumerSecret: Const.twitterConsumerSecret)
+        s.authorize(
+            withCallback: url,
+            presentingFrom: self,
+            success: { result, _ in
+                self.buildLoginCompletion(session: result)
+            },
+            failure: { error in
+                self.showAlert(
                     title: "Error",
                     message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
                 )
-                return
             }
-
-            guard let firebaseUser = self?.currentUser?.firebaseAuthUser else {
-                let e = TwibuError.needFirebaseAuth("firebase匿名ログインもできてない")
-                self?.showAlert(title: "Error", message: e.displayMessage)
-                Logger.print(e)
-                Crashlytics.sharedInstance().recordError(e)
-                return
-            }
-
-            guard let session = session else {
-                self?.showAlert(
-                    title: "Error",
-                    message: TwibuError.twitterLogin("sessionがnil").displayMessage
-                )
-                return
-            }
-
-            self?.performLinkTwitter(firebaseUser: firebaseUser, session: session)
-        }
+        )
     }
 
-    private func performLinkTwitter(firebaseUser: User, session: TWTRSession) {
+    private func buildLoginCompletion(session: Credential.OAuthAccessToken?) {
+        AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
+
+        guard let firebaseUser = currentUser?.firebaseAuthUser else {
+            let e = TwibuError.needFirebaseAuth("firebase匿名ログインもできてない")
+            self.showAlert(title: "Error", message: e.displayMessage)
+            Logger.print(e)
+            Crashlytics.sharedInstance().recordError(e)
+            return
+        }
+
+        guard let session = session else {
+            self.showAlert(
+                title: "Error",
+                message: TwibuError.twitterLogin("sessionがnil").displayMessage
+            )
+            return
+        }
+
+        performLinkTwitter(firebaseUser: firebaseUser, session: session)
+    }
+
+    private func performLinkTwitter(firebaseUser: User, session: Credential.OAuthAccessToken) {
         UserDispatcher.linkTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
                 self?.showAlert(title: "Success", message: "Twitter連携しました！")
-                self?.delegate?.reload(item: self?.item)
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
                 AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
             case .failure(let error):
                 switch error {
@@ -121,7 +132,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
-    private func performLoginAsTwitter(firebaseUser: User, session: TWTRSession) {
+    private func performLoginAsTwitter(firebaseUser: User, session: Credential.OAuthAccessToken) {
         UserDispatcher.loginAsTwitterAccount(anonymousFirebaseUser: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
@@ -138,7 +149,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
-    private func showUserSwitchConfirm(firebaseUser: User, session: TWTRSession) {
+    private func showUserSwitchConfirm(firebaseUser: User, session: Credential.OAuthAccessToken) {
         let alert = UIAlertController(
             title: nil,
             message: "このTwitterアカウントは既に利用されています。連携してもよろしいですか？(現在の「メモ」は破棄されます)",
@@ -377,3 +388,5 @@ extension SettingsViewController: StoreSubscriber {
         currentUser = state
     }
 }
+
+extension SettingsViewController: SFSafariViewControllerDelegate {}

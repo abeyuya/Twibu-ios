@@ -28,9 +28,9 @@ abstract_target 'All' do
     pod 'Firebase/Firestore'
     pod 'Firebase/Functions'
     pod 'Firebase/Performance'
-    pod 'TwitterKit'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'Swifter', git: 'https://github.com/mattdonnelly/Swifter.git'
 
     pod 'PromisesSwift'
     pod 'UnderKeyboard'

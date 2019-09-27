@@ -18,6 +18,10 @@ struct Const {
         return "VnFMSY5A3HolXfCtRlR2VyvBGp95LSazKKpDYAsKBPt0J3NacG"
     }()
 
+    static let twitterCallbackUrlProtocol: String = {
+        return "twitterkit-6twmrudutzytnbmrto9wqtuxu"
+    }()
+
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
     static let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
 }

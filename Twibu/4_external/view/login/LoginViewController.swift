@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SafariServices
+
 import FirebaseAuth
-import TwitterKit
 import Parchment
 import ReSwift
 import Crashlytics
+import Swifter
 import Embedded
 
 final class LoginViewController: UIViewController, StoryboardInstantiatable {
@@ -57,21 +59,34 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func buildLoginButton() -> UIView {
-        let loginButton = TWTRLogInButton(logInCompletion: buildLoginCompletion)
+        let loginButton = UIButton()
         loginButton.frame.size = CGSize(width: 240, height: 40)
+        loginButton.setTitle("Twitterでログイン", for: .normal)
+        loginButton.addTarget(self, action: #selector(tapLogin), for: .touchUpInside)
         return loginButton
     }
 
-    private func buildLoginCompletion(session: TWTRSession?, error: Error?) {
-        AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
+    @objc
+    private func tapLogin() {
+        guard let url = URL(string: Const.twitterCallbackUrlProtocol + "://") else { return }
+        let s = Swifter(consumerKey: Const.twitterConsumerKey, consumerSecret: Const.twitterConsumerSecret)
+        s.authorize(
+            withCallback: url,
+            presentingFrom: self,
+            success: { result, _ in
+                self.buildLoginCompletion(session: result)
+            },
+            failure: { error in
+                self.showAlert(
+                    title: "Error",
+                    message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
+                )
+            }
+        )
+    }
 
-        if let error = error {
-            self.showAlert(
-                title: "Error",
-                message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
-            )
-            return
-        }
+    private func buildLoginCompletion(session: Credential.OAuthAccessToken?) {
+        AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
 
         guard let firebaseUser = currentUser?.firebaseAuthUser else {
             let e = TwibuError.needFirebaseAuth("firebase匿名ログインもできてない")
@@ -95,7 +110,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
         performLinkTwitter(firebaseUser: firebaseUser, session: session)
     }
 
-    private func performLinkTwitter(firebaseUser: User, session: TWTRSession) {
+    private func performLinkTwitter(firebaseUser: User, session: Credential.OAuthAccessToken) {
         UserDispatcher.linkTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
@@ -115,7 +130,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
-    private func performLoginAsTwitter(firebaseUser: User, session: TWTRSession) {
+    private func performLoginAsTwitter(firebaseUser: User, session: Credential.OAuthAccessToken) {
         UserDispatcher.loginAsTwitterAccount(anonymousFirebaseUser: firebaseUser, session: session) { [weak self] result in
             switch result {
             case .success(_):
@@ -130,7 +145,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
-    private func showUserSwitchConfirm(firebaseUser: User, session: TWTRSession) {
+    private func showUserSwitchConfirm(firebaseUser: User, session: Credential.OAuthAccessToken) {
         let alert = UIAlertController(
             title: nil,
             message: "このTwitterアカウントは既に利用されています。連携してもよろしいですか？(現在の「メモ」は破棄されます)",
@@ -155,3 +170,5 @@ extension LoginViewController: StoreSubscriber {
         self.currentUser = state
     }
 }
+
+extension LoginViewController: SFSafariViewControllerDelegate {}

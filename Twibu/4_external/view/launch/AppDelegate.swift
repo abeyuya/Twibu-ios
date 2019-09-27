@@ -8,9 +8,9 @@
 
 import UIKit
 import Firebase
-import TwitterKit
 import Embedded
 import Fabric
+import Swifter
 import Crashlytics
 
 @UIApplicationMain
@@ -21,10 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let _ = TwibuFirebase.shared
         Fabric.with([Crashlytics.self])
-        TWTRTwitter.sharedInstance().start(
-            withConsumerKey: Const.twitterConsumerKey,
-            consumerSecret: Const.twitterConsumerSecret
-        )
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = RootViewController()
@@ -64,7 +60,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
 
-        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
+        if scheme == Const.twitterCallbackUrlProtocol {
+            guard let callbackUrl = URL(string: Const.twitterCallbackUrlProtocol + "://") else { return false }
+            return Swifter.handleOpenURL(url, callbackURL: callbackUrl)
+        }
+
+        return false
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

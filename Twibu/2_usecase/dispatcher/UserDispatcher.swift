@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseAnalytics
 import FirebaseFirestore
 import FirebaseFunctions
-import TwitterKit
+import Swifter
 import Crashlytics
 import Embedded
 
@@ -43,7 +43,7 @@ enum UserDispatcher {
 
     static func loginAsTwitterAccount(
         anonymousFirebaseUser: User,
-        session: TWTRSession,
+        session: Credential.OAuthAccessToken,
         completion: @escaping (Result<Void>) -> Void
     ) {
         //
@@ -57,8 +57,8 @@ enum UserDispatcher {
         }
 
         let cred = TwitterAuthProvider.credential(
-            withToken: session.authToken,
-            secret: session.authTokenSecret
+            withToken: session.key,
+            secret: session.secret
         )
 
         Auth.auth().signIn(with: cred) { result, error in
@@ -77,10 +77,10 @@ enum UserDispatcher {
 
             UserRepository.createOrUpdate(
                 uid: result.user.uid,
-                userName: session.userName,
-                userId: session.userID,
-                accessToken: session.authToken,
-                secretToken: session.authTokenSecret
+                userName: session.screenName ?? "",
+                userId: session.userID ?? "",
+                accessToken: session.key,
+                secretToken: session.secret
             ) { addResult in
                 switch addResult {
                 case .success:
@@ -95,12 +95,12 @@ enum UserDispatcher {
 
     static func linkTwitterAccount(
         firebaseUser: User,
-        session: TWTRSession,
+        session: Credential.OAuthAccessToken,
         completion: @escaping (Result<Void>) -> Void
     ) {
         let cred = TwitterAuthProvider.credential(
-            withToken: session.authToken,
-            secret: session.authTokenSecret
+            withToken: session.key,
+            secret: session.secret
         )
 
         firebaseUser.link(with: cred) { result, error in
@@ -119,10 +119,10 @@ enum UserDispatcher {
 
             UserRepository.createOrUpdate(
                 uid: result.user.uid,
-                userName: session.userName,
-                userId: session.userID,
-                accessToken: session.authToken,
-                secretToken: session.authTokenSecret
+                userName: session.screenName ?? "",
+                userId: session.userID ?? "",
+                accessToken: session.key,
+                secretToken: session.secret
             ) { addResult in
                 switch addResult {
                 case .success:

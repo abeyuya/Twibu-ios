@@ -173,10 +173,8 @@ PODS:
   - RealmSwift (3.18.0):
     - Realm (= 3.18.0)
   - ReSwift (5.0.0)
+  - Swifter (2.3.0)
   - SwiftIcons (2.3.2)
-  - TwitterCore (3.2.0)
-  - TwitterKit (3.4.2):
-    - TwitterCore (>= 3.2.0)
   - "UITextView+Placeholder (1.3.3)"
   - UnderKeyboard (13.0.2)
 
@@ -197,8 +195,8 @@ DEPENDENCIES:
   - PromisesSwift
   - RealmSwift
   - ReSwift
+  - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
   - SwiftIcons
-  - TwitterKit
   - "UITextView+Placeholder"
   - UnderKeyboard
 
@@ -243,10 +241,17 @@ SPEC REPOS:
     - RealmSwift
     - ReSwift
     - SwiftIcons
-    - TwitterCore
-    - TwitterKit
     - "UITextView+Placeholder"
     - UnderKeyboard
+
+EXTERNAL SOURCES:
+  Swifter:
+    :git: https://github.com/mattdonnelly/Swifter.git
+
+CHECKOUT OPTIONS:
+  Swifter:
+    :commit: f5a84134d47cbbdb17eb2df45a4689ed5938274c
+    :git: https://github.com/mattdonnelly/Swifter.git
 
 SPEC CHECKSUMS:
   BadgeSwift: a81547ffde1f462bb5fc02e3fa3fdcbc1b888354
@@ -287,12 +292,11 @@ SPEC CHECKSUMS:
   Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
   ReSwift: 628f1a9b3ee52e3b3ca2a644435472fd77afafe1
+  Swifter: 114bb57823fb21d5ef0451930e9cbc184c3a867a
   SwiftIcons: e652cfd2676441c462ad57b6e92977faf577e590
-  TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
-  TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
   UnderKeyboard: 79ea6feb497af99c1856aaae0ab8ded3c739f745
 
-PODFILE CHECKSUM: 3df539831ce3de2a51e57bee999fafecb74b5fdd
+PODFILE CHECKSUM: 809cad0897d391877655699c16a419f73556d54e
 
 COCOAPODS: 1.7.5
