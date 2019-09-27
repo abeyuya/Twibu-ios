@@ -15,7 +15,6 @@ import Crashlytics
 import Embedded
 
 final class LoginViewController: UIViewController, StoryboardInstantiatable {
-
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
     private var currentUser: TwibuUser?

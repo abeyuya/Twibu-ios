@@ -97,7 +97,27 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
                 return
             }
 
-            self?.performLoginAsTwitter(firebaseUser: firebaseUser, session: session)
+            self?.performLinkTwitter(firebaseUser: firebaseUser, session: session)
+        }
+    }
+
+    private func performLinkTwitter(firebaseUser: User, session: TWTRSession) {
+        UserDispatcher.linkTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.showAlert(title: "Success", message: "Twitter連携しました！")
+                self?.delegate?.reload(item: self?.item)
+                AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
+            case .failure(let error):
+                switch error {
+                case .twitterLoginAlreadyExist(_):
+                    self?.showUserSwitchConfirm(firebaseUser: firebaseUser, session: session)
+                default:
+                    self?.showAlert(title: "Error", message: error.displayMessage)
+                    Logger.print(error)
+                    Crashlytics.sharedInstance().recordError(error)
+                }
+            }
         }
     }
 
