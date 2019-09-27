@@ -7,12 +7,8 @@
 //
 
 import UIKit
-import SafariServices
 
-import FirebaseAuth
 import ReSwift
-import Crashlytics
-import Swifter
 import Embedded
 
 final class SettingsViewController: UIViewController, StoryboardInstantiatable {
@@ -71,149 +67,25 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func tapLogin() {
-        guard let url = URL(string: Const.twitterCallbackUrlProtocol + "://") else { return }
-        let s = Swifter(consumerKey: Const.twitterConsumerKey, consumerSecret: Const.twitterConsumerSecret)
-        s.authorize(
-            withCallback: url,
-            presentingFrom: self,
-            success: { result, _ in
-                self.buildLoginCompletion(session: result)
-            },
-            failure: { error in
-                self.showAlert(
-                    title: "Error",
-                    message: TwibuError.twitterLogin(error.localizedDescription).displayMessage
-                )
-            }
-        )
-    }
-
-    private func buildLoginCompletion(session: Credential.OAuthAccessToken?) {
-        AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
-
-        guard let firebaseUser = currentUser?.firebaseAuthUser else {
-            let e = TwibuError.needFirebaseAuth("firebase匿名ログインもできてない")
-            self.showAlert(title: "Error", message: e.displayMessage)
-            Logger.print(e)
-            Crashlytics.sharedInstance().recordError(e)
-            return
-        }
-
-        guard let session = session else {
-            self.showAlert(
-                title: "Error",
-                message: TwibuError.twitterLogin("sessionがnil").displayMessage
+        guard let u = currentUser else {
+            showAlert(
+                title: nil,
+                message: TwibuError.needFirebaseAuth("何故かログインユーザがとれてない").displayMessage
             )
             return
         }
-
-        performLinkTwitter(firebaseUser: firebaseUser, session: session)
-    }
-
-    private func performLinkTwitter(firebaseUser: User, session: Credential.OAuthAccessToken) {
-        UserDispatcher.linkTwitterAccount(firebaseUser: firebaseUser, session: session) { [weak self] result in
-            switch result {
-            case .success(_):
-                self?.showAlert(title: "Success", message: "Twitter連携しました！")
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-                AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
-            case .failure(let error):
-                switch error {
-                case .twitterLoginAlreadyExist(_):
-                    self?.showUserSwitchConfirm(firebaseUser: firebaseUser, session: session)
-                default:
-                    self?.showAlert(title: "Error", message: error.displayMessage)
-                    Logger.print(error)
-                    Crashlytics.sharedInstance().recordError(error)
-                }
-            }
-        }
-    }
-
-    private func performLoginAsTwitter(firebaseUser: User, session: Credential.OAuthAccessToken) {
-        UserDispatcher.loginAsTwitterAccount(anonymousFirebaseUser: firebaseUser, session: session) { [weak self] result in
-            switch result {
-            case .success(_):
-                self?.showAlert(title: "Success", message: "Twitter連携しました！")
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-                AnalyticsDispatcer.logging(.login, param: ["method": "twitter"])
-            case .failure(let error):
-                self?.showAlert(title: "Error", message: error.displayMessage)
-                Logger.print(error)
-                Crashlytics.sharedInstance().recordError(error)
-            }
-        }
-    }
-
-    private func showUserSwitchConfirm(firebaseUser: User, session: Credential.OAuthAccessToken) {
-        let alert = UIAlertController(
-            title: nil,
-            message: "このTwitterアカウントは既に利用されています。連携してもよろしいですか？(現在の「メモ」は破棄されます)",
-            preferredStyle: .alert
-        )
-
-        let ok = UIAlertAction(title: "連携する", style: .destructive) { _ in
-            self.performLoginAsTwitter(firebaseUser: firebaseUser, session: session)
-        }
-        let cancel = UIAlertAction(title: "キャンセル", style: .default)
-
-        alert.addAction(cancel)
-        alert.addAction(ok)
-        present(alert, animated: true)
+        startLogin(currentUser: u)
     }
 
     private func tapLogout() {
-        AnalyticsDispatcer.logging(
-            .logoutTry,
-            param: ["method": "twitter"]
-        )
-
-        if currentUser?.isTwitterLogin == false {
+        guard let u = currentUser else {
+            showAlert(
+                title: nil,
+                message: TwibuError.needFirebaseAuth("何故かログインユーザがとれてない").displayMessage
+            )
             return
         }
-
-        let alert = UIAlertController(
-            title: "",
-            message: "Twitter連携を解除しますか？",
-            preferredStyle: .alert
-        )
-
-        let logoutAction = UIAlertAction(title: "解除する", style: .destructive) { _ in
-            guard let user = Auth.auth().currentUser else {
-                self.showAlert(
-                    title: "Error",
-                    message: TwibuError.needFirebaseAuth("ログアウトしようとした").displayMessage
-                )
-                return
-            }
-
-            UserDispatcher.unlinkTwitter(firebaseUser: user) { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        self?.showAlert(title: "Error", message: error.displayMessage)
-                    case .success(_):
-                        self?.tableView.reloadData()
-                        self?.showAlert(title: "Success", message: "Twitterからログアウトしました")
-                        self?.delegate?.reload(item: nil)
-
-                        AnalyticsDispatcer.logging(
-                            .logout,
-                            param: ["method": "twitter"]
-                        )
-                    }
-                }
-            }
-        }
-
-        let cancelAction = UIAlertAction(title: "キャンセル", style: .default)
-        alert.addAction(cancelAction)
-        alert.addAction(logoutAction)
-        present(alert, animated: true)
+        startTwitterUnlink(currentUser: u)
     }
 
     private func openWebView(title: String, url: String) {
@@ -389,4 +261,17 @@ extension SettingsViewController: StoreSubscriber {
     }
 }
 
-extension SettingsViewController: SFSafariViewControllerDelegate {}
+extension SettingsViewController: TwitterConnectable {
+    func didTwitterConnectSuccess() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
+    func didTwitterUnlinkSuccess() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.delegate?.reload(item: nil)
+        }
+    }
+}
