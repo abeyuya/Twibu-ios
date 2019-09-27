@@ -83,7 +83,7 @@
 		4DC5AD472337A744002BFE0D /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD462337A744002BFE0D /* Media.xcassets */; };
 		4DC5AD492337A744002BFE0D /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5AD482337A744002BFE0D /* ActionViewController.swift */; };
 		4DC5AD4C2337A745002BFE0D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */; };
-		4DC5AD502337A745002BFE0D /* Twibuでコメントを読む.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4DC5AD502337A745002BFE0D /* action-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4DC5AD442337A744002BFE0D /* action-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */; };
 		4DD369D623376F8C00D2D10D /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5CFC8722D8BDDE00F33754 /* Timeline.swift */; };
 		4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
@@ -98,6 +98,7 @@
 		4DD369E32337737400D2D10D /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
 		4DEE7EFF233E364900B0699E /* TwitterConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE7EFE233E364900B0699E /* TwitterConnectable.swift */; };
+		4DEE7F06233E5F4900B0699E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DEE7F08233E5F4900B0699E /* InfoPlist.strings */; };
 		4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */; };
 		4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
 		4DFC605B22FDFEAC00C7CFE7 /* WebArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */; };
@@ -169,7 +170,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4DC5AD502337A745002BFE0D /* Twibuでコメントを読む.appex in Embed App Extensions */,
+				4DC5AD502337A745002BFE0D /* action-extension.appex in Embed App Extensions */,
 				4D72CEE022E2DA1400E6AA66 /* today-extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -276,7 +277,7 @@
 		4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentFooterView.xib; sourceTree = "<group>"; };
 		4DBAB74022F1A4BD00519407 /* MemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
 		4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoViewController.storyboard; sourceTree = "<group>"; };
-		4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Twibuでコメントを読む.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DC5AD442337A744002BFE0D /* action-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "action-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC5AD462337A744002BFE0D /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4DC5AD482337A744002BFE0D /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		4DC5AD4B2337A745002BFE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -291,6 +292,8 @@
 		4DEDF2E922F47E4900488B55 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDispatcher.swift; sourceTree = "<group>"; };
 		4DEE7EFE233E364900B0699E /* TwitterConnectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterConnectable.swift; sourceTree = "<group>"; };
+		4DEE7F07233E5F4900B0699E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4DEE7F09233E5F7800B0699E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4DF258E122FB18AB00AC2329 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -436,7 +439,7 @@
 				4D72CED422E2DA1400E6AA66 /* today-extension.appex */,
 				4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */,
 				4D72CEF222E2E07B00E6AA66 /* EmbeddedTests.xctest */,
-				4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */,
+				4DC5AD442337A744002BFE0D /* action-extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -825,6 +828,7 @@
 				4DC5AD4D2337A745002BFE0D /* Info.plist */,
 				4D3D2681233909E500BFD408 /* CommentRepositoryApi.swift */,
 				4D3D26832339129300BFD408 /* ApiCommentListViewModel.swift */,
+				4DEE7F08233E5F4900B0699E /* InfoPlist.strings */,
 			);
 			path = "action-extension";
 			sourceTree = "<group>";
@@ -994,7 +998,7 @@
 			);
 			name = "action-extension";
 			productName = "action-extension";
-			productReference = 4DC5AD442337A744002BFE0D /* Twibuでコメントを読む.appex */;
+			productReference = 4DC5AD442337A744002BFE0D /* action-extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -1047,6 +1051,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 4D1114F722B5160E000817BA;
 			productRefGroup = 4D11150122B5160E000817BA /* Products */;
@@ -1120,6 +1125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC5AD472337A744002BFE0D /* Media.xcassets in Resources */,
+				4DEE7F06233E5F4900B0699E /* InfoPlist.strings in Resources */,
 				4DC5AD4C2337A745002BFE0D /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1478,6 +1484,15 @@
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
+		4DEE7F08233E5F4900B0699E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4DEE7F07233E5F4900B0699E /* en */,
+				4DEE7F09233E5F7800B0699E /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1485,6 +1500,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1546,6 +1562,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1704,7 +1721,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "today-extension";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1727,7 +1744,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "today-extension";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1857,7 +1874,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension";
-				PRODUCT_NAME = "Twibuでコメントを読む";
+				PRODUCT_NAME = "action-extension";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1880,7 +1897,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension";
-				PRODUCT_NAME = "Twibuでコメントを読む";
+				PRODUCT_NAME = "action-extension";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

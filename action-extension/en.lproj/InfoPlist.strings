@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Twibu
+
+  Created by abeyuya on 2019/09/28.
+  Copyright © 2019 abeyuya. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "Twibuでコメントを読む";
