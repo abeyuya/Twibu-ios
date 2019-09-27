@@ -17,14 +17,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="ZJu-Lx-9Bf">
-                                <rect key="frame" x="36" y="80" width="342" height="61"/>
+                                <rect key="frame" x="36" y="80" width="342" height="137"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitterと連携すると、あなたのタイムラインでつぶやかれている記事をこのタブで表示できます。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaQ-3Y-3Ji">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitterと連携すると、あなたのタイムラインで話題の記事をこのタブに表示できます。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaQ-3Y-3Ji">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="61"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJw-WO-bRy">
+                                        <rect key="frame" x="0.0" y="97" width="342" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYq-CT-qB2">
+                                                <rect key="frame" x="81" y="0.0" width="180" height="40"/>
+                                                <color key="backgroundColor" red="0.11372549019607843" green="0.63137254901960782" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="69W-Aq-6d8"/>
+                                                    <constraint firstAttribute="width" constant="180" id="f58-R5-EEn"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="Twitter連携する">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="VYq-CT-qB2" firstAttribute="centerX" secondItem="eJw-WO-bRy" secondAttribute="centerX" id="JFa-05-I1G"/>
+                                            <constraint firstAttribute="bottom" secondItem="VYq-CT-qB2" secondAttribute="bottom" id="TSH-GO-TCz"/>
+                                            <constraint firstItem="VYq-CT-qB2" firstAttribute="top" secondItem="eJw-WO-bRy" secondAttribute="top" id="ncZ-vV-EGR"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -38,11 +61,12 @@
                     </view>
                     <connections>
                         <outlet property="stackView" destination="ZJu-Lx-9Bf" id="51S-I6-pFM"/>
+                        <outlet property="twitterButton" destination="VYq-CT-qB2" id="B3O-75-adg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oLV-eT-Doe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="154" y="132"/>
+            <point key="canvasLocation" x="153.62318840579712" y="131.91964285714286"/>
         </scene>
     </scenes>
 </document>

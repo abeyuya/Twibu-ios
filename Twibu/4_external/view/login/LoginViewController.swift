@@ -13,6 +13,25 @@ import ReSwift
 import Embedded
 
 final class LoginViewController: UIViewController, StoryboardInstantiatable {
+    @IBOutlet private weak var twitterButton: UIButton! {
+        didSet {
+            twitterButton.addTarget(self, action: #selector(tapLogin), for: .touchUpInside)
+            twitterButton.layer.cornerRadius = 4
+            twitterButton.setIcon(
+                prefixText: "",
+                prefixTextColor: .clear,
+                icon: .fontAwesomeBrands(.twitter),
+                iconColor: .white,
+                postfixText: "  Twitter連携する",
+                postfixTextColor: .white,
+                backgroundColor: .twitter,
+                forState: .normal,
+                textSize: nil,
+                iconSize: nil
+            )
+        }
+    }
+
     var item: PagingIndexItem?
     weak var delegate: PagingRootViewControllerDelegate?
     private var currentUser: TwibuUser?
@@ -21,10 +40,6 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let button = buildLoginButton()
-        stackView.addArrangedSubview(button)
-
         store.subscribe(self) { subcription in
             subcription.select { state in
                 return state.currentUser
@@ -50,14 +65,6 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         store.unsubscribe(self)
-    }
-
-    private func buildLoginButton() -> UIView {
-        let loginButton = UIButton()
-        loginButton.frame.size = CGSize(width: 240, height: 40)
-        loginButton.setTitle("Twitterでログイン", for: .normal)
-        loginButton.addTarget(self, action: #selector(tapLogin), for: .touchUpInside)
-        return loginButton
     }
 
     @objc
