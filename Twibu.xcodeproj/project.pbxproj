@@ -1622,7 +1622,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Twibu/Twibu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = Twibu/Info.plist;
@@ -1646,7 +1646,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Twibu/Twibu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = Twibu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1711,7 +1711,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "today-extension/today-extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = "today-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1734,7 +1734,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "today-extension/today-extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = "today-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1864,7 +1864,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = "action-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1887,7 +1887,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
 				INFOPLIST_FILE = "action-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
