@@ -33,7 +33,7 @@ public enum HistoryRepository {
 
     private static let fetchLimit: Int = 30
 
-    public static func fetchHistory(offset: Int, completion: @escaping (([History])) -> Void) {
+    public static func fetchHistory(offset: Int, completion: @escaping ([History]) -> Void) {
         let histories: [History] = {
             let result = realm
                 .objects(History.self)
@@ -51,5 +51,13 @@ public enum HistoryRepository {
         }()
 
         completion(histories)
+    }
+
+    static func isExist(bookmarkUid: String) -> Bool {
+        let h = realm.objects(History.self).filter("bookmarkUid == %@", bookmarkUid).first
+        if h == nil {
+            return false
+        }
+        return true
     }
 }

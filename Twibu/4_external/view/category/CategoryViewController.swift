@@ -128,7 +128,11 @@ extension CategoryViewController: UITableViewDataSource {
         }
 
         let b = viewModel.bookmarks[indexPath.row]
-        cell.set(bookmark: b, showImage: true)
+        cell.set(
+            bookmark: b,
+            alreadyRead: HistoryRepository.isExist(bookmarkUid: b.uid),
+            showImage: true
+        )
 
         if WebArchiver.existLocalFile(bookmarkUid: b.uid) {
             cell.set(saveState: .saved)

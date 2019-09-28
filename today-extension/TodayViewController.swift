@@ -118,7 +118,7 @@ extension TodayViewController: UITableViewDataSource {
 
         let b = bookmarks[indexPath.row]
         // 画像が重くてメモリ制限引っかかるので常にoffに
-        cell.set(bookmark: b, showImage: false)
+        cell.set(bookmark: b, alreadyRead: false, showImage: false)
         return cell
     }
 }

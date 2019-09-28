@@ -30,8 +30,13 @@ final public class BookmarkCell: UITableViewCell {
 
     private var saveState: SaveState = .none
 
-    public func set(bookmark: Bookmark, showImage: Bool) {
+    public func set(bookmark: Bookmark, alreadyRead: Bool, showImage: Bool) {
         titleLabel.text = bookmark.trimmedTitle ?? "タイトルが取得できませんでした"
+        if alreadyRead {
+            titleLabel.textColor = .originSecondaryLabel
+        } else {
+            titleLabel.textColor = .originLabel
+        }
 
         if let count = bookmark.comment_count, count > 0 {
             usersCountLabel.isHidden = false
