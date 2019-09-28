@@ -18,7 +18,7 @@ version: 1.10.2
 
 name: Firebase, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.8.1
+version: 6.9.0
 
 name: FirebaseABTesting, nameSpecified: 
 body: 
@@ -27,7 +27,7 @@ version: 3.1.1
 
 name: FirebaseAnalytics, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.1.1
+version: 6.1.2
 
 name: FirebaseAnalyticsInterop, nameSpecified: 
 body: 
@@ -47,12 +47,12 @@ version: 1.0.0
 name: FirebaseCore, nameSpecified: 
 body: 
                    …
-version: 6.2.3
+version: 6.3.0
 
 name: FirebaseCoreDiagnostics, nameSpecified: 
 body: 
                    …
-version: 1.0.1
+version: 1.1.0
 
 name: FirebaseCoreDiagnosticsInterop, nameSpecified: 
 body: 
@@ -62,7 +62,7 @@ version: 1.0.0
 name: FirebaseFirestore, nameSpecified: 
 body: 
                    …
-version: 1.5.0
+version: 1.5.1
 
 name: FirebaseFunctions, nameSpecified: 
 body: 
@@ -81,21 +81,21 @@ version: 3.1.4
 name: FirebaseRemoteConfig, nameSpecified: 
 body: 
                    …
-version: 4.4.0
+version: 4.4.1
 
 name: GoogleAppMeasurement, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.1.1
+version: 6.1.2
 
 name: GoogleDataTransport, nameSpecified: 
 body: 
                    …
-version: 1.2.0
+version: 2.0.0
 
 name: GoogleDataTransportCCTSupport, nameSpecified: 
 body: 
                    …
-version: 1.0.4
+version: 1.1.0
 
 name: GoogleToolboxForMac, nameSpecified: 
 body: 
@@ -124,19 +124,19 @@ version: 1.2.2
 
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
-version: 5.7.1
+version: 5.8.1
 
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
-version: 5.7.1
+version: 5.8.1
 
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
-version: 5.7.1
+version: 5.8.1
 
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
-version: 5.7.1
+version: 5.8.1
 
 name: leveldb-library, nameSpecified: 
 body: Copyright (c) 2011 T…
@@ -146,7 +146,7 @@ name: LicensePlist, nameSpecified:
 body: MIT License
 
 Copyrig…
-version: 2.5.8
+version: 2.6.0
 
 name: nanopb, nameSpecified: 
 body: Copyright (c) 2011 P…
@@ -154,15 +154,15 @@ version: 0.3.901
 
 name: Parchment, nameSpecified: 
 body: The MIT License (MIT…
-version: 1.6.0
+version: 1.7.0
 
 name: Parchment, nameSpecified: 
 body: The MIT License (MIT…
-version: 1.6.0
+version: 1.7.0
 
 name: Parchment, nameSpecified: 
 body: The MIT License (MIT…
-version: 1.6.0
+version: 1.7.0
 
 name: PKHUD, nameSpecified: 
 body: The MIT License (MIT…
@@ -186,13 +186,13 @@ name: Realm, nameSpecified:
 body: TABLE OF CONTENTS
 
 1…
-version: 3.18.0
+version: 3.19.0
 
 name: RealmSwift, nameSpecified: 
 body: TABLE OF CONTENTS
 
 1…
-version: 3.18.0
+version: 3.19.0
 
 name: ReSwift, nameSpecified: 
 body: The MIT License (MIT…
