@@ -216,10 +216,11 @@ extension PagingRootViewController: PagingRootViewControllerDelegate {
         DispatchQueue.main.async {
             if let item = item {
                 self.pagingViewController.reloadData(around: item)
-            } else {
-                let c = Category.all
-                let i = PagingRootViewController.getIndex(c: c)
-                self.pagingViewController.select(pagingItem: PagingIndexItem(index: i, title: c.displayString))
+                return
+            }
+
+            self.pagingViewController.visibleItems.items.forEach { i in
+                self.pagingViewController.reloadData(around: i)
             }
         }
     }
