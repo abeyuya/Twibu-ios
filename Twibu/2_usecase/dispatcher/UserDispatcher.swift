@@ -156,27 +156,30 @@ enum UserDispatcher {
     private static func updateTimeline(uid: String) {
         // timelineそのものを更新
         UserRepository.kickScrapeTimeline(uid: uid) { _ in
-            // timelineのbookmarkを取得
-            BookmarkDispatcher.fetchBookmark(
-                category: .timeline,
-                uid: uid,
-                type: .new(limit: 20),
-                commentCountOffset: 0
-            ) { result in
-                switch result {
-                case .failure(let error):
-                    Logger.print(error)
-                case .success(_):
-                    break
-                    // それぞれ最新のコメントに更新
-//                    bookmarks.forEach { b in
-//                        CommentDispatcher.updateAndFetchComments(
-//                            buid: b.uid,
-//                            title: b.title ?? "",
-//                            url: b.url,
-//                            type: .new
-//                        )
-//                    }
+            // onCreateBookmarkが完了していてほしいのでちょっと待つ
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                // timelineのbookmarkを取得
+                BookmarkDispatcher.fetchBookmark(
+                    category: .timeline,
+                    uid: uid,
+                    type: .new(limit: 20),
+                    commentCountOffset: 0
+                ) { result in
+                    switch result {
+                    case .failure(let error):
+                        Logger.print(error)
+                    case .success(_):
+                        break
+                        // それぞれ最新のコメントに更新
+                        //                    bookmarks.forEach { b in
+                        //                        CommentDispatcher.updateAndFetchComments(
+                        //                            buid: b.uid,
+                        //                            title: b.title ?? "",
+                        //                            url: b.url,
+                        //                            type: .new
+                        //                        )
+                        //                    }
+                    }
                 }
             }
         }
