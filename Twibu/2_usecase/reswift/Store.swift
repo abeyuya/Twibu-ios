@@ -31,6 +31,7 @@ struct AppState: StateType {
     var currentUser = TwibuUser(firebaseAuthUser: nil)
     var history = HistoryInfo(histories: [], hasMore: true)
     var webArchive = WebArchiveInfo(tasks: [], results: [])
+    var twitterTimelineMaxId: String?
 }
 
 extension AppState {
@@ -87,6 +88,9 @@ struct AddWebArchiveTask: Action {
 struct UpdateWebArchiveResult: Action {
     let bookmarkUid: String
     let result: WebArchiver.SaveResult
+}
+struct SetMaxIdAction: Action {
+    let maxId: String
 }
 
 func appReducer(action: Action, state: AppState?) -> AppState {
@@ -303,6 +307,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         } else {
             state.webArchive.results.append((a.bookmarkUid, a.result))
         }
+
+    case let a as SetMaxIdAction:
+        state.twitterTimelineMaxId = a.maxId
 
     default:
         break

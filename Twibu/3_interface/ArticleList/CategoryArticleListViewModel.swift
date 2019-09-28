@@ -28,6 +28,7 @@ final class CategoryArticleListViewModel: ArticleList {
         return response.item ?? []
     }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
+    var twitterMaxId: String?
 }
 
 // input
@@ -48,7 +49,8 @@ extension CategoryArticleListViewModel {
                 return Props(
                     res: res,
                     currentUser: state.currentUser,
-                    webArchiveResults: state.webArchive.results
+                    webArchiveResults: state.webArchive.results,
+                    twitterMaxId: state.twitterTimelineMaxId
                 )
             }
         }
@@ -119,8 +121,8 @@ extension CategoryArticleListViewModel {
             return
         }
 
-        UserRepository.kickScrapeTimeline(uid: uid) { [weak self] result in
-            switch result {
+        UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: twitterMaxId) { [weak self] result1 in
+            switch result1 {
             case .failure(let error):
                 completion(.failure(error))
             case .success(_):
@@ -135,12 +137,14 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         var res: Repository.Response<[Bookmark]>?
         var currentUser: TwibuUser
         var webArchiveResults: [(String, WebArchiver.SaveResult)]
+        var twitterMaxId: String?
     }
 
     typealias StoreSubscriberStateType = Props
 
     func newState(state: Props) {
         currentUser = state.currentUser
+        twitterMaxId = state.twitterMaxId
 
         guard let res = state.res else {
             // 初回取得前はここを通る

@@ -46,9 +46,13 @@ enum UserRepository {
 
     static func kickScrapeTimeline(
         uid: String,
-        completion: @escaping (Result<HTTPSCallableResult?>) -> Void
+        maxId: String?,
+        completion: @escaping (Result<String>) -> Void
     ) {
-        let data: [String: String] = ["uid": uid]
+        var data: [String: String] = ["uid": uid]
+        if let m = maxId {
+            data["max_id"] = m
+        }
         TwibuFirebase.shared.functions
             .httpsCallable("execFetchUserTimeline")
             .call(data) { result, error in
@@ -60,7 +64,15 @@ enum UserRepository {
                     }
                     return
                 }
-                completion(.success(result))
+                guard let d = result?.data as? [String: Any] else {
+                    completion(.failure(.firebaseFunctionsError("data取れず")))
+                    return
+                }
+                guard let maxId = d["max_id"] as? String else {
+                    completion(.failure(.firebaseFunctionsError("data取れず")))
+                    return
+                }
+                completion(.success(maxId))
         }
     }
 

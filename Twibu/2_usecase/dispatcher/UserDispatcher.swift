@@ -149,13 +149,13 @@ enum UserDispatcher {
 
         // twitterログインしているならtimelineの情報を更新する
         if twitterLinked {
-            updateTimeline(uid: firebaseUser.uid)
+            updateTimeline(uid: firebaseUser.uid, maxId: nil)
         }
     }
 
-    private static func updateTimeline(uid: String) {
+    private static func updateTimeline(uid: String, maxId: String?) {
         // timelineそのものを更新
-        UserRepository.kickScrapeTimeline(uid: uid) { _ in
+        UserRepository.kickScrapeTimeline(uid: uid, maxId: maxId) { _ in
             // onCreateBookmarkが完了していてほしいのでちょっと待つ
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 // timelineのbookmarkを取得
@@ -200,6 +200,23 @@ enum UserDispatcher {
             UserRepository.deleteTwitterToken(uid: nu.uid)
             updateFirebaseUser(firebaseUser: nu)
             completion(.success(Void()))
+        }
+    }
+
+    static func kickTwitterTimelineScrape(
+        uid: String,
+        maxId: String?,
+        completion: @escaping (Result<Void>) -> Void
+    ) {
+        UserRepository.kickScrapeTimeline(uid: uid, maxId: maxId) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let maxId):
+                completion(.success(Void()))
+                let a = SetMaxIdAction(maxId: maxId)
+                store.mDispatch(a)
+            }
         }
     }
 }
