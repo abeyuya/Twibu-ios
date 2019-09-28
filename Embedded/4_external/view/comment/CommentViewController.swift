@@ -30,7 +30,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
         r.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return r
     }()
-    private var cellHeight: [IndexPath: CGFloat] = [:]
+//    private var cellHeight: [IndexPath: CGFloat] = [:]
 
     private var viewModel: CommentList!
 
@@ -112,18 +112,18 @@ extension CommentViewController: UITableViewDataSource {
         viewModel.didTapComment(comment: c)
     }
 
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let cellHeight = self.cellHeight[indexPath] else {
-            return UITableView.automaticDimension
-        }
-        return cellHeight
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.cellHeight.keys.contains(indexPath) == false {
-            self.cellHeight[indexPath] = cell.frame.height
-        }
-    }
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        guard let cellHeight = self.cellHeight[indexPath] else {
+//            return UITableView.automaticDimension
+//        }
+//        return cellHeight
+//    }
+//
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if self.cellHeight.keys.contains(indexPath) == false {
+//            self.cellHeight[indexPath] = cell.frame.height
+//        }
+//    }
 }
 
 extension CommentViewController: UITableViewDelegate {

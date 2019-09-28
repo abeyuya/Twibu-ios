@@ -44,7 +44,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         return r
     }()
     private var lastContentOffset: CGFloat = 0
-    private var cellHeight: [IndexPath: CGFloat] = [:]
+//    private var cellHeight: [IndexPath: CGFloat] = [:]
 
     private var viewModel: ArticleList!
 
@@ -155,18 +155,18 @@ extension CategoryViewController: UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let cellHeight = self.cellHeight[indexPath] else {
-            return UITableView.automaticDimension
-        }
-        return cellHeight
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.cellHeight.keys.contains(indexPath) == false {
-            self.cellHeight[indexPath] = cell.frame.height
-        }
-    }
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        guard let cellHeight = self.cellHeight[indexPath] else {
+//            return UITableView.automaticDimension
+//        }
+//        return cellHeight
+//    }
+//
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if self.cellHeight.keys.contains(indexPath) == false {
+//            self.cellHeight[indexPath] = cell.frame.height
+//        }
+//    }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let uid = viewModel.currentUser?.firebaseAuthUser?.uid else { return }
