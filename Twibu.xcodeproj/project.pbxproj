@@ -502,17 +502,9 @@
 			children = (
 				4D11153722B57697000817BA /* CategoryViewController.swift */,
 				4D11153C22B58091000817BA /* CategoryViewController.storyboard */,
-				4D11153B22B576A6000817BA /* cell */,
 				4D65095322BFF98100BB0959 /* root */,
 			);
 			path = category;
-			sourceTree = "<group>";
-		};
-		4D11153B22B576A6000817BA /* cell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = cell;
 			sourceTree = "<group>";
 		};
 		4D11154A22B6A62E000817BA /* bookmarkWeb */ = {
