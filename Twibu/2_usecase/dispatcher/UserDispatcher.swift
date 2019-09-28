@@ -137,12 +137,15 @@ enum UserDispatcher {
 
     static func updateFirebaseUser(firebaseUser: User) {
         let a = UpdateFirebaseUserAction(newUser: firebaseUser)
-        store.dispatch(a)
+        store.mDispatch(a)
         TwibuUserDefaults.shared.setFirebaseUid(uid: firebaseUser.uid)
         Crashlytics.sharedInstance().setUserIdentifier(firebaseUser.uid)
 
         let twitterLinked = TwibuUser.isTwitterLogin(user: firebaseUser)
         Analytics.setUserProperty(twitterLinked ? "1" : "0", forName: "twitterLinked")
+
+        // 保持していた各種データは破棄する
+        BookmarkDispatcher.clearCategory(c: .timeline)
 
         // twitterログインしているならtimelineの情報を更新する
         if twitterLinked {

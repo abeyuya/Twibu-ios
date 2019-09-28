@@ -64,6 +64,9 @@ struct RemoveBookmarkAction: Action {
     let category: Embedded.Category
     let bookmarkUid: String
 }
+struct ClearCategoryAction: Action {
+    let category: Embedded.Category
+}
 struct AddCommentsAction: Action {
     let bookmarkUid: String
     let comments: Repository.Response<[Comment]>
@@ -171,6 +174,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 return Repository.Response.loading(newResult)
             }
         }()
+
+    case let a as ClearCategoryAction:
+        state.response.bookmarks[a.category] = .notYetLoading
 
     case let a as AddCommentsAction:
         let old: [Comment] = {

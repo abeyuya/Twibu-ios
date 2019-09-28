@@ -51,4 +51,9 @@ enum BookmarkDispatcher {
             }
         }
     }
+
+    static func clearCategory(c: Embedded.Category) {
+        let a = ClearCategoryAction(category: c)
+        store.mDispatch(a)
+    }
 }
