@@ -12,12 +12,11 @@ import Embedded
 
 enum MemoDispatcher {
     static func deleteMemo(
-        db: Firestore,
         userUid: String,
         bookmarkUid: String,
         completion: @escaping (Result<Void>) -> Void
     ) {
-        MemoRepository.deleteMemo(db: db, userUid: userUid, bookmarkUid: bookmarkUid) { result in
+        MemoRepository.deleteMemo(userUid: userUid, bookmarkUid: bookmarkUid) { result in
             switch result {
             case .failure(let e):
                 completion(.failure(e))

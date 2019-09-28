@@ -29,4 +29,10 @@ enum HistoryDispatcher {
         let a = AddNewHistoryAction(bookmark: bookmark, createdAt: h.createdAt)
         store.mDispatch(a)
     }
+
+    static func deleteHistory(bookmarkUid: String) {
+        HistoryRepository.deleteHistory(bookmarkUid: bookmarkUid)
+        let a = DeleteHistoryAction(bookmarkUid: bookmarkUid)
+        store.mDispatch(a)
+    }
 }

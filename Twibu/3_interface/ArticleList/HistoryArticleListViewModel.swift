@@ -50,6 +50,11 @@ extension HistoryArticleListViewModel {
             HistoryDispatcher.fetchHistory(offset: bookmarks.count)
         }
     }
+
+    func deleteBookmark(bookmarkUid: String, completion: (Result<Void>) -> Void) {
+        HistoryDispatcher.deleteHistory(bookmarkUid: bookmarkUid)
+        completion(.success(Void()))
+    }
 }
 
 extension HistoryArticleListViewModel: StoreSubscriber {

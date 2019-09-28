@@ -96,6 +96,17 @@ extension CategoryArticleListViewModel {
             ) { _ in }
         }
     }
+
+    func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void) {
+        switch type {
+        case .history:
+            break
+        case .category(let c):
+            guard c == .memo else { return }
+            guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
+            MemoDispatcher.deleteMemo(userUid: uid, bookmarkUid: bookmarkUid, completion: completion)
+        }
+    }
 }
 
 extension CategoryArticleListViewModel: StoreSubscriber {

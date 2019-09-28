@@ -56,18 +56,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.startSubscribe()
-
-        switch viewModel.type {
-        case .category(let c):
-            guard c == .timeline else { return }
-// NOTE: twitterログアウト状態だったらログイン画面に差し替えたい
-// PagingRootでそういう処理書いてるけど、新規の場合はOKだけど使い回しの場合にうまく反映されていない
-//            guard user = viewModel.currentUser else {
-//                return
-//            }
-        default:
-            break
-        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -169,19 +157,16 @@ extension CategoryViewController: UITableViewDataSource {
 //    }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let uid = viewModel.currentUser?.firebaseAuthUser?.uid else { return }
+        guard editingStyle == .delete else { return }
         let b = viewModel.bookmarks[indexPath.row]
-
-        MemoDispatcher.deleteMemo(
-            db: TwibuFirebase.shared.firestore,
-            userUid: uid,
-            bookmarkUid: b.uid
-        ) { [weak self] result in
-            switch result {
-            case .success(_):
-                break
-            case .failure(let e):
-                self?.showAlert(title: "Error", message: e.displayMessage)
+        viewModel.deleteBookmark(bookmarkUid: b.uid) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                case .failure(let e):
+                    self?.showAlert(title: "Error", message: e.displayMessage)
+                }
             }
         }
     }

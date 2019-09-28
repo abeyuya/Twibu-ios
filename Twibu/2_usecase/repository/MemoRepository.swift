@@ -86,12 +86,12 @@ public final class MemoRepository {
     }
 
     public static func deleteMemo(
-        db: Firestore,
         userUid: String,
         bookmarkUid: String,
         completion: @escaping (Result<Void>) -> Void
     ) {
-        let ref = db.collection("users")
+        let ref = TwibuFirebase.shared.firestore
+            .collection("users")
             .document(userUid)
             .collection("memo")
             .document(bookmarkUid)

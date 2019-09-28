@@ -60,4 +60,11 @@ public enum HistoryRepository {
         }
         return true
     }
+
+    static func deleteHistory(bookmarkUid: String) {
+        let h = realm.objects(History.self).filter("bookmarkUid == %@", bookmarkUid)
+        try! realm.write {
+            realm.delete(h)
+        }
+    }
 }

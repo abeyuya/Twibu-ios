@@ -56,6 +56,9 @@ struct AddNewHistoryAction: Action {
     let bookmark: Bookmark
     let createdAt: Int
 }
+struct DeleteHistoryAction: Action {
+    let bookmarkUid: String
+}
 struct AddBookmarksAction: Action {
     let category: Embedded.Category
     let bookmarks: Repository.Response<[Bookmark]>
@@ -285,6 +288,11 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         state.history.histories = state.history.histories
             .unique(by: { $0.0.uid })
             .sorted { $0.1 > $1.1 }
+
+    case let a as DeleteHistoryAction:
+        if let index = state.history.histories.firstIndex(where: { $0.bookmark.uid == a.bookmarkUid }) {
+            state.history.histories.remove(at: index)
+        }
 
     case let a as AddWebArchiveTask:
         state.webArchive.tasks.append(a.webArchiver)

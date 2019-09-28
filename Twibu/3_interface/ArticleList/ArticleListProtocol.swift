@@ -35,4 +35,5 @@ protocol ArticleList {
     func stopSubscribe()
     func fetchBookmark()
     func fetchAdditionalBookmarks()
+    func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void)
 }
