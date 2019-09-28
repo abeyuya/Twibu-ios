@@ -74,7 +74,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             )
             return
         }
-        startLogin(currentUser: u)
+        startTwitterLink(currentUser: u)
     }
 
     private func tapLogout() {

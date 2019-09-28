@@ -38,17 +38,13 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
     @IBOutlet private weak var stackView: UIStackView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         store.subscribe(self) { subcription in
             subcription.select { state in
                 return state.currentUser
             }
         }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
 
         guard let isTwitterLogin = self.currentUser?.isTwitterLogin,
             isTwitterLogin,
@@ -56,8 +52,12 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
 
         DispatchQueue.main.async {
             let indicator = UIActivityIndicatorView(style: .gray)
-            indicator.startAnimating()
+            if #available(iOS 13, *) {
+                indicator.style = .medium
+            }
             self.stackView.addArrangedSubview(indicator)
+            indicator.startAnimating()
+            self.stackView.layoutIfNeeded()
             d.reload(item: self.item)
         }
     }
@@ -76,7 +76,7 @@ final class LoginViewController: UIViewController, StoryboardInstantiatable {
             )
             return
         }
-        startLogin(currentUser: u)
+        startTwitterLink(currentUser: u)
     }
 }
 

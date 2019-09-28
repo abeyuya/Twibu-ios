@@ -20,7 +20,7 @@ protocol TwitterConnectable: SFSafariViewControllerDelegate {
 }
 
 extension TwitterConnectable where Self: UIViewController {
-    internal func startLogin(currentUser: TwibuUser) {
+    internal func startTwitterLink(currentUser: TwibuUser) {
         guard let url = URL(string: Const.twitterCallbackUrlProtocol + "://") else { return }
         AnalyticsDispatcer.logging(.loginTry, param: ["method": "twitter"])
         let s = Swifter(consumerKey: Const.twitterConsumerKey, consumerSecret: Const.twitterConsumerSecret)
