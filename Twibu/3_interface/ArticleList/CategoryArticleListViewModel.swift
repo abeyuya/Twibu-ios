@@ -88,17 +88,12 @@ extension CategoryArticleListViewModel {
         case .success(let result):
             guard let uid = currentUser?.firebaseAuthUser?.uid, result.hasMore else { return }
 
-            switch category {
-//            case .history:
-//                BookmarkDispatcher.fetchHistory(offset: bookmarks.count)
-            default:
-                BookmarkDispatcher.fetchBookmark(
-                    category: category,
-                    uid: uid,
-                    type: .add(limit: 30, pagingInfo: result.pagingInfo),
-                    commentCountOffset: category == .all ? 20 : 0
-                ) { _ in }
-            }
+            BookmarkDispatcher.fetchBookmark(
+                category: category,
+                uid: uid,
+                type: .add(limit: 30, pagingInfo: result.pagingInfo),
+                commentCountOffset: category == .all ? 20 : 0
+            ) { _ in }
         }
     }
 }
