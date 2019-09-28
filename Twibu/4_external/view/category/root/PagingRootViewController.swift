@@ -220,7 +220,12 @@ extension PagingRootViewController: PagingRootViewControllerDelegate {
             }
 
             self.pagingViewController.visibleItems.items.forEach { i in
+                let c = Embedded.Category.timeline
+                let index = PagingRootViewController.getIndex(c: c)
+                guard i.index == index else { return }
                 self.pagingViewController.reloadData(around: i)
+                let pi = PagingIndexItem(index: index, title: c.displayString)
+                self.pagingViewController.select(pagingItem: pi)
             }
         }
     }
