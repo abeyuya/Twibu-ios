@@ -27,7 +27,6 @@ enum BookmarkDispatcher {
 
         let trace = Performance.startTrace(name: "fetchBookmark.\(category.rawValue).\(type.debugName)")
         BookmarkRepository.fetchBookmark(
-            db: TwibuFirebase.shared.firestore,
             category: category,
             uid: uid,
             type: type,

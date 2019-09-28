@@ -11,8 +11,9 @@ import FirebaseFirestore
 import Promises
 
 enum BookmarkRepository {
+    static let db = TwibuFirebase.shared.firestore
+
     static func fetchBookmark(
-        db: Firestore,
         category: Embedded.Category,
         uid: String,
         type: Repository.FetchType,
@@ -20,16 +21,16 @@ enum BookmarkRepository {
         completion: @escaping (Repository.Response<[Bookmark]>) -> Void
     ) {
         if category == .timeline {
-            fetchTimelineBookmarks(db: db, uid: uid, type: type, completion: completion)
+            fetchTimelineBookmarks(uid: uid, type: type, completion: completion)
             return
         }
 
         if category == .memo {
-            fetchMemoBookmarks(db: db, uid: uid, type: type, completion: completion)
+            fetchMemoBookmarks(uid: uid, type: type, completion: completion)
             return
         }
 
-        buildQuery(db: db, category: category, type: type).getDocuments() { snapshot, error in
+        buildQuery(category: category, type: type).getDocuments() { snapshot, error in
             if let error = error {
                 completion(.failure(.firestoreError(error.localizedDescription)))
                 return
@@ -79,7 +80,7 @@ enum BookmarkRepository {
 }
 
 private extension BookmarkRepository {
-    static private func buildQuery(db: Firestore, category: Embedded.Category, type: Repository.FetchType) -> Query {
+    static private func buildQuery(category: Embedded.Category, type: Repository.FetchType) -> Query {
         switch category {
         case .all:
             switch type {
@@ -122,7 +123,6 @@ private extension BookmarkRepository {
     }
 
     private static func fetchTimelineBookmarks(
-        db: Firestore,
         uid: String,
         type: Repository.FetchType,
         completion: @escaping (Repository.Response<[Bookmark]>) -> Void
@@ -251,7 +251,6 @@ private extension BookmarkRepository {
     }
 
     private static func fetchMemoBookmarks(
-        db: Firestore,
         uid: String,
         type: Repository.FetchType,
         completion: @escaping (Repository.Response<[Bookmark]>) -> Void
