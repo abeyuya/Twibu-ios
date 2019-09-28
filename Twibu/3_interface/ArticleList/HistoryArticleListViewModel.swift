@@ -41,8 +41,9 @@ extension HistoryArticleListViewModel {
         store.unsubscribe(self)
     }
 
-    func fetchBookmark() {
+    func fetchBookmark(completion: @escaping (Result<[Bookmark]>) -> Void) {
         HistoryDispatcher.fetchHistory(offset: 0)
+        completion(.success([]))
     }
 
     func fetchAdditionalBookmarks() {

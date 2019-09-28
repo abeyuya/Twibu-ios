@@ -73,15 +73,26 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
                 .categoryRefresh,
                 param: ["category": c.rawValue]
             )
-
-            if c == .timeline, viewModel.currentUser?.isTwitterLogin == true {
-                refreshForLoginUser()
-                return
-            }
-
-            viewModel.fetchBookmark()
         case .history:
-            viewModel.fetchBookmark()
+            break
+        }
+
+        viewModel.fetchBookmark { [weak self] result in
+            switch result {
+            case .success(_):
+                break
+            case .failure(let e):
+                switch e {
+                case .twitterRateLimit(_):
+                    // こいつは無視してOK
+                    break
+                default:
+                    DispatchQueue.main.async {
+                        self?.refreshControll.endRefreshing()
+                        self?.showAlert(title: "Error", message: e.displayMessage)
+                    }
+                }
+            }
         }
     }
 
@@ -244,29 +255,6 @@ extension CategoryViewController: UITableViewDelegate {
 }
 
 extension CategoryViewController: UIPageViewControllerDelegate {}
-
-// Category.timelineの場合の処理
-private extension CategoryViewController {
-    private func refreshForLoginUser() {
-        guard viewModel.currentUser?.isTwitterLogin == true,
-            let uid = viewModel.currentUser?.firebaseAuthUser?.uid else {
-                showAlert(title: "Error", message: TwibuError.needTwitterAuth(nil).displayMessage)
-                return
-        }
-
-        UserRepository.kickScrapeTimeline(uid: uid) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.refreshControll.endRefreshing()
-                    self?.showAlert(title: "Error", message: error.displayMessage)
-                }
-            case .success(_):
-                self?.viewModel.fetchBookmark()
-            }
-        }
-    }
-}
 
 // Category.memo, .historyの場合の処理
 private extension CategoryViewController {

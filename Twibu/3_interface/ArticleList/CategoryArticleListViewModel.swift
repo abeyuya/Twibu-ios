@@ -58,8 +58,13 @@ extension CategoryArticleListViewModel {
         store.unsubscribe(self)
     }
 
-    func fetchBookmark() {
+    func fetchBookmark(completion: @escaping (Result<[Bookmark]>) -> Void) {
         guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
+
+        if category == .timeline, currentUser?.isTwitterLogin == true {
+            refreshForLoginUser(completion: completion)
+            return
+        }
 
         let limit: Int = {
             switch category {
@@ -107,6 +112,22 @@ extension CategoryArticleListViewModel {
             MemoDispatcher.deleteMemo(userUid: uid, bookmarkUid: bookmarkUid, completion: completion)
         }
     }
+
+    private func refreshForLoginUser(completion: @escaping (Result<[Bookmark]>) -> Void) {
+        guard currentUser?.isTwitterLogin == true, let uid = currentUser?.firebaseAuthUser?.uid else {
+            completion(.failure(TwibuError.needTwitterAuth(nil)))
+            return
+        }
+
+        UserRepository.kickScrapeTimeline(uid: uid) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(_):
+                self?.fetchBookmark(completion: completion)
+            }
+        }
+    }
 }
 
 extension CategoryArticleListViewModel: StoreSubscriber {
@@ -125,7 +146,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             // 初回取得前はここを通る
             response = .notYetLoading
             delegate?.render(state: .notYetLoading)
-            fetchBookmark()
+            fetchBookmark { _ in }
             return
         }
 

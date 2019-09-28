@@ -53,7 +53,11 @@ enum UserRepository {
             .httpsCallable("execFetchUserTimeline")
             .call(data) { result, error in
                 if let error = error {
-                    completion(.failure(.firebaseFunctionsError(error.localizedDescription)))
+                    if TwibuError.isTwitterRateLimit(error: error) {
+                        completion(.failure(.twitterRateLimit(error.localizedDescription)))
+                    } else {
+                        completion(.failure(.firebaseFunctionsError(error.localizedDescription)))
+                    }
                     return
                 }
                 completion(.success(result))
