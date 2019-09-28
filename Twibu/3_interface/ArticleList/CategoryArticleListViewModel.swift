@@ -93,15 +93,66 @@ extension CategoryArticleListViewModel {
         case .failure(_):
             return
         case .success(let result):
-            guard let uid = currentUser?.firebaseAuthUser?.uid, result.hasMore else { return }
+            switch type {
+            case .history:
+                assertionFailure("通らないはず")
+                break
+            case .category(let c):
+                switch c {
+                case .timeline:
+                    fetchAdditionalForTimeline(result: result)
+                default:
+                    fetchAdditionalForAllCategory(result: result)
+                }
+            }
+        }
+    }
 
+    private func fetchAdditionalForTimeline(result: Repository.Result<[Bookmark]>) {
+        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
+        if result.hasMore {
             BookmarkDispatcher.fetchBookmark(
-                category: category,
+                category: .timeline,
                 uid: uid,
                 type: .add(limit: 30, pagingInfo: result.pagingInfo),
-                commentCountOffset: category == .all ? 20 : 0
+                commentCountOffset: 0
             ) { _ in }
+            return
         }
+
+        // NOTE: onCreateBookmark完了まで待ちたいので、loadingを発行しておく
+        let lResult = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
+        let startLoadingAction = AddBookmarksAction(
+            category: .timeline,
+            bookmarks: .loading(lResult)
+        )
+        store.mDispatch(startLoadingAction)
+
+        UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: twitterMaxId) { [weak self] kickResult in
+            switch kickResult {
+            case .failure(let e):
+                Logger.print(e.displayMessage)
+            case .success(_):
+                DispatchQueue.main.async {
+                    let r = Repository.Result<[Bookmark]>(
+                        item: result.item,
+                        pagingInfo: result.pagingInfo,
+                        hasMore: true // これを渡したい
+                    )
+                    self?.fetchAdditionalForAllCategory(result: r)
+                }
+            }
+        }
+    }
+
+    private func fetchAdditionalForAllCategory(result: Repository.Result<[Bookmark]>) {
+        guard let uid = currentUser?.firebaseAuthUser?.uid, result.hasMore else { return }
+        BookmarkDispatcher.fetchBookmark(
+            category: category,
+            uid: uid,
+            type: .add(limit: 30, pagingInfo: result.pagingInfo),
+            commentCountOffset: category == .all ? 20 : 0
+        ) { _ in }
     }
 
     func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void) {
@@ -121,7 +172,7 @@ extension CategoryArticleListViewModel {
             return
         }
 
-        UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: twitterMaxId) { [weak self] result1 in
+        UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: nil) { [weak self] result1 in
             switch result1 {
             case .failure(let error):
                 completion(.failure(error))
