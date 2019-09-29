@@ -53,7 +53,7 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         pagingViewController.didMove(toParent: self)
 
         pagingViewController.infiniteDataSource = self
-//        pagingViewController.delegate = self
+        pagingViewController.delegate = self
         pagingViewController.menuItemSize = .sizeToFit(minWidth: 120, height: 40)
         pagingViewController.indicatorColor = .mainTint
         pagingViewController.textColor = .tabUnselectGray
@@ -194,13 +194,19 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
 }
 
 extension PagingRootViewController: PagingViewControllerDelegate {
-//    func pagingViewController<T: PagingItem>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
-//
-//        guard let currentItem = pagingItem as? PagingIndexItem else { return nil }
-//        let categoryIndex = Category.calcLogicalIndex(physicalIndex: currentItem.index)
-//        guard let category = Category(index: categoryIndex) else { return nil }
-//        return 150
-//    }
+    func pagingViewController<T: PagingItem>(
+        _ pagingViewController: PagingViewController<T>,
+        widthForPagingItem pagingItem: T,
+        isSelected: Bool
+    ) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+        guard let currentItem = pagingItem as? PagingIndexItem else { return nil }
+        let categoryIndex = PagingRootViewController.calcLogicalIndex(physicalIndex: currentItem.index)
+        let category = PagingRootViewController.getCategory(index: categoryIndex)
+        let l = UILabel()
+        l.text = category.displayString
+        l.sizeToFit()
+        return l.frame.size.width + 20
+    }
 }
 
 extension PagingRootViewController: StoreSubscriber {
