@@ -156,31 +156,11 @@ private extension WebViewController {
     }
 
     private func setupToolbar() {
-        let backRoot: UIBarButtonItem = {
-            let b = UIButton()
-            b.setIcon(
-                icon: .icofont(.thinDoubleLeft),
-                iconSize: nil,
-                color: .mainTint,
-                backgroundColor: .clear,
-                forState: .normal
-            )
-            b.addTarget(self, action: #selector(tapBackRootButton), for: .touchUpInside)
-            return UIBarButtonItem(customView: b)
-        }()
-
-        let backPrev: UIBarButtonItem = {
-            let b = UIButton()
-            b.setIcon(
-                icon: .icofont(.thinLeft),
-                iconSize: nil,
-                color: .mainTint,
-                backgroundColor: .clear,
-                forState: .normal
-            )
-            b.addTarget(self, action: #selector(tapBackPrevButton), for: .touchUpInside)
-            return UIBarButtonItem(customView: b)
-        }()
+        let backPrev = UIBarButtonItem(
+            barButtonSystemItem: .rewind,
+            target: self,
+            action: #selector(tapBackPrevButton)
+        )
 
         let commentButton: UIBarButtonItem = {
             let b = UIButton()
@@ -212,8 +192,6 @@ private extension WebViewController {
         )
 
         toolbarItems = [
-            backRoot,
-            space,
             backPrev,
             space,
             commentButton,
