@@ -133,12 +133,7 @@ extension CategoryArticleListViewModel {
         }
 
         // NOTE: onCreateBookmark完了まで待ちたいので、loadingを発行しておく
-        let lResult = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
-        let startLoadingAction = AddBookmarksAction(
-            category: .timeline,
-            bookmarks: .loading(lResult)
-        )
-        store.mDispatch(startLoadingAction)
+        BookmarkDispatcher.setLoading(c: category)
 
         UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: twitterMaxId) { [weak self] kickResult in
             switch kickResult {

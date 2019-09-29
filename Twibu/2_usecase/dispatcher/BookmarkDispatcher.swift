@@ -18,14 +18,7 @@ enum BookmarkDispatcher {
         commentCountOffset: Int,
         completion: @escaping (Result<[Bookmark]>) -> Void
     ) {
-        do {
-            let r = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
-            let a = AddBookmarksAction(
-                category: category,
-                bookmarks: .loading(r)
-            )
-            store.mDispatch(a)
-        }
+        setLoading(c: category)
 
         switch type {
         case .add(_, _):
@@ -63,6 +56,15 @@ enum BookmarkDispatcher {
 
     static func clearCategory(c: Embedded.Category) {
         let a = ClearCategoryAction(category: c)
+        store.mDispatch(a)
+    }
+
+    static func setLoading(c: Embedded.Category) {
+        let r = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
+        let a = AddBookmarksAction(
+            category: c,
+            bookmarks: .loading(r)
+        )
         store.mDispatch(a)
     }
 }
