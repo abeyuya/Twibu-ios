@@ -16,37 +16,13 @@
 default_platform(:ios)
 
 platform :ios do
-  before_all do
-    # Crashlyticsの設定
-    ENV['CRASHLYTICS_API_TOKEN'] = "cae329db8be2f87c9eeb9b24b9f52df7f927570a"
-    ENV['CRASHLYTICS_BUILD_SECRET'] = "a420636f6187c53cb206ee2870706fe9a33a0218a3525f51842661837a81b9ee"
-  end
-
-  desc "Upload to Fabric"
   lane :beta do
-    # リリースノートの入力
-    releaseNotes = prompt(
-      text: "Release Notes: ",
-      multi_line_end_keyword: "end"
+    sync_code_signing(type: 'appstore')
+    build_app(
+      scheme: 'Twibu',
+      workspace: 'Twibu.xcworkspace',
+      include_bitcode: true
     )
-
-    # ipaの作成
-    gym(
-      scheme: "scheme",
-      export_method: "ad-hoc",
-      export_xcargs: "-allowProvisioningUpdates",
-      export_options: { compileBitcode: false }
-    )
-
-    # Crashlytics Betaにアップロード
-    crashlytics(
-      crashlytics_path: "./Pods/Crashlytics/Crashlytics.framework/",
-      notes: "#{releaseNotes}\n#{Time.new.to_s}", # リリースノート
-      # groups: ['fabric-group-'], # 必要であれ配信先のグループ名を記載
-      ipa_path: "./Twibu.ipa"
-    )
-
-    # dSYMシンボルファイルをCrashlyticsにアップロード
-    upload_symbols_to_crashlytics
-  end
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+    end
 end
