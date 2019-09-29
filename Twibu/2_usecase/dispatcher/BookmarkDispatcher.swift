@@ -18,12 +18,22 @@ enum BookmarkDispatcher {
         commentCountOffset: Int,
         completion: @escaping (Result<[Bookmark]>) -> Void
     ) {
-        let lResult = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
-        let startLoadingAction = AddBookmarksAction(
-            category: category,
-            bookmarks: .loading(lResult)
-        )
-        store.mDispatch(startLoadingAction)
+        do {
+            let r = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
+            let a = AddBookmarksAction(
+                category: category,
+                bookmarks: .loading(r)
+            )
+            store.mDispatch(a)
+        }
+
+        switch type {
+        case .add(_, _):
+            break
+        case .new(_):
+            let a = SetLastRefreshAtAction(category: category, refreshAt: Date())
+            store.mDispatch(a)
+        }
 
         let trace = Performance.startTrace(name: "fetchBookmark.\(category.rawValue).\(type.debugName)")
         BookmarkRepository.fetchBookmark(

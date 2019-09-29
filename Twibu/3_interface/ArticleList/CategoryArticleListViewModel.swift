@@ -29,6 +29,7 @@ final class CategoryArticleListViewModel: ArticleList {
     }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
     var twitterMaxId: String?
+    var lastRefreshCheckAt: Date?
 }
 
 // input
@@ -50,10 +51,21 @@ extension CategoryArticleListViewModel {
                     res: res,
                     currentUser: state.currentUser,
                     webArchiveResults: state.webArchive.results,
-                    twitterMaxId: state.twitterTimelineMaxId
+                    twitterMaxId: state.twitterTimelineMaxId,
+                    lastRefreshCheckAt: {
+                        guard let c = self?.category else { return nil }
+                        return state.lastRefreshAt[c]
+                    }()
                 )
             }
         }
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(refreshCheck),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
     }
 
     func stopSubscribe() {
@@ -181,6 +193,14 @@ extension CategoryArticleListViewModel {
             }
         }
     }
+
+    @objc
+    func refreshCheck() {
+        guard let last = lastRefreshCheckAt else { return }
+        if last.addingTimeInterval(TimeInterval(2 * 60 * 60)) < Date() {
+            fetchBookmark() { _ in }
+        }
+    }
 }
 
 extension CategoryArticleListViewModel: StoreSubscriber {
@@ -189,6 +209,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         var currentUser: TwibuUser
         var webArchiveResults: [(String, WebArchiver.SaveResult)]
         var twitterMaxId: String?
+        var lastRefreshCheckAt: Date?
     }
 
     typealias StoreSubscriberStateType = Props
@@ -196,6 +217,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
     func newState(state: Props) {
         currentUser = state.currentUser
         twitterMaxId = state.twitterMaxId
+        lastRefreshCheckAt = state.lastRefreshCheckAt
 
         guard let res = state.res else {
             // 初回取得前はここを通る

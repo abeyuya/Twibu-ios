@@ -32,6 +32,7 @@ struct AppState: StateType {
     var history = HistoryInfo(histories: [], hasMore: true)
     var webArchive = WebArchiveInfo(tasks: [], results: [])
     var twitterTimelineMaxId: String?
+    var lastRefreshAt: [Embedded.Category: Date] = [:]
 }
 
 extension AppState {
@@ -91,6 +92,10 @@ struct UpdateWebArchiveResult: Action {
 }
 struct SetMaxIdAction: Action {
     let maxId: String
+}
+struct SetLastRefreshAtAction: Action {
+    let category: Embedded.Category
+    let refreshAt: Date
 }
 
 func appReducer(action: Action, state: AppState?) -> AppState {
@@ -310,6 +315,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 
     case let a as SetMaxIdAction:
         state.twitterTimelineMaxId = a.maxId
+
+    case let a as SetLastRefreshAtAction:
+        state.lastRefreshAt[a.category] = a.refreshAt
 
     default:
         break
