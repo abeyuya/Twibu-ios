@@ -13,6 +13,8 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+ENV['FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD'] = 'rppz-mdku-bivw-kgry'.to_s
+
 default_platform(:ios)
 
 platform :ios do
@@ -24,5 +26,5 @@ platform :ios do
       include_bitcode: true
     )
     upload_to_testflight(skip_waiting_for_build_processing: true)
-    end
+  end
 end
