@@ -18,7 +18,7 @@ final class CommentViewController: UIViewController, StoryboardInstantiatable {
             tableview.delegate = self
             tableview.dataSource = self
             tableview.register(
-                UINib(nibName: "CommentTableViewCell", bundle: Bundle(for: Self.self)),
+                UINib(nibName: "CommentTableViewCell", bundle: Bundle(for: CommentTableViewCell.self)),
                 forCellReuseIdentifier: "CommentTableViewCell"
             )
             tableview.refreshControl = refreshControll
