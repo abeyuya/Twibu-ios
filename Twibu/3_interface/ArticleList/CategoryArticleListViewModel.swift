@@ -60,6 +60,7 @@ extension CategoryArticleListViewModel {
             }
         }
 
+        refreshCheck()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(refreshCheck),
@@ -192,7 +193,7 @@ extension CategoryArticleListViewModel {
     @objc
     func refreshCheck() {
         guard let last = lastRefreshCheckAt else { return }
-        if last.addingTimeInterval(TimeInterval(2 * 60 * 60)) < Date() {
+        if last.addingTimeInterval(TimeInterval(30 * 60)) < Date() {
             fetchBookmark() { _ in }
         }
     }
