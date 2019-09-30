@@ -99,6 +99,7 @@
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
 		4DEE7EFF233E364900B0699E /* TwitterConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE7EFE233E364900B0699E /* TwitterConnectable.swift */; };
 		4DEE7F06233E5F4900B0699E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DEE7F08233E5F4900B0699E /* InfoPlist.strings */; };
+		4DF370B7234263CC00C43C1D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DF370B9234263CC00C43C1D /* InfoPlist.strings */; };
 		4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */; };
 		4DFC604C22FDC4E500C7CFE7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094722BF698700BB0959 /* Array+Extension.swift */; };
 		4DFC605B22FDFEAC00C7CFE7 /* WebArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */; };
@@ -297,6 +298,8 @@
 		4DF258E122FB18AB00AC2329 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		4DF34EF722D78D6F00E9AE80 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		4DF370BA234263D400C43C1D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4DF370BB234263E900C43C1D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDispatcher.swift; sourceTree = "<group>"; };
 		4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebArchiver.swift; sourceTree = "<group>"; };
 		5367C74439BF89A9409D4CA1 /* Pods-All-Twibu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Twibu.release.xcconfig"; path = "Target Support Files/Pods-All-Twibu/Pods-All-Twibu.release.xcconfig"; sourceTree = "<group>"; };
@@ -701,6 +704,7 @@
 				4D72CED822E2DA1400E6AA66 /* TodayViewController.swift */,
 				4D72CEDA22E2DA1400E6AA66 /* MainInterface.storyboard */,
 				4D72CEDD22E2DA1400E6AA66 /* Info.plist */,
+				4DF370B9234263CC00C43C1D /* InfoPlist.strings */,
 			);
 			path = "today-extension";
 			sourceTree = "<group>";
@@ -1091,6 +1095,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D72CEDC22E2DA1400E6AA66 /* MainInterface.storyboard in Resources */,
+				4DF370B7234263CC00C43C1D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1481,6 +1486,15 @@
 			children = (
 				4DEE7F07233E5F4900B0699E /* en */,
 				4DEE7F09233E5F7800B0699E /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4DF370B9234263CC00C43C1D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4DF370BA234263D400C43C1D /* en */,
+				4DF370BB234263E900C43C1D /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
