@@ -11,7 +11,8 @@ import ReSwift
 
 final class CategoryArticleListViewModel: ArticleList {
     internal weak var delegate: ArticleListDelegate?
-    private var response: Repository.Response<[Bookmark]> = .notYetLoading
+    private var responseData: Repository.Result<[Bookmark]>?
+    private var responseState: Repository.ResponseState = .notYetLoading
     private var category: Embedded.Category {
         switch type {
         case .category(let c):
@@ -25,7 +26,7 @@ final class CategoryArticleListViewModel: ArticleList {
     var type: ArticleListType = .category(.all)
     var currentUser: TwibuUser?
     var bookmarks: [Bookmark] {
-        return response.item ?? []
+        return responseData?.item ?? []
     }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
     var twitterMaxId: String?
@@ -42,13 +43,15 @@ extension CategoryArticleListViewModel {
     func startSubscribe() {
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
-                let res: Repository.Response<[Bookmark]>? = {
-                    guard let c = self?.category else { return nil }
-                    return state.response.bookmarks[c]
-                }()
-
                 return Props(
-                    res: res,
+                    responseData: {
+                        guard let c = self?.category else { return nil }
+                        return state.responseData.bookmarks[c]
+                    }(),
+                    responseState: {
+                        guard let c = self?.category else { return .notYetLoading }
+                        return state.responseState.bookmarks[c] ?? .notYetLoading
+                    }(),
                     currentUser: state.currentUser,
                     webArchiveResults: state.webArchive.results,
                     twitterMaxId: state.twitterTimelineMaxId,
@@ -97,25 +100,31 @@ extension CategoryArticleListViewModel {
     }
 
     func fetchAdditionalBookmarks() {
-        switch response {
-        case .loading(_):
+        switch responseState {
+        case .loading:
             return
         case .notYetLoading:
             // view読み込み時だけ通る
             return
-        case .failure(_):
+        case .failure:
             return
-        case .success(let result):
+        case .success:
             switch type {
             case .history:
                 assertionFailure("通らないはず")
                 break
             case .category(let c):
+                let d: Repository.Result<[Bookmark]> = {
+                    if let d = responseData {
+                        return d
+                    }
+                    return .init(item: [], pagingInfo: nil, hasMore: true)
+                }()
                 switch c {
                 case .timeline:
-                    fetchAdditionalForTimeline(result: result)
+                    fetchAdditionalForTimeline(result: d)
                 default:
-                    fetchAdditionalForAllCategory(result: result)
+                    fetchAdditionalForAllCategory(result: d)
                 }
             }
         }
@@ -134,20 +143,23 @@ extension CategoryArticleListViewModel {
         }
 
         // NOTE: onCreateBookmark完了まで待ちたいので、loadingを発行しておく
-        BookmarkDispatcher.setLoading(c: category)
+        BookmarkDispatcher.updateState(c: category, s: .loading)
 
         UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: twitterMaxId) { [weak self] kickResult in
+            guard let self = self else { return }
             switch kickResult {
             case .failure(let e):
-                self?.delegate?.render(state: .failure(error: e))
+                BookmarkDispatcher.updateState(c: self.category, s: .failure(e))
+                self.delegate?.render(state: .failure(error: e))
             case .success(_):
+                BookmarkDispatcher.updateState(c: self.category, s: .success)
                 DispatchQueue.main.async {
                     let r = Repository.Result<[Bookmark]>(
                         item: result.item,
                         pagingInfo: result.pagingInfo,
                         hasMore: true // これを渡したい
                     )
-                    self?.fetchAdditionalForTimeline(result: r)
+                    self.fetchAdditionalForTimeline(result: r)
                 }
             }
         }
@@ -176,17 +188,23 @@ extension CategoryArticleListViewModel {
 
     private func refreshForLoginUser() {
         guard currentUser?.isTwitterLogin == true, let uid = currentUser?.firebaseAuthUser?.uid else {
-            BookmarkDispatcher.setError(c: category, e: TwibuError.needTwitterAuth(nil))
+            BookmarkDispatcher.updateState(c: category, s: .failure(.needTwitterAuth(nil)))
             return
         }
 
-        UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: nil) { [weak self] result1 in
+        BookmarkDispatcher.updateState(c: category, s: .loading)
+        UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: nil) { [weak self] result in
             guard let self = self else { return }
-            switch result1 {
+            switch result {
             case .failure(let error):
-                BookmarkDispatcher.setError(c: self.category, e: error)
+                BookmarkDispatcher.updateState(c: self.category, s: .failure(error))
             case .success(_):
-                self.fetchBookmark()
+                BookmarkDispatcher.fetchBookmark(
+                    category: .timeline,
+                    uid: uid,
+                    type: .new(limit: 30),
+                    commentCountOffset: 0
+                ) { _ in }
             }
         }
     }
@@ -202,11 +220,12 @@ extension CategoryArticleListViewModel {
 
 extension CategoryArticleListViewModel: StoreSubscriber {
     struct Props {
-        var res: Repository.Response<[Bookmark]>?
-        var currentUser: TwibuUser
-        var webArchiveResults: [(String, WebArchiver.SaveResult)]
-        var twitterMaxId: String?
-        var lastRefreshCheckAt: Date?
+        let responseData: Repository.Result<[Bookmark]>?
+        let responseState: Repository.ResponseState
+        let currentUser: TwibuUser
+        let webArchiveResults: [(String, WebArchiver.SaveResult)]
+        let twitterMaxId: String?
+        let lastRefreshCheckAt: Date?
     }
 
     typealias StoreSubscriberStateType = Props
@@ -215,17 +234,27 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         currentUser = state.currentUser
         twitterMaxId = state.twitterMaxId
         lastRefreshCheckAt = state.lastRefreshCheckAt
+        responseState = state.responseState
 
-        guard let res = state.res else {
+        switch responseState {
+        case .notYetLoading:
             // 初回取得前はここを通る
-            response = .notYetLoading
             delegate?.render(state: .notYetLoading)
             fetchBookmark()
             return
+        case .loading:
+            break
+        case .success:
+            break
+        case .failure:
+            break
         }
 
-        response = res
-        delegate?.render(state: convert(res))
+        if let d = state.responseData {
+            responseData = d
+        }
+
+        delegate?.render(state: convert(responseState))
 
         let changed = changedResults(
             a: webArchiveResults,
@@ -285,13 +314,13 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         return b.filter { changedUids.contains($0.0) }
     }
 
-    private func convert(_ res: Repository.Response<[Bookmark]>) -> ArticleRenderState {
-        switch res {
-        case .success(let result):
-            return .success(hasMore: result.hasMore)
-        case .loading(_):
+    private func convert(_ state: Repository.ResponseState) -> ArticleRenderState {
+        switch state {
+        case .success:
+            return .success(hasMore: responseData?.hasMore ?? true)
+        case .loading:
             return .loading
-        case .failure(_, let error):
+        case .failure(let error):
             return .failure(error: error)
         case .notYetLoading:
             return .notYetLoading

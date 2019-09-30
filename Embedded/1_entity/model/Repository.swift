@@ -39,19 +39,10 @@ public enum Repository {
         }
     }
 
-    public enum Response<T> {
+    public enum ResponseState {
         case notYetLoading
-        case loading(Result<T>)
-        case success(Result<T>)
-        case failure(Result<T>, TwibuError)
-
-        public var item: T? {
-            switch self {
-            case .success(let result): return result.item
-            case .loading(let result): return result.item
-            case .failure(let result, _): return result.item
-            case .notYetLoading: return nil
-            }
-        }
+        case loading
+        case success
+        case failure(TwibuError)
     }
 }

@@ -18,7 +18,7 @@ enum BookmarkDispatcher {
         commentCountOffset: Int,
         completion: @escaping (Result<[Bookmark]>) -> Void
     ) {
-        setLoading(c: category)
+        updateState(c: category, s: .loading)
 
         switch type {
         case .add(_, _):
@@ -39,55 +39,25 @@ enum BookmarkDispatcher {
 
             switch result {
             case .failure(let e):
-                let r = Repository.Result<[Bookmark]>(
-                    item: [],
-                    pagingInfo: nil,
-                    hasMore: false
-                )
-                let a = AddBookmarksAction(
-                    category: category,
-                    bookmarks: .failure(r, e)
-                )
-                store.mDispatch(a)
+                updateState(c: category, s: .failure(e))
             case .success(let res):
                 let a = AddBookmarksAction(
                     category: category,
                     bookmarks: res
                 )
                 store.mDispatch(a)
-
-                switch res {
-                case .failure(_, let e):
-                    completion(.failure(e))
-                case .loading(_), .notYetLoading:
-                    completion(.failure(.firestoreError(nil)))
-                case .success(let r):
-                    completion(.success(r.item))
-                }
+                updateState(c: category, s: .success)
             }
         }
     }
 
     static func clearCategory(c: Embedded.Category) {
-        let a = ClearCategoryAction(category: c)
+        let a = ClearBookmarkAction(category: c)
         store.mDispatch(a)
     }
 
-    static func setLoading(c: Embedded.Category) {
-        let r = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
-        let a = AddBookmarksAction(
-            category: c,
-            bookmarks: .loading(r)
-        )
-        store.mDispatch(a)
-    }
-
-    static func setError(c: Embedded.Category, e: TwibuError) {
-        let r = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
-        let a = AddBookmarksAction(
-            category: c,
-            bookmarks: .failure(r, e)
-        )
+    static func updateState(c: Embedded.Category, s: Repository.ResponseState) {
+        let a = UpdateBookmarkStateAction(category: c, state: s)
         store.mDispatch(a)
     }
 }

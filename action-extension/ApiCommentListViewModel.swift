@@ -9,9 +9,9 @@
 import Embedded
 
 final class ApiCommentListViewModel: CommentList {
-    private var response: Repository.Response<CommentRepositoryApi.ApiResponse> = .notYetLoading
+    private var response: CommentRepositoryApi.ApiResponse?
     private var comments: [Comment] {
-        return response.item?.comments ?? []
+        return response?.comments ?? []
     }
 
     weak var delegate: CommentListDelegate?
@@ -43,15 +43,10 @@ extension ApiCommentListViewModel {
 
     func fetchComments() {
         guard let res = CommentRepositoryApi.shared.getResponse() else {
-            delegate?.render(state: .failure(error: TwibuError.apiError("レスポンスがありません")))
+            delegate?.render(state: .failure(error: .apiError("レスポンスがありません")))
             return
         }
-        let result = Repository.Result<CommentRepositoryApi.ApiResponse>(
-            item: res,
-            pagingInfo: nil,
-            hasMore: false
-        )
-        response = .success(result)
+        response = res
         delegate?.render(state: .success(hasMore: false))
     }
 

@@ -10,9 +10,10 @@ import Embedded
 import ReSwift
 
 final class FirestoreCommentListViewModel: CommentList {
-    private var response: Repository.Response<[Comment]> = .notYetLoading
+    private var responseData: Repository.Result<[Comment]> = .init(item: [], pagingInfo: nil, hasMore: true)
+    private var responseState: Repository.ResponseState = .notYetLoading
     private var comments: [Comment] {
-        return response.item ?? []
+        return responseData.item
     }
 
     weak var delegate: CommentListDelegate?
@@ -39,13 +40,21 @@ extension FirestoreCommentListViewModel {
     func startSubscribe() {
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
-                let res: Repository.Response<[Comment]>? = {
+                let data: Repository.Result<[Comment]>? = {
                     guard let buid = self?.bookmark?.uid else { return nil }
-                    guard let res = state.response.comments[buid] else { return nil }
-                    return res
+                    guard let d = state.responseData.comments[buid] else { return nil }
+                    return d
+                }()
+                let resState: Repository.ResponseState = {
+                    guard let buid = self?.bookmark?.uid else { return .notYetLoading }
+                    return state.responseState.comments[buid] ?? .notYetLoading
                 }()
 
-                return Props(res: res, currentUser: state.currentUser)
+                return Props(
+                    responseData: data,
+                    responseState: resState,
+                    currentUser: state.currentUser
+                )
             }
         }
     }
@@ -74,22 +83,22 @@ extension FirestoreCommentListViewModel {
     }
 
     func fetchAdditionalComments() {
-        switch response {
-        case .loading(_):
+        switch responseState {
+        case .loading:
             return
         case .notYetLoading:
             // 来ないはず
             return
-        case .failure(_):
+        case .failure:
             return
-        case .success(let result):
-            guard let buid = bookmark?.uid, result.hasMore else {
+        case .success:
+            guard let buid = bookmark?.uid, responseData.hasMore else {
                 return
             }
 
             CommentDispatcher.fetchComments(
                 buid: buid,
-                type: .add(limit: 100, pagingInfo: result.pagingInfo)
+                type: .add(limit: 100, pagingInfo: responseData.pagingInfo)
             )
         }
     }
@@ -105,81 +114,53 @@ extension FirestoreCommentListViewModel {
 
 extension FirestoreCommentListViewModel: StoreSubscriber {
     struct Props {
-        var res: Repository.Response<[Comment]>?
-        var currentUser: TwibuUser?
+        let responseData: Repository.Result<[Comment]>?
+        let responseState: Repository.ResponseState
+        let currentUser: TwibuUser?
     }
 
     typealias StoreSubscriberStateType = Props
 
     func newState(state: Props) {
         currentUser = state.currentUser
+        responseState = state.responseState
 
-        guard let res = state.res else {
+        guard let data = state.responseData else {
             // 初回取得前はここを通る
-            response = .notYetLoading
+            responseState = .notYetLoading
             delegate?.render(state: .notYetLoading)
             fetchComments()
             return
         }
 
-        guard isResponseChanged(old: response, new: res) else {
+        guard isResponseChanged(old: responseData, new: data) else {
             return
         }
 
-        response = res
+        responseData = data
 
         DispatchQueue.main.async {
-            self.delegate?.render(state: self.convert(res))
+            self.delegate?.render(state: self.convert(self.responseState))
         }
     }
 
     private func isResponseChanged(
-        old: Repository.Response<[Comment]>,
-        new: Repository.Response<[Comment]>
+        old: Repository.Result<[Comment]>,
+        new: Repository.Result<[Comment]>
     ) -> Bool {
-        switch old {
-        case .loading(_):
-            switch new {
-            case .loading(_):
-                return false
-            default:
-                return true
-            }
-        case .failure(_):
-            switch new {
-            case .failure(_):
-                return false
-            default:
-                return true
-            }
-        case .notYetLoading:
-            switch new {
-            case .notYetLoading:
-                return false
-            default:
-                return true
-            }
-        case .success(let oldResult):
-            switch new {
-            case .success(let newResult):
-                if Comment.isEqual(a: oldResult.item, b: newResult.item) {
-                    return false
-                }
-
-                return true
-            default:
-                return true
-            }
+        if Comment.isEqual(a: old.item, b: new.item) {
+            return false
         }
+        return true
     }
 
-    private func convert(_ res: Repository.Response<[Comment]>) -> CommentRenderState {
-        switch res {
-        case .success(let result):
-            return .success(hasMore: result.hasMore)
-        case .loading(_):
+    private func convert(_ state: Repository.ResponseState) -> CommentRenderState {
+        switch state {
+        case .success:
+            return .success(hasMore: responseData.hasMore)
+        case .loading:
             return .loading
-        case .failure(_, let error):
+        case .failure(let error):
             return .failure(error: error)
         case .notYetLoading:
             return .notYetLoading
