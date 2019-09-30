@@ -21,9 +21,9 @@ enum BookmarkDispatcher {
         updateState(c: category, s: .loading)
 
         switch type {
-        case .add(_, _):
+        case .add:
             break
-        case .new(_):
+        case .new:
             let a = SetLastRefreshAtAction(category: category, refreshAt: Date())
             store.mDispatch(a)
         }
