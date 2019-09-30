@@ -73,11 +73,11 @@ extension CategoryArticleListViewModel {
         store.unsubscribe(self)
     }
 
-    func fetchBookmark(completion: @escaping (Result<[Bookmark]>) -> Void) {
+    func fetchBookmark() {
         guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
 
         if category == .timeline, currentUser?.isTwitterLogin == true {
-            refreshForLoginUser(completion: completion)
+            refreshForLoginUser()
             return
         }
 
@@ -139,7 +139,7 @@ extension CategoryArticleListViewModel {
         UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: twitterMaxId) { [weak self] kickResult in
             switch kickResult {
             case .failure(let e):
-                Logger.print(e.displayMessage)
+                self?.delegate?.render(state: .failure(error: e))
             case .success(_):
                 DispatchQueue.main.async {
                     let r = Repository.Result<[Bookmark]>(
@@ -147,7 +147,7 @@ extension CategoryArticleListViewModel {
                         pagingInfo: result.pagingInfo,
                         hasMore: true // これを渡したい
                     )
-                    self?.fetchAdditionalForAllCategory(result: r)
+                    self?.fetchAdditionalForTimeline(result: r)
                 }
             }
         }
@@ -174,18 +174,19 @@ extension CategoryArticleListViewModel {
         }
     }
 
-    private func refreshForLoginUser(completion: @escaping (Result<[Bookmark]>) -> Void) {
+    private func refreshForLoginUser() {
         guard currentUser?.isTwitterLogin == true, let uid = currentUser?.firebaseAuthUser?.uid else {
-            completion(.failure(TwibuError.needTwitterAuth(nil)))
+            BookmarkDispatcher.setError(c: category, e: TwibuError.needTwitterAuth(nil))
             return
         }
 
         UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: nil) { [weak self] result1 in
+            guard let self = self else { return }
             switch result1 {
             case .failure(let error):
-                completion(.failure(error))
+                BookmarkDispatcher.setError(c: self.category, e: error)
             case .success(_):
-                self?.fetchBookmark(completion: completion)
+                self.fetchBookmark()
             }
         }
     }
@@ -194,7 +195,7 @@ extension CategoryArticleListViewModel {
     func refreshCheck() {
         guard let last = lastRefreshCheckAt else { return }
         if last.addingTimeInterval(TimeInterval(30 * 60)) < Date() {
-            fetchBookmark() { _ in }
+            fetchBookmark()
         }
     }
 }
@@ -219,7 +220,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             // 初回取得前はここを通る
             response = .notYetLoading
             delegate?.render(state: .notYetLoading)
-            fetchBookmark { _ in }
+            fetchBookmark()
             return
         }
 

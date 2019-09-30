@@ -33,7 +33,7 @@ protocol ArticleList {
     func set(delegate: ArticleListDelegate, type: ArticleListType)
     func startSubscribe()
     func stopSubscribe()
-    func fetchBookmark(completion: @escaping (Result<[Bookmark]>) -> Void)
+    func fetchBookmark()
     func fetchAdditionalBookmarks()
     func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void)
 }

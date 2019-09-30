@@ -67,4 +67,12 @@ enum BookmarkDispatcher {
         )
         store.mDispatch(a)
     }
+
+    static func setError(c: Embedded.Category, e: TwibuError) {
+        let a = AddBookmarksAction(
+            category: c,
+            bookmarks: .failure(e)
+        )
+        store.mDispatch(a)
+    }
 }
