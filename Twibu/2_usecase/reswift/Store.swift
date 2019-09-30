@@ -12,9 +12,14 @@ import FirebaseAuth
 import Embedded
 
 struct AppState: StateType {
-    struct Response {
-        var bookmarks: [Embedded.Category: Repository.Response<[Bookmark]>] = [:]
-        var comments: [String: Repository.Response<[Comment]>] = [:]
+    struct ResponseData {
+        var bookmarks: [Embedded.Category: Repository.Result<[Bookmark]>] = [:]
+        var comments: [String: Repository.Result<[Comment]>] = [:]
+    }
+
+    struct ResponseState {
+        var bookmarks: [Embedded.Category: Repository.ResponseState] = [:]
+        var comments: [String: Repository.ResponseState] = [:]
     }
 
     struct HistoryInfo {
@@ -27,7 +32,8 @@ struct AppState: StateType {
         var results: [(bookmarkUid: String, result: WebArchiver.SaveResult)] = []
     }
 
-    var response: Response = Response()
+    var responseData = ResponseData()
+    var responseState = ResponseState()
     var currentUser = TwibuUser(firebaseAuthUser: nil)
     var history = HistoryInfo(histories: [], hasMore: true)
     var webArchive = WebArchiveInfo(tasks: [], results: [])
@@ -36,21 +42,21 @@ struct AppState: StateType {
 }
 
 extension AppState {
-    static func toFlat(bookmarks: [Embedded.Category: Repository.Response<[Bookmark]>]) -> [Bookmark] {
-        let resArr = bookmarks.values.compactMap { $0 }
-        let bmNestArr: [[Bookmark]] = resArr.compactMap { (res: Repository.Response<[Bookmark]>) in
-            switch res {
-            case .success(let result): return result.item
-            case .loading(let result): return result.item
-            case .failure: return nil
-            case .notYetLoading: return nil
-            }
-        }
-        let bmArr: [Bookmark] = bmNestArr.reduce([], +)
+    static func toFlat(bookmarks: [Embedded.Category: Repository.Result<[Bookmark]>]) -> [Bookmark] {
+        let resArr = bookmarks.values.compactMap { $0.item }
+        let bmArr: [Bookmark] = resArr.reduce([], +)
         return bmArr
     }
 }
 
+struct UpdateBookmarkStateAction: Action {
+    let category: Embedded.Category
+    let state: Repository.ResponseState
+}
+struct UpdateCommentStateAction: Action {
+    let bookmarkUid: String
+    let state: Repository.ResponseState
+}
 struct AddHistoriesAction: Action {
     let histories: [(Bookmark, Int)]
 }
@@ -63,18 +69,18 @@ struct DeleteHistoryAction: Action {
 }
 struct AddBookmarksAction: Action {
     let category: Embedded.Category
-    let bookmarks: Repository.Response<[Bookmark]>
+    let bookmarks: Repository.Result<[Bookmark]>
 }
 struct RemoveBookmarkAction: Action {
     let category: Embedded.Category
     let bookmarkUid: String
 }
-struct ClearCategoryAction: Action {
+struct ClearBookmarkAction: Action {
     let category: Embedded.Category
 }
 struct AddCommentsAction: Action {
     let bookmarkUid: String
-    let comments: Repository.Response<[Comment]>
+    let comments: Repository.Result<[Comment]>
 }
 struct UpdateBookmarkCommentCountIfOverAction: Action {
     let bookmarkUid: String
@@ -102,31 +108,16 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     var state = state ?? AppState()
 
     switch action {
+    case let a as UpdateBookmarkStateAction:
+        state.responseState.bookmarks[a.category] = a.state
+
+    case let a as UpdateCommentStateAction:
+        state.responseState.comments[a.bookmarkUid] = a.state
+
     case let a as AddBookmarksAction:
-        let old: [Bookmark] = {
-            let s = state.response.bookmarks[a.category] ?? .notYetLoading
-            switch s {
-            case .success(let res):
-                return res.item
-            case .loading(let res):
-                return res.item
-            default:
-                return []
-            }
-        }()
-
-        let add: [Bookmark] = {
-            switch a.bookmarks {
-            case .success(let res):
-                return res.item
-            case .loading(let res):
-                return res.item
-            default:
-                return []
-            }
-        }()
-
-        let new: [Bookmark] = {
+        let old = state.responseData.bookmarks[a.category]?.item ?? []
+        let add = a.bookmarks.item
+        let newBookmarks: [Bookmark] = {
             switch a.category {
             case .memo, .timeline:
                 // 記事作成日とは別の数字で既にソート済み
@@ -137,120 +128,50 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                     .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
             }
         }()
-
-        state.response.bookmarks[a.category] = {
-            switch a.bookmarks {
-            case .success(let old):
-                let result = Repository.Result(
-                    item: new,
-                    pagingInfo: old.pagingInfo,
-                    hasMore: old.hasMore
-                )
-                return .success(result)
-            case .loading(let old):
-                let result = Repository.Result(
-                    item: new,
-                    pagingInfo: old.pagingInfo,
-                    hasMore: old.hasMore
-                )
-                return .loading(result)
-            case .failure: return a.bookmarks
-            case .notYetLoading: return .notYetLoading
-            }
-        }()
+        state.responseData.bookmarks[a.category] = Repository.Result<[Bookmark]>(
+            item: newBookmarks,
+            pagingInfo: a.bookmarks.pagingInfo,
+            hasMore: a.bookmarks.hasMore
+        )
 
     case let a as RemoveBookmarkAction:
-        state.response.bookmarks[a.category] = {
-            guard let res = state.response.bookmarks[a.category] else {
+        state.responseData.bookmarks[a.category] = {
+            guard let old = state.responseData.bookmarks[a.category] else {
                 return nil
             }
 
-            switch res {
-            case .failure(_), .notYetLoading:
-                return res
-            case .success(let result):
-                let newBookmarks = result.item.filter { $0.uid != a.bookmarkUid }
-                let newResult = Repository.Result(
-                    item: newBookmarks,
-                    pagingInfo: result.pagingInfo,
-                    hasMore: result.hasMore
-                )
-                return Repository.Response.success(newResult)
-            case .loading(let result):
-                let newBookmarks = result.item.filter { $0.uid != a.bookmarkUid }
-                let newResult = Repository.Result(
-                    item: newBookmarks,
-                    pagingInfo: result.pagingInfo,
-                    hasMore: result.hasMore
-                )
-                return Repository.Response.loading(newResult)
-            }
+            let newBookmarks = old.item.filter { $0.uid != a.bookmarkUid }
+            let newResult = Repository.Result(
+                item: newBookmarks,
+                pagingInfo: old.pagingInfo,
+                hasMore: old.hasMore
+            )
+            return newResult
         }()
 
-    case let a as ClearCategoryAction:
-        state.response.bookmarks[a.category] = .notYetLoading
+    case let a as ClearBookmarkAction:
+        state.responseData.bookmarks[a.category] = Repository.Result<[Bookmark]>(
+            item: [],
+            pagingInfo: nil,
+            hasMore: true
+        )
 
     case let a as AddCommentsAction:
-        let old: [Comment] = {
-            let s = state.response.comments[a.bookmarkUid] ?? .notYetLoading
-            switch s {
-            case .success(let res):
-                return res.item
-            case .loading(let res):
-                return res.item
-            default:
-                return []
-            }
-        }()
-
-        let add: [Comment] = {
-            switch a.comments {
-            case .success(let res):
-                return res.item
-            case .loading(let res):
-                return res.item
-            default:
-                return []
-            }
-        }()
-
-        let new = Comment
+        let old = state.responseData.comments[a.bookmarkUid]?.item ?? []
+        let add = a.comments.item
+        let newComments = Comment
             .merge(base: old, add: add)
             .sorted { $0.favorite_count > $1.favorite_count }
-
-        state.response.comments[a.bookmarkUid] = {
-            switch a.comments {
-            case .success(let old):
-                let result = Repository.Result<[Comment]>(
-                    item: new,
-                    pagingInfo: old.pagingInfo,
-                    hasMore: old.hasMore
-                )
-                return .success(result)
-            case .loading(let old):
-                let result = Repository.Result<[Comment]>(
-                    item: new,
-                    pagingInfo: old.pagingInfo,
-                    hasMore: old.hasMore
-                )
-                return .loading(result)
-            case .failure(_): return a.comments
-            case .notYetLoading: return .notYetLoading
-            }
-        }()
+        state.responseData.comments[a.bookmarkUid] = Repository.Result<[Comment]>(
+            item: newComments,
+            pagingInfo: a.comments.pagingInfo,
+            hasMore: a.comments.hasMore
+        )
 
     case let a as UpdateBookmarkCommentCountIfOverAction:
-        var new = state.response.bookmarks
+        var new = state.responseData.bookmarks
         for (category, res) in new {
-            // そもそも読み込み完了していない場合は更新しない
-            switch res {
-            case .success(_):
-                break
-            default:
-                continue
-            }
-
-            guard var bms = res.item else { continue }
+            var bms = res.item
             guard let index = bms.firstIndex(where: { $0.uid == a.bookmarkUid }) else { continue }
             let oldBookmark = bms[index]
 
@@ -260,27 +181,15 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             let newBookmark = Bookmark(oldBookmark, commentCount: a.commentCount)
             bms[index] = newBookmark
 
-            switch res {
-            case .notYetLoading, .failure(_):
-                continue
-            case .loading(_):
-                //
-                // NOTE:
-                //   timelineのpagingでまだ読み込み完了していない状態 & 読み込み済み記事のコメント表示
-                //   の時に通ったよ
-                //
-                continue
-            case .success(let result):
-                let newResult = Repository.Result<[Bookmark]>(
-                    item: bms,
-                    pagingInfo: result.pagingInfo,
-                    hasMore: result.hasMore
-                )
-                new[category] = .success(newResult)
-            }
+            let newResult = Repository.Result<[Bookmark]>(
+                item: bms,
+                pagingInfo: res.pagingInfo,
+                hasMore: res.hasMore
+            )
+            new[category] = newResult
             break
         }
-        state.response.bookmarks = new
+        state.responseData.bookmarks = new
 
     case let a as UpdateFirebaseUserAction:
         let newUser = TwibuUser(firebaseAuthUser: a.newUser)

@@ -77,23 +77,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             break
         }
 
-        viewModel.fetchBookmark { [weak self] result in
-            switch result {
-            case .success(_):
-                break
-            case .failure(let e):
-                switch e {
-                case .twitterRateLimit(_):
-                    // こいつは無視してOK
-                    break
-                default:
-                    DispatchQueue.main.async {
-                        self?.refreshControll.endRefreshing()
-                        self?.showAlert(title: "Error", message: e.displayMessage)
-                    }
-                }
-            }
-        }
+        viewModel.fetchBookmark()
     }
 
     private func startRefreshControll() {

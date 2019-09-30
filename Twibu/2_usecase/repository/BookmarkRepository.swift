@@ -18,7 +18,7 @@ enum BookmarkRepository {
         uid: String,
         type: Repository.FetchType,
         commentCountOffset: Int,
-        completion: @escaping (Repository.Response<[Bookmark]>) -> Void
+        completion: @escaping (Result<Repository.Result<[Bookmark]>>) -> Void
     ) {
         if category == .timeline {
             fetchTimelineBookmarks(uid: uid, type: type, completion: completion)
@@ -125,7 +125,7 @@ private extension BookmarkRepository {
     private static func fetchTimelineBookmarks(
         uid: String,
         type: Repository.FetchType,
-        completion: @escaping (Repository.Response<[Bookmark]>) -> Void
+        completion: @escaping (Result<Repository.Result<[Bookmark]>>) -> Void
     ) {
         let query: Query = {
             switch type {
@@ -253,7 +253,7 @@ private extension BookmarkRepository {
     private static func fetchMemoBookmarks(
         uid: String,
         type: Repository.FetchType,
-        completion: @escaping (Repository.Response<[Bookmark]>) -> Void
+        completion: @escaping (Result<Repository.Result<[Bookmark]>>) -> Void
     ) {
         let query: Query = {
             switch type {

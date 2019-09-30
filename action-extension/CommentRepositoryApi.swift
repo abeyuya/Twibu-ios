@@ -46,30 +46,30 @@ extension CommentRepositoryApi {
         completion: @escaping (Result<ApiResponse>) -> Void
     ) {
         guard var components = URLComponents(string: CommentRepositoryApi.endpoint) else {
-            completion(.failure(TwibuError.apiError("endpoint予期せぬエラー")))
+            completion(.failure(.apiError("endpoint予期せぬエラー")))
             return
         }
 
         components.queryItems = [URLQueryItem(name: "url", value: bookmarkUrl)]
         guard let url = components.url else {
-            completion(.failure(TwibuError.apiError("不正なURLです: \(bookmarkUrl)")))
+            completion(.failure(.apiError("不正なURLです: \(bookmarkUrl)")))
             return
         }
 
         let task = URLSession.shared.dataTask(with: url) { [weak self] (data: Data?, response: URLResponse?, error: Error?) in
             if let error = error {
-                completion(.failure(TwibuError.apiError(error.localizedDescription)))
+                completion(.failure(.apiError(error.localizedDescription)))
                 return
             }
 
             guard let data = data else {
-                completion(.failure(TwibuError.apiError("レスポンスデータが不正です")))
+                completion(.failure(.apiError("レスポンスデータが不正です")))
                 return
             }
 
             guard let res = ApiResponse(data: data) else {
                 let message = "\(ApiResponse.self)のdecodeに失敗しました"
-                completion(.failure(TwibuError.apiError(message)))
+                completion(.failure(.apiError(message)))
                 return
             }
 

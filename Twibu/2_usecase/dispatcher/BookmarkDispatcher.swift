@@ -18,12 +18,12 @@ enum BookmarkDispatcher {
         commentCountOffset: Int,
         completion: @escaping (Result<[Bookmark]>) -> Void
     ) {
-        setLoading(c: category)
+        updateState(c: category, s: .loading)
 
         switch type {
-        case .add(_, _):
+        case .add:
             break
-        case .new(_):
+        case .new:
             let a = SetLastRefreshAtAction(category: category, refreshAt: Date())
             store.mDispatch(a)
         }
@@ -37,34 +37,27 @@ enum BookmarkDispatcher {
         ) { result in
             trace?.stop()
 
-            let a = AddBookmarksAction(
-                category: category,
-                bookmarks: result
-            )
-            store.mDispatch(a)
-
             switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .loading(_), .notYetLoading:
-                completion(.failure(TwibuError.firestoreError(nil)))
-            case .success(let r):
-                completion(.success(r.item))
+            case .failure(let e):
+                updateState(c: category, s: .failure(e))
+            case .success(let res):
+                let a = AddBookmarksAction(
+                    category: category,
+                    bookmarks: res
+                )
+                store.mDispatch(a)
+                updateState(c: category, s: .success)
             }
         }
     }
 
     static func clearCategory(c: Embedded.Category) {
-        let a = ClearCategoryAction(category: c)
+        let a = ClearBookmarkAction(category: c)
         store.mDispatch(a)
     }
 
-    static func setLoading(c: Embedded.Category) {
-        let r = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
-        let a = AddBookmarksAction(
-            category: c,
-            bookmarks: .loading(r)
-        )
+    static func updateState(c: Embedded.Category, s: Repository.ResponseState) {
+        let a = UpdateBookmarkStateAction(category: c, state: s)
         store.mDispatch(a)
     }
 }
