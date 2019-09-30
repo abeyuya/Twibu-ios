@@ -110,7 +110,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 return res.item
             case .loading(let res):
                 return res.item
-            default:
+            case .failure(let res, _):
+                return res.item
+            case .notYetLoading:
                 return []
             }
         }()
@@ -121,12 +123,14 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 return res.item
             case .loading(let res):
                 return res.item
-            default:
+            case .failure(let res, _):
+                return res.item
+            case .notYetLoading:
                 return []
             }
         }()
 
-        let new: [Bookmark] = {
+        let newBookmarks: [Bookmark] = {
             switch a.category {
             case .memo, .timeline:
                 // 記事作成日とは別の数字で既にソート済み
@@ -142,19 +146,25 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             switch a.bookmarks {
             case .success(let old):
                 let result = Repository.Result(
-                    item: new,
+                    item: newBookmarks,
                     pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
                 )
                 return .success(result)
             case .loading(let old):
                 let result = Repository.Result(
-                    item: new,
+                    item: newBookmarks,
                     pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
                 )
                 return .loading(result)
-            case .failure: return a.bookmarks
+            case .failure(let old, let e):
+                let result = Repository.Result(
+                    item: newBookmarks,
+                    pagingInfo: old.pagingInfo,
+                    hasMore: old.hasMore
+                )
+                return .failure(result, e)
             case .notYetLoading: return .notYetLoading
             }
         }()
@@ -198,7 +208,9 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 return res.item
             case .loading(let res):
                 return res.item
-            default:
+            case .failure(let res, _):
+                return res.item
+            case .notYetLoading:
                 return []
             }
         }()
@@ -209,12 +221,14 @@ func appReducer(action: Action, state: AppState?) -> AppState {
                 return res.item
             case .loading(let res):
                 return res.item
-            default:
+            case .failure(let res, _):
+                return res.item
+            case .notYetLoading:
                 return []
             }
         }()
 
-        let new = Comment
+        let newComments = Comment
             .merge(base: old, add: add)
             .sorted { $0.favorite_count > $1.favorite_count }
 
@@ -222,19 +236,25 @@ func appReducer(action: Action, state: AppState?) -> AppState {
             switch a.comments {
             case .success(let old):
                 let result = Repository.Result<[Comment]>(
-                    item: new,
+                    item: newComments,
                     pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
                 )
                 return .success(result)
             case .loading(let old):
                 let result = Repository.Result<[Comment]>(
-                    item: new,
+                    item: newComments,
                     pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
                 )
                 return .loading(result)
-            case .failure(_): return a.comments
+            case .failure(let old, let e):
+                let result = Repository.Result(
+                    item: newComments,
+                    pagingInfo: old.pagingInfo,
+                    hasMore: old.hasMore
+                )
+                return .failure(result, e)
             case .notYetLoading: return .notYetLoading
             }
         }()

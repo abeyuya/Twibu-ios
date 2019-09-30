@@ -43,13 +43,13 @@ public enum Repository {
         case notYetLoading
         case loading(Result<T>)
         case success(Result<T>)
-        case failure(TwibuError)
+        case failure(Result<T>, TwibuError)
 
         public var item: T? {
             switch self {
             case .success(let result): return result.item
             case .loading(let result): return result.item
-            case .failure(_): return nil
+            case .failure(let result, _): return result.item
             case .notYetLoading: return nil
             }
         }

@@ -73,19 +73,33 @@ public enum CommentDispatcher {
         store.mDispatch(startLoadingAction)
 
         CommentRepositoryFirestore.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
-            let a = AddCommentsAction(
-                bookmarkUid: buid,
-                comments: result
-            )
-            store.mDispatch(a)
-
-            // store上のデータ書き換え
-            if let count = result.item?.count {
-                let a2 = UpdateBookmarkCommentCountIfOverAction(
-                    bookmarkUid: buid,
-                    commentCount: count
+            switch result {
+            case .failure(let e):
+                let r = Repository.Result<[Comment]>(
+                    item: [],
+                    pagingInfo: nil,
+                    hasMore: false
                 )
-                store.mDispatch(a2)
+                let a = AddCommentsAction(
+                    bookmarkUid: buid,
+                    comments: .failure(r, e)
+                )
+                store.mDispatch(a)
+            case .success(let res):
+                let a = AddCommentsAction(
+                    bookmarkUid: buid,
+                    comments: res
+                )
+                store.mDispatch(a)
+
+                // store上のデータ書き換え
+                if let count = res.item?.count {
+                    let a2 = UpdateBookmarkCommentCountIfOverAction(
+                        bookmarkUid: buid,
+                        commentCount: count
+                    )
+                    store.mDispatch(a2)
+                }
             }
         }
     }

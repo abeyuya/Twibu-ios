@@ -291,7 +291,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             return .success(hasMore: result.hasMore)
         case .loading(_):
             return .loading
-        case .failure(let error):
+        case .failure(_, let error):
             return .failure(error: error)
         case .notYetLoading:
             return .notYetLoading

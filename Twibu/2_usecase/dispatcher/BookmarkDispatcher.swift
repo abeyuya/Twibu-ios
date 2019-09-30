@@ -37,19 +37,33 @@ enum BookmarkDispatcher {
         ) { result in
             trace?.stop()
 
-            let a = AddBookmarksAction(
-                category: category,
-                bookmarks: result
-            )
-            store.mDispatch(a)
-
             switch result {
-            case .failure(let error):
-                completion(.failure(error))
-            case .loading(_), .notYetLoading:
-                completion(.failure(TwibuError.firestoreError(nil)))
-            case .success(let r):
-                completion(.success(r.item))
+            case .failure(let e):
+                let r = Repository.Result<[Bookmark]>(
+                    item: [],
+                    pagingInfo: nil,
+                    hasMore: false
+                )
+                let a = AddBookmarksAction(
+                    category: category,
+                    bookmarks: .failure(r, e)
+                )
+                store.mDispatch(a)
+            case .success(let res):
+                let a = AddBookmarksAction(
+                    category: category,
+                    bookmarks: res
+                )
+                store.mDispatch(a)
+
+                switch res {
+                case .failure(_, let e):
+                    completion(.failure(e))
+                case .loading(_), .notYetLoading:
+                    completion(.failure(.firestoreError(nil)))
+                case .success(let r):
+                    completion(.success(r.item))
+                }
             }
         }
     }
@@ -69,9 +83,10 @@ enum BookmarkDispatcher {
     }
 
     static func setError(c: Embedded.Category, e: TwibuError) {
+        let r = Repository.Result<[Bookmark]>(item: [], pagingInfo: nil, hasMore: false)
         let a = AddBookmarksAction(
             category: c,
-            bookmarks: .failure(e)
+            bookmarks: .failure(r, e)
         )
         store.mDispatch(a)
     }

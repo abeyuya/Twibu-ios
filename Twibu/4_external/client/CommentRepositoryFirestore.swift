@@ -15,7 +15,7 @@ enum CommentRepositoryFirestore {
     static func fetchBookmarkComment(
         bookmarkUid: String,
         type: Repository.FetchType,
-        completion: @escaping ((Repository.Response<[Comment]>) -> Void)
+        completion: @escaping (Result<Repository.Response<[Comment]>>) -> Void
     ) {
         guard Auth.auth().currentUser != nil else {
             completion(.failure(.needFirebaseAuth("need firebase login")))
@@ -51,7 +51,7 @@ enum CommentRepositoryFirestore {
                     )
                 }()
 
-                completion(.success(result))
+                completion(.success(.success(result)))
         }
     }
 
