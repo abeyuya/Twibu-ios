@@ -7,7 +7,7 @@
 //
 
 public enum CommentRenderState {
-    case success(hasMore: Bool)
+    case success
     case failure(error: TwibuError)
     case loading
     case additionalLoading

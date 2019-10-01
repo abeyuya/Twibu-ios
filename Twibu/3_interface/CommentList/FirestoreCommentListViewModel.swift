@@ -173,11 +173,7 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
     private func convert(_ state: Repository.ResponseState) -> CommentRenderState {
         switch state {
         case .success:
-            let hasMore: Bool = {
-                guard let d = responseData else { return true }
-                return d.hasMore
-            }()
-            return .success(hasMore: hasMore)
+            return .success
         case .loading:
             return .loading
         case .additionalLoading:

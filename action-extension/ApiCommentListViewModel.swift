@@ -47,7 +47,7 @@ extension ApiCommentListViewModel {
             return
         }
         response = res
-        delegate?.render(state: .success(hasMore: false))
+        delegate?.render(state: .success)
     }
 
     func fetchAdditionalComments() {

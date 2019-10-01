@@ -337,11 +337,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
     private func convert(_ state: Repository.ResponseState) -> ArticleRenderState {
         switch state {
         case .success:
-            let hasMore: Bool = {
-                guard let d = responseData else { return true }
-                return d.hasMore
-            }()
-            return .success(hasMore: hasMore)
+            return .success
         case .loading:
             return .loading
         case .additionalLoading:

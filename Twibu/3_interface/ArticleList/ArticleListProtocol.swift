@@ -9,7 +9,7 @@
 import Embedded
 
 enum ArticleRenderState {
-    case success(hasMore: Bool)
+    case success
     case failure(error: TwibuError)
     case loading
     case additionalLoading

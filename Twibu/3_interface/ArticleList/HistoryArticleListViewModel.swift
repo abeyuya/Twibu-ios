@@ -69,6 +69,6 @@ extension HistoryArticleListViewModel: StoreSubscriber {
         currentUser = state.currentUser
         bookmarks = state.historyInfo.histories.map { $0.0 }
         hasMore = state.historyInfo.hasMore
-        delegate?.render(state: .success(hasMore: hasMore))
+        delegate?.render(state: .success)
     }
 }
