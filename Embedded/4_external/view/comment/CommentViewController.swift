@@ -188,7 +188,7 @@ extension CommentViewController: CommentListDelegate {
         case .success(let hasMore):
             endRefreshController()
             if hasMore {
-                updateFooter(mode: .hide)
+                updateFooter(mode: .hasMore)
             } else {
                 updateFooter(mode: .finish)
             }

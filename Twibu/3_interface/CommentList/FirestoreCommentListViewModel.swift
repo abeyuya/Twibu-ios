@@ -147,7 +147,6 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
 
             if isResponseChanged(old: oldData, new: newData) {
                 render()
-                return
             }
         case .success:
             guard let oldData = responseData else {
@@ -180,10 +179,13 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
         old: Repository.Result<[Comment]>,
         new: Repository.Result<[Comment]>
     ) -> Bool {
-        if Comment.isEqual(a: old.item, b: new.item) {
-            return false
+        if !Comment.isEqual(a: old.item, b: new.item) {
+            return true
         }
-        return true
+        if old.hasMore != new.hasMore {
+            return true
+        }
+        return false
     }
 
     private func convert(_ state: Repository.ResponseState) -> CommentRenderState {
