@@ -59,7 +59,7 @@ extension HistoryArticleListViewModel {
 
 extension HistoryArticleListViewModel: StoreSubscriber {
     struct Props {
-        var historyInfo: AppState.HistoryInfo
+        var historyInfo: HistoryReducer.State
         var currentUser: TwibuUser
     }
 

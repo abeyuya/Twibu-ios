@@ -46,6 +46,7 @@
 		4D3D26802338F9A500BFD408 /* CommentListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059362338855A001F0605 /* CommentListProtocol.swift */; };
 		4D3D2682233909E500BFD408 /* CommentRepositoryApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3D2681233909E500BFD408 /* CommentRepositoryApi.swift */; };
 		4D3D26842339129300BFD408 /* ApiCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3D26832339129300BFD408 /* ApiCommentListViewModel.swift */; };
+		4D3E7F592343B6EB008E042D /* HistoryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3E7F582343B6EB008E042D /* HistoryReducer.swift */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
@@ -233,6 +234,7 @@
 		4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDispatcher.swift; sourceTree = "<group>"; };
 		4D3D2681233909E500BFD408 /* CommentRepositoryApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepositoryApi.swift; sourceTree = "<group>"; };
 		4D3D26832339129300BFD408 /* ApiCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCommentListViewModel.swift; sourceTree = "<group>"; };
+		4D3E7F582343B6EB008E042D /* HistoryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReducer.swift; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
 		4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticleListViewModel.swift; sourceTree = "<group>"; };
 		4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryArticleListViewModel.swift; sourceTree = "<group>"; };
@@ -566,6 +568,14 @@
 			path = 3_interface;
 			sourceTree = "<group>";
 		};
+		4D3E7F572343B6D4008E042D /* reducer */ = {
+			isa = PBXGroup;
+			children = (
+				4D3E7F582343B6EB008E042D /* HistoryReducer.swift */,
+			);
+			path = reducer;
+			sourceTree = "<group>";
+		};
 		4D5A410322FC35D700AD1620 /* ArticleList */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,6 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				4D65094522BF5FD200BB0959 /* Store.swift */,
+				4D3E7F572343B6D4008E042D /* reducer */,
 			);
 			path = reswift;
 			sourceTree = "<group>";
@@ -1328,6 +1339,7 @@
 				4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */,
 				4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */,
 				4D65095022BF8C7200BB0959 /* BookmarkDispatcher.swift in Sources */,
+				4D3E7F592343B6EB008E042D /* HistoryReducer.swift in Sources */,
 				4D3059342337FE9A001F0605 /* Comment+Extension.swift in Sources */,
 				4DD369E22337731300D2D10D /* Bookmark+Extension.swift in Sources */,
 				4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */,

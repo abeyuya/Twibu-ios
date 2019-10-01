@@ -22,11 +22,6 @@ struct AppState: StateType {
         var comments: [String: Repository.ResponseState] = [:]
     }
 
-    struct HistoryInfo {
-        var histories: [(bookmark: Bookmark, createdAt: Int)]
-        var hasMore: Bool
-    }
-
     struct WebArchiveInfo {
         var tasks: [WebArchiver] = []
         var results: [(bookmarkUid: String, result: WebArchiver.SaveResult)] = []
@@ -35,7 +30,7 @@ struct AppState: StateType {
     var responseData = ResponseData()
     var responseState = ResponseState()
     var currentUser = TwibuUser(firebaseAuthUser: nil)
-    var history = HistoryInfo(histories: [], hasMore: true)
+    var history = HistoryReducer.State(histories: [], hasMore: true)
     var webArchive = WebArchiveInfo(tasks: [], results: [])
     var twitterTimelineMaxId: String?
     var lastRefreshAt: [Embedded.Category: Date] = [:]
@@ -56,16 +51,6 @@ struct UpdateBookmarkStateAction: Action {
 struct UpdateCommentStateAction: Action {
     let bookmarkUid: String
     let state: Repository.ResponseState
-}
-struct AddHistoriesAction: Action {
-    let histories: [(Bookmark, Int)]
-}
-struct AddNewHistoryAction: Action {
-    let bookmark: Bookmark
-    let createdAt: Int
-}
-struct DeleteHistoryAction: Action {
-    let bookmarkUid: String
 }
 struct AddBookmarksAction: Action {
     let category: Embedded.Category
@@ -105,6 +90,12 @@ struct SetLastRefreshAtAction: Action {
 }
 
 func appReducer(action: Action, state: AppState?) -> AppState {
+    var s = dummyReducer(action: action, state: state)
+    s.history = HistoryReducer.reducer(action: action, state: state?.history)
+    return s
+}
+
+private func dummyReducer(action: Action, state: AppState?) -> AppState {
     var state = state ?? AppState()
 
     switch action {
@@ -194,23 +185,6 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     case let a as UpdateFirebaseUserAction:
         let newUser = TwibuUser(firebaseAuthUser: a.newUser)
         state.currentUser = newUser
-
-    case let a as AddHistoriesAction:
-        state.history.histories = (state.history.histories + a.histories)
-            .unique(by: { $0.0.uid })
-            .sorted { $0.1 > $1.1 }
-        state.history.hasMore = !a.histories.isEmpty
-
-    case let a as AddNewHistoryAction:
-        state.history.histories.insert((a.bookmark, a.createdAt), at: 0)
-        state.history.histories = state.history.histories
-            .unique(by: { $0.0.uid })
-            .sorted { $0.1 > $1.1 }
-
-    case let a as DeleteHistoryAction:
-        if let index = state.history.histories.firstIndex(where: { $0.bookmark.uid == a.bookmarkUid }) {
-            state.history.histories.remove(at: index)
-        }
 
     case let a as AddWebArchiveTask:
         state.webArchive.tasks.append(a.webArchiver)
