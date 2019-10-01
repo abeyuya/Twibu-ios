@@ -42,6 +42,7 @@ public enum Repository {
     public enum ResponseState {
         case notYetLoading
         case loading
+        case additionalLoading
         case success
         case failure(TwibuError)
 
@@ -59,6 +60,11 @@ public enum Repository {
                 return false
             case .loading:
                 if case .loading = b {
+                    return true
+                }
+                return false
+            case .additionalLoading:
+                if case .additionalLoading = b {
                     return true
                 }
                 return false

@@ -90,7 +90,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
         }
     }
 
-    private func endRefreshController() {
+    private func endRefreshControll() {
         guard refreshControll.isRefreshing else { return }
         DispatchQueue.main.async {
             self.refreshControll.endRefreshing()
@@ -292,24 +292,27 @@ extension CategoryViewController: ArticleListDelegate {
 
     func render(state: ArticleRenderState) {
         switch state {
-        case .success(let hasMore):
-            self.endRefreshController()
+        case .success:
+            endRefreshControll()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.footerIndicator.isHidden = self.viewModel.bookmarks.isEmpty || hasMore == false
+                self.footerIndicator.isHidden = false
             }
         case .failure(let error):
-            self.endRefreshController()
-            self.showAlert(title: "Error", message: error.displayMessage)
+            endRefreshControll()
+            showAlert(title: "Error", message: error.displayMessage)
         case .loading:
-            if viewModel.bookmarks.isEmpty {
-                startRefreshControll()
-            }
+            startRefreshControll()
             DispatchQueue.main.async {
-                self.footerIndicator.isHidden = self.viewModel.bookmarks.isEmpty
+                self.footerIndicator.isHidden = true
+            }
+        case .additionalLoading:
+            endRefreshControll()
+            DispatchQueue.main.async {
+                self.footerIndicator.isHidden = false
             }
         case .notYetLoading:
-            self.startRefreshControll()
+            startRefreshControll()
             DispatchQueue.main.async {
                 self.footerIndicator.isHidden = true
             }

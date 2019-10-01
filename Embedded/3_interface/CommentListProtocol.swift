@@ -7,7 +7,11 @@
 //
 
 public enum CommentRenderState {
-    case success(hasMore: Bool), failure(error: TwibuError), loading, notYetLoading
+    case success(hasMore: Bool)
+    case failure(error: TwibuError)
+    case loading
+    case additionalLoading
+    case notYetLoading
 }
 
 public protocol CommentListDelegate: class {

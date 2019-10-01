@@ -81,7 +81,7 @@ extension FirestoreCommentListViewModel {
 
     func fetchAdditionalComments() {
         switch responseState {
-        case .loading:
+        case .loading, .additionalLoading:
             return
         case .notYetLoading:
             // 来ないはず
@@ -135,7 +135,7 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
             delegate?.render(state: .notYetLoading)
             fetchComments()
             return
-        case .failure, .loading, .success:
+        case .failure, .loading, .additionalLoading, .success:
             if isResponseChanged(old: responseData, new: state.responseData) {
                 responseData = state.responseData
                 render()
@@ -180,6 +180,8 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
             return .success(hasMore: hasMore)
         case .loading:
             return .loading
+        case .additionalLoading:
+            return .additionalLoading
         case .failure(let error):
             return .failure(error: error)
         case .notYetLoading:

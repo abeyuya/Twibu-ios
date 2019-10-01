@@ -28,7 +28,7 @@ public enum CommentDispatcher {
                     let result = Repository.Result<[Comment]>(
                         item: comments,
                         pagingInfo: nil,
-                        hasMore: true
+                        hasMore: false
                     )
                     let a = AddCommentsAction(
                         bookmarkUid: bookmarkUid,
@@ -59,7 +59,13 @@ public enum CommentDispatcher {
     }
 
     public static func fetchComments(buid: String, type: Repository.FetchType) {
-        updateState(buid: buid, s: .loading)
+        switch type {
+        case .add:
+            updateState(buid: buid, s: .additionalLoading)
+        case .new:
+            updateState(buid: buid, s: .loading)
+        }
+
         CommentRepositoryFirestore.fetchBookmarkComment(bookmarkUid: buid, type: type) { result in
             switch result {
             case .failure(let e):

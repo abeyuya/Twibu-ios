@@ -18,7 +18,12 @@ enum BookmarkDispatcher {
         commentCountOffset: Int,
         completion: @escaping (Result<[Bookmark]>) -> Void
     ) {
-        updateState(c: category, s: .loading)
+        switch type {
+        case .add:
+            updateState(c: category, s: .additionalLoading)
+        case .new:
+            updateState(c: category, s: .loading)
+        }
 
         switch type {
         case .add:

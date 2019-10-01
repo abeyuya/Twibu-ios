@@ -101,7 +101,7 @@ extension CategoryArticleListViewModel {
 
     func fetchAdditionalBookmarks() {
         switch responseState {
-        case .loading:
+        case .loading, .additionalLoading:
             return
         case .notYetLoading:
             // view読み込み時だけ通る
@@ -243,7 +243,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             delegate?.render(state: .notYetLoading)
             fetchBookmark()
             return
-        case .failure, .loading, .success:
+        case .failure, .loading, .additionalLoading, .success:
             if isResponseChanged(old: responseData, new: state.responseData) {
                 responseData = state.responseData
                 render()
@@ -344,6 +344,8 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             return .success(hasMore: hasMore)
         case .loading:
             return .loading
+        case .additionalLoading:
+            return .additionalLoading
         case .failure(let error):
             return .failure(error: error)
         case .notYetLoading:

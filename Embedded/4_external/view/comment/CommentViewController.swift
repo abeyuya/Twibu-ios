@@ -185,30 +185,20 @@ extension CommentViewController: CommentListDelegate {
 
     internal func render(state: CommentRenderState) {
         switch state {
-        case .success(let hasMore):
+        case .success:
             endRefreshController()
-            if hasMore {
-                updateFooter(mode: .hasMore)
-            } else {
-                updateFooter(mode: .finish)
-            }
+            updateFooter(mode: .finish)
             tableview.reloadData()
         case .failure(let error):
             endRefreshController()
             updateFooter(mode: .finish)
             showAlert(title: "Error", message: error.displayMessage)
         case .loading:
-            guard viewModel.currentComments.isEmpty else {
-                if refreshControll.isRefreshing {
-                    updateFooter(mode: .hide)
-                } else {
-                    updateFooter(mode: .hasMore)
-                }
-                return
-            }
-
             startRefreshControll()
             updateFooter(mode: .hide)
+        case .additionalLoading:
+            endRefreshController()
+            updateFooter(mode: .hasMore)
         case .notYetLoading:
             endRefreshController()
             updateFooter(mode: .hide)
