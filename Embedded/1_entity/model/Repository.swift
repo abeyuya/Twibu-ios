@@ -44,5 +44,27 @@ public enum Repository {
         case loading
         case success
         case failure(TwibuError)
+
+        public static func isEqual(a: ResponseState, b: ResponseState) -> Bool {
+            switch a {
+            case .success:
+                if case .success = b {
+                    return true
+                }
+                return false
+            case .notYetLoading:
+                if case .notYetLoading = b {
+                    return true
+                }
+                return false
+            case .loading:
+                if case .loading = b {
+                    return true
+                }
+                return false
+            case .failure:
+                return false
+            }
+        }
     }
 }

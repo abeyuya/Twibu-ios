@@ -231,6 +231,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
     typealias StoreSubscriberStateType = Props
 
     func newState(state: Props) {
+        let oldResponseState = responseState
         currentUser = state.currentUser
         twitterMaxId = state.twitterMaxId
         lastRefreshCheckAt = state.lastRefreshCheckAt
@@ -242,19 +243,16 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             delegate?.render(state: .notYetLoading)
             fetchBookmark()
             return
-        case .loading:
-            break
-        case .success:
-            break
-        case .failure:
-            break
+        case .failure, .loading, .success:
+            if isResponseChanged(old: responseData, new: state.responseData) {
+                responseData = state.responseData
+                render()
+            }
         }
 
-        if let d = state.responseData {
-            responseData = d
+        if !Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+            render()
         }
-
-        delegate?.render(state: convert(responseState))
 
         let changed = changedResults(
             a: webArchiveResults,
@@ -264,6 +262,28 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             webArchiveResults = state.webArchiveResults
             delegate?.update(results: changed)
         }
+    }
+
+    private func render() {
+        DispatchQueue.main.async {
+            self.delegate?.render(state: self.convert(self.responseState))
+        }
+    }
+
+    private func isResponseChanged(
+        old: Repository.Result<[Bookmark]>?,
+        new: Repository.Result<[Bookmark]>?
+    ) -> Bool {
+        if old == nil, new == nil {
+            return false
+        }
+        if !Bookmark.isEqual(a: old?.item ?? [], b: new?.item ?? []) {
+            return true
+        }
+        if old?.hasMore != new?.hasMore {
+            return true
+        }
+        return false
     }
 
     private func changedResults(

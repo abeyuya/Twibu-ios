@@ -128,7 +128,6 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
         let oldResponseState = responseState
         currentUser = state.currentUser
         responseState = state.responseState
-        responseData = state.responseData
 
         switch responseState {
         case .notYetLoading:
@@ -136,34 +135,14 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
             delegate?.render(state: .notYetLoading)
             fetchComments()
             return
-        case .failure:
-            render()
-        case .loading:
-            guard let oldData = responseData else {
-                render()
-                return
-            }
-            guard let newData = responseData else { return }
-
-            if isResponseChanged(old: oldData, new: newData) {
-                render()
-            }
-        case .success:
-            guard let oldData = responseData else {
-                render()
-                return
-            }
-            guard let newData = responseData else { return }
-
-            if isResponseChanged(old: oldData, new: newData) {
+        case .failure, .loading, .success:
+            if isResponseChanged(old: responseData, new: state.responseData) {
+                responseData = state.responseData
                 render()
                 return
             }
 
-            switch oldResponseState {
-            case .success:
-                break
-            default:
+            if !Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
                 render()
             }
         }
@@ -176,13 +155,16 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
     }
 
     private func isResponseChanged(
-        old: Repository.Result<[Comment]>,
-        new: Repository.Result<[Comment]>
+        old: Repository.Result<[Comment]>?,
+        new: Repository.Result<[Comment]>?
     ) -> Bool {
-        if !Comment.isEqual(a: old.item, b: new.item) {
+        if old == nil, new == nil {
+            return false
+        }
+        if !Comment.isEqual(a: old?.item ?? [], b: new?.item ?? []) {
             return true
         }
-        if old.hasMore != new.hasMore {
+        if old?.hasMore != new?.hasMore {
             return true
         }
         return false
