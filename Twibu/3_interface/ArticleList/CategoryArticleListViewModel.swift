@@ -143,7 +143,7 @@ extension CategoryArticleListViewModel {
         }
 
         // NOTE: onCreateBookmark完了まで待ちたいので、loadingを発行しておく
-        BookmarkDispatcher.updateState(c: category, s: .loading)
+        BookmarkDispatcher.updateState(c: category, s: .additionalLoading)
 
         UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: twitterMaxId) { [weak self] kickResult in
             guard let self = self else { return }
