@@ -66,7 +66,11 @@ final public class BookmarkCell: UITableViewCell {
         if showImage {
             thumbnailWidthConstraint.constant = 70
             if let imageUrl = bookmark.image_url, !imageUrl.isEmpty, let url = URL(string: imageUrl) {
-                thumbnailImageView.kf.setImage(with: url)
+                let processor = ResizingImageProcessor(
+                    referenceSize: .init(width: 210, height: 210),
+                    mode: .aspectFit
+                )
+                thumbnailImageView.kf.setImage(with: url, options: [.processor(processor)])
                 thumbnailImageView.isHidden = false
             } else {
             }
