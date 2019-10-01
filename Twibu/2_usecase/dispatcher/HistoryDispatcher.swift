@@ -19,20 +19,20 @@ enum HistoryDispatcher {
                 }
                 .compactMap { $0 }
 
-            let a = HistoryReducer.AddHistoriesAction(histories: h)
+            let a = HistoryReducer.Actions.Add(histories: h)
             store.mDispatch(a)
         }
     }
 
     static func addNewHistory(bookmark: Bookmark) {
         let h = HistoryRepository.addHistory(bookmark: bookmark)
-        let a = HistoryReducer.AddNewHistoryAction(bookmark: bookmark, createdAt: h.createdAt)
+        let a = HistoryReducer.Actions.Add(histories: [(bookmark, h.createdAt)])
         store.mDispatch(a)
     }
 
     static func deleteHistory(bookmarkUid: String) {
         HistoryRepository.deleteHistory(bookmarkUid: bookmarkUid)
-        let a = HistoryReducer.DeleteHistoryAction(bookmarkUid: bookmarkUid)
+        let a = HistoryReducer.Actions.Delete(bookmarkUid: bookmarkUid)
         store.mDispatch(a)
     }
 }
