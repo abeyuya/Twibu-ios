@@ -1,11 +1,9 @@
 git_url("git@github.com:abeyuya/fastlane-match.git")
-
+team_id("37XL3EDJ44")
 storage_mode("git")
-
 type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
-
 app_identifier(["com.github.abeyuya.Twibu"])
-username("yuya.abe.0525+appledevelop@gmail.com") # Your Apple Developer Portal username
+username("yuya.abe.0525+appledevelop@gmail.com")
 
 # For all available options run `fastlane match --help`
 # Remove the # in the beginning of the line to enable the other options
