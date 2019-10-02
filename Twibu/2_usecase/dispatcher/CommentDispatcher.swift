@@ -37,8 +37,6 @@ public enum CommentDispatcher {
                     store.mDispatch(a)
                 }
 
-                updateState(buid: bookmarkUid, s: .success)
-
                 do {
                     // store上のデータ書き換え
                     let a = UpdateBookmarkCommentCountIfOverAction(
@@ -47,6 +45,8 @@ public enum CommentDispatcher {
                     )
                     store.mDispatch(a)
                 }
+
+                updateState(buid: bookmarkUid, s: .success)
 
             case .failure(let error):
                 Logger.print(error.displayMessage)
@@ -79,8 +79,6 @@ public enum CommentDispatcher {
                     store.mDispatch(a)
                 }
 
-                updateState(buid: buid, s: .success)
-
                 do {
                     // store上のデータ書き換え
                     let a = UpdateBookmarkCommentCountIfOverAction(
@@ -89,6 +87,8 @@ public enum CommentDispatcher {
                     )
                     store.mDispatch(a)
                 }
+
+                updateState(buid: buid, s: .success)
             }
         }
     }
