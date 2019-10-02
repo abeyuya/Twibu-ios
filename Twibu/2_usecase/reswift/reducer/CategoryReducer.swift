@@ -61,7 +61,7 @@ enum CategoryReducer {
             let newBookmarks: [Bookmark] = Bookmark
                 .merge(base: old, add: add)
                 .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
-            state.result[a.category] = Repository.Result<[Bookmark]>(
+            state.result[a.category] = .init(
                 item: newBookmarks,
                 pagingInfo: a.result.pagingInfo,
                 hasMore: a.result.hasMore
@@ -71,7 +71,7 @@ enum CategoryReducer {
             state.result[a.category] = {
                 guard let old = state.result[a.category] else { return nil }
                 let newBookmarks = old.item.filter { $0.uid != a.bookmarkUid }
-                return Repository.Result(
+                return .init(
                     item: newBookmarks,
                     pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
@@ -79,7 +79,7 @@ enum CategoryReducer {
             }()
 
         case let a as Actions.ClearCategory:
-            state.result[a.category] = Repository.Result<[Bookmark]>(
+            state.result[a.category] = .init(
                 item: [],
                 pagingInfo: nil,
                 hasMore: true
@@ -98,12 +98,11 @@ enum CategoryReducer {
                 let newBookmark = Bookmark(oldBookmark, commentCount: a.commentCount)
                 bms[index] = newBookmark
 
-                let newR = Repository.Result<[Bookmark]>(
+                newResult[category] = .init(
                     item: bms,
                     pagingInfo: r.pagingInfo,
                     hasMore: r.hasMore
                 )
-                newResult[category] = newR
                 break
             }
             state.result = newResult

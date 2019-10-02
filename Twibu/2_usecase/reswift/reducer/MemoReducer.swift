@@ -38,7 +38,7 @@ enum MemoReducer {
             state.result = {
                 guard let old = state.result else { return nil }
                 let newItem = old.item.filter { $0.1.uid != a.bookmarkUid }
-                return Repository.Result(
+                return .init(
                     item: newItem,
                     pagingInfo: old.pagingInfo,
                     hasMore: old.hasMore
@@ -56,7 +56,7 @@ enum MemoReducer {
             let sorted = uniqued.sorted { a, b in
                 return a.0.updated_at > b.0.updated_at
             }
-            state.result = Repository.Result<[(Memo, Bookmark)]>(
+            state.result = .init(
                 item: sorted,
                 pagingInfo: a.result.pagingInfo,
                 hasMore: a.result.hasMore

@@ -42,7 +42,7 @@ enum CommentReducer {
             state[a.bookmarkUid] = {
                 if let i = state[a.bookmarkUid] {
                     return Info(
-                        result: Repository.Result<[Comment]>(
+                        result: .init(
                             item: newComments,
                             pagingInfo: a.comments.pagingInfo,
                             hasMore: a.comments.hasMore
@@ -51,7 +51,7 @@ enum CommentReducer {
                     )
                 }
                 return Info(
-                    result: Repository.Result<[Comment]>(item: [], pagingInfo: nil, hasMore: false),
+                    result: .init(item: [], pagingInfo: nil, hasMore: false),
                     state: .notYetLoading
                 )
             }()
@@ -63,7 +63,7 @@ enum CommentReducer {
                     return Info(result: i.result, state: a.state)
                 }
                 return Info(
-                    result: Repository.Result<[Comment]>(
+                    result: .init(
                         item: [],
                         pagingInfo: nil,
                         hasMore: true
