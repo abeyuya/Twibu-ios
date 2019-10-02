@@ -30,7 +30,7 @@ public enum CommentDispatcher {
                         pagingInfo: nil,
                         hasMore: false
                     )
-                    let a = AddCommentsAction(
+                    let a = CommentReducer.Actions.Add(
                         bookmarkUid: bookmarkUid,
                         comments: result
                     )
@@ -72,7 +72,7 @@ public enum CommentDispatcher {
                 updateState(buid: buid, s: .failure(e))
             case .success(let res):
                 do {
-                    let a = AddCommentsAction(
+                    let a = CommentReducer.Actions.Add(
                         bookmarkUid: buid,
                         comments: res
                     )
@@ -117,7 +117,7 @@ public enum CommentDispatcher {
     }
 
     private static func updateState(buid: String, s: Repository.ResponseState) {
-        let a = UpdateCommentStateAction(bookmarkUid: buid, state: s)
+        let a = CommentReducer.Actions.UpdateState(bookmarkUid: buid, state: s)
         store.mDispatch(a)
     }
 }

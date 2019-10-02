@@ -12,37 +12,20 @@ import FirebaseAuth
 import Embedded
 
 struct AppState: StateType {
-    struct ResponseData {
-        var comments: [String: Repository.Result<[Comment]>] = [:]
-    }
-
-    struct ResponseState {
-        var comments: [String: Repository.ResponseState] = [:]
-    }
-
     struct WebArchiveInfo {
         var tasks: [WebArchiver] = []
         var results: [(bookmarkUid: String, result: WebArchiver.SaveResult)] = []
     }
 
-    var responseData = ResponseData()
-    var responseState = ResponseState()
-    var currentUser = TwibuUser(firebaseAuthUser: nil)
     var history = HistoryReducer.State(histories: [], hasMore: true)
     var category = CategoryReducer.State()
+    var comment = CommentReducer.State()
     var webArchive = WebArchiveInfo(tasks: [], results: [])
+    var currentUser = TwibuUser(firebaseAuthUser: nil)
     var twitterTimelineMaxId: String?
     var lastRefreshAt: [Embedded.Category: Date] = [:]
 }
 
-struct UpdateCommentStateAction: Action {
-    let bookmarkUid: String
-    let state: Repository.ResponseState
-}
-struct AddCommentsAction: Action {
-    let bookmarkUid: String
-    let comments: Repository.Result<[Comment]>
-}
 struct UpdateFirebaseUserAction: Action {
     let newUser: User
 }
@@ -65,6 +48,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     var s = dummyReducer(action: action, state: state)
     s.history = HistoryReducer.reducer(action: action, state: state?.history)
     s.category = CategoryReducer.reducer(action: action, state: state?.category)
+    s.comment = CommentReducer.reducer(action: action, state: state?.comment)
     return s
 }
 
@@ -72,21 +56,6 @@ private func dummyReducer(action: Action, state: AppState?) -> AppState {
     var state = state ?? AppState()
 
     switch action {
-    case let a as AddCommentsAction:
-        let old = state.responseData.comments[a.bookmarkUid]?.item ?? []
-        let add = a.comments.item
-        let newComments = Comment
-            .merge(base: old, add: add)
-            .sorted { $0.favorite_count > $1.favorite_count }
-        state.responseData.comments[a.bookmarkUid] = Repository.Result<[Comment]>(
-            item: newComments,
-            pagingInfo: a.comments.pagingInfo,
-            hasMore: a.comments.hasMore
-        )
-
-    case let a as UpdateCommentStateAction:
-        state.responseState.comments[a.bookmarkUid] = a.state
-
     case let a as UpdateFirebaseUserAction:
         let newUser = TwibuUser(firebaseAuthUser: a.newUser)
         state.currentUser = newUser

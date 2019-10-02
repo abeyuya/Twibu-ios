@@ -43,12 +43,12 @@ extension FirestoreCommentListViewModel {
                 return Props(
                     responseData: {
                         guard let buid = self?.bookmark?.uid else { return nil }
-                        guard let d = state.responseData.comments[buid] else { return nil }
+                        guard let d = state.comment[buid]?.result else { return nil }
                         return d
                     }(),
                     responseState: {
                         guard let buid = self?.bookmark?.uid else { return .notYetLoading }
-                        return state.responseState.comments[buid] ?? .notYetLoading
+                        return state.comment[buid]?.state ?? .notYetLoading
                     }(),
                     currentUser: state.currentUser
                 )
