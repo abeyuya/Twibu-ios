@@ -18,17 +18,11 @@ struct AppState: StateType {
     var currentUser = CurrentUserReducer.State(firebaseAuthUser: nil)
 
     var twitterTimelineMaxId: String?
-    var lastRefreshAt: [Embedded.Category: Date] = [:]
 }
 
 struct SetMaxIdAction: Action {
     let maxId: String
 }
-struct SetLastRefreshAtAction: Action {
-    let category: Embedded.Category
-    let refreshAt: Date
-}
-
 func appReducer(action: Action, state: AppState?) -> AppState {
     var s = dummyReducer(action: action, state: state)
     s.history = HistoryReducer.reducer(action: action, state: state?.history)
@@ -46,8 +40,6 @@ private func dummyReducer(action: Action, state: AppState?) -> AppState {
     case let a as SetMaxIdAction:
         state.twitterTimelineMaxId = a.maxId
 
-    case let a as SetLastRefreshAtAction:
-        state.lastRefreshAt[a.category] = a.refreshAt
 
     default:
         break

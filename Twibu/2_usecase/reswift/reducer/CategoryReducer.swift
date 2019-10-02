@@ -13,6 +13,7 @@ enum CategoryReducer {
     struct State {
         var result: [Embedded.Category: Repository.Result<[Bookmark]>] = [:]
         var state: [Embedded.Category: Repository.ResponseState] = [:]
+        var lastRefreshAt: [Embedded.Category: Date] = [:]
     }
 
     static func allBookmarks(state: State) -> [Bookmark] {
@@ -40,6 +41,10 @@ enum CategoryReducer {
         struct UpdateBookmarkCommentCountIfOver: Action {
             let bookmarkUid: String
             let commentCount: Int
+        }
+        struct SetLastRefreshAt: Action {
+            let category: Embedded.Category
+            let refreshAt: Date
         }
     }
 
@@ -110,6 +115,9 @@ enum CategoryReducer {
                 break
             }
             state.result = newResult
+
+        case let a as Actions.SetLastRefreshAt:
+            state.lastRefreshAt[a.category] = a.refreshAt
 
         default:
             break
