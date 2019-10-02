@@ -46,11 +46,11 @@ extension CategoryArticleListViewModel {
                 return Props(
                     responseData: {
                         guard let c = self?.category else { return nil }
-                        return state.category[c]?.result
+                        return state.category.result[c]
                     }(),
                     responseState: {
                         guard let c = self?.category else { return .notYetLoading }
-                        return state.category[c]?.state ?? .notYetLoading
+                        return state.category.state[c] ?? .notYetLoading
                     }(),
                     currentUser: state.currentUser,
                     webArchiveResults: state.webArchive.results,

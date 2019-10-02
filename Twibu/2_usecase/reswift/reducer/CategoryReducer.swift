@@ -10,15 +10,13 @@ import ReSwift
 import Embedded
 
 enum CategoryReducer {
-    struct Info {
-        var result: Repository.Result<[Bookmark]>
-        var state: Repository.ResponseState
+    struct State {
+        var result: [Embedded.Category: Repository.Result<[Bookmark]>] = [:]
+        var state: [Embedded.Category: Repository.ResponseState] = [:]
     }
 
-    typealias State = [Embedded.Category: Info]
-
     static func allBookmarks(state: State) -> [Bookmark] {
-        let bmArrArr = state.values.compactMap { $0.result.item }
+        let bmArrArr = state.result.values.compactMap { $0.item }
         let bmArr: [Bookmark] = bmArrArr.reduce([], +)
         return bmArr
     }
@@ -50,22 +48,10 @@ enum CategoryReducer {
 
         switch action {
         case let a as Actions.UpdateState:
-            state[a.category] = {
-                if let i = state[a.category] {
-                    return Info(result: i.result, state: a.state)
-                }
-                return Info(
-                    result: Repository.Result<[Bookmark]>(
-                        item: [],
-                        pagingInfo: nil,
-                        hasMore: true
-                    ),
-                    state: a.state
-                )
-            }()
+            state.state[a.category] = a.state
 
         case let a as Actions.AddBookmarks:
-            let old = state[a.category]?.result.item ?? []
+            let old = state.result[a.category]?.item ?? []
             let add = a.result.item
             let newBookmarks: [Bookmark] = {
                 switch a.category {
@@ -78,56 +64,34 @@ enum CategoryReducer {
                         .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
                 }
             }()
-            state[a.category] = {
-                if let i = state[a.category] {
-                    return Info(
-                        result: Repository.Result<[Bookmark]>(
-                            item: newBookmarks,
-                            pagingInfo: a.result.pagingInfo,
-                            hasMore: a.result.hasMore
-                        ),
-                        state: i.state
-                    )
-                }
-                return Info(
-                    result: Repository.Result<[Bookmark]>(
-                        item: newBookmarks,
-                        pagingInfo: nil,
-                        hasMore: true
-                    ),
-                    state: .notYetLoading
-                )
-            }()
+            state.result[a.category] = Repository.Result<[Bookmark]>(
+                item: newBookmarks,
+                pagingInfo: a.result.pagingInfo,
+                hasMore: a.result.hasMore
+            )
 
         case let a as Actions.RemoveBookmark:
-            state[a.category] = {
-                guard let old = state[a.category] else { return nil }
-                let newBookmarks = old.result.item.filter { $0.uid != a.bookmarkUid }
-                let newResult = Repository.Result(
+            state.result[a.category] = {
+                guard let old = state.result[a.category] else { return nil }
+                let newBookmarks = old.item.filter { $0.uid != a.bookmarkUid }
+                return Repository.Result(
                     item: newBookmarks,
-                    pagingInfo: old.result.pagingInfo,
-                    hasMore: old.result.hasMore
+                    pagingInfo: old.pagingInfo,
+                    hasMore: old.hasMore
                 )
-                return Info(result: newResult, state: old.state)
             }()
 
         case let a as Actions.ClearCategory:
-            state[a.category] = {
-                guard let old = state[a.category] else { return nil }
-                return Info(
-                    result: Repository.Result<[Bookmark]>(
-                        item: [],
-                        pagingInfo: nil,
-                        hasMore: true
-                    ),
-                    state: old.state
-                )
-            }()
+            state.result[a.category] = Repository.Result<[Bookmark]>(
+                item: [],
+                pagingInfo: nil,
+                hasMore: true
+            )
 
         case let a as Actions.UpdateBookmarkCommentCountIfOver:
-            var newState = state
-            for (category, info) in newState {
-                var bms = info.result.item
+            var newResult = state.result
+            for (category, r) in newResult {
+                var bms = r.item
                 guard let index = bms.firstIndex(where: { $0.uid == a.bookmarkUid }) else { continue }
                 let oldBookmark = bms[index]
 
@@ -137,15 +101,15 @@ enum CategoryReducer {
                 let newBookmark = Bookmark(oldBookmark, commentCount: a.commentCount)
                 bms[index] = newBookmark
 
-                let newResult = Repository.Result<[Bookmark]>(
+                let newR = Repository.Result<[Bookmark]>(
                     item: bms,
-                    pagingInfo: info.result.pagingInfo,
-                    hasMore: info.result.hasMore
+                    pagingInfo: r.pagingInfo,
+                    hasMore: r.hasMore
                 )
-                newState[category] = Info(result: newResult, state: info.state)
+                newResult[category] = newR
                 break
             }
-            state = newState
+            state.result = newResult
 
         default:
             break
