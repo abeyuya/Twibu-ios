@@ -58,6 +58,7 @@ platform :ios do
     cocoapods
     build_app(
       scheme: 'Twibu',
+      configuration: 'Release',
       export_options: {
         method: 'ad-hoc'
       }
