@@ -23,7 +23,7 @@ enum BookmarkDispatcher {
             updateState(c: category, s: .additionalLoading)
         case .new:
             updateState(c: category, s: .loading)
-            let a = SetLastRefreshAtAction(category: category, refreshAt: Date())
+            let a = CategoryReducer.Actions.SetLastRefreshAt(category: category, refreshAt: Date())
             store.mDispatch(a)
         }
 

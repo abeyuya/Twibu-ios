@@ -16,13 +16,9 @@ struct AppState: StateType {
     var comment = CommentReducer.State()
     var webArchive = WebArchiveReducer.State()
     var currentUser = CurrentUserReducer.State(firebaseAuthUser: nil)
-
-    var twitterTimelineMaxId: String?
+    var timeline = TimelineReducer.State()
 }
 
-struct SetMaxIdAction: Action {
-    let maxId: String
-}
 func appReducer(action: Action, state: AppState?) -> AppState {
     var s = dummyReducer(action: action, state: state)
     s.history = HistoryReducer.reducer(action: action, state: state?.history)
@@ -30,6 +26,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     s.comment = CommentReducer.reducer(action: action, state: state?.comment)
     s.webArchive = WebArchiveReducer.reducer(action: action, state: state?.webArchive)
     s.currentUser = CurrentUserReducer.reducer(action: action, state: state?.currentUser)
+    s.timeline = TimelineReducer.reducer(action: action, state: state?.timeline)
     return s
 }
 
@@ -37,8 +34,6 @@ private func dummyReducer(action: Action, state: AppState?) -> AppState {
     var state = state ?? AppState()
 
     switch action {
-    case let a as SetMaxIdAction:
-        state.twitterTimelineMaxId = a.maxId
 
 
     default:

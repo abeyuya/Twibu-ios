@@ -101,6 +101,7 @@
 		4DDC48082344BFBF00489648 /* CommentReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48072344BFBF00489648 /* CommentReducer.swift */; };
 		4DDC480A2344C2F400489648 /* WebArchiveReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48092344C2F400489648 /* WebArchiveReducer.swift */; };
 		4DDC480C2344C85A00489648 /* CurrentUserReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC480B2344C85900489648 /* CurrentUserReducer.swift */; };
+		4DDC480E2344D02C00489648 /* TimelineReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC480D2344D02C00489648 /* TimelineReducer.swift */; };
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
 		4DEE7EFF233E364900B0699E /* TwitterConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE7EFE233E364900B0699E /* TwitterConnectable.swift */; };
 		4DEE7F06233E5F4900B0699E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DEE7F08233E5F4900B0699E /* InfoPlist.strings */; };
@@ -299,6 +300,7 @@
 		4DDC48072344BFBF00489648 /* CommentReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentReducer.swift; sourceTree = "<group>"; };
 		4DDC48092344C2F400489648 /* WebArchiveReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebArchiveReducer.swift; sourceTree = "<group>"; };
 		4DDC480B2344C85900489648 /* CurrentUserReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserReducer.swift; sourceTree = "<group>"; };
+		4DDC480D2344D02C00489648 /* TimelineReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineReducer.swift; sourceTree = "<group>"; };
 		4DEDF2E722F47DC200488B55 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		4DEDF2E922F47E4900488B55 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDispatcher.swift; sourceTree = "<group>"; };
@@ -584,6 +586,7 @@
 				4DDC48072344BFBF00489648 /* CommentReducer.swift */,
 				4DDC48092344C2F400489648 /* WebArchiveReducer.swift */,
 				4DDC480B2344C85900489648 /* CurrentUserReducer.swift */,
+				4DDC480D2344D02C00489648 /* TimelineReducer.swift */,
 			);
 			path = reducer;
 			sourceTree = "<group>";
@@ -1337,6 +1340,7 @@
 				4D28F55322E494D000156445 /* Router.swift in Sources */,
 				4D3D26712338EE4A00BFD408 /* CommentDispatcher.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
+				4DDC480E2344D02C00489648 /* TimelineReducer.swift in Sources */,
 				4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */,
 				4DEE7EFF233E364900B0699E /* TwitterConnectable.swift in Sources */,
 				4DDC48082344BFBF00489648 /* CommentReducer.swift in Sources */,

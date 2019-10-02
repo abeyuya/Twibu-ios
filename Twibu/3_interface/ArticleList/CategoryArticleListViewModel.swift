@@ -54,10 +54,10 @@ extension CategoryArticleListViewModel {
                     }(),
                     currentUser: state.currentUser,
                     webArchiveResults: state.webArchive.results,
-                    twitterMaxId: state.twitterTimelineMaxId,
+                    twitterMaxId: state.timeline.twitterTimelineMaxId,
                     lastRefreshCheckAt: {
                         guard let c = self?.category else { return nil }
-                        return state.lastRefreshAt[c]
+                        return state.category.lastRefreshAt[c]
                     }()
                 )
             }

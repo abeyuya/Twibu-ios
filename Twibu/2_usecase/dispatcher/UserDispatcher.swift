@@ -213,7 +213,7 @@ enum UserDispatcher {
             case .failure(let error):
                 completion(.failure(error))
             case .success(let maxId):
-                let a = SetMaxIdAction(maxId: maxId)
+                let a = TimelineReducer.Actions.SetTweetMaxId(tweetMaxId: maxId)
                 store.mDispatch(a)
                 completion(.success(Void()))
             }
