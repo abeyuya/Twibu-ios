@@ -176,15 +176,7 @@ extension CategoryArticleListViewModel {
     }
 
     func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void) {
-        switch type {
-        case .history:
-            break
-        case .category:
-            break
-        case .memo:
-            guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
-            MemoDispatcher.deleteMemo(userUid: uid, bookmarkUid: bookmarkUid, completion: completion)
-        }
+        assertionFailure("来ないはず")
     }
 
     private func refreshForLoginUser() {
