@@ -11,8 +11,8 @@ import Embedded
 
 enum HistoryReducer {
     struct State {
-        var histories: [(bookmark: Bookmark, createdAt: Int)]
-        var hasMore: Bool
+        var histories: [(bookmark: Bookmark, createdAt: Int)] = []
+        var hasMore: Bool = true
     }
 
     enum Actions {

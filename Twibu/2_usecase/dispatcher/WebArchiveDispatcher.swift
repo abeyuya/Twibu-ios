@@ -33,7 +33,7 @@ enum WebArchiveDispatcher {
     }
 
     static func update(bookmarkUid: String, result: WebArchiver.SaveResult) {
-        let a = UpdateWebArchiveResult(bookmarkUid: bookmarkUid, result: result)
+        let a = WebArchiveReducer.Actions.Update(bookmarkUid: bookmarkUid, result: result)
         store.mDispatch(a)
     }
 }

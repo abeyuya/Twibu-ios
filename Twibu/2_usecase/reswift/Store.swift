@@ -12,15 +12,11 @@ import FirebaseAuth
 import Embedded
 
 struct AppState: StateType {
-    struct WebArchiveInfo {
-        var tasks: [WebArchiver] = []
-        var results: [(bookmarkUid: String, result: WebArchiver.SaveResult)] = []
-    }
-
-    var history = HistoryReducer.State(histories: [], hasMore: true)
+    var history = HistoryReducer.State()
     var category = CategoryReducer.State()
     var comment = CommentReducer.State()
-    var webArchive = WebArchiveInfo(tasks: [], results: [])
+    var webArchive = WebArchiveReducer.State()
+
     var currentUser = TwibuUser(firebaseAuthUser: nil)
     var twitterTimelineMaxId: String?
     var lastRefreshAt: [Embedded.Category: Date] = [:]
@@ -28,13 +24,6 @@ struct AppState: StateType {
 
 struct UpdateFirebaseUserAction: Action {
     let newUser: User
-}
-struct AddWebArchiveTask: Action {
-    let webArchiver: WebArchiver
-}
-struct UpdateWebArchiveResult: Action {
-    let bookmarkUid: String
-    let result: WebArchiver.SaveResult
 }
 struct SetMaxIdAction: Action {
     let maxId: String
@@ -49,6 +38,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     s.history = HistoryReducer.reducer(action: action, state: state?.history)
     s.category = CategoryReducer.reducer(action: action, state: state?.category)
     s.comment = CommentReducer.reducer(action: action, state: state?.comment)
+    s.webArchive = WebArchiveReducer.reducer(action: action, state: state?.webArchive)
     return s
 }
 
@@ -59,16 +49,6 @@ private func dummyReducer(action: Action, state: AppState?) -> AppState {
     case let a as UpdateFirebaseUserAction:
         let newUser = TwibuUser(firebaseAuthUser: a.newUser)
         state.currentUser = newUser
-
-    case let a as AddWebArchiveTask:
-        state.webArchive.tasks.append(a.webArchiver)
-
-    case let a as UpdateWebArchiveResult:
-        if let i = state.webArchive.results.firstIndex(where: { $0.0 == a.bookmarkUid}) {
-            state.webArchive.results[i] = (a.bookmarkUid, a.result)
-        } else {
-            state.webArchive.results.append((a.bookmarkUid, a.result))
-        }
 
     case let a as SetMaxIdAction:
         state.twitterTimelineMaxId = a.maxId
