@@ -6,7 +6,6 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
 import ReSwift
 import Embedded
 
@@ -20,27 +19,14 @@ struct AppState: StateType {
 }
 
 func appReducer(action: Action, state: AppState?) -> AppState {
-    var s = dummyReducer(action: action, state: state)
-    s.history = HistoryReducer.reducer(action: action, state: state?.history)
-    s.category = CategoryReducer.reducer(action: action, state: state?.category)
-    s.comment = CommentReducer.reducer(action: action, state: state?.comment)
-    s.webArchive = WebArchiveReducer.reducer(action: action, state: state?.webArchive)
-    s.currentUser = CurrentUserReducer.reducer(action: action, state: state?.currentUser)
-    s.timeline = TimelineReducer.reducer(action: action, state: state?.timeline)
-    return s
-}
-
-private func dummyReducer(action: Action, state: AppState?) -> AppState {
-    var state = state ?? AppState()
-
-    switch action {
-
-
-    default:
-        break
-    }
-
-    return state
+    return AppState(
+        history: HistoryReducer.reducer(action: action, state: state?.history),
+        category: CategoryReducer.reducer(action: action, state: state?.category),
+        comment: CommentReducer.reducer(action: action, state: state?.comment),
+        webArchive: WebArchiveReducer.reducer(action: action, state: state?.webArchive),
+        currentUser: CurrentUserReducer.reducer(action: action, state: state?.currentUser),
+        timeline: TimelineReducer.reducer(action: action, state: state?.timeline)
+    )
 }
 
 let store = Store(
