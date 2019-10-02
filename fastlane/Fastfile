@@ -49,9 +49,9 @@ platform :ios do
     import_certificates_for_actions if is_ci
 
     sync_code_signing(
-      git_url: 'https://github.com/abeyuya/fastlane-match',
+      git_url: 'git@github.com:abeyuya/fastlane-match',
       type: 'adhoc',
-      readonly: true
+      readonly: false
     ) unless is_ci
 
     build_app(

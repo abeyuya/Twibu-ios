@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane ios beta
 ```
 
+### ios app_distribution
+```
+fastlane ios app_distribution
+```
+Push a new beta build to Firebase App Distribution
 
 ----
 
