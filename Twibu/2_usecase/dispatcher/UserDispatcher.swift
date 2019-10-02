@@ -145,7 +145,7 @@ enum UserDispatcher {
         Analytics.setUserProperty(twitterLinked ? "1" : "0", forName: "twitterLinked")
 
         // 保持していた各種データは破棄する
-        BookmarkDispatcher.clearCategory(c: .timeline)
+        TimelineDispatcher.clear()
 
         // twitterログインしているならtimelineの情報を更新する
         if twitterLinked {
@@ -159,12 +159,7 @@ enum UserDispatcher {
             // onCreateBookmarkが完了していてほしいのでちょっと待つ
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 // timelineのbookmarkを取得
-                BookmarkDispatcher.fetchBookmark(
-                    category: .timeline,
-                    uid: uid,
-                    type: .new(limit: 20),
-                    commentCountOffset: 0
-                ) { result in
+                TimelineDispatcher.fetchTimeline(userUid: uid, type: .new(limit: 20)) { result in
                     switch result {
                     case .failure(let error):
                         Logger.print(error)

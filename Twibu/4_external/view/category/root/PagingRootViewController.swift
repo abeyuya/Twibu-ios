@@ -62,9 +62,9 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
         pagingViewController.backgroundColor = .tabBgGray
         pagingViewController.borderOptions = .hidden
 
-        let c = Category.all
-        let i = PagingRootViewController.getIndex(c: c)
-        pagingViewController.select(pagingItem: PagingIndexItem(index: i, title: c.displayString))
+        let tc = TabCategory.all
+        let i = PagingRootViewController.getIndex(c: tc)
+        pagingViewController.select(pagingItem: PagingIndexItem(index: i, title: tc.displayString))
     }
 
     private func setupNavigation() {
@@ -109,35 +109,67 @@ final class PagingRootViewController: UIViewController, StoryboardInstantiatable
 }
 
 extension PagingRootViewController {
-    private static let tabCategories: [Embedded.Category] = [
-        .timeline,
-        .all,
-        .social,
-        .economics,
-        .life,
-        .knowledge,
-        .it,
-        .fun,
-        .entertainment,
-        .game
-    ]
+    enum TabCategory: CaseIterable {
+        case timeline
+        case all
+        case social
+        case economics
+        case life
+        case knowledge
+        case it
+        case fun
+        case entertainment
+        case game
 
-    static func getIndex(c: Embedded.Category) -> Int {
-        return PagingRootViewController.tabCategories.firstIndex(of: c)!
+        public var displayString: String {
+            switch self {
+            case .timeline: return "タイムライン"
+            case .all: return "トップ"
+            case .social: return "社会"
+            case .economics: return "政治・経済"
+            case .life: return "ライフスタイル"
+            case .knowledge: return "ふむふむ"
+            case .it: return "テクノロジー"
+            case .fun: return "いろいろ"
+            case .entertainment: return "芸能・スポーツ"
+            case .game: return "アニメ・ゲーム"
+            }
+        }
+
+        public var category: Embedded.Category {
+            switch self {
+            case .timeline:
+                assertionFailure("来ないはず")
+                return .unknown
+            case .all: return .all
+            case .social: return .social
+            case .economics: return .economics
+            case .life: return .life
+            case .knowledge: return .knowledge
+            case .it: return .it
+            case .fun: return .fun
+            case .entertainment: return .entertainment
+            case .game: return .game
+            }
+        }
     }
 
-    static func getCategory(index: Int) -> Embedded.Category {
-        return PagingRootViewController.tabCategories[index]
+    static func getIndex(c: TabCategory) -> Int {
+        return TabCategory.allCases.firstIndex(of: c)!
+    }
+
+    static func getCategory(index: Int) -> TabCategory {
+        return TabCategory.allCases[index]
     }
 
     static func calcLogicalIndex(physicalIndex: Int) -> Int {
-        let i = physicalIndex % PagingRootViewController.tabCategories.count
+        let i = physicalIndex % TabCategory.allCases.count
 
         if i >= 0 {
             return i
         }
 
-        return i + PagingRootViewController.tabCategories.count
+        return i + TabCategory.allCases.count
     }
 }
 
@@ -148,9 +180,9 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
         }
 
         let i = PagingRootViewController.calcLogicalIndex(physicalIndex: item.index)
-        let category = PagingRootViewController.getCategory(index: i)
+        let tc = PagingRootViewController.getCategory(index: i)
 
-        switch category {
+        switch tc {
         case .timeline:
             guard let isLogin = currentUser?.isTwitterLogin, isLogin else {
                 let vc = LoginViewController.initFromStoryBoard()
@@ -160,21 +192,17 @@ extension PagingRootViewController: PagingViewControllerInfiniteDataSource {
             }
 
             let vc = CategoryViewController.initFromStoryBoard()
-            let vm = CategoryArticleListViewModel()
-            vm.set(delegate: vc, type: .category(.timeline))
+            let vm = TimelineArticleListViewModel()
+            vm.set(delegate: vc, type: .timeline)
             vc.set(vm: vm)
             return vc
 
         case .all, .economics, .entertainment, .fun, .game, .it, .knowledge, .social, .life:
             let vc = CategoryViewController.initFromStoryBoard()
             let vm = CategoryArticleListViewModel()
-            vm.set(delegate: vc, type: .category(category))
+            vm.set(delegate: vc, type: .category(tc.category))
             vc.set(vm: vm)
             return vc
-
-        case .unknown:
-            assertionFailure("通らないはず")
-            return UIViewController()
         }
     }
 
@@ -226,11 +254,11 @@ extension PagingRootViewController: PagingRootViewControllerDelegate {
             }
 
             self.pagingViewController.visibleItems.items.forEach { i in
-                let c = Embedded.Category.timeline
-                let index = PagingRootViewController.getIndex(c: c)
+                let tc = TabCategory.timeline
+                let index = PagingRootViewController.getIndex(c: tc)
                 guard i.index == index else { return }
                 self.pagingViewController.reloadData(around: i)
-                let pi = PagingIndexItem(index: index, title: c.displayString)
+                let pi = PagingIndexItem(index: index, title: tc.displayString)
                 self.pagingViewController.select(pagingItem: pi)
             }
         }

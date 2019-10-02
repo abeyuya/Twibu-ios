@@ -104,6 +104,9 @@
 		4DDC480E2344D02C00489648 /* TimelineReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC480D2344D02C00489648 /* TimelineReducer.swift */; };
 		4DDC48102344D61800489648 /* MemoReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC480F2344D61800489648 /* MemoReducer.swift */; };
 		4DDC48122344EE1300489648 /* MemoArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48112344EE1300489648 /* MemoArticleListViewModel.swift */; };
+		4DDC48142345006000489648 /* TimelineDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48132345006000489648 /* TimelineDispatcher.swift */; };
+		4DDC48162345016000489648 /* TimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48152345016000489648 /* TimelineRepository.swift */; };
+		4DDC48182345073500489648 /* TimelineArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48172345073500489648 /* TimelineArticleListViewModel.swift */; };
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
 		4DEE7EFF233E364900B0699E /* TwitterConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE7EFE233E364900B0699E /* TwitterConnectable.swift */; };
 		4DEE7F06233E5F4900B0699E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DEE7F08233E5F4900B0699E /* InfoPlist.strings */; };
@@ -305,6 +308,9 @@
 		4DDC480D2344D02C00489648 /* TimelineReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineReducer.swift; sourceTree = "<group>"; };
 		4DDC480F2344D61800489648 /* MemoReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoReducer.swift; sourceTree = "<group>"; };
 		4DDC48112344EE1300489648 /* MemoArticleListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoArticleListViewModel.swift; sourceTree = "<group>"; };
+		4DDC48132345006000489648 /* TimelineDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDispatcher.swift; sourceTree = "<group>"; };
+		4DDC48152345016000489648 /* TimelineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRepository.swift; sourceTree = "<group>"; };
+		4DDC48172345073500489648 /* TimelineArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineArticleListViewModel.swift; sourceTree = "<group>"; };
 		4DEDF2E722F47DC200488B55 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		4DEDF2E922F47E4900488B55 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDispatcher.swift; sourceTree = "<group>"; };
@@ -603,6 +609,7 @@
 				4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */,
 				4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */,
 				4DDC48112344EE1300489648 /* MemoArticleListViewModel.swift */,
+				4DDC48172345073500489648 /* TimelineArticleListViewModel.swift */,
 			);
 			path = ArticleList;
 			sourceTree = "<group>";
@@ -622,6 +629,7 @@
 				4DF258E322FB1A2600AC2329 /* HistoryRepository.swift */,
 				4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */,
 				4D11152E22B545FF000817BA /* UserRepository.swift */,
+				4DDC48152345016000489648 /* TimelineRepository.swift */,
 			);
 			path = repository;
 			sourceTree = "<group>";
@@ -715,6 +723,7 @@
 				4DA1E5E522CBAEBC00320895 /* UserDispatcher.swift */,
 				4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */,
 				4DFC604622FC7A5500C7CFE7 /* HistoryDispatcher.swift */,
+				4DDC48132345006000489648 /* TimelineDispatcher.swift */,
 			);
 			path = dispatcher;
 			sourceTree = "<group>";
@@ -1334,6 +1343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DDC48102344D61800489648 /* MemoReducer.swift in Sources */,
+				4DDC48142345006000489648 /* TimelineDispatcher.swift in Sources */,
 				4DD369D623376F8C00D2D10D /* Timeline.swift in Sources */,
 				4DDC480A2344C2F400489648 /* WebArchiveReducer.swift in Sources */,
 				4D11153522B570A3000817BA /* PagingRootViewController.swift in Sources */,
@@ -1346,6 +1356,7 @@
 				4DD369E02337730300D2D10D /* TwibuFirebaseCodable.swift in Sources */,
 				4D28F55322E494D000156445 /* Router.swift in Sources */,
 				4D3D26712338EE4A00BFD408 /* CommentDispatcher.swift in Sources */,
+				4DDC48182345073500489648 /* TimelineArticleListViewModel.swift in Sources */,
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4DDC480E2344D02C00489648 /* TimelineReducer.swift in Sources */,
 				4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */,
@@ -1375,6 +1386,7 @@
 				4DD369DE233772A800D2D10D /* History.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,
 				4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */,
+				4DDC48162345016000489648 /* TimelineRepository.swift in Sources */,
 				4D65093622BE445E00BB0959 /* LaunchingViewController.swift in Sources */,
 				4DD369D92337703500D2D10D /* Memo.swift in Sources */,
 				4DDC48122344EE1300489648 /* MemoArticleListViewModel.swift in Sources */,

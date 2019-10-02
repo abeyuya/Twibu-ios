@@ -66,7 +66,7 @@ extension MemoArticleListViewModel {
             return
         case .success:
             switch type {
-            case .history, .category:
+            case .history, .category, .timeline:
                 assertionFailure("通らないはず")
                 break
             case .memo:

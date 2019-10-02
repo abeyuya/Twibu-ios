@@ -20,6 +20,7 @@ enum ArticleListType {
     case category(Embedded.Category)
     case history
     case memo
+    case timeline
 }
 
 protocol ArticleListDelegate: class {

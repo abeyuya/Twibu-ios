@@ -73,6 +73,11 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
                 .categoryRefresh,
                 param: ["category": c.rawValue]
             )
+        case .timeline:
+            AnalyticsDispatcer.logging(
+                .categoryRefresh,
+                param: ["category": "timeline"]
+            )
         case .history, .memo:
             break
         }
@@ -185,6 +190,17 @@ extension CategoryViewController: UITableViewDelegate {
                     "comment_count": b.comment_count ?? -1,
                 ]
             )
+        case .timeline:
+            HistoryDispatcher.addNewHistory(bookmark: b)
+            AnalyticsDispatcer.logging(
+                .bookmarkTap,
+                param: [
+                    "category": "timeline",
+                    "buid": b.uid,
+                    "url": b.url,
+                    "comment_count": b.comment_count ?? -1,
+                ]
+            )
         case .history, .memo:
             break
         }
@@ -244,7 +260,7 @@ extension CategoryViewController: UIPageViewControllerDelegate {}
 private extension CategoryViewController {
     private func setupNavigation() {
         switch viewModel.type {
-        case .category:
+        case .category, .timeline:
             break
         case .history:
             navigationItem.title = "履歴"

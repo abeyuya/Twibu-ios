@@ -1,32 +1,25 @@
 //
-//  ArticleListViewModel.swift
+//  TimelineArticleListViewModel.swift
 //  Twibu
 //
-//  Created by abeyuya on 2019/08/08.
+//  Created by abeyuya on 2019/10/03.
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
 import Embedded
 import ReSwift
 
-final class CategoryArticleListViewModel: ArticleList {
+final class TimelineArticleListViewModel: ArticleList {
     internal weak var delegate: ArticleListDelegate?
-    private var responseData: Repository.Result<[Bookmark]>?
+    private var responseData: Repository.Result<[(Timeline, Bookmark)]>?
     private var responseState: Repository.ResponseState = .notYetLoading
-    private var category: Embedded.Category {
-        switch type {
-        case .category(let c):
-            return c
-        case .history, .memo, .timeline:
-            assertionFailure("来ないはず")
-            return .all
-        }
-    }
 
-    var type: ArticleListType = .category(.all)
+    var type: ArticleListType {
+        return .timeline
+    }
     var currentUser: TwibuUser?
     var bookmarks: [Bookmark] {
-        return responseData?.item ?? []
+        return responseData?.item.compactMap { $0.1 } ?? []
     }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
     var twitterMaxId: String?
@@ -34,31 +27,21 @@ final class CategoryArticleListViewModel: ArticleList {
 }
 
 // input
-extension CategoryArticleListViewModel {
+extension TimelineArticleListViewModel {
     func set(delegate: ArticleListDelegate, type: ArticleListType) {
         self.delegate = delegate
-        self.type = type
     }
 
     func startSubscribe() {
-        store.subscribe(self) { [weak self] subcription in
+        store.subscribe(self) { subcription in
             subcription.select { state in
                 return Props(
-                    responseData: {
-                        guard let c = self?.category else { return nil }
-                        return state.category.result[c]
-                    }(),
-                    responseState: {
-                        guard let c = self?.category else { return .notYetLoading }
-                        return state.category.state[c] ?? .notYetLoading
-                    }(),
+                    responseData: state.timeline.result,
+                    responseState: state.timeline.state,
                     currentUser: state.currentUser,
                     webArchiveResults: state.webArchive.results,
                     twitterMaxId: state.timeline.twitterTimelineMaxId,
-                    lastRefreshCheckAt: {
-                        guard let c = self?.category else { return nil }
-                        return state.category.lastRefreshAt[c]
-                    }()
+                    lastRefreshCheckAt: state.timeline.lastRefreshAt
                 )
             }
         }
@@ -77,22 +60,25 @@ extension CategoryArticleListViewModel {
     }
 
     func fetchBookmark() {
-        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
+        guard currentUser?.isTwitterLogin == true, let uid = currentUser?.firebaseAuthUser?.uid else {
+            TimelineDispatcher.updateState(s: .failure(.needTwitterAuth(nil)))
+            return
+        }
 
-        let limit: Int = {
-            switch category {
-            case .all: return 100
-            default: return 30
+        TimelineDispatcher.updateState(s: .loading)
+        UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: nil) { result in
+            switch result {
+            case .failure(let error):
+                TimelineDispatcher.updateState(s: .failure(error))
+            case .success(_):
+                TimelineDispatcher.fetchTimeline(
+                    userUid: uid,
+                    type: .new(limit: 30)
+                ) { _ in }
             }
-        }()
-
-        BookmarkDispatcher.fetchBookmark(
-            category: category,
-            uid: uid,
-            type: .new(limit: limit),
-            commentCountOffset: category == .all ? 20 : 0
-        ) { _ in }
+        }
     }
+
 
     func fetchAdditionalBookmarks() {
         switch responseState {
@@ -104,30 +90,47 @@ extension CategoryArticleListViewModel {
         case .failure:
             return
         case .success:
-            switch type {
-            case .history, .memo, .timeline:
-                assertionFailure("通らないはず")
-                break
-            case .category:
-                let d: Repository.Result<[Bookmark]> = {
-                    if let d = responseData {
-                        return d
-                    }
-                    return .init(item: [], pagingInfo: nil, hasMore: true)
-                }()
-                fetchAdditionalForAllCategory(result: d)
-            }
+            let d: Repository.Result<[(Timeline, Bookmark)]> = {
+                if let d = responseData {
+                    return d
+                }
+                return .init(item: [], pagingInfo: nil, hasMore: true)
+            }()
+            fetchAdditionalForTimeline(result: d)
         }
     }
 
-    private func fetchAdditionalForAllCategory(result: Repository.Result<[Bookmark]>) {
-        guard let uid = currentUser?.firebaseAuthUser?.uid, result.hasMore else { return }
-        BookmarkDispatcher.fetchBookmark(
-            category: category,
-            uid: uid,
-            type: .add(limit: 30, pagingInfo: result.pagingInfo),
-            commentCountOffset: category == .all ? 20 : 0
-        ) { _ in }
+    private func fetchAdditionalForTimeline(result: Repository.Result<[(Timeline, Bookmark)]>) {
+        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
+        if result.hasMore {
+            TimelineDispatcher.fetchTimeline(
+                userUid: uid,
+                type: .add(limit: 30, pagingInfo: result.pagingInfo)
+            ) { _ in }
+            return
+        }
+
+        // NOTE: onCreateBookmark完了まで待ちたいので、loadingを発行しておく
+        TimelineDispatcher.updateState(s: .additionalLoading)
+
+        UserDispatcher.kickTwitterTimelineScrape(uid: uid, maxId: twitterMaxId) { [weak self] kickResult in
+            guard let self = self else { return }
+            switch kickResult {
+            case .failure(let e):
+                TimelineDispatcher.updateState(s: .failure(e))
+                self.delegate?.render(state: .failure(error: e))
+            case .success(_):
+                TimelineDispatcher.updateState(s: .success)
+                DispatchQueue.main.async {
+                    let r = Repository.Result<[(Timeline, Bookmark)]>(
+                        item: result.item,
+                        pagingInfo: result.pagingInfo,
+                        hasMore: true // これを渡したい
+                    )
+                    self.fetchAdditionalForTimeline(result: r)
+                }
+            }
+        }
     }
 
     func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void) {
@@ -143,9 +146,9 @@ extension CategoryArticleListViewModel {
     }
 }
 
-extension CategoryArticleListViewModel: StoreSubscriber {
+extension TimelineArticleListViewModel: StoreSubscriber {
     struct Props {
-        let responseData: Repository.Result<[Bookmark]>?
+        let responseData: Repository.Result<[(Timeline, Bookmark)]>?
         let responseState: Repository.ResponseState
         let currentUser: TwibuUser
         let webArchiveResults: [(String, WebArchiver.SaveResult)]
@@ -200,13 +203,16 @@ extension CategoryArticleListViewModel: StoreSubscriber {
     }
 
     private func isResponseChanged(
-        old: Repository.Result<[Bookmark]>?,
-        new: Repository.Result<[Bookmark]>?
+        old: Repository.Result<[(Timeline, Bookmark)]>?,
+        new: Repository.Result<[(Timeline, Bookmark)]>?
     ) -> Bool {
         if old == nil, new == nil {
             return false
         }
-        if !Bookmark.isEqual(a: old?.item ?? [], b: new?.item ?? []) {
+        if !Bookmark.isEqual(
+            a: old?.item.compactMap { $0.1 } ?? [],
+            b: new?.item.compactMap { $0.1 } ?? []
+        ) {
             return true
         }
         if old?.hasMore != new?.hasMore {

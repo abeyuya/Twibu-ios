@@ -6,8 +6,6 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
-import FirebaseFirestore
 import Embedded
 
 enum MemoDispatcher {

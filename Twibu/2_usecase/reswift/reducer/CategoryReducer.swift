@@ -58,17 +58,9 @@ enum CategoryReducer {
         case let a as Actions.AddBookmarks:
             let old = state.result[a.category]?.item ?? []
             let add = a.result.item
-            let newBookmarks: [Bookmark] = {
-                switch a.category {
-                case .timeline:
-                    // 記事作成日とは別の数字で既にソート済み
-                    return Bookmark.merge(base: old, add: add)
-                default:
-                    return Bookmark
-                        .merge(base: old, add: add)
-                        .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
-                }
-            }()
+            let newBookmarks: [Bookmark] = Bookmark
+                .merge(base: old, add: add)
+                .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
             state.result[a.category] = Repository.Result<[Bookmark]>(
                 item: newBookmarks,
                 pagingInfo: a.result.pagingInfo,
