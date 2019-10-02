@@ -233,10 +233,14 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         switch responseState {
         case .notYetLoading:
             // 初回取得前はここを通る
-            delegate?.render(state: .notYetLoading)
+            render()
             fetchBookmark()
             return
-        case .failure, .loading, .additionalLoading, .success:
+        case .failure, .loading, .additionalLoading:
+            if Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+                return
+            }
+        case .success:
             if isResponseChanged(old: responseData, new: state.responseData) {
                 responseData = state.responseData
                 render()
