@@ -15,8 +15,7 @@ enum BookmarkDispatcher {
         category: Embedded.Category,
         uid: String,
         type: Repository.FetchType,
-        commentCountOffset: Int,
-        completion: @escaping (Result<[Bookmark]>) -> Void
+        commentCountOffset: Int
     ) {
         switch type {
         case .add:

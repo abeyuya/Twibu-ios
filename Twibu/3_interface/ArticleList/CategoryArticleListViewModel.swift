@@ -91,7 +91,7 @@ extension CategoryArticleListViewModel {
             uid: uid,
             type: .new(limit: limit),
             commentCountOffset: category == .all ? 20 : 0
-        ) { _ in }
+        )
     }
 
     func fetchAdditionalBookmarks() {
@@ -127,7 +127,7 @@ extension CategoryArticleListViewModel {
             uid: uid,
             type: .add(limit: 30, pagingInfo: result.pagingInfo),
             commentCountOffset: category == .all ? 20 : 0
-        ) { _ in }
+        )
     }
 
     func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void) {
