@@ -100,6 +100,7 @@
 		4DDC48062344AEDF00489648 /* CategoryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48052344AEDF00489648 /* CategoryReducer.swift */; };
 		4DDC48082344BFBF00489648 /* CommentReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48072344BFBF00489648 /* CommentReducer.swift */; };
 		4DDC480A2344C2F400489648 /* WebArchiveReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48092344C2F400489648 /* WebArchiveReducer.swift */; };
+		4DDC480C2344C85A00489648 /* CurrentUserReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC480B2344C85900489648 /* CurrentUserReducer.swift */; };
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
 		4DEE7EFF233E364900B0699E /* TwitterConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE7EFE233E364900B0699E /* TwitterConnectable.swift */; };
 		4DEE7F06233E5F4900B0699E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DEE7F08233E5F4900B0699E /* InfoPlist.strings */; };
@@ -297,6 +298,7 @@
 		4DDC48052344AEDF00489648 /* CategoryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryReducer.swift; sourceTree = "<group>"; };
 		4DDC48072344BFBF00489648 /* CommentReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentReducer.swift; sourceTree = "<group>"; };
 		4DDC48092344C2F400489648 /* WebArchiveReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebArchiveReducer.swift; sourceTree = "<group>"; };
+		4DDC480B2344C85900489648 /* CurrentUserReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserReducer.swift; sourceTree = "<group>"; };
 		4DEDF2E722F47DC200488B55 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		4DEDF2E922F47E4900488B55 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDispatcher.swift; sourceTree = "<group>"; };
@@ -581,6 +583,7 @@
 				4DDC48052344AEDF00489648 /* CategoryReducer.swift */,
 				4DDC48072344BFBF00489648 /* CommentReducer.swift */,
 				4DDC48092344C2F400489648 /* WebArchiveReducer.swift */,
+				4DDC480B2344C85900489648 /* CurrentUserReducer.swift */,
 			);
 			path = reducer;
 			sourceTree = "<group>";
@@ -1356,6 +1359,7 @@
 				4DD369E22337731300D2D10D /* Bookmark+Extension.swift in Sources */,
 				4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */,
 				4DD369DC233770E900D2D10D /* MemoViewController.swift in Sources */,
+				4DDC480C2344C85A00489648 /* CurrentUserReducer.swift in Sources */,
 				4DD369E32337737400D2D10D /* AnalyticsDispatcher.swift in Sources */,
 				4DD369DE233772A800D2D10D /* History.swift in Sources */,
 				4D11150622B5160E000817BA /* LoginViewController.swift in Sources */,

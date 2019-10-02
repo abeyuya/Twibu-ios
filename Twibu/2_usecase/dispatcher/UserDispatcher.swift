@@ -136,7 +136,7 @@ enum UserDispatcher {
     }
 
     static func updateFirebaseUser(firebaseUser: User) {
-        let a = UpdateFirebaseUserAction(newUser: firebaseUser)
+        let a = CurrentUserReducer.Actions.Update(newUser: firebaseUser)
         store.mDispatch(a)
         TwibuUserDefaults.shared.setFirebaseUid(uid: firebaseUser.uid)
         Crashlytics.sharedInstance().setUserIdentifier(firebaseUser.uid)

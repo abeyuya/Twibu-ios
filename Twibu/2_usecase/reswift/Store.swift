@@ -8,7 +8,6 @@
 
 import Foundation
 import ReSwift
-import FirebaseAuth
 import Embedded
 
 struct AppState: StateType {
@@ -16,15 +15,12 @@ struct AppState: StateType {
     var category = CategoryReducer.State()
     var comment = CommentReducer.State()
     var webArchive = WebArchiveReducer.State()
+    var currentUser = CurrentUserReducer.State(firebaseAuthUser: nil)
 
-    var currentUser = TwibuUser(firebaseAuthUser: nil)
     var twitterTimelineMaxId: String?
     var lastRefreshAt: [Embedded.Category: Date] = [:]
 }
 
-struct UpdateFirebaseUserAction: Action {
-    let newUser: User
-}
 struct SetMaxIdAction: Action {
     let maxId: String
 }
@@ -39,6 +35,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
     s.category = CategoryReducer.reducer(action: action, state: state?.category)
     s.comment = CommentReducer.reducer(action: action, state: state?.comment)
     s.webArchive = WebArchiveReducer.reducer(action: action, state: state?.webArchive)
+    s.currentUser = CurrentUserReducer.reducer(action: action, state: state?.currentUser)
     return s
 }
 
@@ -46,10 +43,6 @@ private func dummyReducer(action: Action, state: AppState?) -> AppState {
     var state = state ?? AppState()
 
     switch action {
-    case let a as UpdateFirebaseUserAction:
-        let newUser = TwibuUser(firebaseAuthUser: a.newUser)
-        state.currentUser = newUser
-
     case let a as SetMaxIdAction:
         state.twitterTimelineMaxId = a.maxId
 
