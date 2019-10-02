@@ -16,16 +16,18 @@ struct AppState: StateType {
     var webArchive = WebArchiveReducer.State()
     var currentUser = CurrentUserReducer.State(firebaseAuthUser: nil)
     var timeline = TimelineReducer.State()
+    var memo = MemoReducer.State()
 }
 
-func appReducer(action: Action, state: AppState?) -> AppState {
+private func appReducer(action: Action, state: AppState?) -> AppState {
     return AppState(
         history: HistoryReducer.reducer(action: action, state: state?.history),
         category: CategoryReducer.reducer(action: action, state: state?.category),
         comment: CommentReducer.reducer(action: action, state: state?.comment),
         webArchive: WebArchiveReducer.reducer(action: action, state: state?.webArchive),
         currentUser: CurrentUserReducer.reducer(action: action, state: state?.currentUser),
-        timeline: TimelineReducer.reducer(action: action, state: state?.timeline)
+        timeline: TimelineReducer.reducer(action: action, state: state?.timeline),
+        memo: MemoReducer.reducer(action: action, state: state?.memo)
     )
 }
 

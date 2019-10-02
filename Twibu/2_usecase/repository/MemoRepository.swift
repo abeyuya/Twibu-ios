@@ -8,8 +8,110 @@
 
 import Embedded
 import FirebaseFirestore
+import Promises
 
-public final class MemoRepository {
+enum MemoRepository {
+    static let db = TwibuFirebase.shared.firestore
+
+    static func fetchMemoBookmarks(
+        userUid: String,
+        type: Repository.FetchType,
+        completion: @escaping (Result<Repository.Result<[(Memo, Bookmark)]>>) -> Void
+    ) {
+        let query: Query = {
+            switch type {
+            case .new(let limit):
+                return db.collection("users")
+                    .document(userUid)
+                    .collection("memo")
+                    .order(by: "created_at", descending: true)
+                    .limit(to: limit)
+            case .add(let (limit, info)):
+                guard let last = info?.lastSnapshot as? DocumentSnapshot else {
+                    return db.collection("users")
+                        .document(userUid)
+                        .collection("memo")
+                        .order(by: "created_at", descending: true)
+                        .limit(to: limit)
+                }
+
+                return db.collection("users")
+                    .document(userUid)
+                    .collection("memo")
+                    .order(by: "created_at", descending: true)
+                    .start(afterDocument: last)
+                    .limit(to: limit)
+            }
+        }()
+
+        query.getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(.firestoreError(error.localizedDescription)))
+                return
+            }
+
+            guard let snapshot = snapshot else {
+                completion(.failure(.firestoreError("no result")))
+                return
+            }
+
+            let memos = snapshot.documents.compactMap { Memo(dictionary: $0.data()) }
+
+            execConcurrentFetch(memos: memos) { info in
+                let last = snapshot.documents.last
+                let result = Repository.Result(
+                    item: info,
+                    pagingInfo: RepositoryPagingInfo(lastSnapshot: last),
+                    hasMore: last == nil ? false : true
+                )
+
+                completion(.success(result))
+            }
+        }
+    }
+
+    private static func execConcurrentFetch(memos: [Memo], completion: @escaping ([(Memo, Bookmark)]) -> Void) {
+        let tasks = memos.map { m in
+            return Promise<(Memo?, Bookmark?)>(on: .global()) { fulfill, reject in
+                m.bookmark_ref.getDocument { snapshot, error in
+                    if let error = error {
+                        Logger.print(error)
+                        reject(error)
+                        return
+                    }
+
+                    guard let snapshot = snapshot, let dict = snapshot.data() else {
+                        Logger.print("snapshotが取れず...")
+                        fulfill((nil, nil))
+                        return
+                    }
+
+                    guard let b = Bookmark(dictionary: dict) else {
+                        Logger.print("bookmark decode できず")
+                        fulfill((nil, nil))
+                        return
+                    }
+
+                    fulfill((m, b))
+                }
+            }
+        }
+
+        Promises.all(tasks)
+            .then { results in
+                let filterd = results.filter { $0.0 != nil && $0.1 != nil } as? [(Memo, Bookmark)]
+                guard let f = filterd else {
+                    completion([])
+                    return
+                }
+                completion(f)
+            }
+            .catch { error in
+                Logger.print(error)
+                completion([])
+            }
+    }
+
     public static func fetchMemo(
         db: Firestore,
         userUid: String,

@@ -25,11 +25,6 @@ enum BookmarkRepository {
             return
         }
 
-        if category == .memo {
-            fetchMemoBookmarks(uid: uid, type: type, completion: completion)
-            return
-        }
-
         buildQuery(category: category, type: type).getDocuments() { snapshot, error in
             if let error = error {
                 completion(.failure(.firestoreError(error.localizedDescription)))
@@ -248,108 +243,5 @@ private extension BookmarkRepository {
 
             return filterOutDomain == nil
         }
-    }
-
-    private static func fetchMemoBookmarks(
-        uid: String,
-        type: Repository.FetchType,
-        completion: @escaping (Result<Repository.Result<[Bookmark]>>) -> Void
-    ) {
-        let query: Query = {
-            switch type {
-            case .new(let limit):
-                return db.collection("users")
-                    .document(uid)
-                    .collection("memo")
-                    .order(by: "created_at", descending: true)
-                    .limit(to: limit)
-            case .add(let (limit, info)):
-                guard let last = info?.lastSnapshot as? DocumentSnapshot else {
-                    return db.collection("users")
-                        .document(uid)
-                        .collection("memo")
-                        .order(by: "created_at", descending: true)
-                        .limit(to: limit)
-                }
-
-                return db.collection("users")
-                    .document(uid)
-                    .collection("memo")
-                    .order(by: "created_at", descending: true)
-                    .start(afterDocument: last)
-                    .limit(to: limit)
-            }
-        }()
-
-        query.getDocuments { snapshot, error in
-            if let error = error {
-                completion(.failure(.firestoreError(error.localizedDescription)))
-                return
-            }
-
-            guard let snapshot = snapshot else {
-                completion(.failure(.firestoreError("no result")))
-                return
-            }
-
-            let memos = snapshot.documents.compactMap { Memo(dictionary: $0.data()) }
-
-            execConcurrentFetch(memos: memos) { bookmarks in
-                let last = snapshot.documents.last
-                let result = Repository.Result(
-                    item: bookmarks,
-                    pagingInfo: RepositoryPagingInfo(lastSnapshot: last),
-                    hasMore: last == nil ? false : true
-                )
-
-                completion(.success(result))
-            }
-        }
-    }
-
-    private static func execConcurrentFetch(memos: [Memo], completion: @escaping ([Bookmark]) -> Void) {
-        let tasks = memos.map { m in
-            return Promise<(Bookmark?, Int)>(on: .global()) { fulfill, reject in
-                m.bookmark_ref.getDocument { snapshot, error in
-                    if let error = error {
-                        Logger.print(error)
-                        reject(error)
-                        return
-                    }
-
-                    guard let snapshot = snapshot, let dict = snapshot.data() else {
-                        Logger.print("snapshotが取れず...")
-                        fulfill((nil, 0))
-                        return
-                    }
-
-                    guard let b = Bookmark(dictionary: dict) else {
-                        Logger.print("bookmark decode できず")
-                        fulfill((nil, 0))
-                        return
-                    }
-
-                    if filterOut(bookmarks: [b]).isEmpty {
-                        fulfill((nil, 0))
-                        return
-                    }
-
-                    fulfill((b, m.created_at))
-                }
-            }
-        }
-
-        Promises.all(tasks)
-            .then { results in
-                let sortedBookmarks = results
-                    .filter { $0.0 != nil }
-                    .sorted(by: { $0.1 > $1.1 })
-                    .compactMap { $0.0 }
-                completion(sortedBookmarks)
-            }
-            .catch { error in
-                Logger.print(error)
-                completion([])
-            }
     }
 }

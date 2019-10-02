@@ -73,7 +73,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
                 .categoryRefresh,
                 param: ["category": c.rawValue]
             )
-        case .history:
+        case .history, .memo:
             break
         }
 
@@ -185,7 +185,7 @@ extension CategoryViewController: UITableViewDelegate {
                     "comment_count": b.comment_count ?? -1,
                 ]
             )
-        case .history:
+        case .history, .memo:
             break
         }
     }
@@ -244,21 +244,18 @@ extension CategoryViewController: UIPageViewControllerDelegate {}
 private extension CategoryViewController {
     private func setupNavigation() {
         switch viewModel.type {
-        case .category(let c):
-            switch c {
-            case .memo:
-                navigationItem.title = c.displayString
-                let editButton = UIBarButtonItem(
-                    barButtonSystemItem: .edit,
-                    target: self,
-                    action: #selector(tapEditButton)
-                )
-                navigationItem.rightBarButtonItem = editButton
-            default:
-                break
-            }
+        case .category:
+            break
         case .history:
             navigationItem.title = "履歴"
+            let editButton = UIBarButtonItem(
+                barButtonSystemItem: .edit,
+                target: self,
+                action: #selector(tapEditButton)
+            )
+            navigationItem.rightBarButtonItem = editButton
+        case .memo:
+            navigationItem.title = "メモ"
             let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
                 target: self,

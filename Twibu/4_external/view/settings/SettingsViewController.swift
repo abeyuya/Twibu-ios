@@ -197,15 +197,10 @@ extension SettingsViewController: UITableViewDelegate {
         switch menu {
         case .memo:
             let vc = CategoryViewController.initFromStoryBoard()
-            let vm = CategoryArticleListViewModel()
-            vm.set(delegate: vc, type: .category(.memo))
+            let vm = MemoArticleListViewModel()
+            vm.set(delegate: vc, type: .memo)
             vc.set(vm: vm)
-            BookmarkDispatcher.fetchBookmark(
-                category: .memo,
-                uid: uid,
-                type: .new(limit: 30),
-                commentCountOffset: 0
-            ) { _ in }
+            MemoDispatcher.fetchMemos(userUid: uid, type: .new(limit: 30))
             navigationController?.pushViewController(vc, animated: true)
         case .history:
             HistoryDispatcher.fetchHistory(offset: 0)

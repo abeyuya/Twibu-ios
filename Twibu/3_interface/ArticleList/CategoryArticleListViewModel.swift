@@ -17,7 +17,7 @@ final class CategoryArticleListViewModel: ArticleList {
         switch type {
         case .category(let c):
             return c
-        case .history:
+        case .history, .memo:
             assertionFailure("来ないはず")
             return .all
         }
@@ -110,7 +110,7 @@ extension CategoryArticleListViewModel {
             return
         case .success:
             switch type {
-            case .history:
+            case .history, .memo:
                 assertionFailure("通らないはず")
                 break
             case .category(let c):
@@ -179,8 +179,9 @@ extension CategoryArticleListViewModel {
         switch type {
         case .history:
             break
-        case .category(let c):
-            guard c == .memo else { return }
+        case .category:
+            break
+        case .memo:
             guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
             MemoDispatcher.deleteMemo(userUid: uid, bookmarkUid: bookmarkUid, completion: completion)
         }
