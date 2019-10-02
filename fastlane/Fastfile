@@ -20,6 +20,7 @@ default_platform(:ios)
 
 platform :ios do
   lane :beta do
+    cocoapods
     sync_code_signing(type: 'appstore')
     build_app(
       scheme: 'Twibu',
@@ -54,6 +55,7 @@ platform :ios do
       readonly: false
     ) unless is_ci
 
+    cocoapods
     build_app(
       scheme: 'Twibu',
       export_options: {
