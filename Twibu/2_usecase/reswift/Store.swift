@@ -13,12 +13,10 @@ import Embedded
 
 struct AppState: StateType {
     struct ResponseData {
-        var bookmarks: [Embedded.Category: Repository.Result<[Bookmark]>] = [:]
         var comments: [String: Repository.Result<[Comment]>] = [:]
     }
 
     struct ResponseState {
-        var bookmarks: [Embedded.Category: Repository.ResponseState] = [:]
         var comments: [String: Repository.ResponseState] = [:]
     }
 
@@ -31,45 +29,19 @@ struct AppState: StateType {
     var responseState = ResponseState()
     var currentUser = TwibuUser(firebaseAuthUser: nil)
     var history = HistoryReducer.State(histories: [], hasMore: true)
+    var category = CategoryReducer.State()
     var webArchive = WebArchiveInfo(tasks: [], results: [])
     var twitterTimelineMaxId: String?
     var lastRefreshAt: [Embedded.Category: Date] = [:]
 }
 
-extension AppState {
-    static func toFlat(bookmarks: [Embedded.Category: Repository.Result<[Bookmark]>]) -> [Bookmark] {
-        let resArr = bookmarks.values.compactMap { $0.item }
-        let bmArr: [Bookmark] = resArr.reduce([], +)
-        return bmArr
-    }
-}
-
-struct UpdateBookmarkStateAction: Action {
-    let category: Embedded.Category
-    let state: Repository.ResponseState
-}
 struct UpdateCommentStateAction: Action {
     let bookmarkUid: String
     let state: Repository.ResponseState
 }
-struct AddBookmarksAction: Action {
-    let category: Embedded.Category
-    let bookmarks: Repository.Result<[Bookmark]>
-}
-struct RemoveBookmarkAction: Action {
-    let category: Embedded.Category
-    let bookmarkUid: String
-}
-struct ClearBookmarkAction: Action {
-    let category: Embedded.Category
-}
 struct AddCommentsAction: Action {
     let bookmarkUid: String
     let comments: Repository.Result<[Comment]>
-}
-struct UpdateBookmarkCommentCountIfOverAction: Action {
-    let bookmarkUid: String
-    let commentCount: Int
 }
 struct UpdateFirebaseUserAction: Action {
     let newUser: User
@@ -92,6 +64,7 @@ struct SetLastRefreshAtAction: Action {
 func appReducer(action: Action, state: AppState?) -> AppState {
     var s = dummyReducer(action: action, state: state)
     s.history = HistoryReducer.reducer(action: action, state: state?.history)
+    s.category = CategoryReducer.reducer(action: action, state: state?.category)
     return s
 }
 
@@ -99,54 +72,6 @@ private func dummyReducer(action: Action, state: AppState?) -> AppState {
     var state = state ?? AppState()
 
     switch action {
-    case let a as UpdateBookmarkStateAction:
-        state.responseState.bookmarks[a.category] = a.state
-
-    case let a as UpdateCommentStateAction:
-        state.responseState.comments[a.bookmarkUid] = a.state
-
-    case let a as AddBookmarksAction:
-        let old = state.responseData.bookmarks[a.category]?.item ?? []
-        let add = a.bookmarks.item
-        let newBookmarks: [Bookmark] = {
-            switch a.category {
-            case .memo, .timeline:
-                // 記事作成日とは別の数字で既にソート済み
-                return Bookmark.merge(base: old, add: add)
-            default:
-                return Bookmark
-                    .merge(base: old, add: add)
-                    .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
-            }
-        }()
-        state.responseData.bookmarks[a.category] = Repository.Result<[Bookmark]>(
-            item: newBookmarks,
-            pagingInfo: a.bookmarks.pagingInfo,
-            hasMore: a.bookmarks.hasMore
-        )
-
-    case let a as RemoveBookmarkAction:
-        state.responseData.bookmarks[a.category] = {
-            guard let old = state.responseData.bookmarks[a.category] else {
-                return nil
-            }
-
-            let newBookmarks = old.item.filter { $0.uid != a.bookmarkUid }
-            let newResult = Repository.Result(
-                item: newBookmarks,
-                pagingInfo: old.pagingInfo,
-                hasMore: old.hasMore
-            )
-            return newResult
-        }()
-
-    case let a as ClearBookmarkAction:
-        state.responseData.bookmarks[a.category] = Repository.Result<[Bookmark]>(
-            item: [],
-            pagingInfo: nil,
-            hasMore: true
-        )
-
     case let a as AddCommentsAction:
         let old = state.responseData.comments[a.bookmarkUid]?.item ?? []
         let add = a.comments.item
@@ -159,28 +84,8 @@ private func dummyReducer(action: Action, state: AppState?) -> AppState {
             hasMore: a.comments.hasMore
         )
 
-    case let a as UpdateBookmarkCommentCountIfOverAction:
-        var new = state.responseData.bookmarks
-        for (category, res) in new {
-            var bms = res.item
-            guard let index = bms.firstIndex(where: { $0.uid == a.bookmarkUid }) else { continue }
-            let oldBookmark = bms[index]
-
-            // 新しいコメント数の方が少ないなら更新しない
-            guard oldBookmark.comment_count ?? 0 < a.commentCount else { continue }
-
-            let newBookmark = Bookmark(oldBookmark, commentCount: a.commentCount)
-            bms[index] = newBookmark
-
-            let newResult = Repository.Result<[Bookmark]>(
-                item: bms,
-                pagingInfo: res.pagingInfo,
-                hasMore: res.hasMore
-            )
-            new[category] = newResult
-            break
-        }
-        state.responseData.bookmarks = new
+    case let a as UpdateCommentStateAction:
+        state.responseState.comments[a.bookmarkUid] = a.state
 
     case let a as UpdateFirebaseUserAction:
         let newUser = TwibuUser(firebaseAuthUser: a.newUser)

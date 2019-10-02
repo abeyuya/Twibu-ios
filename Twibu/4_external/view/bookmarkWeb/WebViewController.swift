@@ -60,7 +60,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in
-                let bms = AppState.toFlat(bookmarks: state.responseData.bookmarks)
+                let bms = CategoryReducer.allBookmarks(state: state.category)
                 let b = bms.first { $0.uid == self?.bookmark.uid }
                 return Subscribe(bookmark: b, currentUser: state.currentUser)
             }

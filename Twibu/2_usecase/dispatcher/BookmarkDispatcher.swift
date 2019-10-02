@@ -40,9 +40,9 @@ enum BookmarkDispatcher {
             case .failure(let e):
                 updateState(c: category, s: .failure(e))
             case .success(let res):
-                let a = AddBookmarksAction(
+                let a = CategoryReducer.Actions.AddBookmarks(
                     category: category,
-                    bookmarks: res
+                    result: res
                 )
                 store.mDispatch(a)
                 updateState(c: category, s: .success)
@@ -51,12 +51,12 @@ enum BookmarkDispatcher {
     }
 
     static func clearCategory(c: Embedded.Category) {
-        let a = ClearBookmarkAction(category: c)
+        let a = CategoryReducer.Actions.ClearCategory(category: c)
         store.mDispatch(a)
     }
 
     static func updateState(c: Embedded.Category, s: Repository.ResponseState) {
-        let a = UpdateBookmarkStateAction(category: c, state: s)
+        let a = CategoryReducer.Actions.UpdateState(category: c, state: s)
         store.mDispatch(a)
     }
 }

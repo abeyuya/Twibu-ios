@@ -21,7 +21,7 @@ enum MemoDispatcher {
             case .failure(let e):
                 completion(.failure(e))
             case .success(_):
-                let a = RemoveBookmarkAction(category: .memo, bookmarkUid: bookmarkUid)
+                let a = CategoryReducer.Actions.RemoveBookmark(category: .memo, bookmarkUid: bookmarkUid)
                 store.mDispatch(a)
                 completion(.success(Void()))
             }

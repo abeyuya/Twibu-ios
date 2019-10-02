@@ -39,7 +39,7 @@ public enum CommentDispatcher {
 
                 do {
                     // store上のデータ書き換え
-                    let a = UpdateBookmarkCommentCountIfOverAction(
+                    let a = CategoryReducer.Actions.UpdateBookmarkCommentCountIfOver(
                         bookmarkUid: bookmarkUid,
                         commentCount: comments.count
                     )
@@ -81,7 +81,7 @@ public enum CommentDispatcher {
 
                 do {
                     // store上のデータ書き換え
-                    let a = UpdateBookmarkCommentCountIfOverAction(
+                    let a = CategoryReducer.Actions.UpdateBookmarkCommentCountIfOver(
                         bookmarkUid: buid,
                         commentCount: res.item.count
                     )

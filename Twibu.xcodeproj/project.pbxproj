@@ -97,6 +97,7 @@
 		4DD369E02337730300D2D10D /* TwibuFirebaseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65094922BF6F7C00BB0959 /* TwibuFirebaseCodable.swift */; };
 		4DD369E22337731300D2D10D /* Bookmark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD369E12337731300D2D10D /* Bookmark+Extension.swift */; };
 		4DD369E32337737400D2D10D /* AnalyticsDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3CBDD822D3A0F700573AF4 /* AnalyticsDispatcher.swift */; };
+		4DDC48062344AEDF00489648 /* CategoryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC48052344AEDF00489648 /* CategoryReducer.swift */; };
 		4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */; };
 		4DEE7EFF233E364900B0699E /* TwitterConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE7EFE233E364900B0699E /* TwitterConnectable.swift */; };
 		4DEE7F06233E5F4900B0699E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DEE7F08233E5F4900B0699E /* InfoPlist.strings */; };
@@ -291,6 +292,7 @@
 		4DD369D423376BC600D2D10D /* BookmarkApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkApiRepository.swift; sourceTree = "<group>"; };
 		4DD369E12337731300D2D10D /* Bookmark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookmark+Extension.swift"; sourceTree = "<group>"; };
 		4DDB8DDD22C4F57400916F72 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		4DDC48052344AEDF00489648 /* CategoryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryReducer.swift; sourceTree = "<group>"; };
 		4DEDF2E722F47DC200488B55 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		4DEDF2E922F47E4900488B55 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		4DEDF2ED22F5A59600488B55 /* MemoDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDispatcher.swift; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 			isa = PBXGroup;
 			children = (
 				4D3E7F582343B6EB008E042D /* HistoryReducer.swift */,
+				4DDC48052344AEDF00489648 /* CategoryReducer.swift */,
 			);
 			path = reducer;
 			sourceTree = "<group>";
@@ -1326,6 +1329,7 @@
 				4D11153922B57697000817BA /* CategoryViewController.swift in Sources */,
 				4DD369DA2337707700D2D10D /* MemoRepository.swift in Sources */,
 				4DEE7EFF233E364900B0699E /* TwitterConnectable.swift in Sources */,
+				4DDC48062344AEDF00489648 /* CategoryReducer.swift in Sources */,
 				4D65092A22BBDCC400BB0959 /* CommentRepositoryFirestore.swift in Sources */,
 				4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */,
 				4DD369DB2337707700D2D10D /* HistoryRepository.swift in Sources */,
