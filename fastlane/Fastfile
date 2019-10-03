@@ -46,6 +46,17 @@ platform :ios do
       type: 'adhoc',
       readonly: false
     )
+
+    match(
+      app_identifier: [
+        'com.github.abeyuya.Twibu',
+        'com.github.abeyuya.Twibu.today-extension',
+        'com.github.abeyuya.Twibu.action-extension'
+      ],
+      team_id: '37XL3EDJ44',
+      type: 'appstore',
+      readonly: false
+    )
   end
 
   desc 'Import Certificates for GitHub Actions'
@@ -65,6 +76,27 @@ platform :ios do
       git_url: 'https://github.com/abeyuya/fastlane-match',
       git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
       type: 'adhoc',
+      readonly: true
+    )
+  end
+
+  desc 'Import Certificates for AppStore'
+  private_lane :import_certificates_for_appstore do
+    setup_ci(
+      force: true,
+      provider: 'travis',
+    )
+
+    sync_code_signing(
+      app_identifier: [
+        'com.github.abeyuya.Twibu',
+        'com.github.abeyuya.Twibu.today-extension',
+        'com.github.abeyuya.Twibu.action-extension'
+      ],
+      team_id: '37XL3EDJ44',
+      git_url: 'https://github.com/abeyuya/fastlane-match',
+      git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
+      type: 'appstore',
       readonly: true
     )
   end
@@ -96,5 +128,30 @@ platform :ios do
       release_notes: 'from github-actions!',
       firebase_cli_path: `which firebase`.strip()
     )
+  end
+
+  desc 'Submit ipa to AppStoreConnect'
+  lane :submit_appstore do
+    if is_ci
+      import_certificates_for_actions
+    end
+
+    cocoapods
+
+    build_app(
+      scheme: 'Twibu',
+      configuration: 'Release',
+      include_bitcode: true,
+      export_options: {
+        method: 'app-store',
+        provisioningProfiles: {
+          'com.github.abeyuya.Twibu' => 'match AppStore com.github.abeyuya.Twibu',
+          'com.github.abeyuya.Twibu.today-extension' => 'match AppStore com.github.abeyuya.Twibu.today-extension',
+          'com.github.abeyuya.Twibu.action-extension' => 'match AppStore com.github.abeyuya.Twibu.action-extension'
+        }
+      }
+    )
+
+    upload_to_app_store
   end
 end
