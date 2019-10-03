@@ -38,6 +38,7 @@ platform :ios do
     )
 
     sync_code_signing(
+      app_identifier: 'com.github.abeyuya.Twibu',
       git_url: 'https://github.com/abeyuya/fastlane-match',
       git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
       type: 'adhoc',
@@ -50,19 +51,21 @@ platform :ios do
     import_certificates_for_actions if is_ci
 
     sync_code_signing(
+      app_identifier: 'com.github.abeyuya.Twibu',
       git_url: 'git@github.com:abeyuya/fastlane-match',
       type: 'adhoc',
       readonly: false
     ) unless is_ci
 
     cocoapods
+    
     build_app(
       scheme: 'Twibu',
       configuration: 'Release',
       export_options: {
         method: 'ad-hoc',
         provisioningProfiles: {
-          'com.github.abeyuya.Twibu': 'match AdHoc com.github.abeyuya.Twibu',
+          'com.github.abeyuya.Twibu' => 'match AdHoc com.github.abeyuya.Twibu',
         }
 
       }
