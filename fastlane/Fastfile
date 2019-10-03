@@ -69,7 +69,6 @@ platform :ios do
         provisioningProfiles: {
           'com.github.abeyuya.Twibu' => 'match AdHoc com.github.abeyuya.Twibu',
         }
-
       }
     )
 
