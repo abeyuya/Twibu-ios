@@ -1,6 +1,10 @@
 name: Deploy to App Distribution
 
-on: [push]
+on:
+  push:
+    branched:
+      - master
+      - feature/fastlane
 
 jobs:
   build:

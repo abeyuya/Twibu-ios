@@ -46,30 +46,6 @@ platform :ios do
       type: 'adhoc',
       readonly: false
     )
-
-    # sync_code_signing(
-    #   app_identifier: 'com.github.abeyuya.Twibu',
-    #   team_id: '37XL3EDJ44',
-    #   git_url: 'git@github.com:abeyuya/fastlane-match',
-    #   type: 'adhoc',
-    #   readonly: false
-    # )
-    #
-    # sync_code_signing(
-    #   app_identifier: 'com.github.abeyuya.Twibu.today-extension',
-    #   team_id: '37XL3EDJ44',
-    #   git_url: 'git@github.com:abeyuya/fastlane-match',
-    #   type: 'adhoc',
-    #   readonly: false
-    # )
-    #
-    # sync_code_signing(
-    #   app_identifier: 'com.github.abeyuya.Twibu.action-extension',
-    #   team_id: '37XL3EDJ44',
-    #   git_url: 'git@github.com:abeyuya/fastlane-match',
-    #   type: 'adhoc',
-    #   readonly: false
-    # )
   end
 
   desc 'Import Certificates for GitHub Actions'
@@ -80,25 +56,11 @@ platform :ios do
     )
 
     sync_code_signing(
-      app_identifier: 'com.github.abeyuya.Twibu',
-      team_id: '37XL3EDJ44',
-      git_url: 'https://github.com/abeyuya/fastlane-match',
-      git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
-      type: 'adhoc',
-      readonly: true
-    )
-
-    sync_code_signing(
-      app_identifier: 'com.github.abeyuya.Twibu.today-extension',
-      team_id: '37XL3EDJ44',
-      git_url: 'https://github.com/abeyuya/fastlane-match',
-      git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
-      type: 'adhoc',
-      readonly: true
-    )
-
-    sync_code_signing(
-      app_identifier: 'com.github.abeyuya.Twibu.action-extension',
+      app_identifier: [
+        'com.github.abeyuya.Twibu',
+        'com.github.abeyuya.Twibu.today-extension',
+        'com.github.abeyuya.Twibu.action-extension'
+      ],
       team_id: '37XL3EDJ44',
       git_url: 'https://github.com/abeyuya/fastlane-match',
       git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
@@ -109,15 +71,9 @@ platform :ios do
 
   desc 'Push a new beta build to Firebase App Distribution'
   lane :app_distribution do
-    import_certificates_for_actions if is_ci
-
-    sync_code_signing(
-      app_identifier: 'com.github.abeyuya.Twibu',
-      team_id: '37XL3EDJ44',
-      git_url: 'git@github.com:abeyuya/fastlane-match',
-      type: 'adhoc',
-      readonly: false
-    ) unless is_ci
+    if is_ci
+      import_certificates_for_actions
+    end
 
     cocoapods
 
@@ -128,6 +84,8 @@ platform :ios do
         method: 'ad-hoc',
         provisioningProfiles: {
           'com.github.abeyuya.Twibu' => 'match AdHoc com.github.abeyuya.Twibu',
+          'com.github.abeyuya.Twibu.today-extension' => 'match AdHoc com.github.abeyuya.Twibu.today-extension',
+          'com.github.abeyuya.Twibu.action-extension' => 'match AdHoc com.github.abeyuya.Twibu.action-extension'
         }
       }
     )
