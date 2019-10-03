@@ -16,11 +16,21 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios beta
+### ios setup_local
 ```
-fastlane ios beta
+fastlane ios setup_local
 ```
 
+### ios app_distribution
+```
+fastlane ios app_distribution
+```
+Push a new beta build to Firebase App Distribution
+### ios submit_appstore
+```
+fastlane ios submit_appstore
+```
+Submit ipa to AppStoreConnect
 
 ----
 

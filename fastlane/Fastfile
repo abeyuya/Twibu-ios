@@ -19,14 +19,44 @@ ENV['FASTLANE_SESSION'] = '---\n- !ruby/object:HTTP::Cookie\n  name: DES53b43d52
 default_platform(:ios)
 
 platform :ios do
-  lane :beta do
-    sync_code_signing(type: 'appstore')
-    build_app(
-      scheme: 'Twibu',
-      workspace: 'Twibu.xcworkspace',
-      include_bitcode: true
+  lane :setup_local do
+    if is_ci
+      p 'localhost only'
+      return
+    end
+
+    match(
+      app_identifier: [
+        'com.github.abeyuya.Twibu',
+        'com.github.abeyuya.Twibu.today-extension',
+        'com.github.abeyuya.Twibu.action-extension'
+      ],
+      team_id: '37XL3EDJ44',
+      type: 'development',
+      readonly: false
     )
-    upload_to_testflight(skip_waiting_for_build_processing: true)
+
+    match(
+      app_identifier: [
+        'com.github.abeyuya.Twibu',
+        'com.github.abeyuya.Twibu.today-extension',
+        'com.github.abeyuya.Twibu.action-extension'
+      ],
+      team_id: '37XL3EDJ44',
+      type: 'adhoc',
+      readonly: false
+    )
+
+    match(
+      app_identifier: [
+        'com.github.abeyuya.Twibu',
+        'com.github.abeyuya.Twibu.today-extension',
+        'com.github.abeyuya.Twibu.action-extension'
+      ],
+      team_id: '37XL3EDJ44',
+      type: 'appstore',
+      readonly: false
+    )
   end
 
   desc 'Import Certificates for GitHub Actions'
@@ -37,6 +67,12 @@ platform :ios do
     )
 
     sync_code_signing(
+      app_identifier: [
+        'com.github.abeyuya.Twibu',
+        'com.github.abeyuya.Twibu.today-extension',
+        'com.github.abeyuya.Twibu.action-extension'
+      ],
+      team_id: '37XL3EDJ44',
       git_url: 'https://github.com/abeyuya/fastlane-match',
       git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
       type: 'adhoc',
@@ -44,20 +80,45 @@ platform :ios do
     )
   end
 
-  desc 'Push a new beta build to Firebase App Distribution'
-  lane :app_distribution do
-    import_certificates_for_actions if is_ci
+  desc 'Import Certificates for AppStore'
+  private_lane :import_certificates_for_appstore do
+    setup_ci(
+      force: true,
+      provider: 'travis',
+    )
 
     sync_code_signing(
+      app_identifier: [
+        'com.github.abeyuya.Twibu',
+        'com.github.abeyuya.Twibu.today-extension',
+        'com.github.abeyuya.Twibu.action-extension'
+      ],
+      team_id: '37XL3EDJ44',
       git_url: 'https://github.com/abeyuya/fastlane-match',
-      type: 'adhoc',
+      git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
+      type: 'appstore',
       readonly: true
-    ) unless is_ci
+    )
+  end
+
+  desc 'Push a new beta build to Firebase App Distribution'
+  lane :app_distribution do
+    if is_ci
+      import_certificates_for_actions
+    end
+
+    cocoapods
 
     build_app(
       scheme: 'Twibu',
+      configuration: 'Release',
       export_options: {
-        method: 'ad-hoc'
+        method: 'ad-hoc',
+        provisioningProfiles: {
+          'com.github.abeyuya.Twibu' => 'match AdHoc com.github.abeyuya.Twibu',
+          'com.github.abeyuya.Twibu.today-extension' => 'match AdHoc com.github.abeyuya.Twibu.today-extension',
+          'com.github.abeyuya.Twibu.action-extension' => 'match AdHoc com.github.abeyuya.Twibu.action-extension'
+        }
       }
     )
 
@@ -67,5 +128,30 @@ platform :ios do
       release_notes: 'from github-actions!',
       firebase_cli_path: `which firebase`.strip()
     )
+  end
+
+  desc 'Submit ipa to AppStoreConnect'
+  lane :submit_appstore do
+    if is_ci
+      import_certificates_for_actions
+    end
+
+    cocoapods
+
+    build_app(
+      scheme: 'Twibu',
+      configuration: 'Release',
+      include_bitcode: true,
+      export_options: {
+        method: 'app-store',
+        provisioningProfiles: {
+          'com.github.abeyuya.Twibu' => 'match AppStore com.github.abeyuya.Twibu',
+          'com.github.abeyuya.Twibu.today-extension' => 'match AppStore com.github.abeyuya.Twibu.today-extension',
+          'com.github.abeyuya.Twibu.action-extension' => 'match AppStore com.github.abeyuya.Twibu.action-extension'
+        }
+      }
+    )
+
+    upload_to_app_store
   end
 end
