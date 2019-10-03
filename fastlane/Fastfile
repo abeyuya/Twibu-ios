@@ -60,7 +60,11 @@ platform :ios do
       scheme: 'Twibu',
       configuration: 'Release',
       export_options: {
-        method: 'ad-hoc'
+        method: 'ad-hoc',
+        provisioningProfiles: {
+          'com.github.abeyuya.Twibu': 'match AdHoc com.github.abeyuya.Twibu',
+        }
+
       }
     )
 
