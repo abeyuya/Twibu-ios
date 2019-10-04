@@ -34,6 +34,9 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     private let footerIndicator: UIActivityIndicatorView = {
         let i = UIActivityIndicatorView(style: .gray)
+        if #available(iOS 13, *) {
+            i.style = .medium
+        }
         i.startAnimating()
         i.translatesAutoresizingMaskIntoConstraints = false
         return i
