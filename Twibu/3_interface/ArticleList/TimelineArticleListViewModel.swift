@@ -21,6 +21,9 @@ final class TimelineArticleListViewModel: ArticleList {
     var bookmarks: [Bookmark] {
         return responseData?.item.compactMap { $0.1 } ?? []
     }
+    var timelines: [Timeline] {
+        return responseData?.item.compactMap { $0.0 } ?? []
+    }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
     var twitterMaxId: String?
     var lastRefreshCheckAt: Date?

@@ -132,71 +132,54 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     private func setupCell(tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell? {
-        switch viewModel.type {
-        case .timeline:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: "\(TimelineCell.self)"
-                ) as? TimelineCell else { return nil }
+        let cell: ArticleCellProtocol? = {
+            switch viewModel.type {
+            case .timeline:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: "\(TimelineCell.self)"
+                    ) as? TimelineCell else { return nil }
 
-            let b = viewModel.bookmarks[indexPath.row]
-            cell.set(
-                bookmark: b,
-                alreadyRead: HistoryRepository.isExist(bookmarkUid: b.uid),
-                userInfo: nil
-            )
+                guard let vm = viewModel as? TimelineArticleListViewModel else { return cell }
+                let i = vm.timelines[indexPath.row].user
+                cell.set(userInfo: i)
+                return cell
 
-            if WebArchiver.existLocalFile(bookmarkUid: b.uid) {
-                cell.set(saveState: .saved)
+            default:
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: "\(ArticleCell.self)"
+                    ) as? ArticleCell else { return nil }
                 return cell
             }
+        }()
 
-            if let r = viewModel.webArchiveResults.first(where: { $0.0 == b.uid }) {
-                switch r.1 {
-                case .success:
-                    cell.set(saveState: .saved)
-                case .failure(_):
-                    cell.set(saveState: .none)
-                case .progress(let progress):
-                    cell.set(saveState: .saving(progress))
-                }
-                return cell
-            }
+        guard let articleCell = cell else { return UITableViewCell() }
 
-            cell.set(saveState: .none)
-            return cell
+        let b = viewModel.bookmarks[indexPath.row]
+        articleCell.set(
+            bookmark: b,
+            alreadyRead: HistoryRepository.isExist(bookmarkUid: b.uid),
+            showImage: true
+        )
 
-        default:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: "\(ArticleCell.self)"
-                ) as? ArticleCell else { return nil }
-
-            let b = viewModel.bookmarks[indexPath.row]
-            cell.set(
-                bookmark: b,
-                alreadyRead: HistoryRepository.isExist(bookmarkUid: b.uid),
-                showImage: true
-            )
-
-            if WebArchiver.existLocalFile(bookmarkUid: b.uid) {
-                cell.set(saveState: .saved)
-                return cell
-            }
-
-            if let r = viewModel.webArchiveResults.first(where: { $0.0 == b.uid }) {
-                switch r.1 {
-                case .success:
-                    cell.set(saveState: .saved)
-                case .failure(_):
-                    cell.set(saveState: .none)
-                case .progress(let progress):
-                    cell.set(saveState: .saving(progress))
-                }
-                return cell
-            }
-
-            cell.set(saveState: .none)
+        if WebArchiver.existLocalFile(bookmarkUid: b.uid) {
+            articleCell.set(saveState: .saved)
             return cell
         }
+
+        if let r = viewModel.webArchiveResults.first(where: { $0.0 == b.uid }) {
+            switch r.1 {
+            case .success:
+                articleCell.set(saveState: .saved)
+            case .failure(_):
+                articleCell.set(saveState: .none)
+            case .progress(let progress):
+                articleCell.set(saveState: .saving(progress))
+            }
+            return articleCell
+        }
+
+        articleCell.set(saveState: .none)
+        return articleCell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

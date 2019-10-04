@@ -10,7 +10,7 @@ import UIKit
 import Embedded
 import Kingfisher
 
-final class TimelineCell: UITableViewCell {
+final class TimelineCell: UITableViewCell, ArticleCellProtocol {
     @IBOutlet private weak var categoryContentView: CategoryContentView!
     @IBOutlet private weak var userArea: UIView!
     @IBOutlet private weak var iconImageView: UIImageView! {
@@ -23,9 +23,15 @@ final class TimelineCell: UITableViewCell {
     @IBOutlet private weak var verifiedLabel: UILabel!
     @IBOutlet private weak var usernameLabel: UILabel!
 
-    public func set(bookmark: Bookmark, alreadyRead: Bool, userInfo: Comment.User?) {
-        categoryContentView.set(bookmark: bookmark, alreadyRead: alreadyRead, showImage: true)
+    public func set(bookmark: Bookmark, alreadyRead: Bool, showImage: Bool) {
+        categoryContentView.set(bookmark: bookmark, alreadyRead: alreadyRead, showImage: showImage)
+    }
 
+    func set(saveState: CategoryContentView.SaveState) {
+        categoryContentView.set(saveState: saveState)
+    }
+
+    public func set(userInfo: Comment.User?) {
         userArea.isHidden = true
         guard let u = userInfo else { return }
 
@@ -51,9 +57,5 @@ final class TimelineCell: UITableViewCell {
             )
             verifiedLabel.isHidden = false
         }
-    }
-
-    public func set(saveState: CategoryContentView.SaveState) {
-        categoryContentView.set(saveState: saveState)
     }
 }

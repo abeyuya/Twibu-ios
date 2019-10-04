@@ -8,7 +8,12 @@
 
 import UIKit
 
-public final class ArticleCell: UITableViewCell {
+public protocol ArticleCellProtocol: UITableViewCell {
+    func set(bookmark: Bookmark, alreadyRead: Bool, showImage: Bool)
+    func set(saveState: CategoryContentView.SaveState)
+}
+
+public final class ArticleCell: UITableViewCell, ArticleCellProtocol {
     @IBOutlet private weak var mainView: CategoryContentView!
 
     public func set(bookmark: Bookmark, alreadyRead: Bool, showImage: Bool) {

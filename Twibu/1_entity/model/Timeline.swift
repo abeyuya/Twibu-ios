@@ -25,10 +25,12 @@ public struct Timeline {
         guard let updatedAt = dictionary["updated_at"] as? Timestamp else { return nil }
         self.updated_at = Int(updatedAt.seconds)
 
-        guard let d = dictionary["user"] as? [String: Any] else { return nil }
-        self.user = try? JSONDecoder().decode(
-            Comment.User.self,
-            from: JSONSerialization.data(withJSONObject: d)
-        )
+        self.user = {
+            guard let d = dictionary["user"] as? [String: Any] else { return nil }
+            return try? JSONDecoder().decode(
+                Comment.User.self,
+                from: JSONSerialization.data(withJSONObject: d)
+            )
+        }()
     }
 }
