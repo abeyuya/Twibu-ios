@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-final public class BookmarkCell: UITableViewCell {
+final public class CategoryContentView: UIView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var usersCountLabel: UILabel!
     @IBOutlet private weak var domainLabel: UILabel!
@@ -29,6 +29,32 @@ final public class BookmarkCell: UITableViewCell {
     }
 
     private var saveState: SaveState = .none
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+
+    private func commonInit() {
+        translatesAutoresizingMaskIntoConstraints = false
+        guard let v = UINib(nibName: "\(Self.self)", bundle: Bundle(for: Self.self))
+            .instantiate(withOwner: self, options: nil)
+            .first as? UIView else { return }
+
+        v.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(v)
+        NSLayoutConstraint.activate([
+            v.topAnchor.constraint(equalTo: topAnchor),
+            v.leftAnchor.constraint(equalTo: leftAnchor),
+            v.rightAnchor.constraint(equalTo: rightAnchor),
+            v.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
 
     public func set(bookmark: Bookmark, alreadyRead: Bool, showImage: Bool) {
         titleLabel.text = bookmark.trimmedTitle ?? "タイトルが取得できませんでした"
