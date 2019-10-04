@@ -27,6 +27,8 @@
 		4D28F55322E494D000156445 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D28F55222E494D000156445 /* Router.swift */; };
 		4D2A7B2B2347682000CC411E /* ArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A7B2A2347682000CC411E /* ArticleCell.xib */; };
 		4D2A7B2D2347683100CC411E /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A7B2C2347683100CC411E /* ArticleCell.swift */; };
+		4D2A7B302347778600CC411E /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A7B2F2347778600CC411E /* TimelineCell.swift */; };
+		4D2A7B322347779300CC411E /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A7B312347779300CC411E /* TimelineCell.xib */; };
 		4D3059322337FE75001F0605 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092522BBDB5800BB0959 /* Comment.swift */; };
 		4D3059342337FE9A001F0605 /* Comment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3059332337FE9A001F0605 /* Comment+Extension.swift */; };
 		4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */; };
@@ -241,6 +243,8 @@
 		4D28F55222E494D000156445 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		4D2A7B2A2347682000CC411E /* ArticleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleCell.xib; sourceTree = "<group>"; };
 		4D2A7B2C2347683100CC411E /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		4D2A7B2F2347778600CC411E /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
+		4D2A7B312347779300CC411E /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
 		4D3059332337FE9A001F0605 /* Comment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment+Extension.swift"; sourceTree = "<group>"; };
 		4D3059362338855A001F0605 /* CommentListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListProtocol.swift; sourceTree = "<group>"; };
 		4D30593823388A67001F0605 /* FirestoreCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentListViewModel.swift; sourceTree = "<group>"; };
@@ -532,6 +536,7 @@
 				4D11153722B57697000817BA /* CategoryViewController.swift */,
 				4D11153C22B58091000817BA /* CategoryViewController.storyboard */,
 				4D65095322BFF98100BB0959 /* root */,
+				4D2A7B2E2347776900CC411E /* cell */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -557,6 +562,15 @@
 				4D65093A22BE4AE900BB0959 /* UIViewController+Extension.swift */,
 			);
 			path = extension;
+			sourceTree = "<group>";
+		};
+		4D2A7B2E2347776900CC411E /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				4D2A7B2F2347778600CC411E /* TimelineCell.swift */,
+				4D2A7B312347779300CC411E /* TimelineCell.xib */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		4D30593523388546001F0605 /* CommentList */ = {
@@ -1124,6 +1138,7 @@
 				4D11150B22B5160F000817BA /* Assets.xcassets in Resources */,
 				4D11153F22B5FFD0000817BA /* LoginViewController.storyboard in Resources */,
 				4D65093822BE447500BB0959 /* LaunchingViewController.storyboard in Resources */,
+				4D2A7B322347779300CC411E /* TimelineCell.xib in Resources */,
 				4D11153D22B58091000817BA /* CategoryViewController.storyboard in Resources */,
 				4D11150922B5160E000817BA /* PagingRootViewController.storyboard in Resources */,
 				4D72CF2522E34BDF00E6AA66 /* GoogleService-Info.plist in Resources */,
@@ -1379,6 +1394,7 @@
 				4DA1E5E622CBAEBC00320895 /* UserDispatcher.swift in Sources */,
 				4DFC605B22FDFEAC00C7CFE7 /* WebArchiver.swift in Sources */,
 				4DFC604722FC7A5500C7CFE7 /* HistoryDispatcher.swift in Sources */,
+				4D2A7B302347778600CC411E /* TimelineCell.swift in Sources */,
 				4D65094622BF5FD200BB0959 /* Store.swift in Sources */,
 				4DEDF2EE22F5A59600488B55 /* MemoDispatcher.swift in Sources */,
 				4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */,

@@ -6,13 +6,14 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
+import Embedded
 import FirebaseFirestore
 
 public struct Timeline {
     public let bookmark_ref: DocumentReference
     public let post_at: Int
     public let updated_at: Int
+    public let user: Comment.User?
 
     init?(dictionary: [String: Any]) {
         guard let ref = dictionary["bookmark_ref"] as? DocumentReference else { return nil }
@@ -23,5 +24,11 @@ public struct Timeline {
 
         guard let updatedAt = dictionary["updated_at"] as? Timestamp else { return nil }
         self.updated_at = Int(updatedAt.seconds)
+
+        guard let d = dictionary["user"] as? [String: Any] else { return nil }
+        self.user = try? JSONDecoder().decode(
+            Comment.User.self,
+            from: JSONSerialization.data(withJSONObject: d)
+        )
     }
 }

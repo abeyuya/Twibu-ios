@@ -22,10 +22,6 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
             }()
 
             tableView.tableFooterView = footer
-            tableView.register(
-                UINib(nibName: "\(ArticleCell.self)", bundle: Bundle(for: ArticleCell.self)),
-                forCellReuseIdentifier: "\(ArticleCell.self)"
-            )
             tableView.delegate = self
             tableView.dataSource = self
             tableView.refreshControl = refreshControll
@@ -52,6 +48,7 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
+        setupTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +63,21 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
 
     func set(vm: ArticleList) {
         viewModel = vm
+    }
+
+    private func setupTableView() {
+        switch viewModel.type {
+        case .timeline:
+            tableView.register(
+                UINib(nibName: "\(TimelineCell.self)", bundle: Bundle(for: TimelineCell.self)),
+                forCellReuseIdentifier: "\(TimelineCell.self)"
+            )
+        default:
+            tableView.register(
+                UINib(nibName: "\(ArticleCell.self)", bundle: Bundle(for: ArticleCell.self)),
+                forCellReuseIdentifier: "\(ArticleCell.self)"
+            )
+        }
     }
 
     @objc
@@ -112,36 +124,79 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: "\(ArticleCell.self)"
-        ) as? ArticleCell else { return UITableViewCell() }
-
-        let b = viewModel.bookmarks[indexPath.row]
-        cell.set(
-            bookmark: b,
-            alreadyRead: HistoryRepository.isExist(bookmarkUid: b.uid),
-            showImage: true
-        )
-
-        if WebArchiver.existLocalFile(bookmarkUid: b.uid) {
-            cell.set(saveState: .saved)
-            return cell
+        guard let cell = setupCell(tableView: tableView, cellForRowAt: indexPath) else {
+            return UITableViewCell()
         }
 
-        if let r = viewModel.webArchiveResults.first(where: { $0.0 == b.uid }) {
-            switch r.1 {
-            case .success:
-                cell.set(saveState: .saved)
-            case .failure(_):
-                cell.set(saveState: .none)
-            case .progress(let progress):
-                cell.set(saveState: .saving(progress))
-            }
-            return cell
-        }
-
-        cell.set(saveState: .none)
         return cell
+    }
+
+    private func setupCell(tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell? {
+        switch viewModel.type {
+        case .timeline:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: "\(TimelineCell.self)"
+                ) as? TimelineCell else { return nil }
+
+            let b = viewModel.bookmarks[indexPath.row]
+            cell.set(
+                bookmark: b,
+                alreadyRead: HistoryRepository.isExist(bookmarkUid: b.uid),
+                userInfo: nil
+            )
+
+            if WebArchiver.existLocalFile(bookmarkUid: b.uid) {
+                cell.set(saveState: .saved)
+                return cell
+            }
+
+            if let r = viewModel.webArchiveResults.first(where: { $0.0 == b.uid }) {
+                switch r.1 {
+                case .success:
+                    cell.set(saveState: .saved)
+                case .failure(_):
+                    cell.set(saveState: .none)
+                case .progress(let progress):
+                    cell.set(saveState: .saving(progress))
+                }
+                return cell
+            }
+
+            cell.set(saveState: .none)
+            return cell
+
+        default:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: "\(ArticleCell.self)"
+                ) as? ArticleCell else { return nil }
+
+            let b = viewModel.bookmarks[indexPath.row]
+            cell.set(
+                bookmark: b,
+                alreadyRead: HistoryRepository.isExist(bookmarkUid: b.uid),
+                showImage: true
+            )
+
+            if WebArchiver.existLocalFile(bookmarkUid: b.uid) {
+                cell.set(saveState: .saved)
+                return cell
+            }
+
+            if let r = viewModel.webArchiveResults.first(where: { $0.0 == b.uid }) {
+                switch r.1 {
+                case .success:
+                    cell.set(saveState: .saved)
+                case .failure(_):
+                    cell.set(saveState: .none)
+                case .progress(let progress):
+                    cell.set(saveState: .saving(progress))
+                }
+                return cell
+            }
+
+            cell.set(saveState: .none)
+            return cell
+        }
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
