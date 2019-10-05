@@ -24,7 +24,8 @@ public final class TwibuFirebase {
                 return
             }
             guard let fileopts = FirebaseOptions(contentsOfFile: filePath) else {
-                assert(false, "Couldn't load config file")
+                assertionFailure("読み込めない！")
+                return
             }
             FirebaseApp.configure(options: fileopts)
         }
