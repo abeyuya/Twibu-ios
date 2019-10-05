@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D1114FF22B5160E000817BA"
-               BuildableName = "Twibu.app"
+               BuildableName = "Twibu Debug.app"
                BlueprintName = "Twibu"
                ReferencedContainer = "container:Twibu.xcodeproj">
             </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D1114FF22B5160E000817BA"
-            BuildableName = "Twibu.app"
+            BuildableName = "Twibu Debug.app"
             BlueprintName = "Twibu"
             ReferencedContainer = "container:Twibu.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D1114FF22B5160E000817BA"
-            BuildableName = "Twibu.app"
+            BuildableName = "Twibu Debug.app"
             BlueprintName = "Twibu"
             ReferencedContainer = "container:Twibu.xcodeproj">
          </BuildableReference>

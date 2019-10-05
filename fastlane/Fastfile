@@ -19,11 +19,22 @@ ENV['FASTLANE_SESSION'] = '---\n- !ruby/object:HTTP::Cookie\n  name: DES53b43d52
 default_platform(:ios)
 
 BASE_BUNDLE_ID = 'com.github.abeyuya.Twibu'
-BASE_BUNDLE_IDS = [
-  BASE_BUNDLE_ID,
-  "#{BASE_BUNDLE_ID}.today-extension",
-  "#{BASE_BUNDLE_ID}.action-extension"
-]
+
+def bundle_ids(type)
+  if type.nil? || type == ''
+    return [
+      BASE_BUNDLE_ID,
+      "#{BASE_BUNDLE_ID}.today-extension",
+      "#{BASE_BUNDLE_ID}.action-extension"
+    ]
+  end
+
+  return [
+    "#{BASE_BUNDLE_ID}.#{type}",
+    "#{BASE_BUNDLE_ID}.#{type}.today-extension",
+    "#{BASE_BUNDLE_ID}.#{type}.action-extension"
+  ]
+end
 
 platform :ios do
   lane :setup_local do
@@ -33,21 +44,21 @@ platform :ios do
     end
 
     match(
-      app_identifier: BASE_BUNDLE_IDS,
+      app_identifier: bundle_ids('debug'),
       team_id: '37XL3EDJ44',
       type: 'development',
       readonly: false
     )
 
     match(
-      app_identifier: BASE_BUNDLE_IDS,
+      app_identifier: bundle_ids('adhoc'),
       team_id: '37XL3EDJ44',
       type: 'adhoc',
       readonly: false
     )
 
     match(
-      app_identifier: BASE_BUNDLE_IDS,
+      app_identifier: bundle_ids(''),
       team_id: '37XL3EDJ44',
       type: 'appstore',
       readonly: false
@@ -55,18 +66,14 @@ platform :ios do
   end
 
   desc 'Import Certificates for GitHub Actions'
-  private_lane :import_certificates_for_actions do
+  private_lane :import_certificates_for_adhoc do
     setup_ci(
       force: true,
       provider: 'travis',
     )
 
     sync_code_signing(
-      app_identifier: [
-        'com.github.abeyuya.Twibu',
-        'com.github.abeyuya.Twibu.today-extension',
-        'com.github.abeyuya.Twibu.action-extension'
-      ],
+      app_identifier: bundle_ids('adhoc'),
       team_id: '37XL3EDJ44',
       git_url: 'https://github.com/abeyuya/fastlane-match',
       git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
@@ -83,11 +90,7 @@ platform :ios do
     )
 
     sync_code_signing(
-      app_identifier: [
-        'com.github.abeyuya.Twibu',
-        'com.github.abeyuya.Twibu.today-extension',
-        'com.github.abeyuya.Twibu.action-extension'
-      ],
+      app_identifier: bundle_ids(''),
       team_id: '37XL3EDJ44',
       git_url: 'https://github.com/abeyuya/fastlane-match',
       git_basic_authorization: ENV['PERSONAL_ACCESS_TOKEN_GITHUB'],
@@ -99,20 +102,26 @@ platform :ios do
   desc 'Push a new beta build to Firebase App Distribution'
   lane :app_distribution do
     if is_ci
-      import_certificates_for_actions
+      import_certificates_for_adhoc
     end
+
+    update_app_identifier(
+      xcodeproj: 'Twibu.xcodeproj',
+      plist_path: 'Twibu/Info.plist',
+      app_identifier: "#{BASE_BUNDLE_ID}.adhoc"
+    )
 
     cocoapods
 
     build_app(
       scheme: 'Twibu',
-      configuration: 'Release',
+      configuration: 'Adhoc',
       export_options: {
         method: 'ad-hoc',
         provisioningProfiles: {
-          'com.github.abeyuya.Twibu' => 'match AdHoc com.github.abeyuya.Twibu',
-          'com.github.abeyuya.Twibu.today-extension' => 'match AdHoc com.github.abeyuya.Twibu.today-extension',
-          'com.github.abeyuya.Twibu.action-extension' => 'match AdHoc com.github.abeyuya.Twibu.action-extension'
+          'com.github.abeyuya.Twibu.adhoc' => 'match AdHoc com.github.abeyuya.Twibu.adhoc',
+          'com.github.abeyuya.Twibu.adhoc.today-extension' => 'match AdHoc com.github.abeyuya.Twibu.adhoc.today-extension',
+          'com.github.abeyuya.Twibu.adhoc.action-extension' => 'match AdHoc com.github.abeyuya.Twibu.adhoc.action-extension'
         }
       }
     )
@@ -130,6 +139,12 @@ platform :ios do
     if is_ci
       import_certificates_for_appstore
     end
+
+    update_app_identifier(
+      xcodeproj: 'Twibu.xcodeproj',
+      plist_path: 'Twibu/Info.plist',
+      app_identifier: BASE_BUNDLE_ID
+    )
 
     cocoapods
 

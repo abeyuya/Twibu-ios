@@ -214,7 +214,7 @@
 		4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		4D04E21022BA9AAC00995026 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		4D0CE0E122C36A8D00FC33FA /* CommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTests.swift; sourceTree = "<group>"; };
-		4D11150022B5160E000817BA /* Twibu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twibu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D11150022B5160E000817BA /* Twibu Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twibu Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D11150322B5160E000817BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D11150522B5160E000817BA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4D11150822B5160E000817BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PagingRootViewController.storyboard; sourceTree = "<group>"; };
@@ -471,7 +471,7 @@
 		4D11150122B5160E000817BA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D11150022B5160E000817BA /* Twibu.app */,
+				4D11150022B5160E000817BA /* Twibu Debug.app */,
 				4D11151422B5160F000817BA /* TwibuTests.xctest */,
 				4D72CED422E2DA1400E6AA66 /* today-extension.appex */,
 				4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */,
@@ -975,7 +975,7 @@
 			);
 			name = Twibu;
 			productName = Twibu;
-			productReference = 4D11150022B5160E000817BA /* Twibu.app */;
+			productReference = 4D11150022B5160E000817BA /* Twibu Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4D11151322B5160F000817BA /* TwibuTests */ = {
@@ -1729,9 +1729,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu.debug;
+				PRODUCT_NAME = "Twibu Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.debug";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1744,7 +1744,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Twibu/Twibu.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
@@ -1754,9 +1754,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.github.abeyuya.Twibu";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu.debug;
+				PRODUCT_NAME = "Twibu Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.debug";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1870,7 +1870,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Twibu/Twibu.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
@@ -1880,9 +1880,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.github.abeyuya.Twibu";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu.debug;
+				PRODUCT_NAME = "Twibu Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.debug";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1968,7 +1968,7 @@
 			baseConfigurationReference = 7170D30721AA9C1ED8E422F3 /* Pods-All-today-extension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "today-extension/today-extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
@@ -1979,9 +1979,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension.debug";
 				PRODUCT_NAME = "today-extension";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.github.abeyuya.Twibu.today-extension";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.today-extension.debug";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1993,7 +1993,7 @@
 			baseConfigurationReference = 7168FD61ECFEC2BB423117D6 /* Pods-All-action-extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
@@ -2004,9 +2004,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension.debug";
 				PRODUCT_NAME = "action-extension";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.github.abeyuya.Twibu.action-extension";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.action-extension.debug";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2029,9 +2029,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.debug.today-extension";
 				PRODUCT_NAME = "today-extension";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.today-extension";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.debug.today-extension";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2043,7 +2043,7 @@
 			baseConfigurationReference = 7170D30721AA9C1ED8E422F3 /* Pods-All-today-extension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "today-extension/today-extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
@@ -2054,9 +2054,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension.debug";
 				PRODUCT_NAME = "today-extension";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.github.abeyuya.Twibu.today-extension";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.today-extension.debug";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2185,9 +2185,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.debug.action-extension";
 				PRODUCT_NAME = "action-extension";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.action-extension";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.debug.action-extension";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2199,7 +2199,7 @@
 			baseConfigurationReference = 7168FD61ECFEC2BB423117D6 /* Pods-All-action-extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
@@ -2210,9 +2210,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension.debug";
 				PRODUCT_NAME = "action-extension";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.github.abeyuya.Twibu.action-extension";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.action-extension.debug";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
