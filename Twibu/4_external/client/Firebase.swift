@@ -6,7 +6,7 @@
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
-import Foundation
+import Embedded
 import Firebase
 import FirebaseFirestore
 import FirebaseFunctions
@@ -19,7 +19,14 @@ public final class TwibuFirebase {
 
     private static func checkInit() {
         if FirebaseApp.app() == nil {
-            FirebaseApp.configure()
+            guard let filePath = Bundle.main.path(forResource: "GoogleService-Info-\(Env.current)", ofType: "plist") else {
+                assertionFailure("読み込めない！")
+                return
+            }
+            guard let fileopts = FirebaseOptions(contentsOfFile: filePath) else {
+                assert(false, "Couldn't load config file")
+            }
+            FirebaseApp.configure(options: fileopts)
         }
     }
 

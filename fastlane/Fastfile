@@ -18,6 +18,13 @@ ENV['FASTLANE_SESSION'] = '---\n- !ruby/object:HTTP::Cookie\n  name: DES53b43d52
 
 default_platform(:ios)
 
+BASE_BUNDLE_ID = 'com.github.abeyuya.Twibu'
+BASE_BUNDLE_IDS = [
+  BASE_BUNDLE_ID,
+  "#{BASE_BUNDLE_ID}.today-extension",
+  "#{BASE_BUNDLE_ID}.action-extension"
+]
+
 platform :ios do
   lane :setup_local do
     if is_ci
@@ -26,33 +33,21 @@ platform :ios do
     end
 
     match(
-      app_identifier: [
-        'com.github.abeyuya.Twibu',
-        'com.github.abeyuya.Twibu.today-extension',
-        'com.github.abeyuya.Twibu.action-extension'
-      ],
+      app_identifier: BASE_BUNDLE_IDS,
       team_id: '37XL3EDJ44',
       type: 'development',
       readonly: false
     )
 
     match(
-      app_identifier: [
-        'com.github.abeyuya.Twibu',
-        'com.github.abeyuya.Twibu.today-extension',
-        'com.github.abeyuya.Twibu.action-extension'
-      ],
+      app_identifier: BASE_BUNDLE_IDS,
       team_id: '37XL3EDJ44',
       type: 'adhoc',
       readonly: false
     )
 
     match(
-      app_identifier: [
-        'com.github.abeyuya.Twibu',
-        'com.github.abeyuya.Twibu.today-extension',
-        'com.github.abeyuya.Twibu.action-extension'
-      ],
+      app_identifier: BASE_BUNDLE_IDS,
       team_id: '37XL3EDJ44',
       type: 'appstore',
       readonly: false
