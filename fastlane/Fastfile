@@ -105,10 +105,11 @@ platform :ios do
       import_certificates_for_adhoc
     end
 
-    update_app_identifier(
+    update_info_plist(
       xcodeproj: 'Twibu.xcodeproj',
       plist_path: 'Twibu/Info.plist',
-      app_identifier: "#{BASE_BUNDLE_ID}.adhoc"
+      app_identifier: "#{BASE_BUNDLE_ID}.adhoc",
+      display_name: 'Twibu Adhoc'
     )
 
     cocoapods
@@ -140,10 +141,11 @@ platform :ios do
       import_certificates_for_appstore
     end
 
-    update_app_identifier(
+    update_info_plist(
       xcodeproj: 'Twibu.xcodeproj',
       plist_path: 'Twibu/Info.plist',
-      app_identifier: BASE_BUNDLE_ID
+      app_identifier: BASE_BUNDLE_ID,
+      display_name: 'Twibu'
     )
 
     cocoapods
