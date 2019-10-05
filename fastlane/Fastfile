@@ -117,11 +117,12 @@ platform :ios do
     build_app(
       scheme: 'Twibu',
       configuration: 'Adhoc',
+      output_name: 'TwibuAdhoc',
       export_options: {
         method: 'ad-hoc',
         provisioningProfiles: {
-          'com.github.abeyuya.Twibu.adhoc' => 'match AdHoc com.github.abeyuya.Twibu.adhoc',
-          'com.github.abeyuya.Twibu.adhoc.today-extension' => 'match AdHoc com.github.abeyuya.Twibu.adhoc.today-extension',
+          'com.github.abeyuya.Twibu.adhoc'                  => 'match AdHoc com.github.abeyuya.Twibu.adhoc',
+          'com.github.abeyuya.Twibu.adhoc.today-extension'  => 'match AdHoc com.github.abeyuya.Twibu.adhoc.today-extension',
           'com.github.abeyuya.Twibu.adhoc.action-extension' => 'match AdHoc com.github.abeyuya.Twibu.adhoc.action-extension'
         }
       }
@@ -153,12 +154,13 @@ platform :ios do
     build_app(
       scheme: 'Twibu',
       configuration: 'Release',
+      output_name: 'TwibuAppStore',
       include_bitcode: true,
       export_options: {
         method: 'app-store',
         provisioningProfiles: {
-          'com.github.abeyuya.Twibu' => 'match AppStore com.github.abeyuya.Twibu',
-          'com.github.abeyuya.Twibu.today-extension' => 'match AppStore com.github.abeyuya.Twibu.today-extension',
+          'com.github.abeyuya.Twibu'                  => 'match AppStore com.github.abeyuya.Twibu',
+          'com.github.abeyuya.Twibu.today-extension'  => 'match AppStore com.github.abeyuya.Twibu.today-extension',
           'com.github.abeyuya.Twibu.action-extension' => 'match AppStore com.github.abeyuya.Twibu.action-extension'
         }
       }
