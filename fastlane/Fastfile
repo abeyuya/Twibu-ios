@@ -133,7 +133,7 @@ platform :ios do
   desc 'Submit ipa to AppStoreConnect'
   lane :submit_appstore do
     if is_ci
-      import_certificates_for_actions
+      import_certificates_for_appstore
     end
 
     cocoapods

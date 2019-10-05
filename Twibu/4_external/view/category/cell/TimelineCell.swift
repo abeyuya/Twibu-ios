@@ -45,8 +45,8 @@ final class TimelineCell: UITableViewCell, ArticleCellProtocol {
             iconImageView.kf.setImage(with: url, options: [.processor(processor)])
         }
 
-        displayNameLabel.text = u.screen_name
-        usernameLabel.text = u.twitter_user_id
+        displayNameLabel.text = u.name
+        usernameLabel.text = "@" + u.screen_name
 
         verifiedLabel.isHidden = true
         if u.verified == true {

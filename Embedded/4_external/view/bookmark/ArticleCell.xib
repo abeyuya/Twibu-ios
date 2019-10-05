@@ -18,7 +18,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mmf-xd-2ZH" customClass="CategoryContentView" customModule="Embedded" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </subviews>
                 <constraints>
@@ -28,6 +28,7 @@
                     <constraint firstItem="mmf-xd-2ZH" firstAttribute="leading" secondItem="Q5J-rA-eBQ" secondAttribute="leading" id="cKi-ou-Ouf"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="mainView" destination="mmf-xd-2ZH" id="7z5-n7-van"/>
             </connections>

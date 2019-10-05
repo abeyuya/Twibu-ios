@@ -9,11 +9,13 @@
 import Foundation
 
 public enum Env {
-    case debug, release
+    case debug, release, adhoc
 
     public static var current: Env {
         #if DEBUG
         return .debug
+        #elseif ADHOC
+        return .adhoc
         #else
         return .release
         #endif

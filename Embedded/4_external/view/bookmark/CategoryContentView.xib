@@ -80,7 +80,7 @@ search/universal は公式のConsumerKey/ConsumerSecretでないと使用でき�
                     </subviews>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="LGg-GY-SC3" firstAttribute="leading" secondItem="Y1H-Zg-SCQ" secondAttribute="trailing" constant="12" id="2vp-dM-wAV"/>
                 <constraint firstItem="ma2-km-p40" firstAttribute="leading" secondItem="xOd-bk-JN9" secondAttribute="leading" constant="12" id="4bY-Yj-s6L"/>

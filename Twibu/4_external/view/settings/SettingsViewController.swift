@@ -224,7 +224,7 @@ extension SettingsViewController: UITableViewDelegate {
             openWebView(title: menu.rawValue, url: "https://twibu-c4d5a.web.app/privacy_policy.html")
         case .version:
             switch Env.current {
-            case .debug:
+            case .debug, .adhoc:
                 let message: String = {
                     guard let u = currentUser else {
                         return "おかしい: ログインユーザが存在しません"
