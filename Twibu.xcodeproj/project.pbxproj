@@ -62,6 +62,7 @@
 		4D556FAA2348544600A4CA35 /* Parchment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA82348540500A4CA35 /* Parchment.framework */; };
 		4D556FAD234854E900A4CA35 /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FAC234854E800A4CA35 /* SwiftIcons.framework */; };
 		4D556FAE2348556C00A4CA35 /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FAC234854E800A4CA35 /* SwiftIcons.framework */; };
+		4D556FB72348594400A4CA35 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FB0234856F600A4CA35 /* Kingfisher.framework */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
@@ -299,6 +300,7 @@
 		4D556FA62348532E00A4CA35 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
 		4D556FA82348540500A4CA35 /* Parchment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parchment.framework; path = Carthage/Build/iOS/Parchment.framework; sourceTree = "<group>"; };
 		4D556FAC234854E800A4CA35 /* SwiftIcons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftIcons.framework; path = Carthage/Build/iOS/SwiftIcons.framework; sourceTree = "<group>"; };
+		4D556FB0234856F600A4CA35 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
 		4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticleListViewModel.swift; sourceTree = "<group>"; };
 		4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryArticleListViewModel.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D556FB72348594400A4CA35 /* Kingfisher.framework in Frameworks */,
 				4D556FAD234854E900A4CA35 /* SwiftIcons.framework in Frameworks */,
 				4D556FAA2348544600A4CA35 /* Parchment.framework in Frameworks */,
 				DEAA7A382B3B4718B3CBAF81 /* Pods_All_Embedded.framework in Frameworks */,
@@ -513,6 +516,7 @@
 		04C4ACB6453732AD38B3F5D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D556FB0234856F600A4CA35 /* Kingfisher.framework */,
 				4D556FAC234854E800A4CA35 /* SwiftIcons.framework */,
 				4D556FA82348540500A4CA35 /* Parchment.framework */,
 				4D556FA62348532E00A4CA35 /* PKHUD.framework */,
@@ -1472,6 +1476,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Parchment.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftIcons.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 			);
 			name = "Carthage copy-framework";
 			outputFileListPaths = (
@@ -1479,6 +1484,7 @@
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Parchment.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftIcons.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Kingfisher.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2184,6 +2190,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "today-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2209,6 +2219,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "action-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2234,6 +2248,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "today-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2259,6 +2277,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "today-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2398,6 +2420,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "action-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2423,6 +2449,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "action-extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (

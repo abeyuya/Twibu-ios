@@ -6,8 +6,6 @@ use_frameworks!
 #
 
 abstract_target 'All' do
-  pod 'Kingfisher'
-
   target 'Embedded' do
   end
 

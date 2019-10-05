@@ -50,6 +50,8 @@ name: UITextView+Placeholder, nameSpecified:
 body: The MIT License (MIT…
 version: 
 
+name: Kingfisher, nameSpecified: , owner: onevcat, version: 5.8.2
+
 name: Parchment, nameSpecified: , owner: rechsteiner, version: v1.7.0
 
 name: PKHUD, nameSpecified: , owner: pkluz, version: 5.3.0
