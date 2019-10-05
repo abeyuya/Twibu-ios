@@ -22,7 +22,6 @@ abstract_target 'All' do
 
     pod 'PromisesSwift'
     pod 'UITextView+Placeholder'
-    pod 'ReSwift'
     pod 'LicensePlist'
 
     target 'TwibuTests' do

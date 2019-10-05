@@ -2,24 +2,18 @@ PODS:
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
-  - Kingfisher (5.8.1):
-    - Kingfisher/Core (= 5.8.1)
-  - Kingfisher/Core (5.8.1)
   - LicensePlist (2.6.0)
   - PromisesObjC (1.2.8)
   - PromisesSwift (1.2.8):
     - PromisesObjC (= 1.2.8)
-  - ReSwift (5.0.0)
   - Swifter (2.3.0)
   - "UITextView+Placeholder (1.3.3)"
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
-  - Kingfisher
   - LicensePlist
   - PromisesSwift
-  - ReSwift
   - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
   - "UITextView+Placeholder"
 
@@ -27,11 +21,9 @@ SPEC REPOS:
   trunk:
     - Crashlytics
     - Fabric
-    - Kingfisher
     - LicensePlist
     - PromisesObjC
     - PromisesSwift
-    - ReSwift
     - "UITextView+Placeholder"
 
 EXTERNAL SOURCES:
@@ -46,14 +38,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
-  Kingfisher: de969e451c81ca6c07a454bc36fea84b8b08c3c7
   LicensePlist: 04fb95b572038c87068283afa65518a61aff9342
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
-  ReSwift: 628f1a9b3ee52e3b3ca2a644435472fd77afafe1
   Swifter: 114bb57823fb21d5ef0451930e9cbc184c3a867a
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: c1039681db62de0b0a835dc7fde0614efc05ceed
+PODFILE CHECKSUM: a5c00f23c4e3e6c1bedb3dcb1e34ea81c5b326e4
 
 COCOAPODS: 1.8.1

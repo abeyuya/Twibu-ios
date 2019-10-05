@@ -6,22 +6,6 @@ name: Fabric, nameSpecified:
 body: Fabric: Copyright 20…
 version: 1.10.2
 
-name: Kingfisher, nameSpecified: 
-body: The MIT License (MIT…
-version: 5.8.1
-
-name: Kingfisher, nameSpecified: 
-body: The MIT License (MIT…
-version: 5.8.1
-
-name: Kingfisher, nameSpecified: 
-body: The MIT License (MIT…
-version: 5.8.1
-
-name: Kingfisher, nameSpecified: 
-body: The MIT License (MIT…
-version: 5.8.1
-
 name: LicensePlist, nameSpecified: 
 body: MIT License
 
@@ -38,10 +22,6 @@ body:
                    …
 version: 1.2.8
 
-name: ReSwift, nameSpecified: 
-body: The MIT License (MIT…
-version: 5.0.0
-
 name: Swifter, nameSpecified: 
 body: The MIT License (MIT…
 version: 2.3.0
@@ -57,6 +37,8 @@ name: Parchment, nameSpecified: , owner: rechsteiner, version: v1.7.0
 name: PKHUD, nameSpecified: , owner: pkluz, version: 5.3.0
 
 name: realm-cocoa, nameSpecified: , owner: realm, version: v3.19.0
+
+name: ReSwift, nameSpecified: , owner: ReSwift, version: 5.0.0
 
 name: swift-badge, nameSpecified: , owner: evgenyneu, version: 8.0.0
 
