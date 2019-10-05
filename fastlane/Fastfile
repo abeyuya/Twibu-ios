@@ -119,6 +119,7 @@ platform :ios do
       scheme: 'Twibu',
       configuration: 'Adhoc',
       output_name: 'TwibuAdhoc',
+      clean: true,
       export_options: {
         method: 'ad-hoc',
         provisioningProfiles: {
@@ -157,6 +158,7 @@ platform :ios do
       scheme: 'Twibu',
       configuration: 'Release',
       output_name: 'TwibuAppStore',
+      clean: true,
       include_bitcode: true,
       export_options: {
         method: 'app-store',
