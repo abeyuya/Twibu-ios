@@ -27,7 +27,6 @@ abstract_target 'All' do
     pod 'Swifter', git: 'https://github.com/mattdonnelly/Swifter.git'
 
     pod 'PromisesSwift'
-    pod 'UnderKeyboard'
     pod 'UITextView+Placeholder'
     pod 'RealmSwift'
     pod 'ReSwift'

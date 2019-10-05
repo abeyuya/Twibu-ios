@@ -21,7 +21,6 @@ PODS:
   - Swifter (2.3.0)
   - SwiftIcons (2.3.2)
   - "UITextView+Placeholder (1.3.3)"
-  - UnderKeyboard (13.0.2)
 
 DEPENDENCIES:
   - BadgeSwift
@@ -37,7 +36,6 @@ DEPENDENCIES:
   - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
   - SwiftIcons
   - "UITextView+Placeholder"
-  - UnderKeyboard
 
 SPEC REPOS:
   trunk:
@@ -55,7 +53,6 @@ SPEC REPOS:
     - ReSwift
     - SwiftIcons
     - "UITextView+Placeholder"
-    - UnderKeyboard
 
 EXTERNAL SOURCES:
   Swifter:
@@ -82,8 +79,7 @@ SPEC CHECKSUMS:
   Swifter: 114bb57823fb21d5ef0451930e9cbc184c3a867a
   SwiftIcons: e652cfd2676441c462ad57b6e92977faf577e590
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
-  UnderKeyboard: 79ea6feb497af99c1856aaae0ab8ded3c739f745
 
-PODFILE CHECKSUM: c3ba8e1aaf9bba9cd5c755e91fa06b023e241def
+PODFILE CHECKSUM: 94094183a06cf21d6868ba33c7133ff936364f63
 
 COCOAPODS: 1.8.1
