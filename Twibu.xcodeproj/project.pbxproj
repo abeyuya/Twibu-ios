@@ -1754,7 +1754,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu;
 				PRODUCT_NAME = "Twibu Debug";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.debug";
 				SWIFT_VERSION = 5.0;
@@ -1880,7 +1880,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.abeyuya.Twibu.adhoc;
 				PRODUCT_NAME = "Twibu Debug";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.debug";
 				SWIFT_VERSION = 5.0;
@@ -1979,7 +1979,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension.debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.adhoc.today-extension";
 				PRODUCT_NAME = "today-extension";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.today-extension.debug";
 				SKIP_INSTALL = YES;
@@ -2004,7 +2004,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension.debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.adhoc.action-extension";
 				PRODUCT_NAME = "action-extension";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.action-extension.debug";
 				SKIP_INSTALL = YES;
@@ -2054,7 +2054,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension.debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.today-extension";
 				PRODUCT_NAME = "today-extension";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.today-extension.debug";
 				SKIP_INSTALL = YES;
@@ -2210,7 +2210,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension.debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.abeyuya.Twibu.action-extension";
 				PRODUCT_NAME = "action-extension";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.github.abeyuya.Twibu.action-extension.debug";
 				SKIP_INSTALL = YES;
