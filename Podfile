@@ -22,12 +22,6 @@ abstract_target 'All' do
   end
 
   target 'Twibu' do
-    pod 'Firebase/Core'
-    pod 'Firebase/Analytics'
-    pod 'Firebase/Auth'
-    pod 'Firebase/Firestore'
-    pod 'Firebase/Functions'
-    pod 'Firebase/Performance'
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'Swifter', git: 'https://github.com/mattdonnelly/Swifter.git'

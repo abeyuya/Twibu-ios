@@ -4,10 +4,6 @@ body: The MIT License
 Cop…
 version: 8.0.0
 
-name: BoringSSL-GRPC, nameSpecified: 
-body: BoringSSL is a fork …
-version: 0.0.3
-
 name: Crashlytics, nameSpecified: 
 body: Fabric: Copyright 20…
 version: 3.14.0
@@ -16,112 +12,6 @@ name: Fabric, nameSpecified:
 body: Fabric: Copyright 20…
 version: 1.10.2
 
-name: Firebase, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 6.9.0
-
-name: FirebaseABTesting, nameSpecified: 
-body: 
-                   …
-version: 3.1.1
-
-name: FirebaseAnalytics, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 6.1.2
-
-name: FirebaseAnalyticsInterop, nameSpecified: 
-body: 
-                   …
-version: 1.4.0
-
-name: FirebaseAuth, nameSpecified: 
-body: 
-                   …
-version: 6.2.3
-
-name: FirebaseAuthInterop, nameSpecified: 
-body: 
-                   …
-version: 1.0.0
-
-name: FirebaseCore, nameSpecified: 
-body: 
-                   …
-version: 6.3.0
-
-name: FirebaseCoreDiagnostics, nameSpecified: 
-body: 
-                   …
-version: 1.1.0
-
-name: FirebaseCoreDiagnosticsInterop, nameSpecified: 
-body: 
-                   …
-version: 1.0.0
-
-name: FirebaseFirestore, nameSpecified: 
-body: 
-                   …
-version: 1.5.1
-
-name: FirebaseFunctions, nameSpecified: 
-body: 
-                   …
-version: 2.5.1
-
-name: FirebaseInstanceID, nameSpecified: 
-body: 
-                   …
-version: 4.2.5
-
-name: FirebasePerformance, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 3.1.4
-
-name: FirebaseRemoteConfig, nameSpecified: 
-body: 
-                   …
-version: 4.4.1
-
-name: GoogleAppMeasurement, nameSpecified: 
-body: Copyright 2019 Googl…
-version: 6.1.2
-
-name: GoogleDataTransport, nameSpecified: 
-body: 
-                   …
-version: 2.0.0
-
-name: GoogleDataTransportCCTSupport, nameSpecified: 
-body: 
-                   …
-version: 1.1.0
-
-name: GoogleToolboxForMac, nameSpecified: 
-body: 
-                   …
-version: 2.2.1
-
-name: GoogleUtilities, nameSpecified: 
-body: 
-                   …
-version: 6.3.0
-
-name: gRPC-C++, nameSpecified: 
-body: 
-                   …
-version: 
-
-name: gRPC-Core, nameSpecified: 
-body: 
-                   …
-version: 1.21.0
-
-name: GTMSessionFetcher, nameSpecified: 
-body: 
-                   …
-version: 1.2.2
-
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
 version: 5.8.1
@@ -137,20 +27,12 @@ version: 5.8.1
 name: Kingfisher, nameSpecified: 
 body: The MIT License (MIT…
 version: 5.8.1
-
-name: leveldb-library, nameSpecified: 
-body: Copyright (c) 2011 T…
-version: 1.22
 
 name: LicensePlist, nameSpecified: 
 body: MIT License
 
 Copyrig…
 version: 2.6.0
-
-name: nanopb, nameSpecified: 
-body: Copyright (c) 2011 P…
-version: 0.3.901
 
 name: Parchment, nameSpecified: 
 body: The MIT License (MIT…
@@ -177,10 +59,6 @@ name: PromisesSwift, nameSpecified:
 body: 
                    …
 version: 1.2.8
-
-name: Protobuf, nameSpecified: 
-body: Copyright 2008 Googl…
-version: 3.9.2
 
 name: Realm, nameSpecified: 
 body: TABLE OF CONTENTS

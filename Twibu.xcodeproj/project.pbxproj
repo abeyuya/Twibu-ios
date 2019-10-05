@@ -91,6 +91,30 @@
 		4DC5AD492337A744002BFE0D /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5AD482337A744002BFE0D /* ActionViewController.swift */; };
 		4DC5AD4C2337A745002BFE0D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */; };
 		4DC5AD502337A745002BFE0D /* action-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4DC5AD442337A744002BFE0D /* action-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4DC913CC23483BC400734863 /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B423483BC300734863 /* FirebaseAuth.framework */; };
+		4DC913CD23483BC400734863 /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B523483BC300734863 /* FIRAnalyticsConnector.framework */; };
+		4DC913CE23483BC400734863 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B623483BC300734863 /* FirebaseInstanceID.framework */; };
+		4DC913CF23483BC400734863 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B723483BC300734863 /* FirebaseCoreDiagnostics.framework */; };
+		4DC913D023483BC400734863 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B823483BC300734863 /* GoogleUtilities.framework */; };
+		4DC913D123483BC400734863 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B923483BC300734863 /* Protobuf.framework */; };
+		4DC913D323483BC400734863 /* FirebaseRemoteConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913BB23483BC300734863 /* FirebaseRemoteConfig.framework */; };
+		4DC913D423483BC400734863 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913BC23483BC300734863 /* FirebaseCore.framework */; };
+		4DC913D523483BC400734863 /* GoogleDataTransport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913BD23483BC300734863 /* GoogleDataTransport.framework */; };
+		4DC913D623483BC400734863 /* BoringSSL-GRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913BE23483BC300734863 /* BoringSSL-GRPC.framework */; };
+		4DC913D723483BC400734863 /* GoogleDataTransportCCTSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913BF23483BC300734863 /* GoogleDataTransportCCTSupport.framework */; };
+		4DC913D823483BC400734863 /* gRPC-C++.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C023483BC300734863 /* gRPC-C++.framework */; };
+		4DC913D923483BC400734863 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C123483BC300734863 /* GoogleAppMeasurement.framework */; };
+		4DC913DA23483BC400734863 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C223483BC300734863 /* GTMSessionFetcher.framework */; };
+		4DC913DB23483BC400734863 /* FirebaseFirestore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C323483BC300734863 /* FirebaseFirestore.framework */; };
+		4DC913DC23483BC400734863 /* leveldb-library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C423483BC300734863 /* leveldb-library.framework */; };
+		4DC913DD23483BC400734863 /* FirebaseFunctions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C523483BC400734863 /* FirebaseFunctions.framework */; };
+		4DC913DE23483BC400734863 /* FirebaseABTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C623483BC400734863 /* FirebaseABTesting.framework */; };
+		4DC913DF23483BC400734863 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C723483BC400734863 /* FirebaseAnalytics.framework */; };
+		4DC913E023483BC400734863 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C823483BC400734863 /* GoogleToolboxForMac.framework */; };
+		4DC913E123483BC400734863 /* gRPC-Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913C923483BC400734863 /* gRPC-Core.framework */; };
+		4DC913E223483BC400734863 /* FirebasePerformance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913CA23483BC400734863 /* FirebasePerformance.framework */; };
+		4DC913E323483BC400734863 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913CB23483BC400734863 /* nanopb.framework */; };
+		4DC913E923483D5800734863 /* gRPCCertificates-Cpp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4DC913E823483D5800734863 /* gRPCCertificates-Cpp.bundle */; };
 		4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */; };
 		4DD369D623376F8C00D2D10D /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5CFC8722D8BDDE00F33754 /* Timeline.swift */; };
 		4DD369D723376FAB00D2D10D /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092722BBDCB900BB0959 /* BookmarkRepository.swift */; };
@@ -208,7 +232,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A6F6E5FD41C2F0DD68A935B /* Pods-All-Embedded.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Embedded.adhoc.xcconfig"; path = "Target Support Files/Pods-All-Embedded/Pods-All-Embedded.adhoc.xcconfig"; sourceTree = "<group>"; };
 		3904CADB838F8B7236943192 /* Pods_TwibuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwibuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4067E972276BC7B9DE26058B /* Pods-All-Twibu.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Twibu.adhoc.xcconfig"; path = "Target Support Files/Pods-All-Twibu/Pods-All-Twibu.adhoc.xcconfig"; sourceTree = "<group>"; };
 		4D04E20B22BA982C00995026 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		4D04E20D22BA983E00995026 /* CommentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentViewController.storyboard; sourceTree = "<group>"; };
 		4D04E20F22BA9AAC00995026 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -307,6 +333,31 @@
 		4DC5AD482337A744002BFE0D /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		4DC5AD4B2337A745002BFE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4DC5AD4D2337A745002BFE0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DC913B423483BC300734863 /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAuth.framework; path = Carthage/Build/iOS/FirebaseAuth.framework; sourceTree = "<group>"; };
+		4DC913B523483BC300734863 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Carthage/Build/iOS/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
+		4DC913B623483BC300734863 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Build/iOS/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		4DC913B723483BC300734863 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = Carthage/Build/iOS/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
+		4DC913B823483BC300734863 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Carthage/Build/iOS/GoogleUtilities.framework; sourceTree = "<group>"; };
+		4DC913B923483BC300734863 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = Carthage/Build/iOS/Protobuf.framework; sourceTree = "<group>"; };
+		4DC913BA23483BC300734863 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
+		4DC913BB23483BC300734863 /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseRemoteConfig.framework; path = Carthage/Build/iOS/FirebaseRemoteConfig.framework; sourceTree = "<group>"; };
+		4DC913BC23483BC300734863 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Build/iOS/FirebaseCore.framework; sourceTree = "<group>"; };
+		4DC913BD23483BC300734863 /* GoogleDataTransport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleDataTransport.framework; path = Carthage/Build/iOS/GoogleDataTransport.framework; sourceTree = "<group>"; };
+		4DC913BE23483BC300734863 /* BoringSSL-GRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "BoringSSL-GRPC.framework"; path = "Carthage/Build/iOS/BoringSSL-GRPC.framework"; sourceTree = "<group>"; };
+		4DC913BF23483BC300734863 /* GoogleDataTransportCCTSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleDataTransportCCTSupport.framework; path = Carthage/Build/iOS/GoogleDataTransportCCTSupport.framework; sourceTree = "<group>"; };
+		4DC913C023483BC300734863 /* gRPC-C++.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "gRPC-C++.framework"; path = "Carthage/Build/iOS/gRPC-C++.framework"; sourceTree = "<group>"; };
+		4DC913C123483BC300734863 /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppMeasurement.framework; path = Carthage/Build/iOS/GoogleAppMeasurement.framework; sourceTree = "<group>"; };
+		4DC913C223483BC300734863 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTMSessionFetcher.framework; path = Carthage/Build/iOS/GTMSessionFetcher.framework; sourceTree = "<group>"; };
+		4DC913C323483BC300734863 /* FirebaseFirestore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseFirestore.framework; path = Carthage/Build/iOS/FirebaseFirestore.framework; sourceTree = "<group>"; };
+		4DC913C423483BC300734863 /* leveldb-library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "leveldb-library.framework"; path = "Carthage/Build/iOS/leveldb-library.framework"; sourceTree = "<group>"; };
+		4DC913C523483BC400734863 /* FirebaseFunctions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseFunctions.framework; path = Carthage/Build/iOS/FirebaseFunctions.framework; sourceTree = "<group>"; };
+		4DC913C623483BC400734863 /* FirebaseABTesting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseABTesting.framework; path = Carthage/Build/iOS/FirebaseABTesting.framework; sourceTree = "<group>"; };
+		4DC913C723483BC400734863 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Build/iOS/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		4DC913C823483BC400734863 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = Carthage/Build/iOS/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		4DC913C923483BC400734863 /* gRPC-Core.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "gRPC-Core.framework"; path = "Carthage/Build/iOS/gRPC-Core.framework"; sourceTree = "<group>"; };
+		4DC913CA23483BC400734863 /* FirebasePerformance.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebasePerformance.framework; path = Carthage/Build/iOS/FirebasePerformance.framework; sourceTree = "<group>"; };
+		4DC913CB23483BC400734863 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = nanopb.framework; path = Carthage/Build/iOS/nanopb.framework; sourceTree = "<group>"; };
+		4DC913E823483D5800734863 /* gRPCCertificates-Cpp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "gRPCCertificates-Cpp.bundle"; sourceTree = "<group>"; };
 		4DD079C02322A02C00D62B0B /* WebArchiveDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebArchiveDispatcher.swift; sourceTree = "<group>"; };
 		4DD2685622C4D879007A9E68 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		4DD2685822C4E6FA007A9E68 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
@@ -338,6 +389,7 @@
 		4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebArchiver.swift; sourceTree = "<group>"; };
 		5367C74439BF89A9409D4CA1 /* Pods-All-Twibu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Twibu.release.xcconfig"; path = "Target Support Files/Pods-All-Twibu/Pods-All-Twibu.release.xcconfig"; sourceTree = "<group>"; };
 		61CEDFF9882A684F841BC788 /* Pods-TwibuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.release.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.release.xcconfig"; sourceTree = "<group>"; };
+		69458B664EF0A8E8FC332462 /* Pods-All-today-extension.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-today-extension.adhoc.xcconfig"; path = "Target Support Files/Pods-All-today-extension/Pods-All-today-extension.adhoc.xcconfig"; sourceTree = "<group>"; };
 		7168FD61ECFEC2BB423117D6 /* Pods-All-action-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-action-extension.release.xcconfig"; path = "Target Support Files/Pods-All-action-extension/Pods-All-action-extension.release.xcconfig"; sourceTree = "<group>"; };
 		7170D30721AA9C1ED8E422F3 /* Pods-All-today-extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-today-extension.release.xcconfig"; path = "Target Support Files/Pods-All-today-extension/Pods-All-today-extension.release.xcconfig"; sourceTree = "<group>"; };
 		722EEC8A8EEA56D1DDA2502C /* Pods_All_action_extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_All_action_extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -345,7 +397,9 @@
 		84499A43AE44E417C6B0EF52 /* Pods-All-today-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-today-extension.debug.xcconfig"; path = "Target Support Files/Pods-All-today-extension/Pods-All-today-extension.debug.xcconfig"; sourceTree = "<group>"; };
 		8B655BBA57DE4C032C4A2E3A /* Pods-All-Embedded.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Embedded.release.xcconfig"; path = "Target Support Files/Pods-All-Embedded/Pods-All-Embedded.release.xcconfig"; sourceTree = "<group>"; };
 		90ACD3E86E308CA6C0FBD25E /* Pods-All-action-extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-action-extension.debug.xcconfig"; path = "Target Support Files/Pods-All-action-extension/Pods-All-action-extension.debug.xcconfig"; sourceTree = "<group>"; };
+		95D9EC41D96257993C7DBC96 /* Pods-TwibuTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.adhoc.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		A276169A6585F8E1A4BD4C43 /* Pods-All-Twibu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Twibu.debug.xcconfig"; path = "Target Support Files/Pods-All-Twibu/Pods-All-Twibu.debug.xcconfig"; sourceTree = "<group>"; };
+		B8B0A92D24C6DE1611C5E61B /* Pods-All-action-extension.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-action-extension.adhoc.xcconfig"; path = "Target Support Files/Pods-All-action-extension/Pods-All-action-extension.adhoc.xcconfig"; sourceTree = "<group>"; };
 		CDFE8B2D3CF8A93789EB76EE /* Pods-TwibuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwibuTests.debug.xcconfig"; path = "Target Support Files/Pods-TwibuTests/Pods-TwibuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DEE7838C7D9DFD990632540B /* Pods-All-Embedded.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-All-Embedded.debug.xcconfig"; path = "Target Support Files/Pods-All-Embedded/Pods-All-Embedded.debug.xcconfig"; sourceTree = "<group>"; };
 		E65F0363BEB7F3DFA0D353BB /* Pods_All_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_All_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -357,6 +411,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DC913CC23483BC400734863 /* FirebaseAuth.framework in Frameworks */,
+				4DC913CD23483BC400734863 /* FIRAnalyticsConnector.framework in Frameworks */,
+				4DC913CE23483BC400734863 /* FirebaseInstanceID.framework in Frameworks */,
+				4DC913CF23483BC400734863 /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				4DC913D023483BC400734863 /* GoogleUtilities.framework in Frameworks */,
+				4DC913D123483BC400734863 /* Protobuf.framework in Frameworks */,
+				4DC913D323483BC400734863 /* FirebaseRemoteConfig.framework in Frameworks */,
+				4DC913D423483BC400734863 /* FirebaseCore.framework in Frameworks */,
+				4DC913D523483BC400734863 /* GoogleDataTransport.framework in Frameworks */,
+				4DC913D623483BC400734863 /* BoringSSL-GRPC.framework in Frameworks */,
+				4DC913D723483BC400734863 /* GoogleDataTransportCCTSupport.framework in Frameworks */,
+				4DC913D823483BC400734863 /* gRPC-C++.framework in Frameworks */,
+				4DC913D923483BC400734863 /* GoogleAppMeasurement.framework in Frameworks */,
+				4DC913DA23483BC400734863 /* GTMSessionFetcher.framework in Frameworks */,
+				4DC913DB23483BC400734863 /* FirebaseFirestore.framework in Frameworks */,
+				4DC913DC23483BC400734863 /* leveldb-library.framework in Frameworks */,
+				4DC913DD23483BC400734863 /* FirebaseFunctions.framework in Frameworks */,
+				4DC913DE23483BC400734863 /* FirebaseABTesting.framework in Frameworks */,
+				4DC913DF23483BC400734863 /* FirebaseAnalytics.framework in Frameworks */,
+				4DC913E023483BC400734863 /* GoogleToolboxForMac.framework in Frameworks */,
+				4DC913E123483BC400734863 /* gRPC-Core.framework in Frameworks */,
+				4DC913E223483BC400734863 /* FirebasePerformance.framework in Frameworks */,
+				4DC913E323483BC400734863 /* nanopb.framework in Frameworks */,
 				4D72CEFF22E2E07B00E6AA66 /* Embedded.framework in Frameworks */,
 				C2329F93DB0B2AAD1EF6FB27 /* Pods_All_Twibu.framework in Frameworks */,
 			);
@@ -411,6 +488,30 @@
 		04C4ACB6453732AD38B3F5D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DC913BE23483BC300734863 /* BoringSSL-GRPC.framework */,
+				4DC913B523483BC300734863 /* FIRAnalyticsConnector.framework */,
+				4DC913BA23483BC300734863 /* Firebase.framework */,
+				4DC913C623483BC400734863 /* FirebaseABTesting.framework */,
+				4DC913C723483BC400734863 /* FirebaseAnalytics.framework */,
+				4DC913B423483BC300734863 /* FirebaseAuth.framework */,
+				4DC913BC23483BC300734863 /* FirebaseCore.framework */,
+				4DC913B723483BC300734863 /* FirebaseCoreDiagnostics.framework */,
+				4DC913C323483BC300734863 /* FirebaseFirestore.framework */,
+				4DC913C523483BC400734863 /* FirebaseFunctions.framework */,
+				4DC913B623483BC300734863 /* FirebaseInstanceID.framework */,
+				4DC913CA23483BC400734863 /* FirebasePerformance.framework */,
+				4DC913BB23483BC300734863 /* FirebaseRemoteConfig.framework */,
+				4DC913C123483BC300734863 /* GoogleAppMeasurement.framework */,
+				4DC913BD23483BC300734863 /* GoogleDataTransport.framework */,
+				4DC913BF23483BC300734863 /* GoogleDataTransportCCTSupport.framework */,
+				4DC913C823483BC400734863 /* GoogleToolboxForMac.framework */,
+				4DC913B823483BC300734863 /* GoogleUtilities.framework */,
+				4DC913C023483BC300734863 /* gRPC-C++.framework */,
+				4DC913C923483BC400734863 /* gRPC-Core.framework */,
+				4DC913C223483BC300734863 /* GTMSessionFetcher.framework */,
+				4DC913C423483BC300734863 /* leveldb-library.framework */,
+				4DC913CB23483BC400734863 /* nanopb.framework */,
+				4DC913B923483BC300734863 /* Protobuf.framework */,
 				4D11152722B524C0000817BA /* Twitter.framework */,
 				4D11152522B52145000817BA /* SystemConfiguration.framework */,
 				4D11152322B5213B000817BA /* Security.framework */,
@@ -650,6 +751,7 @@
 			children = (
 				4D5145CD23481EED008DB7BD /* firebase */,
 				4D11150A22B5160F000817BA /* Assets.xcassets */,
+				4DC913E823483D5800734863 /* gRPCCertificates-Cpp.bundle */,
 			);
 			path = resource;
 			sourceTree = "<group>";
@@ -934,6 +1036,11 @@
 				7170D30721AA9C1ED8E422F3 /* Pods-All-today-extension.release.xcconfig */,
 				CDFE8B2D3CF8A93789EB76EE /* Pods-TwibuTests.debug.xcconfig */,
 				61CEDFF9882A684F841BC788 /* Pods-TwibuTests.release.xcconfig */,
+				1A6F6E5FD41C2F0DD68A935B /* Pods-All-Embedded.adhoc.xcconfig */,
+				4067E972276BC7B9DE26058B /* Pods-All-Twibu.adhoc.xcconfig */,
+				B8B0A92D24C6DE1611C5E61B /* Pods-All-action-extension.adhoc.xcconfig */,
+				69458B664EF0A8E8FC332462 /* Pods-All-today-extension.adhoc.xcconfig */,
+				95D9EC41D96257993C7DBC96 /* Pods-TwibuTests.adhoc.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1144,6 +1251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DC913E923483D5800734863 /* gRPCCertificates-Cpp.bundle in Resources */,
 				4D11154E22B6A659000817BA /* WebViewController.storyboard in Resources */,
 				4DD369DD233770FF00D2D10D /* MemoViewController.storyboard in Resources */,
 				4D37812422CCF8240072EEBD /* Settings.bundle in Resources */,
@@ -1723,6 +1831,10 @@
 				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Twibu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1748,6 +1860,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Twibu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1865,7 +1981,7 @@
 		};
 		4D5145C72347CA45008DB7BD /* Adhoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5367C74439BF89A9409D4CA1 /* Pods-All-Twibu.release.xcconfig */;
+			baseConfigurationReference = 4067E972276BC7B9DE26058B /* Pods-All-Twibu.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1874,6 +1990,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 37XL3EDJ44;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Twibu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1890,7 +2010,7 @@
 		};
 		4D5145C82347CA45008DB7BD /* Adhoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61CEDFF9882A684F841BC788 /* Pods-TwibuTests.release.xcconfig */;
+			baseConfigurationReference = 95D9EC41D96257993C7DBC96 /* Pods-TwibuTests.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1912,7 +2032,7 @@
 		};
 		4D5145C92347CA45008DB7BD /* Adhoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B655BBA57DE4C032C4A2E3A /* Pods-All-Embedded.release.xcconfig */;
+			baseConfigurationReference = 1A6F6E5FD41C2F0DD68A935B /* Pods-All-Embedded.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
@@ -1965,7 +2085,7 @@
 		};
 		4D5145CB2347CA45008DB7BD /* Adhoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7170D30721AA9C1ED8E422F3 /* Pods-All-today-extension.release.xcconfig */;
+			baseConfigurationReference = 69458B664EF0A8E8FC332462 /* Pods-All-today-extension.adhoc.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "today-extension/today-extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1990,7 +2110,7 @@
 		};
 		4D5145CC2347CA45008DB7BD /* Adhoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7168FD61ECFEC2BB423117D6 /* Pods-All-action-extension.release.xcconfig */;
+			baseConfigurationReference = B8B0A92D24C6DE1611C5E61B /* Pods-All-action-extension.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
