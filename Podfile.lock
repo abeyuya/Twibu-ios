@@ -1,5 +1,4 @@
 PODS:
-  - BadgeSwift (8.0.0)
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
@@ -7,43 +6,32 @@ PODS:
     - Kingfisher/Core (= 5.8.1)
   - Kingfisher/Core (5.8.1)
   - LicensePlist (2.6.0)
-  - Parchment (1.7.0)
-  - PKHUD (5.3.0)
   - PromisesObjC (1.2.8)
   - PromisesSwift (1.2.8):
     - PromisesObjC (= 1.2.8)
   - ReSwift (5.0.0)
   - Swifter (2.3.0)
-  - SwiftIcons (2.3.2)
   - "UITextView+Placeholder (1.3.3)"
 
 DEPENDENCIES:
-  - BadgeSwift
   - Crashlytics
   - Fabric
   - Kingfisher
   - LicensePlist
-  - Parchment
-  - PKHUD
   - PromisesSwift
   - ReSwift
   - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
-  - SwiftIcons
   - "UITextView+Placeholder"
 
 SPEC REPOS:
   trunk:
-    - BadgeSwift
     - Crashlytics
     - Fabric
     - Kingfisher
     - LicensePlist
-    - Parchment
-    - PKHUD
     - PromisesObjC
     - PromisesSwift
     - ReSwift
-    - SwiftIcons
     - "UITextView+Placeholder"
 
 EXTERNAL SOURCES:
@@ -56,20 +44,16 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mattdonnelly/Swifter.git
 
 SPEC CHECKSUMS:
-  BadgeSwift: a81547ffde1f462bb5fc02e3fa3fdcbc1b888354
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Kingfisher: de969e451c81ca6c07a454bc36fea84b8b08c3c7
   LicensePlist: 04fb95b572038c87068283afa65518a61aff9342
-  Parchment: cae686f73685d16742cec9c19239b7578a15f0f5
-  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
   ReSwift: 628f1a9b3ee52e3b3ca2a644435472fd77afafe1
   Swifter: 114bb57823fb21d5ef0451930e9cbc184c3a867a
-  SwiftIcons: e652cfd2676441c462ad57b6e92977faf577e590
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: ae8731b9b19b37fef872463fc79111f18dcc7beb
+PODFILE CHECKSUM: c1039681db62de0b0a835dc7fde0614efc05ceed
 
 COCOAPODS: 1.8.1

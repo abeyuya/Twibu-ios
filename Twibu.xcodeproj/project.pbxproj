@@ -56,6 +56,12 @@
 		4D556F9E23484DAC00A4CA35 /* UnderKeyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556F9D23484DAC00A4CA35 /* UnderKeyboard.framework */; };
 		4D556FA2234850A300A4CA35 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA0234850A300A4CA35 /* RealmSwift.framework */; };
 		4D556FA3234850A300A4CA35 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA1234850A300A4CA35 /* Realm.framework */; };
+		4D556FA5234852EB00A4CA35 /* BadgeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA4234852EB00A4CA35 /* BadgeSwift.framework */; };
+		4D556FA72348532E00A4CA35 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA62348532E00A4CA35 /* PKHUD.framework */; };
+		4D556FA92348540600A4CA35 /* Parchment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA82348540500A4CA35 /* Parchment.framework */; };
+		4D556FAA2348544600A4CA35 /* Parchment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA82348540500A4CA35 /* Parchment.framework */; };
+		4D556FAD234854E900A4CA35 /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FAC234854E800A4CA35 /* SwiftIcons.framework */; };
+		4D556FAE2348556C00A4CA35 /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FAC234854E800A4CA35 /* SwiftIcons.framework */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
@@ -289,6 +295,10 @@
 		4D556F9D23484DAC00A4CA35 /* UnderKeyboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnderKeyboard.framework; path = Carthage/Build/iOS/UnderKeyboard.framework; sourceTree = "<group>"; };
 		4D556FA0234850A300A4CA35 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D556FA1234850A300A4CA35 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		4D556FA4234852EB00A4CA35 /* BadgeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BadgeSwift.framework; path = Carthage/Build/iOS/BadgeSwift.framework; sourceTree = "<group>"; };
+		4D556FA62348532E00A4CA35 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
+		4D556FA82348540500A4CA35 /* Parchment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parchment.framework; path = Carthage/Build/iOS/Parchment.framework; sourceTree = "<group>"; };
+		4D556FAC234854E800A4CA35 /* SwiftIcons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftIcons.framework; path = Carthage/Build/iOS/SwiftIcons.framework; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
 		4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticleListViewModel.swift; sourceTree = "<group>"; };
 		4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryArticleListViewModel.swift; sourceTree = "<group>"; };
@@ -417,6 +427,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D556FAE2348556C00A4CA35 /* SwiftIcons.framework in Frameworks */,
+				4D556FA92348540600A4CA35 /* Parchment.framework in Frameworks */,
+				4D556FA72348532E00A4CA35 /* PKHUD.framework in Frameworks */,
+				4D556FA5234852EB00A4CA35 /* BadgeSwift.framework in Frameworks */,
 				4D556FA2234850A300A4CA35 /* RealmSwift.framework in Frameworks */,
 				4D556FA3234850A300A4CA35 /* Realm.framework in Frameworks */,
 				4D556F9E23484DAC00A4CA35 /* UnderKeyboard.framework in Frameworks */,
@@ -470,6 +484,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D556FAD234854E900A4CA35 /* SwiftIcons.framework in Frameworks */,
+				4D556FAA2348544600A4CA35 /* Parchment.framework in Frameworks */,
 				DEAA7A382B3B4718B3CBAF81 /* Pods_All_Embedded.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +513,10 @@
 		04C4ACB6453732AD38B3F5D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D556FAC234854E800A4CA35 /* SwiftIcons.framework */,
+				4D556FA82348540500A4CA35 /* Parchment.framework */,
+				4D556FA62348532E00A4CA35 /* PKHUD.framework */,
+				4D556FA4234852EB00A4CA35 /* BadgeSwift.framework */,
 				4D556FA1234850A300A4CA35 /* Realm.framework */,
 				4D556FA0234850A300A4CA35 /* RealmSwift.framework */,
 				4D556F9D23484DAC00A4CA35 /* UnderKeyboard.framework */,
@@ -1144,6 +1164,7 @@
 				4D72CEE622E2E07A00E6AA66 /* Sources */,
 				4D72CEE722E2E07A00E6AA66 /* Frameworks */,
 				4D72CEE822E2E07A00E6AA66 /* Resources */,
+				4D556FAB2348547700A4CA35 /* Carthage copy-framework */,
 			);
 			buildRules = (
 			);
@@ -1420,6 +1441,10 @@
 				"$(SRCROOT)/Carthage/Build/iOS/UnderKeyboard.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BadgeSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Parchment.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftIcons.framework",
 			);
 			name = "Carthage copy-framework";
 			outputFileListPaths = (
@@ -1428,6 +1453,32 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/UnderKeyboard.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Realm.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RealmSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BadgeSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PKHUD.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Parchment.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftIcons.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+		4D556FAB2348547700A4CA35 /* Carthage copy-framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Parchment.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftIcons.framework",
+			);
+			name = "Carthage copy-framework";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Parchment.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftIcons.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2082,6 +2133,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Embedded/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -2235,6 +2290,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Embedded/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -2269,6 +2328,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Embedded/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;

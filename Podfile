@@ -9,16 +9,12 @@ abstract_target 'All' do
   pod 'Kingfisher'
 
   target 'Embedded' do
-    pod 'SwiftIcons'
-    pod 'Parchment'
   end
 
   target 'today-extension' do
-    pod 'SwiftIcons'
   end
 
   target 'action-extension' do
-    pod 'Parchment'
   end
 
   target 'Twibu' do
@@ -29,11 +25,7 @@ abstract_target 'All' do
     pod 'PromisesSwift'
     pod 'UITextView+Placeholder'
     pod 'ReSwift'
-    pod 'BadgeSwift'
     pod 'LicensePlist'
-    pod 'PKHUD'
-    pod 'SwiftIcons'
-    pod 'Parchment'
 
     target 'TwibuTests' do
       inherit! :search_paths

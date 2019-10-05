@@ -6,14 +6,6 @@
 	<array>
 		<dict>
 			<key>File</key>
-			<string>Twibu/BadgeSwift</string>
-			<key>Title</key>
-			<string>BadgeSwift</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
 			<string>Twibu/Crashlytics</string>
 			<key>Title</key>
 			<string>Crashlytics</string>
@@ -89,6 +81,14 @@
 			<string>Twibu/ReSwift</string>
 			<key>Title</key>
 			<string>ReSwift</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Twibu/swift-badge</string>
+			<key>Title</key>
+			<string>swift-badge</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
