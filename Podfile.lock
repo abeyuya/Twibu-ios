@@ -12,11 +12,6 @@ PODS:
   - PromisesObjC (1.2.8)
   - PromisesSwift (1.2.8):
     - PromisesObjC (= 1.2.8)
-  - Realm (3.19.0):
-    - Realm/Headers (= 3.19.0)
-  - Realm/Headers (3.19.0)
-  - RealmSwift (3.19.0):
-    - Realm (= 3.19.0)
   - ReSwift (5.0.0)
   - Swifter (2.3.0)
   - SwiftIcons (2.3.2)
@@ -31,7 +26,6 @@ DEPENDENCIES:
   - Parchment
   - PKHUD
   - PromisesSwift
-  - RealmSwift
   - ReSwift
   - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
   - SwiftIcons
@@ -48,8 +42,6 @@ SPEC REPOS:
     - PKHUD
     - PromisesObjC
     - PromisesSwift
-    - Realm
-    - RealmSwift
     - ReSwift
     - SwiftIcons
     - "UITextView+Placeholder"
@@ -73,13 +65,11 @@ SPEC CHECKSUMS:
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
-  Realm: 995d585bcf699aaff226715886c849a29dd3d07f
-  RealmSwift: 35f284a537989f2187b413e5917091948cb87a3f
   ReSwift: 628f1a9b3ee52e3b3ca2a644435472fd77afafe1
   Swifter: 114bb57823fb21d5ef0451930e9cbc184c3a867a
   SwiftIcons: e652cfd2676441c462ad57b6e92977faf577e590
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: 94094183a06cf21d6868ba33c7133ff936364f63
+PODFILE CHECKSUM: ae8731b9b19b37fef872463fc79111f18dcc7beb
 
 COCOAPODS: 1.8.1

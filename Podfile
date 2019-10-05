@@ -28,7 +28,6 @@ abstract_target 'All' do
 
     pod 'PromisesSwift'
     pod 'UITextView+Placeholder'
-    pod 'RealmSwift'
     pod 'ReSwift'
     pod 'BadgeSwift'
     pod 'LicensePlist'

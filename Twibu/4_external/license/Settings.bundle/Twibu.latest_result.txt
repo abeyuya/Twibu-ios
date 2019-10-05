@@ -60,18 +60,6 @@ body:
                    …
 version: 1.2.8
 
-name: Realm, nameSpecified: 
-body: TABLE OF CONTENTS
-
-1…
-version: 3.19.0
-
-name: RealmSwift, nameSpecified: 
-body: TABLE OF CONTENTS
-
-1…
-version: 3.19.0
-
 name: ReSwift, nameSpecified: 
 body: The MIT License (MIT…
 version: 5.0.0
@@ -95,6 +83,8 @@ version: 2.3.2
 name: UITextView+Placeholder, nameSpecified: 
 body: The MIT License (MIT…
 version: 
+
+name: realm-cocoa, nameSpecified: , owner: realm, version: v3.19.0
 
 name: UnderKeyboard, nameSpecified: , owner: evgenyneu, version: 13.0.2
 

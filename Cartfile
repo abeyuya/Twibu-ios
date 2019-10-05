@@ -6,3 +6,4 @@ binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseFunctionsBinary.j
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebasePerformanceBinary.json"
 
 github "evgenyneu/UnderKeyboard"
+github "realm/realm-cocoa"

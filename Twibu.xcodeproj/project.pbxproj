@@ -54,6 +54,8 @@
 		4D5145CF23481F2C008DB7BD /* GoogleService-Info-adhoc.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D5145CE23481F2C008DB7BD /* GoogleService-Info-adhoc.plist */; };
 		4D5145D12348204E008DB7BD /* GoogleService-Info-debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D5145D02348204E008DB7BD /* GoogleService-Info-debug.plist */; };
 		4D556F9E23484DAC00A4CA35 /* UnderKeyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556F9D23484DAC00A4CA35 /* UnderKeyboard.framework */; };
+		4D556FA2234850A300A4CA35 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA0234850A300A4CA35 /* RealmSwift.framework */; };
+		4D556FA3234850A300A4CA35 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA1234850A300A4CA35 /* Realm.framework */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
 		4D5A410222FC26DC00AD1620 /* CategoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */; };
 		4D5A410522FC405200AD1620 /* HistoryArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */; };
@@ -285,6 +287,8 @@
 		4D5145CE23481F2C008DB7BD /* GoogleService-Info-adhoc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-adhoc.plist"; sourceTree = "<group>"; };
 		4D5145D02348204E008DB7BD /* GoogleService-Info-debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-debug.plist"; sourceTree = "<group>"; };
 		4D556F9D23484DAC00A4CA35 /* UnderKeyboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnderKeyboard.framework; path = Carthage/Build/iOS/UnderKeyboard.framework; sourceTree = "<group>"; };
+		4D556FA0234850A300A4CA35 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		4D556FA1234850A300A4CA35 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListProtocol.swift; sourceTree = "<group>"; };
 		4D5A410122FC26DC00AD1620 /* CategoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticleListViewModel.swift; sourceTree = "<group>"; };
 		4D5A410422FC405200AD1620 /* HistoryArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryArticleListViewModel.swift; sourceTree = "<group>"; };
@@ -413,6 +417,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D556FA2234850A300A4CA35 /* RealmSwift.framework in Frameworks */,
+				4D556FA3234850A300A4CA35 /* Realm.framework in Frameworks */,
 				4D556F9E23484DAC00A4CA35 /* UnderKeyboard.framework in Frameworks */,
 				4DC913CC23483BC400734863 /* FirebaseAuth.framework in Frameworks */,
 				4DC913CD23483BC400734863 /* FIRAnalyticsConnector.framework in Frameworks */,
@@ -491,6 +497,8 @@
 		04C4ACB6453732AD38B3F5D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D556FA1234850A300A4CA35 /* Realm.framework */,
+				4D556FA0234850A300A4CA35 /* RealmSwift.framework */,
 				4D556F9D23484DAC00A4CA35 /* UnderKeyboard.framework */,
 				4DC913BE23483BC300734863 /* BoringSSL-GRPC.framework */,
 				4DC913B523483BC300734863 /* FIRAnalyticsConnector.framework */,
@@ -1410,6 +1418,8 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/UnderKeyboard.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 			);
 			name = "Carthage copy-framework";
 			outputFileListPaths = (

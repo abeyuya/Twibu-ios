@@ -4,3 +4,4 @@ binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseFirestoreBinary.j
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseFunctionsBinary.json" "6.9.0"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebasePerformanceBinary.json" "6.9.0"
 github "evgenyneu/UnderKeyboard" "13.0.2"
+github "realm/realm-cocoa" "v3.19.0"
