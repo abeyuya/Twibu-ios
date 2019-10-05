@@ -108,7 +108,18 @@ platform :ios do
     update_info_plist(
       xcodeproj: 'Twibu.xcodeproj',
       plist_path: 'Twibu/Info.plist',
-      app_identifier: "#{BASE_BUNDLE_ID}.adhoc",
+      display_name: 'Twibu Adhoc'
+    )
+
+    update_info_plist(
+      xcodeproj: 'Twibu.xcodeproj',
+      plist_path: 'today-extension/Info.plist',
+      display_name: 'Twibu Adhoc'
+    )
+
+    update_info_plist(
+      xcodeproj: 'Twibu.xcodeproj',
+      plist_path: 'action-extension/Info.plist',
       display_name: 'Twibu Adhoc'
     )
 
@@ -143,13 +154,6 @@ platform :ios do
     if is_ci
       import_certificates_for_appstore
     end
-
-    update_info_plist(
-      xcodeproj: 'Twibu.xcodeproj',
-      plist_path: 'Twibu/Info.plist',
-      app_identifier: BASE_BUNDLE_ID,
-      display_name: 'Twibu'
-    )
 
     cocoapods
     carthage(platform: 'iOS')
