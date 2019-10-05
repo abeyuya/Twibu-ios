@@ -20,7 +20,6 @@ abstract_target 'All' do
     pod 'Crashlytics'
     pod 'Swifter', git: 'https://github.com/mattdonnelly/Swifter.git'
 
-    pod 'PromisesSwift'
     pod 'UITextView+Placeholder'
     pod 'LicensePlist'
 

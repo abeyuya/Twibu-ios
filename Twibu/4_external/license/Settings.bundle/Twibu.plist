@@ -54,17 +54,9 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>Twibu/PromisesObjC</string>
+			<string>Twibu/promises</string>
 			<key>Title</key>
-			<string>PromisesObjC</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>Twibu/PromisesSwift</string>
-			<key>Title</key>
-			<string>PromisesSwift</string>
+			<string>promises</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>

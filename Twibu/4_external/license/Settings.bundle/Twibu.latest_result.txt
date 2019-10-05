@@ -12,16 +12,6 @@ body: MIT License
 Copyrig…
 version: 2.6.0
 
-name: PromisesObjC, nameSpecified: 
-body: 
-                   …
-version: 1.2.8
-
-name: PromisesSwift, nameSpecified: 
-body: 
-                   …
-version: 1.2.8
-
 name: Swifter, nameSpecified: 
 body: The MIT License (MIT…
 version: 2.3.0
@@ -35,6 +25,8 @@ name: Kingfisher, nameSpecified: , owner: onevcat, version: 5.8.2
 name: Parchment, nameSpecified: , owner: rechsteiner, version: v1.7.0
 
 name: PKHUD, nameSpecified: , owner: pkluz, version: 5.3.0
+
+name: promises, nameSpecified: , owner: google, version: 1.2.8
 
 name: realm-cocoa, nameSpecified: , owner: realm, version: v3.19.0
 
