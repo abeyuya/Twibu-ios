@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane ios setup_local
 ```
 
+### ios unittest
+```
+fastlane ios unittest
+```
+
 ### ios app_distribution
 ```
 fastlane ios app_distribution
@@ -36,6 +41,11 @@ fastlane ios build_app_adhoc
 fastlane ios submit_appstore
 ```
 Submit ipa to AppStoreConnect
+### ios build_app_appstore
+```
+fastlane ios build_app_appstore
+```
+
 
 ----
 

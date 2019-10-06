@@ -99,6 +99,20 @@ platform :ios do
     )
   end
 
+  lane :install_library do
+    cocoapods
+    carthage(platform: 'iOS', cache_builds: true)
+  end
+
+  lane :unittest do
+    scan(
+      workspace: 'Twibu.xcworkspace',
+      scheme: 'Twibu',
+      clean: false,
+      devices: ['iPhone 11 Pro Max']
+    )
+  end
+
   desc 'Push a new beta build to Firebase App Distribution'
   lane :app_distribution do
     if is_ci
@@ -123,8 +137,7 @@ platform :ios do
       display_name: 'Twibu Adhoc'
     )
 
-    cocoapods
-    carthage(platform: 'iOS', cache_builds: true)
+    install_library
     build_app_adhoc
 
     firebase_app_distribution(
@@ -140,7 +153,7 @@ platform :ios do
       scheme: 'Twibu',
       configuration: 'Adhoc',
       output_name: 'TwibuAdhoc',
-      clean: true,
+      clean: false,
       export_options: {
         method: 'ad-hoc'
       }
@@ -153,8 +166,7 @@ platform :ios do
       import_certificates_for_appstore
     end
 
-    cocoapods
-    carthage(platform: 'iOS', cache_builds: true)
+    install_library
     build_app_appstore
     upload_to_app_store
   end
@@ -164,7 +176,7 @@ platform :ios do
       scheme: 'Twibu',
       configuration: 'Release',
       output_name: 'TwibuAppStore',
-      clean: true,
+      clean: false,
       include_bitcode: true,
       export_options: {
         method: 'app-store'

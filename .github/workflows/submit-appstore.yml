@@ -1,23 +1,23 @@
-name: Submit to AppStoreConnect
-
-on:
-  push:
-    branched:
-      - master
-
-jobs:
-  build:
-    runs-on: macOS-10.14
-    timeout-minutes: 30
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Build ipa and submit
-        env:
-          PERSONAL_ACCESS_TOKEN_GITHUB: ${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} # In case of using match
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }} # In case of using match
-        run: |
-          sudo xcode-select -s /Applications/Xcode_11.app
-          gem install bundler:1.17.2
-          bundle install
-          bundle exec fastlane app_distribution
+# name: Submit to AppStoreConnect
+#
+# on:
+#   push:
+#     branched:
+#       - master
+#
+# jobs:
+#   build:
+#     runs-on: macOS-10.14
+#     timeout-minutes: 30
+#
+#     steps:
+#       - uses: actions/checkout@v1
+#       - name: Build ipa and submit
+#         env:
+#           PERSONAL_ACCESS_TOKEN_GITHUB: ${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} # In case of using match
+#           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }} # In case of using match
+#         run: |
+#           sudo xcode-select -s /Applications/Xcode_11.app
+#           gem install bundler:1.17.2
+#           bundle install
+#           bundle exec fastlane app_distribution
