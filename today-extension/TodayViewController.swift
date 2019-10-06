@@ -32,7 +32,7 @@ final class TodayViewController: UIViewController, NCWidgetProviding {
                 Logger.print(e)
                 completionHandler(.failed)
             case .success(let bookmarks):
-                if Bookmark.isEqual(a: self?.bookmarks ?? [], b: bookmarks) {
+                if self?.bookmarks ?? [] == bookmarks {
                     self?.reloadTable()
                     completionHandler(.noData)
                     return

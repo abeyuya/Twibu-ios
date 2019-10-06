@@ -134,10 +134,9 @@ extension MemoArticleListViewModel: StoreSubscriber {
         if old == nil, new == nil {
             return false
         }
-        if !Bookmark.isEqual(
-            a: old?.item.compactMap { $0.1 } ?? [],
-            b: new?.item.compactMap { $0.1 } ?? []
-        ) {
+        let a = old?.item.compactMap { $0.1 } ?? []
+        let b = new?.item.compactMap { $0.1 } ?? []
+        if a != b {
             return true
         }
         if old?.hasMore != new?.hasMore {

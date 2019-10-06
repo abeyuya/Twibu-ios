@@ -206,7 +206,9 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         if old == nil, new == nil {
             return false
         }
-        if !Bookmark.isEqual(a: old?.item ?? [], b: new?.item ?? []) {
+        let a = old?.item ?? []
+        let b = new?.item ?? []
+        if a != b {
             return true
         }
         if old?.hasMore != new?.hasMore {

@@ -124,12 +124,7 @@ platform :ios do
     )
 
     cocoapods
-    if is_ci
-      carthage(platform: 'iOS')
-    else
-      carthage(platform: 'iOS', cache_builds: true)
-    end
-
+    carthage(platform: 'iOS', cache_builds: true)
     build_app_adhoc
 
     firebase_app_distribution(
@@ -159,8 +154,12 @@ platform :ios do
     end
 
     cocoapods
-    carthage(platform: 'iOS')
+    carthage(platform: 'iOS', cache_builds: true)
+    build_app_appstore
+    upload_to_app_store
+  end
 
+  lane :build_app_appstore do
     build_app(
       scheme: 'Twibu',
       configuration: 'Release',
@@ -168,15 +167,8 @@ platform :ios do
       clean: true,
       include_bitcode: true,
       export_options: {
-        method: 'app-store',
-        provisioningProfiles: {
-          'com.github.abeyuya.Twibu'                  => 'match AppStore com.github.abeyuya.Twibu',
-          'com.github.abeyuya.Twibu.today-extension'  => 'match AppStore com.github.abeyuya.Twibu.today-extension',
-          'com.github.abeyuya.Twibu.action-extension' => 'match AppStore com.github.abeyuya.Twibu.action-extension'
-        }
+        method: 'app-store'
       }
     )
-
-    upload_to_app_store
   end
 end

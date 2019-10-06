@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Comment: Codable {
+public struct Comment: Codable, Equatable {
     public let id: String
     public let text: String
     public let user: User
@@ -20,7 +20,7 @@ public struct Comment: Codable {
     public let parsed_comment: [TextBlock]?
     public let has_comment: Bool?
 
-    public struct User: Codable {
+    public struct User: Codable, Equatable {
         public let twitter_user_id: String
         public let name: String
         public let profile_image_url: String
@@ -42,7 +42,7 @@ public struct Comment: Codable {
         case error = "error" // サーバ側で新しいtypeが追加された時に使う
     }
 
-    public struct TextBlock: Codable {
+    public struct TextBlock: Codable, Equatable {
         public let type: TextBlockType
         public let text: String
 
@@ -92,12 +92,6 @@ public extension Comment {
         })
 
         return notEqual == nil
-    }
-}
-
-extension Comment: Equatable {
-    public static func == (lhs: Comment, rhs: Comment) -> Bool {
-        return lhs.id == rhs.id && lhs.updated_at == rhs.updated_at
     }
 }
 

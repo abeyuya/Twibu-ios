@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Bookmark: Codable {
+public struct Bookmark: Codable, Equatable {
     public let uid: String
     public let title: String?
     public let image_url: String?
@@ -82,28 +82,5 @@ public extension Bookmark {
         }
 
         return result
-    }
-
-    static func isEqual(a: [Bookmark], b: [Bookmark]) -> Bool {
-        if a.count != b.count {
-            return false
-        }
-
-        let notEqual = a.first(where: { ac in
-            if let same = b.first(where: { bc in bc.uid == ac.uid }) {
-                return ac != same
-            }
-            return false
-        })
-
-        return notEqual == nil
-    }
-}
-
-extension Bookmark: Equatable {
-    public static func == (lhs: Bookmark, rhs: Bookmark) -> Bool {
-        return lhs.uid == rhs.uid
-            && lhs.updated_at == rhs.updated_at
-            && lhs.comment_count == rhs.comment_count
     }
 }
