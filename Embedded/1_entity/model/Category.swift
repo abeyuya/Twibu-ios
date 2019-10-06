@@ -19,4 +19,12 @@ public enum Category: String, Codable {
     case fun = "fun"
     case entertainment = "entertainment"
     case game = "game"
+
+    public init(from decoder: Decoder) throws {
+        guard let raw = try? decoder.singleValueContainer().decode(RawValue.self) else {
+            self = .unknown
+            return
+        }
+        self = Category(rawValue: raw) ?? .unknown
+    }
 }

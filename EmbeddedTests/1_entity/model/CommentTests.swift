@@ -8,7 +8,6 @@
 
 import XCTest
 import Embedded
-@testable import Twibu
 
 class CommentTests: XCTestCase {
 

@@ -17,7 +17,7 @@ public struct Bookmark: Codable, Equatable {
     public let created_at: Int?
     public let updated_at: Int?
     public let url: String
-    public var category: Category = .unknown
+    public let category: Category
 
     public var trimmedTitle: String? {
         return title?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -47,10 +47,7 @@ public struct Bookmark: Codable, Equatable {
         self.created_at = created_at
         self.updated_at = updated_at
         self.url = url
-
-        if let c = category {
-            self.category = c
-        }
+        self.category = category ?? .unknown
     }
 }
 
