@@ -45,4 +45,46 @@ class BookmarkTests: XCTestCase {
             assert(false, error.localizedDescription)
         }
     }
+
+    func testMerge() {
+        let a = [buildBookmark(key: "1"), buildBookmark(key: "2")]
+        do {
+            let result = Bookmark.merge(base: a, add: a)
+            assert(result == a)
+        }
+
+        let b = [buildBookmark(key: "3"), buildBookmark(key: "4")]
+        do {
+            let result = Bookmark.merge(base: a, add: b)
+            assert(result == (a + b))
+        }
+
+        do {
+            let a2 = Bookmark.merge(base: a, add: b)
+            let result = Bookmark.merge(base: a2, add: b)
+            assert(result == a2)
+        }
+
+        do {
+            let a2 = Bookmark.merge(base: a, add: b)
+            let strong = buildBookmark(key: "1", strongTitle: "title-strong-1")
+            let result = Bookmark.merge(base: a2, add: [strong])
+            assert(result.map { $0.uid } == ["uid-1", "uid-2", "uid-3", "uid-4"])
+            assert(result.map { $0.title } == ["title-strong-1", "title-2", "title-3", "title-4"])
+        }
+    }
+
+    private func buildBookmark(key: String, strongTitle: String? = nil) -> Bookmark {
+        return Bookmark(
+            uid: "uid-\(key)",
+            title: strongTitle ?? "title-\(key)",
+            image_url: "https://test.com/image/\(key).png",
+            description: "description-\(key)",
+            comment_count: 10,
+            created_at: Int(Date().timeIntervalSince1970),
+            updated_at: Int(Date().timeIntervalSince1970),
+            url: "https://test.com/\(key)",
+            category: .unknown
+        )
+    }
 }
