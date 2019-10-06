@@ -350,7 +350,7 @@ extension CategoryViewController: ArticleListDelegate {
             endRefreshControll()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.footerIndicator.isHidden = false
+                self.footerIndicator.isHidden = true
             }
         case .failure(let error):
             endRefreshControll()

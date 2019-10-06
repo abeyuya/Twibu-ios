@@ -82,7 +82,6 @@ extension TimelineArticleListViewModel {
         }
     }
 
-
     func fetchAdditionalBookmarks() {
         switch responseState {
         case .loading, .additionalLoading:
