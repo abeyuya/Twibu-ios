@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D0CE0E222C36A8D00FC33FA /* CommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CE0E122C36A8D00FC33FA /* CommentTests.swift */; };
 		4D11150422B5160E000817BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150322B5160E000817BA /* AppDelegate.swift */; };
 		4D11150622B5160E000817BA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11150522B5160E000817BA /* LoginViewController.swift */; };
 		4D11150922B5160E000817BA /* PagingRootViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D11150722B5160E000817BA /* PagingRootViewController.storyboard */; };
@@ -97,6 +96,7 @@
 		4DA1242D2349E6C100C3C12C /* CategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1242C2349E6C100C3C12C /* CategoryTests.swift */; };
 		4DA1242F2349E97600C3C12C /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1242E2349E97600C3C12C /* BookmarkTests.swift */; };
 		4DA124312349FAE300C3C12C /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DA124302349FAE300C3C12C /* SwifteriOS.framework */; };
+		4DA12432234A20E000C3C12C /* CommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CE0E122C36A8D00FC33FA /* CommentTests.swift */; };
 		4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */; };
 		4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */; };
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
@@ -1537,7 +1537,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D11151922B5160F000817BA /* TwibuTests.swift in Sources */,
-				4D0CE0E222C36A8D00FC33FA /* CommentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1585,6 +1584,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DA1242D2349E6C100C3C12C /* CategoryTests.swift in Sources */,
+				4DA12432234A20E000C3C12C /* CommentTests.swift in Sources */,
 				4DA1242F2349E97600C3C12C /* BookmarkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

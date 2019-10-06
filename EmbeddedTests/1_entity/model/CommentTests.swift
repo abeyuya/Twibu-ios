@@ -60,4 +60,66 @@ class CommentTests: XCTestCase {
             assert(false, error.localizedDescription)
         }
     }
+
+    func testMerge() {
+        let a = [buildComment(key: "1"), buildComment(key: "2")]
+        do {
+            let result = Comment.merge(base: a, add: a)
+            assert(result == a)
+        }
+
+        let b = [buildComment(key: "3"), buildComment(key: "4")]
+        do {
+            let result = Comment.merge(base: a, add: b)
+            assert(result == (a + b))
+        }
+
+        do {
+            let a2 = Comment.merge(base: a, add: b)
+            let result = Comment.merge(base: a2, add: b)
+            assert(result == a2)
+        }
+
+        do {
+            let a2 = Comment.merge(base: a, add: b)
+            let strong = buildComment(key: "1", strongText: "text-strong-1")
+            let result = Comment.merge(base: a2, add: [strong])
+            assert(result.map { $0.id } == ["id-1", "id-2", "id-3", "id-4"])
+            assert(result.map { $0.text } == ["text-strong-1", "text-2", "text-3", "text-4"])
+        }
+    }
+
+    private func buildComment(key: String, strongText: String? = nil) -> Comment {
+        let json = """
+{
+    "id": "id-\(key)",
+    "text": "\(strongText ?? "text-\(key)")",
+    "user": {
+        "twitter_user_id": "aaa",
+        "name": "aaa",
+        "profile_image_url": "aaa",
+        "screen_name": "aaa",
+        "verified": false
+    },
+    "favorite_count": 10,
+    "retweet_count": 10,
+    "tweet_at": "2019/09/09",
+    "tweet_at": "2019/09/09",
+    "parsed_comment": [
+        {
+            "type": "url",
+            "text": "hogehoge"
+        },
+        {
+            "type": "invalid_type",
+            "text": "hogehoge"
+        }
+    ]
+}
+"""
+        return try! JSONDecoder().decode(
+            Embedded.Comment.self,
+            from: json.data(using: .utf8)!
+        )
+    }
 }
