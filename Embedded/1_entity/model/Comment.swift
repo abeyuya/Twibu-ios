@@ -78,21 +78,6 @@ public extension Comment {
 
         return result
     }
-
-    static func isEqual(a: [Comment], b: [Comment]) -> Bool {
-        if a.count != b.count {
-            return false
-        }
-
-        let notEqual = a.first(where: { ac in
-            if let same = b.first(where: { bc in bc.id == ac.id }) {
-                return ac != same
-            }
-            return false
-        })
-
-        return notEqual == nil
-    }
 }
 
 public extension Comment {

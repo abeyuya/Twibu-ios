@@ -209,9 +209,6 @@ extension TimelineArticleListViewModel: StoreSubscriber {
         old: Repository.Result<[(Timeline, Bookmark)]>?,
         new: Repository.Result<[(Timeline, Bookmark)]>?
     ) -> Bool {
-        if old == nil, new == nil {
-            return false
-        }
         let a = old?.item.compactMap { $0.1 } ?? []
         let b = new?.item.compactMap { $0.1 } ?? []
         if a != b {

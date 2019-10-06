@@ -203,9 +203,6 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         old: Repository.Result<[Bookmark]>?,
         new: Repository.Result<[Bookmark]>?
     ) -> Bool {
-        if old == nil, new == nil {
-            return false
-        }
         let a = old?.item ?? []
         let b = new?.item ?? []
         if a != b {
