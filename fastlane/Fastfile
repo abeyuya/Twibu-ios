@@ -124,7 +124,11 @@ platform :ios do
     )
 
     cocoapods
-    carthage(platform: 'iOS')
+    if is_ci
+      carthage(platform: 'iOS')
+    else
+      carthage(platform: 'iOS', cache_builds: true)
+    end
 
     build_app(
       scheme: 'Twibu',
