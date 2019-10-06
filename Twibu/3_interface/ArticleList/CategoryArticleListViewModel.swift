@@ -169,7 +169,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             fetchBookmark()
             return
         case .failure, .loading, .additionalLoading:
-            if Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+            if oldResponseState == responseState {
                 return
             }
         case .success:
@@ -179,7 +179,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
             }
         }
 
-        if !Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+        if oldResponseState != responseState {
             render()
         }
 

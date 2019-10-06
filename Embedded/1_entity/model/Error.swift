@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum TwibuError: Error {
+public enum TwibuError: Error, Equatable {
     case unknown(String?)
     case needFirebaseAuth(String?)
     case needTwitterAuth(String?)

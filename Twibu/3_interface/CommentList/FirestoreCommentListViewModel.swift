@@ -142,7 +142,7 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
                 return
             }
 
-            if !Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+            if oldResponseState != responseState {
                 render()
             }
         }

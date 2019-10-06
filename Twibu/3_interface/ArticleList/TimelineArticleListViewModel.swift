@@ -175,7 +175,7 @@ extension TimelineArticleListViewModel: StoreSubscriber {
             fetchBookmark()
             return
         case .failure, .loading, .additionalLoading:
-            if Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+            if oldResponseState == responseState {
                 return
             }
         case .success:
@@ -185,7 +185,7 @@ extension TimelineArticleListViewModel: StoreSubscriber {
             }
         }
 
-        if !Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+        if oldResponseState != responseState {
             render()
         }
 

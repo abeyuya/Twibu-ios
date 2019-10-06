@@ -106,17 +106,17 @@ extension MemoArticleListViewModel: StoreSubscriber {
             fetchBookmark()
             return
         case .failure, .loading, .additionalLoading:
-            if Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+            if oldResponseState == responseState {
                return
             }
         case .success:
-            if isResponseChanged(old: responseData, new: state.responseData) {
+            if oldResponseState != responseState {
                 responseData = state.responseData
                 render()
             }
         }
 
-        if !Repository.ResponseState.isEqual(a: oldResponseState, b: responseState) {
+        if oldResponseState != responseState {
             render()
         }
     }
