@@ -137,7 +137,6 @@ platform :ios do
       display_name: 'Twibu Adhoc'
     )
 
-    install_library
     build_app_adhoc
 
     firebase_app_distribution(
