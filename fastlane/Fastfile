@@ -136,12 +136,7 @@ platform :ios do
       output_name: 'TwibuAdhoc',
       clean: true,
       export_options: {
-        method: 'ad-hoc',
-        provisioningProfiles: {
-          'com.github.abeyuya.Twibu.adhoc'                  => 'match AdHoc com.github.abeyuya.Twibu.adhoc',
-          'com.github.abeyuya.Twibu.adhoc.today-extension'  => 'match AdHoc com.github.abeyuya.Twibu.adhoc.today-extension',
-          'com.github.abeyuya.Twibu.adhoc.action-extension' => 'match AdHoc com.github.abeyuya.Twibu.adhoc.action-extension'
-        }
+        method: 'ad-hoc'
       }
     )
 
