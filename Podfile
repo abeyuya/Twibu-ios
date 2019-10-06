@@ -6,15 +6,6 @@ use_frameworks!
 #
 
 abstract_target 'All' do
-  target 'Embedded' do
-  end
-
-  target 'today-extension' do
-  end
-
-  target 'action-extension' do
-  end
-
   target 'Twibu' do
     pod 'Fabric'
     pod 'Crashlytics'
