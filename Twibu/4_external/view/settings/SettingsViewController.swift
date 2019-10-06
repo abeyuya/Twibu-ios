@@ -32,6 +32,7 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
     private enum Menu2: String, CaseIterable {
 //        case term = "利用規約"
         case privacyPolicy = "プライバシーポリシー"
+        case license = "ライセンス"
         case version = "バージョン"
     }
 
@@ -171,6 +172,9 @@ extension SettingsViewController: UITableViewDataSource {
         case .version:
             cell.textLabel?.text = menu.rawValue
             cell.detailTextLabel?.text = "\(Const.version) (\(Const.build))"
+        case .license:
+            cell.textLabel?.text = menu.rawValue
+            cell.accessoryType = .detailButton
         }
         return cell
     }
@@ -244,6 +248,12 @@ extension SettingsViewController: UITableViewDelegate {
             case .release:
                 break
             }
+        case .license:
+            guard let url = URL(string: UIApplication.openSettingsURLString),
+                UIApplication.shared.canOpenURL(url) else {
+                    return
+            }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
 }
