@@ -9,6 +9,12 @@
 import UIKit
 import Kingfisher
 
+private let thumbProcessor = ResizingImageProcessor(
+    referenceSize: .init(width: 210, height: 210),
+    mode: .aspectFit
+)
+private let faviProcessor = DownsamplingImageProcessor(size: .init(width: 16 * 3, height: 16 * 3))
+
 final public class CategoryContentView: UIView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var usersCountLabel: UILabel!
@@ -92,11 +98,7 @@ final public class CategoryContentView: UIView {
         if showImage {
             thumbnailWidthConstraint.constant = 70
             if let imageUrl = bookmark.image_url, !imageUrl.isEmpty, let url = URL(string: imageUrl) {
-                let processor = ResizingImageProcessor(
-                    referenceSize: .init(width: 210, height: 210),
-                    mode: .aspectFit
-                )
-                thumbnailImageView.kf.setImage(with: url, options: [.processor(processor)])
+                thumbnailImageView.kf.setImage(with: url, options: [.processor(thumbProcessor)])
                 thumbnailImageView.isHidden = false
             } else {
             }
@@ -114,7 +116,7 @@ final public class CategoryContentView: UIView {
             faviconImageView.kf.setImage(
                 with: favicionUrl,
                 placeholder: nil,
-                options: nil,
+                options: [.processor(faviProcessor)],
                 progressBlock: nil,
                 completionHandler: { result in
                     switch result {

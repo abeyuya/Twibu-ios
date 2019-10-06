@@ -10,6 +10,8 @@ import UIKit
 import Embedded
 import Kingfisher
 
+private let iconProcessor = DownsamplingImageProcessor(size: .init(width: 96, height: 96))
+
 final class TimelineCell: UITableViewCell, ArticleCellProtocol {
     @IBOutlet private weak var categoryContentView: CategoryContentView!
     @IBOutlet private weak var userArea: UIView!
@@ -38,11 +40,7 @@ final class TimelineCell: UITableViewCell, ArticleCellProtocol {
         userArea.isHidden = false
         iconImageView.image = nil
         if let url = URL(string: u.profile_image_url) {
-            let processor = ResizingImageProcessor(
-                referenceSize: .init(width: 96, height: 96),
-                mode: .aspectFit
-            )
-            iconImageView.kf.setImage(with: url, options: [.processor(processor)])
+            iconImageView.kf.setImage(with: url, options: [.processor(iconProcessor)])
         }
 
         displayNameLabel.text = u.name

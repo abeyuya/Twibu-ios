@@ -10,6 +10,8 @@ import UIKit
 import SwiftIcons
 import Kingfisher
 
+private let iconProcessor = DownsamplingImageProcessor(size: .init(width: 36 * 3, height: 36 * 3))
+
 final class CommentTableViewCell: UITableViewCell {
     @IBOutlet private weak var profileImageView: UIImageView! {
         didSet {
@@ -34,7 +36,7 @@ final class CommentTableViewCell: UITableViewCell {
 
         profileImageView.image = nil
         if let url = URL(string: comment.user.profile_image_url) {
-            profileImageView.kf.setImage(with: url)
+            profileImageView.kf.setImage(with: url, options: [.processor(iconProcessor)])
         } else {
 //            profileImageView.kf.setImage(with: url)
         }
