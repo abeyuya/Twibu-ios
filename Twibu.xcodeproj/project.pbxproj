@@ -93,8 +93,6 @@
 		4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
 		4D72CF2522E34BDF00E6AA66 /* GoogleService-Info-release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2322E316BC00E6AA66 /* GoogleService-Info-release.plist */; };
 		4D72CF2622E3606700E6AA66 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
-		4DA124222349D6A000C3C12C /* output.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124202349D6A000C3C12C /* output.xcfilelist */; };
-		4DA124232349D6A000C3C12C /* input.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124212349D6A000C3C12C /* input.xcfilelist */; };
 		4DA124272349D6B000C3C12C /* output.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124252349D6AF00C3C12C /* output.xcfilelist */; };
 		4DA124282349D6B000C3C12C /* input.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124262349D6AF00C3C12C /* input.xcfilelist */; };
 		4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */; };
@@ -341,8 +339,6 @@
 		4D72CF0F22E2F3AB00E6AA66 /* Twibu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Twibu.entitlements; sourceTree = "<group>"; };
 		4D72CF1022E2F40300E6AA66 /* TwibuUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUserDefaults.swift; sourceTree = "<group>"; };
 		4D72CF2322E316BC00E6AA66 /* GoogleService-Info-release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-release.plist"; sourceTree = "<group>"; };
-		4DA124202349D6A000C3C12C /* output.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
-		4DA124212349D6A000C3C12C /* input.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
 		4DA124252349D6AF00C3C12C /* output.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
 		4DA124262349D6AF00C3C12C /* input.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
 		4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -918,7 +914,6 @@
 		4D72CEEB22E2E07A00E6AA66 /* Embedded */ = {
 			isa = PBXGroup;
 			children = (
-				4DA1241F2349D6A000C3C12C /* build-settings */,
 				4D72CF0922E2E6FD00E6AA66 /* 1_entity */,
 				4D72CF0A22E2E71000E6AA66 /* 2_usecase */,
 				4D3D267F2338F98B00BFD408 /* 3_interface */,
@@ -985,15 +980,6 @@
 				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 			);
 			path = model;
-			sourceTree = "<group>";
-		};
-		4DA1241F2349D6A000C3C12C /* build-settings */ = {
-			isa = PBXGroup;
-			children = (
-				4DA124202349D6A000C3C12C /* output.xcfilelist */,
-				4DA124212349D6A000C3C12C /* input.xcfilelist */,
-			);
-			path = "build-settings";
 			sourceTree = "<group>";
 		};
 		4DA124242349D6AF00C3C12C /* build-settings */ = {
@@ -1334,10 +1320,8 @@
 				4DFFDBC7233BB5BE0037AA8A /* CategoryContentView.xib in Resources */,
 				4D3D26782338F82600BFD408 /* CommentViewController.storyboard in Resources */,
 				4D3D267A2338F82600BFD408 /* CommentTableViewCell.xib in Resources */,
-				4DA124222349D6A000C3C12C /* output.xcfilelist in Resources */,
 				4D2A7B2B2347682000CC411E /* ArticleCell.xib in Resources */,
 				4D3D26752338F82600BFD408 /* CommentFooterView.xib in Resources */,
-				4DA124232349D6A000C3C12C /* input.xcfilelist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
