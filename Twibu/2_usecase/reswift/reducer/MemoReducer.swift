@@ -10,8 +10,13 @@ import ReSwift
 import Embedded
 
 enum MemoReducer {
+    struct Info {
+        var memo: Memo
+        var bookmark: Bookmark
+    }
+
     struct State {
-        var result: Repository.Result<[(Memo, Bookmark)]>?
+        var result: Repository.Result<[Info]>?
         var state: Repository.ResponseState = .notYetLoading
     }
 
@@ -23,7 +28,7 @@ enum MemoReducer {
             let bookmarkUid: String
         }
         struct AddMomos: Action {
-            let result: Repository.Result<[(Memo, Bookmark)]>
+            let result: Repository.Result<[Info]>
         }
     }
 
@@ -37,7 +42,7 @@ enum MemoReducer {
         case let a as Actions.Remove:
             state.result = {
                 guard let old = state.result else { return nil }
-                let newItem = old.item.filter { $0.1.uid != a.bookmarkUid }
+                let newItem = old.item.filter { $0.bookmark.uid != a.bookmarkUid }
                 return .init(
                     item: newItem,
                     pagingInfo: old.pagingInfo,
@@ -49,12 +54,12 @@ enum MemoReducer {
             let old = state.result?.item ?? []
             let add = a.result.item
             let all = old + add
-            let uniqued: [(Memo, Bookmark)] = all.reduce([]) { prev, next in
-                let buids = prev.compactMap { $0.1.uid }
-                return buids.contains(next.1.uid) ? prev : prev + [next]
+            let uniqued: [Info] = all.reduce([]) { prev, next in
+                let buids = prev.compactMap { $0.bookmark.uid }
+                return buids.contains(next.bookmark.uid) ? prev : prev + [next]
             }
             let sorted = uniqued.sorted { a, b in
-                return a.0.updated_at > b.0.updated_at
+                return a.memo.updated_at > b.memo.updated_at
             }
             state.result = .init(
                 item: sorted,

@@ -11,7 +11,7 @@ import ReSwift
 
 final class MemoArticleListViewModel: ArticleList {
     internal weak var delegate: ArticleListDelegate?
-    private var responseData: Repository.Result<[(Memo, Bookmark)]>?
+    private var responseData: Repository.Result<[MemoReducer.Info]>?
     private var responseState: Repository.ResponseState = .notYetLoading
 
     var type: ArticleListType {
@@ -19,7 +19,7 @@ final class MemoArticleListViewModel: ArticleList {
     }
     var currentUser: TwibuUser?
     var bookmarks: [Bookmark] {
-        return responseData?.item.compactMap { $0.1 } ?? []
+        return responseData?.item.compactMap { $0.bookmark } ?? []
     }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
 }
@@ -87,7 +87,7 @@ extension MemoArticleListViewModel {
 
 extension MemoArticleListViewModel: StoreSubscriber {
     struct Props {
-        let responseData: Repository.Result<[(Memo, Bookmark)]>?
+        let responseData: Repository.Result<[MemoReducer.Info]>?
         let responseState: Repository.ResponseState
         let currentUser: TwibuUser
     }
@@ -128,11 +128,11 @@ extension MemoArticleListViewModel: StoreSubscriber {
     }
 
     private func isResponseChanged(
-        old: Repository.Result<[(Memo, Bookmark)]>?,
-        new: Repository.Result<[(Memo, Bookmark)]>?
+        old: Repository.Result<[MemoReducer.Info]>?,
+        new: Repository.Result<[MemoReducer.Info]>?
     ) -> Bool {
-        let a = old?.item.compactMap { $0.1 } ?? []
-        let b = new?.item.compactMap { $0.1 } ?? []
+        let a = old?.item.compactMap { $0.bookmark } ?? []
+        let b = new?.item.compactMap { $0.bookmark } ?? []
         if a != b {
             return true
         }
