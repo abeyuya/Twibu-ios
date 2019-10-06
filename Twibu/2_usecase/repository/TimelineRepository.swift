@@ -16,7 +16,7 @@ enum TimelineRepository {
     static func fetchTimeline(
         userUid: String,
         type: Repository.FetchType,
-        completion: @escaping (Result<Repository.Result<[(Timeline, Bookmark)]>>) -> Void
+        completion: @escaping (Result<Repository.Result<[TimelineReducer.Info]>>) -> Void
     ) {
         let query: Query = {
             switch type {
@@ -70,10 +70,10 @@ enum TimelineRepository {
 
     private static func execConcurrentFetch(
         timelines: [Timeline],
-        completion: @escaping ([(Timeline, Bookmark)]) -> Void
+        completion: @escaping ([TimelineReducer.Info]) -> Void
     ) {
         let tasks = timelines.map { t in
-            return Promise<(Timeline?, Bookmark?)>(on: .global()) { fulfill, reject in
+            return Promise<TimelineReducer.Info?>(on: .global()) { fulfill, reject in
                 t.bookmark_ref.getDocument { snapshot, error in
                     if let error = error {
                         Logger.print(error)
@@ -83,29 +83,25 @@ enum TimelineRepository {
 
                     guard let snapshot = snapshot, let dict = snapshot.data() else {
                         Logger.print("snapshotが取れず...")
-                        fulfill((nil, nil))
+                        fulfill(nil)
                         return
                     }
 
                     guard let b = Bookmark(dictionary: dict) else {
                         Logger.print("bookmark decode できず")
-                        fulfill((nil, nil))
+                        fulfill(nil)
                         return
                     }
 
-                    fulfill((t, b))
+                    fulfill(TimelineReducer.Info(timeline: t, bookmark: b))
                 }
             }
         }
 
         Promises.all(tasks)
             .then { results in
-                let filterd = results.filter { $0.0 != nil && $0.1 != nil } as? [(Timeline, Bookmark)]
-                guard let f = filterd else {
-                    completion([])
-                    return
-                }
-                completion(f)
+                let filterd = results.compactMap { $0 }
+                completion(filterd)
             }
             .catch { error in
                 Logger.print(error)

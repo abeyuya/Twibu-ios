@@ -10,8 +10,13 @@ import ReSwift
 import Embedded
 
 enum TimelineReducer {
+    struct Info: Equatable {
+        var timeline: Timeline
+        var bookmark: Bookmark
+    }
+
     struct State {
-        var result: Repository.Result<[(Timeline, Bookmark)]>?
+        var result: Repository.Result<[Info]>?
         var state: Repository.ResponseState = .notYetLoading
         var twitterTimelineMaxId: String?
         var lastRefreshAt: Date?
@@ -22,7 +27,7 @@ enum TimelineReducer {
             let state: Repository.ResponseState
         }
         struct AddTimelines: Action {
-            let result: Repository.Result<[(Timeline, Bookmark)]>
+            let result: Repository.Result<[Info]>
         }
         struct Clear: Action {}
         struct SetTweetMaxId: Action {
@@ -44,12 +49,12 @@ enum TimelineReducer {
             let old = state.result?.item ?? []
             let add = a.result.item
             let all = old + add
-            let uniqued: [(Timeline, Bookmark)] = all.reduce([]) { prev, next in
-                let buids = prev.compactMap { $0.1.uid }
-                return buids.contains(next.1.uid) ? prev : prev + [next]
+            let uniqued: [Info] = all.reduce([]) { prev, next in
+                let buids = prev.compactMap { $0.bookmark.uid }
+                return buids.contains(next.bookmark.uid) ? prev : prev + [next]
             }
             let sorted = uniqued.sorted { a, b in
-                return a.0.post_at > b.0.post_at
+                return a.timeline.post_at > b.timeline.post_at
             }
             state.result = .init(
                 item: sorted,

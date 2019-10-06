@@ -9,7 +9,7 @@
 import Embedded
 import FirebaseFirestore
 
-public struct Memo {
+public struct Memo: Equatable {
     public let bookmark_ref: DocumentReference
     public let memo: String
     public let created_at: Int

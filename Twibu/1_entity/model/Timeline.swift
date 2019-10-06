@@ -9,7 +9,7 @@
 import Embedded
 import FirebaseFirestore
 
-public struct Timeline {
+public struct Timeline: Equatable {
     public let bookmark_ref: DocumentReference
     public let post_at: Int
     public let updated_at: Int

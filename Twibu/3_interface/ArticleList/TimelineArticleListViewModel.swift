@@ -11,7 +11,7 @@ import ReSwift
 
 final class TimelineArticleListViewModel: ArticleList {
     internal weak var delegate: ArticleListDelegate?
-    private var responseData: Repository.Result<[(Timeline, Bookmark)]>?
+    private var responseData: Repository.Result<[TimelineReducer.Info]>?
     private var responseState: Repository.ResponseState = .notYetLoading
 
     var type: ArticleListType {
@@ -19,10 +19,10 @@ final class TimelineArticleListViewModel: ArticleList {
     }
     var currentUser: TwibuUser?
     var bookmarks: [Bookmark] {
-        return responseData?.item.compactMap { $0.1 } ?? []
+        return responseData?.item.compactMap { $0.bookmark } ?? []
     }
     var timelines: [Timeline] {
-        return responseData?.item.compactMap { $0.0 } ?? []
+        return responseData?.item.compactMap { $0.timeline } ?? []
     }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
     var twitterMaxId: String?
@@ -93,7 +93,7 @@ extension TimelineArticleListViewModel {
         case .failure:
             return
         case .success:
-            let d: Repository.Result<[(Timeline, Bookmark)]> = {
+            let d: Repository.Result<[TimelineReducer.Info]> = {
                 if let d = responseData {
                     return d
                 }
@@ -103,7 +103,7 @@ extension TimelineArticleListViewModel {
         }
     }
 
-    private func fetchAdditionalForTimeline(result: Repository.Result<[(Timeline, Bookmark)]>) {
+    private func fetchAdditionalForTimeline(result: Repository.Result<[TimelineReducer.Info]>) {
         guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
         if result.hasMore {
             TimelineDispatcher.fetchTimeline(
@@ -125,7 +125,7 @@ extension TimelineArticleListViewModel {
             case .success(_):
                 TimelineDispatcher.updateState(s: .success)
                 DispatchQueue.main.async {
-                    let r = Repository.Result<[(Timeline, Bookmark)]>(
+                    let r = Repository.Result<[TimelineReducer.Info]>(
                         item: result.item,
                         pagingInfo: result.pagingInfo,
                         hasMore: true // これを渡したい
@@ -151,7 +151,7 @@ extension TimelineArticleListViewModel {
 
 extension TimelineArticleListViewModel: StoreSubscriber {
     struct Props {
-        let responseData: Repository.Result<[(Timeline, Bookmark)]>?
+        let responseData: Repository.Result<[TimelineReducer.Info]>?
         let responseState: Repository.ResponseState
         let currentUser: TwibuUser
         let webArchiveResults: [(String, WebArchiver.SaveResult)]
@@ -206,11 +206,11 @@ extension TimelineArticleListViewModel: StoreSubscriber {
     }
 
     private func isResponseChanged(
-        old: Repository.Result<[(Timeline, Bookmark)]>?,
-        new: Repository.Result<[(Timeline, Bookmark)]>?
+        old: Repository.Result<[TimelineReducer.Info]>?,
+        new: Repository.Result<[TimelineReducer.Info]>?
     ) -> Bool {
-        let a = old?.item.compactMap { $0.1 } ?? []
-        let b = new?.item.compactMap { $0.1 } ?? []
+        let a = old?.item.compactMap { $0 } ?? []
+        let b = new?.item.compactMap { $0 } ?? []
         if a != b {
             return true
         }

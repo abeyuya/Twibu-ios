@@ -8,8 +8,8 @@
 
 // NOTE: firestoreの依存性を持ち込まないためにAnyにしているけど、どうにかしたい
 public struct RepositoryPagingInfo {
-    public var lastSnapshot: Any?
-    public init(lastSnapshot: Any?) {
+    public var lastSnapshot: NSObject?
+    public init(lastSnapshot: NSObject?) {
         self.lastSnapshot = lastSnapshot
     }
 }
