@@ -130,6 +130,17 @@ platform :ios do
       carthage(platform: 'iOS', cache_builds: true)
     end
 
+    build_app_adhoc
+
+    firebase_app_distribution(
+      app: '1:963268268624:ios:15295e2f01e253f7',
+      groups: 'all',
+      release_notes: 'from github-actions!',
+      firebase_cli_path: `which firebase`.strip()
+    )
+  end
+
+  lane :build_app_adhoc do
     build_app(
       scheme: 'Twibu',
       configuration: 'Adhoc',
@@ -138,13 +149,6 @@ platform :ios do
       export_options: {
         method: 'ad-hoc'
       }
-    )
-
-    firebase_app_distribution(
-      app: '1:963268268624:ios:15295e2f01e253f7',
-      groups: 'all',
-      release_notes: 'from github-actions!',
-      firebase_cli_path: `which firebase`.strip()
     )
   end
 

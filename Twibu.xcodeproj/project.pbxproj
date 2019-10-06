@@ -58,13 +58,10 @@
 		4D556FA3234850A300A4CA35 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA1234850A300A4CA35 /* Realm.framework */; };
 		4D556FA5234852EB00A4CA35 /* BadgeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA4234852EB00A4CA35 /* BadgeSwift.framework */; };
 		4D556FA72348532E00A4CA35 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA62348532E00A4CA35 /* PKHUD.framework */; };
-		4D556FA92348540600A4CA35 /* Parchment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA82348540500A4CA35 /* Parchment.framework */; };
 		4D556FAA2348544600A4CA35 /* Parchment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA82348540500A4CA35 /* Parchment.framework */; };
 		4D556FAD234854E900A4CA35 /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FAC234854E800A4CA35 /* SwiftIcons.framework */; };
-		4D556FAE2348556C00A4CA35 /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FAC234854E800A4CA35 /* SwiftIcons.framework */; };
 		4D556FB72348594400A4CA35 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FB0234856F600A4CA35 /* Kingfisher.framework */; };
 		4D556FB923485B2D00A4CA35 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FB823485B2D00A4CA35 /* ReSwift.framework */; };
-		4D556FBA23485B7B00A4CA35 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FB0234856F600A4CA35 /* Kingfisher.framework */; };
 		4D556FBC23485D1500A4CA35 /* Promises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FBB23485D1500A4CA35 /* Promises.framework */; };
 		4D556FBE23485D7900A4CA35 /* FBLPromises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FBD23485D7800A4CA35 /* FBLPromises.framework */; };
 		4D5A410022FC26C500AD1620 /* ArticleListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A40FF22FC26C500AD1620 /* ArticleListProtocol.swift */; };
@@ -431,10 +428,7 @@
 			files = (
 				4D556FBE23485D7900A4CA35 /* FBLPromises.framework in Frameworks */,
 				4D556FBC23485D1500A4CA35 /* Promises.framework in Frameworks */,
-				4D556FBA23485B7B00A4CA35 /* Kingfisher.framework in Frameworks */,
 				4D556FB923485B2D00A4CA35 /* ReSwift.framework in Frameworks */,
-				4D556FAE2348556C00A4CA35 /* SwiftIcons.framework in Frameworks */,
-				4D556FA92348540600A4CA35 /* Parchment.framework in Frameworks */,
 				4D556FA72348532E00A4CA35 /* PKHUD.framework in Frameworks */,
 				4D556FA5234852EB00A4CA35 /* BadgeSwift.framework in Frameworks */,
 				4D556FA2234850A300A4CA35 /* RealmSwift.framework in Frameworks */,
@@ -1178,7 +1172,6 @@
 				4D72CEE622E2E07A00E6AA66 /* Sources */,
 				4D72CEE722E2E07A00E6AA66 /* Frameworks */,
 				4D72CEE822E2E07A00E6AA66 /* Resources */,
-				4D556FAB2348547700A4CA35 /* Carthage copy-framework */,
 			);
 			buildRules = (
 			);
@@ -1438,26 +1431,6 @@
 			name = "Carthage copy-framework";
 			outputFileListPaths = (
 				"$(SRCROOT)/Twibu/build-settings/output.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
-		};
-		4D556FAB2348547700A4CA35 /* Carthage copy-framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"$(SRCROOT)/Embedded/build-settings/input.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "Carthage copy-framework";
-			outputFileListPaths = (
-				"$(SRCROOT)/Embedded/build-settings/output.xcfilelist",
 			);
 			outputPaths = (
 			);

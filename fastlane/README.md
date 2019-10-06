@@ -26,6 +26,11 @@ fastlane ios setup_local
 fastlane ios app_distribution
 ```
 Push a new beta build to Firebase App Distribution
+### ios build_app_adhoc
+```
+fastlane ios build_app_adhoc
+```
+
 ### ios submit_appstore
 ```
 fastlane ios submit_appstore
