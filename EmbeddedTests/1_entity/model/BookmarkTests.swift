@@ -75,16 +75,22 @@ class BookmarkTests: XCTestCase {
     }
 
     private func buildBookmark(key: String, strongTitle: String? = nil) -> Bookmark {
-        return Bookmark(
-            uid: "uid-\(key)",
-            title: strongTitle ?? "title-\(key)",
-            image_url: "https://test.com/image/\(key).png",
-            description: "description-\(key)",
-            comment_count: 10,
-            created_at: Int(Date().timeIntervalSince1970),
-            updated_at: Int(Date().timeIntervalSince1970),
-            url: "https://test.com/\(key)",
-            category: .unknown
+        let json = """
+{
+    "uid": "uid-\(key)",
+    "title": "\(strongTitle ?? "title-\(key)")",
+    "image_url": "https://hoge.com/image.png",
+    "description": "description",
+    "comment_count": 10,
+    "created_at": 15000000,
+    "updated_at": 1500000,
+    "url": "https://hoge.com/article/1234",
+    "category": "it"
+}
+"""
+        return try! JSONDecoder().decode(
+            Embedded.Bookmark.self,
+            from: json.data(using: .utf8)!
         )
     }
 }
