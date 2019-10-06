@@ -96,6 +96,10 @@
 		4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
 		4D72CF2522E34BDF00E6AA66 /* GoogleService-Info-release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2322E316BC00E6AA66 /* GoogleService-Info-release.plist */; };
 		4D72CF2622E3606700E6AA66 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2685822C4E6FA007A9E68 /* Firebase.swift */; };
+		4DA124222349D6A000C3C12C /* output.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124202349D6A000C3C12C /* output.xcfilelist */; };
+		4DA124232349D6A000C3C12C /* input.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124212349D6A000C3C12C /* input.xcfilelist */; };
+		4DA124272349D6B000C3C12C /* output.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124252349D6AF00C3C12C /* output.xcfilelist */; };
+		4DA124282349D6B000C3C12C /* input.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124262349D6AF00C3C12C /* input.xcfilelist */; };
 		4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */; };
 		4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */; };
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
@@ -340,6 +344,10 @@
 		4D72CF0F22E2F3AB00E6AA66 /* Twibu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Twibu.entitlements; sourceTree = "<group>"; };
 		4D72CF1022E2F40300E6AA66 /* TwibuUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUserDefaults.swift; sourceTree = "<group>"; };
 		4D72CF2322E316BC00E6AA66 /* GoogleService-Info-release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-release.plist"; sourceTree = "<group>"; };
+		4DA124202349D6A000C3C12C /* output.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
+		4DA124212349D6A000C3C12C /* input.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
+		4DA124252349D6AF00C3C12C /* output.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
+		4DA124262349D6AF00C3C12C /* input.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
 		4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
 		4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUser.swift; sourceTree = "<group>"; };
@@ -614,6 +622,7 @@
 		4D11150222B5160E000817BA /* Twibu */ = {
 			isa = PBXGroup;
 			children = (
+				4DA124242349D6AF00C3C12C /* build-settings */,
 				4D65094022BF5DAF00BB0959 /* 1_entity */,
 				4D65094122BF5E0400BB0959 /* 2_usecase */,
 				4D65094222BF5E2D00BB0959 /* 3_interface */,
@@ -780,7 +789,6 @@
 			children = (
 				4D5145CD23481EED008DB7BD /* firebase */,
 				4D11150A22B5160F000817BA /* Assets.xcassets */,
-				4DC913E823483D5800734863 /* gRPCCertificates-Cpp.bundle */,
 			);
 			path = resource;
 			sourceTree = "<group>";
@@ -916,6 +924,7 @@
 		4D72CEEB22E2E07A00E6AA66 /* Embedded */ = {
 			isa = PBXGroup;
 			children = (
+				4DA1241F2349D6A000C3C12C /* build-settings */,
 				4D72CF0922E2E6FD00E6AA66 /* 1_entity */,
 				4D72CF0A22E2E71000E6AA66 /* 2_usecase */,
 				4D3D267F2338F98B00BFD408 /* 3_interface */,
@@ -982,6 +991,25 @@
 				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		4DA1241F2349D6A000C3C12C /* build-settings */ = {
+			isa = PBXGroup;
+			children = (
+				4DA124202349D6A000C3C12C /* output.xcfilelist */,
+				4DA124212349D6A000C3C12C /* input.xcfilelist */,
+			);
+			path = "build-settings";
+			sourceTree = "<group>";
+		};
+		4DA124242349D6AF00C3C12C /* build-settings */ = {
+			isa = PBXGroup;
+			children = (
+				4DA124252349D6AF00C3C12C /* output.xcfilelist */,
+				4DA124262349D6AF00C3C12C /* input.xcfilelist */,
+				4DC913E823483D5800734863 /* gRPCCertificates-Cpp.bundle */,
+			);
+			path = "build-settings";
 			sourceTree = "<group>";
 		};
 		4DA1E5DE22CB5F6B00320895 /* settings */ = {
@@ -1277,8 +1305,10 @@
 				4D11150E22B5160F000817BA /* LaunchScreen.storyboard in Resources */,
 				4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */,
 				4D11150B22B5160F000817BA /* Assets.xcassets in Resources */,
+				4DA124272349D6B000C3C12C /* output.xcfilelist in Resources */,
 				4D11153F22B5FFD0000817BA /* LoginViewController.storyboard in Resources */,
 				4D5145CF23481F2C008DB7BD /* GoogleService-Info-adhoc.plist in Resources */,
+				4DA124282349D6B000C3C12C /* input.xcfilelist in Resources */,
 				4D65093822BE447500BB0959 /* LaunchingViewController.storyboard in Resources */,
 				4D2A7B322347779300CC411E /* TimelineCell.xib in Resources */,
 				4D11153D22B58091000817BA /* CategoryViewController.storyboard in Resources */,
@@ -1311,8 +1341,10 @@
 				4DFFDBC7233BB5BE0037AA8A /* CategoryContentView.xib in Resources */,
 				4D3D26782338F82600BFD408 /* CommentViewController.storyboard in Resources */,
 				4D3D267A2338F82600BFD408 /* CommentTableViewCell.xib in Resources */,
+				4DA124222349D6A000C3C12C /* output.xcfilelist in Resources */,
 				4D2A7B2B2347682000CC411E /* ArticleCell.xib in Resources */,
 				4D3D26752338F82600BFD408 /* CommentFooterView.xib in Resources */,
+				4DA124232349D6A000C3C12C /* input.xcfilelist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1399,13 +1431,13 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"$(SRCROOT)/build-settings/input.xcfilelist",
+				"$(SRCROOT)/Twibu/build-settings/input.xcfilelist",
 			);
 			inputPaths = (
 			);
 			name = "Carthage copy-framework";
 			outputFileListPaths = (
-				"$(SRCROOT)/build-settings/output.xcfilelist",
+				"$(SRCROOT)/Twibu/build-settings/output.xcfilelist",
 			);
 			outputPaths = (
 			);
@@ -1419,19 +1451,15 @@
 			files = (
 			);
 			inputFileListPaths = (
+				"$(SRCROOT)/Embedded/build-settings/input.xcfilelist",
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Parchment.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftIcons.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 			);
 			name = "Carthage copy-framework";
 			outputFileListPaths = (
+				"$(SRCROOT)/Embedded/build-settings/output.xcfilelist",
 			);
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Parchment.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftIcons.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Kingfisher.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
