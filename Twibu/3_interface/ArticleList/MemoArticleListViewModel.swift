@@ -127,21 +127,6 @@ extension MemoArticleListViewModel: StoreSubscriber {
         }
     }
 
-    private func isResponseChanged(
-        old: Repository.Result<[MemoReducer.Info]>?,
-        new: Repository.Result<[MemoReducer.Info]>?
-    ) -> Bool {
-        let a = old?.item.compactMap { $0.bookmark } ?? []
-        let b = new?.item.compactMap { $0.bookmark } ?? []
-        if a != b {
-            return true
-        }
-        if old?.hasMore != new?.hasMore {
-            return true
-        }
-        return false
-    }
-
     private func convert(_ state: Repository.ResponseState) -> ArticleRenderState {
         switch state {
         case .success:

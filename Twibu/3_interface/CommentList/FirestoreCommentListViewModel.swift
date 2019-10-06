@@ -136,7 +136,7 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
             fetchComments()
             return
         case .failure, .loading, .additionalLoading, .success:
-            if isResponseChanged(old: responseData, new: state.responseData) {
+            if responseData != state.responseData {
                 responseData = state.responseData
                 render()
                 return
@@ -152,21 +152,6 @@ extension FirestoreCommentListViewModel: StoreSubscriber {
         DispatchQueue.main.async {
             self.delegate?.render(state: self.convert(self.responseState))
         }
-    }
-
-    private func isResponseChanged(
-        old: Repository.Result<[Comment]>?,
-        new: Repository.Result<[Comment]>?
-    ) -> Bool {
-        let a = old?.item ?? []
-        let b = new?.item ?? []
-        if a != b {
-            return true
-        }
-        if old?.hasMore != new?.hasMore {
-            return true
-        }
-        return false
     }
 
     private func convert(_ state: Repository.ResponseState) -> CommentRenderState {

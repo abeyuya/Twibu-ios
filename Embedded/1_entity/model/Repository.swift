@@ -7,7 +7,7 @@
 //
 
 // NOTE: firestoreの依存性を持ち込まないためにAnyにしているけど、どうにかしたい
-public struct RepositoryPagingInfo {
+public struct RepositoryPagingInfo: Equatable {
     public var lastSnapshot: NSObject?
     public init(lastSnapshot: NSObject?) {
         self.lastSnapshot = lastSnapshot
@@ -27,7 +27,7 @@ public enum Repository {
         }
     }
 
-    public struct Result<T> {
+    public struct Result<T: Equatable>: Equatable {
         public let item: T
         public let pagingInfo: RepositoryPagingInfo?
         public let hasMore: Bool

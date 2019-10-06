@@ -173,7 +173,7 @@ extension CategoryArticleListViewModel: StoreSubscriber {
                 return
             }
         case .success:
-            if isResponseChanged(old: responseData, new: state.responseData) {
+            if responseData != state.responseData {
                 responseData = state.responseData
                 render()
             }
@@ -197,21 +197,6 @@ extension CategoryArticleListViewModel: StoreSubscriber {
         DispatchQueue.main.async {
             self.delegate?.render(state: self.convert(self.responseState))
         }
-    }
-
-    private func isResponseChanged(
-        old: Repository.Result<[Bookmark]>?,
-        new: Repository.Result<[Bookmark]>?
-    ) -> Bool {
-        let a = old?.item ?? []
-        let b = new?.item ?? []
-        if a != b {
-            return true
-        }
-        if old?.hasMore != new?.hasMore {
-            return true
-        }
-        return false
     }
 
     private func changedResults(

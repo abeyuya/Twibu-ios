@@ -10,7 +10,7 @@ import ReSwift
 import Embedded
 
 enum MemoReducer {
-    struct Info {
+    struct Info: Equatable {
         var memo: Memo
         var bookmark: Bookmark
     }

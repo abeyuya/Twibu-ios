@@ -179,7 +179,7 @@ extension TimelineArticleListViewModel: StoreSubscriber {
                 return
             }
         case .success:
-            if isResponseChanged(old: responseData, new: state.responseData) {
+            if responseData != state.responseData {
                 responseData = state.responseData
                 render()
             }
@@ -203,21 +203,6 @@ extension TimelineArticleListViewModel: StoreSubscriber {
         DispatchQueue.main.async {
             self.delegate?.render(state: self.convert(self.responseState))
         }
-    }
-
-    private func isResponseChanged(
-        old: Repository.Result<[TimelineReducer.Info]>?,
-        new: Repository.Result<[TimelineReducer.Info]>?
-    ) -> Bool {
-        let a = old?.item.compactMap { $0 } ?? []
-        let b = new?.item.compactMap { $0 } ?? []
-        if a != b {
-            return true
-        }
-        if old?.hasMore != new?.hasMore {
-            return true
-        }
-        return false
     }
 
     private func changedResults(
