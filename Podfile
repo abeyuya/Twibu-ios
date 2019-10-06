@@ -9,7 +9,6 @@ abstract_target 'All' do
   target 'Twibu' do
     pod 'Fabric'
     pod 'Crashlytics'
-    pod 'Swifter', git: 'https://github.com/mattdonnelly/Swifter.git'
 
     pod 'UITextView+Placeholder'
     pod 'LicensePlist'

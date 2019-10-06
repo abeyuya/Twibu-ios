@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-import Swifter
+import SwifteriOS
 import Crashlytics
 import FirebaseAuth
 import Embedded

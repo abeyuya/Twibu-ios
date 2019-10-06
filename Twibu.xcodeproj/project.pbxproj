@@ -96,6 +96,7 @@
 		4DA124282349D6B000C3C12C /* input.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA124262349D6AF00C3C12C /* input.xcfilelist */; };
 		4DA1242D2349E6C100C3C12C /* CategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1242C2349E6C100C3C12C /* CategoryTests.swift */; };
 		4DA1242F2349E97600C3C12C /* BookmarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1242E2349E97600C3C12C /* BookmarkTests.swift */; };
+		4DA124312349FAE300C3C12C /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DA124302349FAE300C3C12C /* SwifteriOS.framework */; };
 		4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */; };
 		4DA1E5E222CB5F8700320895 /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */; };
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
@@ -343,6 +344,7 @@
 		4DA124262349D6AF00C3C12C /* input.xcfilelist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
 		4DA1242C2349E6C100C3C12C /* CategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTests.swift; sourceTree = "<group>"; };
 		4DA1242E2349E97600C3C12C /* BookmarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTests.swift; sourceTree = "<group>"; };
+		4DA124302349FAE300C3C12C /* SwifteriOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwifteriOS.framework; path = Carthage/Build/iOS/SwifteriOS.framework; sourceTree = "<group>"; };
 		4DA1E5DF22CB5F7A00320895 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4DA1E5E122CB5F8700320895 /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
 		4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwibuUser.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DA124312349FAE300C3C12C /* SwifteriOS.framework in Frameworks */,
 				4D556FBE23485D7900A4CA35 /* FBLPromises.framework in Frameworks */,
 				4D556FBC23485D1500A4CA35 /* Promises.framework in Frameworks */,
 				4D556FB923485B2D00A4CA35 /* ReSwift.framework in Frameworks */,
@@ -509,6 +512,7 @@
 		04C4ACB6453732AD38B3F5D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DA124302349FAE300C3C12C /* SwifteriOS.framework */,
 				4D556FBD23485D7800A4CA35 /* FBLPromises.framework */,
 				4D556FBB23485D1500A4CA35 /* Promises.framework */,
 				4D556FB823485B2D00A4CA35 /* ReSwift.framework */,
@@ -988,8 +992,8 @@
 		4DA124242349D6AF00C3C12C /* build-settings */ = {
 			isa = PBXGroup;
 			children = (
-				4DA124252349D6AF00C3C12C /* output.xcfilelist */,
 				4DA124262349D6AF00C3C12C /* input.xcfilelist */,
+				4DA124252349D6AF00C3C12C /* output.xcfilelist */,
 				4DC913E823483D5800734863 /* gRPCCertificates-Cpp.bundle */,
 			);
 			path = "build-settings";

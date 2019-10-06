@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseAnalytics
 import FirebaseFirestore
 import FirebaseFunctions
-import Swifter
+import SwifteriOS
 import Crashlytics
 import Embedded
 

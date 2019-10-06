@@ -3,14 +3,12 @@ PODS:
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
   - LicensePlist (2.6.0)
-  - Swifter (2.3.0)
   - "UITextView+Placeholder (1.3.3)"
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
   - LicensePlist
-  - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
   - "UITextView+Placeholder"
 
 SPEC REPOS:
@@ -20,22 +18,12 @@ SPEC REPOS:
     - LicensePlist
     - "UITextView+Placeholder"
 
-EXTERNAL SOURCES:
-  Swifter:
-    :git: https://github.com/mattdonnelly/Swifter.git
-
-CHECKOUT OPTIONS:
-  Swifter:
-    :commit: f5a84134d47cbbdb17eb2df45a4689ed5938274c
-    :git: https://github.com/mattdonnelly/Swifter.git
-
 SPEC CHECKSUMS:
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   LicensePlist: 04fb95b572038c87068283afa65518a61aff9342
-  Swifter: 114bb57823fb21d5ef0451930e9cbc184c3a867a
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: f685f6d71fcc59802092b9a6169aba4996720764
+PODFILE CHECKSUM: 7020593cd9f177af76fa0f25c0ad1d1bf4415b61
 
 COCOAPODS: 1.8.1

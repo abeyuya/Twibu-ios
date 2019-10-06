@@ -9,3 +9,4 @@ $(SRCROOT)/Carthage/Build/iOS/ReSwift.framework
 $(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework
 $(SRCROOT)/Carthage/Build/iOS/Promises.framework
 $(SRCROOT)/Carthage/Build/iOS/FBLPromises.framework
+$(SRCROOT)/Carthage/Build/iOS/SwifteriOS.framework

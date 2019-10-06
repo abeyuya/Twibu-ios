@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import Embedded
 import Fabric
-import Swifter
+import SwifteriOS
 import Crashlytics
 
 @UIApplicationMain
@@ -61,8 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         if scheme == Const.twitterCallbackUrlProtocol {
-            guard let callbackUrl = URL(string: Const.twitterCallbackUrlProtocol + "://") else { return false }
-            return Swifter.handleOpenURL(url, callbackURL: callbackUrl)
+            Swifter.handleOpenURL(url)
+            return true
         }
 
         return false
