@@ -140,8 +140,8 @@ extension CategoryViewController: UITableViewDataSource {
                     ) as? TimelineCell else { return nil }
 
                 guard let vm = viewModel as? TimelineArticleListViewModel else { return cell }
-                let i = vm.timelines[indexPath.row].user
-                cell.set(userInfo: i)
+                let c = vm.timelines[indexPath.row].comment
+                cell.set(comment: c)
                 return cell
 
             default:

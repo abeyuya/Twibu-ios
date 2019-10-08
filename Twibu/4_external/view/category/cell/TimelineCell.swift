@@ -24,6 +24,7 @@ final class TimelineCell: UITableViewCell, ArticleCellProtocol {
     @IBOutlet private weak var displayNameLabel: UILabel!
     @IBOutlet private weak var verifiedLabel: UILabel!
     @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var commentLabel: UILabel!
 
     public func set(bookmark: Bookmark, alreadyRead: Bool, showImage: Bool) {
         categoryContentView.set(bookmark: bookmark, alreadyRead: alreadyRead, showImage: showImage)
@@ -33,21 +34,21 @@ final class TimelineCell: UITableViewCell, ArticleCellProtocol {
         categoryContentView.set(saveState: saveState)
     }
 
-    public func set(userInfo: Comment.User?) {
+    public func set(comment: Comment?) {
         userArea.isHidden = true
-        guard let u = userInfo else { return }
+        guard let c = comment else { return }
 
         userArea.isHidden = false
         iconImageView.image = nil
-        if let url = URL(string: u.profile_image_url) {
+        if let url = URL(string: c.user.profile_image_url) {
             iconImageView.kf.setImage(with: url, options: [.processor(iconProcessor)])
         }
 
-        displayNameLabel.text = u.name
-        usernameLabel.text = "@" + u.screen_name
+        displayNameLabel.text = c.user.name
+        usernameLabel.text = "@" + c.user.screen_name
 
         verifiedLabel.isHidden = true
-        if u.verified == true {
+        if c.user.verified == true {
             verifiedLabel.setIcon(
                 icon: .fontAwesomeSolid(.checkCircle),
                 iconSize: 13,
@@ -55,5 +56,7 @@ final class TimelineCell: UITableViewCell, ArticleCellProtocol {
             )
             verifiedLabel.isHidden = false
         }
+
+        commentLabel.text = c.text
     }
 }
