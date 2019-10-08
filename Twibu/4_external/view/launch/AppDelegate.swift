@@ -54,7 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 category: Category(rawValue: query["category"] ?? "unknown")
             )
             let vc = WebViewController.initFromStoryBoard()
-            vc.set(bookmark: b)
+            let vm = WebViewModel.init(bookmark: b, delegate: vc)
+            vc.set(viewModel: vm)
 
             Router.shared.openBookmarkWebFromUrlScheme(vc: vc)
             return true

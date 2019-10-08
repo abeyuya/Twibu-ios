@@ -102,6 +102,7 @@
 		4DA1E5E422CBAD3B00320895 /* TwibuUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E322CBAD3B00320895 /* TwibuUser.swift */; };
 		4DA1E5E622CBAEBC00320895 /* UserDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA1E5E522CBAEBC00320895 /* UserDispatcher.swift */; };
 		4DBDAF45233A4B4400D12C03 /* Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D72CEEA22E2E07A00E6AA66 /* Embedded.framework */; };
+		4DC0D3F2234CA9000039A1E7 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC0D3F1234CA9000039A1E7 /* WebViewModel.swift */; };
 		4DC5AD472337A744002BFE0D /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD462337A744002BFE0D /* Media.xcassets */; };
 		4DC5AD492337A744002BFE0D /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5AD482337A744002BFE0D /* ActionViewController.swift */; };
 		4DC5AD4C2337A745002BFE0D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */; };
@@ -354,6 +355,7 @@
 		4DB1B4C722D1F51D0013C198 /* CommentFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentFooterView.xib; sourceTree = "<group>"; };
 		4DBAB74022F1A4BD00519407 /* MemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
 		4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MemoViewController.storyboard; sourceTree = "<group>"; };
+		4DC0D3F1234CA9000039A1E7 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		4DC5AD442337A744002BFE0D /* action-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "action-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC5AD462337A744002BFE0D /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4DC5AD482337A744002BFE0D /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
@@ -665,7 +667,7 @@
 				4D65093222BE2AE100BB0959 /* launch */,
 				4D65092B22BBE7F600BB0959 /* login */,
 				4D11153622B57683000817BA /* category */,
-				4D11154A22B6A62E000817BA /* bookmarkWeb */,
+				4D11154A22B6A62E000817BA /* web */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -681,13 +683,13 @@
 			path = category;
 			sourceTree = "<group>";
 		};
-		4D11154A22B6A62E000817BA /* bookmarkWeb */ = {
+		4D11154A22B6A62E000817BA /* web */ = {
 			isa = PBXGroup;
 			children = (
 				4D11154B22B6A648000817BA /* WebViewController.swift */,
 				4D11154D22B6A659000817BA /* WebViewController.storyboard */,
 			);
-			path = bookmarkWeb;
+			path = web;
 			sourceTree = "<group>";
 		};
 		4D28F54D22E48FB100156445 /* extension */ = {
@@ -846,6 +848,7 @@
 		4D65094222BF5E2D00BB0959 /* 3_interface */ = {
 			isa = PBXGroup;
 			children = (
+				4DC0D3F0234CA8EF0039A1E7 /* Web */,
 				4D30593523388546001F0605 /* CommentList */,
 				4D5A410322FC35D700AD1620 /* ArticleList */,
 			);
@@ -1040,6 +1043,14 @@
 				4DBAB74222F1A4F800519407 /* MemoViewController.storyboard */,
 			);
 			path = memo;
+			sourceTree = "<group>";
+		};
+		4DC0D3F0234CA8EF0039A1E7 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				4DC0D3F1234CA9000039A1E7 /* WebViewModel.swift */,
+			);
+			path = Web;
 			sourceTree = "<group>";
 		};
 		4DC5AD452337A744002BFE0D /* action-extension */ = {
@@ -1525,6 +1536,7 @@
 				4D3059342337FE9A001F0605 /* Comment+Extension.swift in Sources */,
 				4DD369E22337731300D2D10D /* Bookmark+Extension.swift in Sources */,
 				4D30593923388A67001F0605 /* FirestoreCommentListViewModel.swift in Sources */,
+				4DC0D3F2234CA9000039A1E7 /* WebViewModel.swift in Sources */,
 				4DD369DC233770E900D2D10D /* MemoViewController.swift in Sources */,
 				4DDC480C2344C85A00489648 /* CurrentUserReducer.swift in Sources */,
 				4DD369E32337737400D2D10D /* AnalyticsDispatcher.swift in Sources */,

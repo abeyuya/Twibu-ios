@@ -202,7 +202,8 @@ extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let b = viewModel.bookmarks[indexPath.row]
         let vc = WebViewController.initFromStoryBoard()
-        vc.set(bookmark: b)
+        let vm = WebViewModel(bookmark: b, delegate: vc)
+        vc.set(viewModel: vm)
         navigationController?.pushViewController(vc, animated: true)
 
         if let isLogin = viewModel.currentUser?.isTwitterLogin, isLogin {

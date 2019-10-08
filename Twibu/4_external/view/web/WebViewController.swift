@@ -8,7 +8,6 @@
 
 import UIKit
 import WebKit
-import ReSwift
 import SwiftIcons
 import BadgeSwift
 import PKHUD
@@ -17,16 +16,9 @@ import Embedded
 private let iconSize: CGFloat = 25
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
-    private enum ViewMode {
-        case online, offline
-    }
-
     private let webview = WKWebView()
-    private var bookmark: Bookmark!
-    private var currentUser: TwibuUser?
     private var lastContentOffset: CGFloat = 0
-    private var isShowComment = false
-    private var viewMode: ViewMode = .online
+    private var viewModel: WebViewModel!
 
     private let commentBadge: BadgeSwift = {
         let badge = BadgeSwift()
@@ -38,7 +30,7 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
     }()
 
     private lazy var commentContainerView: UIView = {
-        let vc = CommentRootViewController<FirestoreCommentListViewModel>.build(bookmark: bookmark)
+        let vc = CommentRootViewController<FirestoreCommentListViewModel>.build(bookmark: viewModel.bookmark)
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
 
@@ -53,22 +45,9 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupWebview()
         setupNavigation()
         setupToolbar()
-
-        store.subscribe(self) { [weak self] subcription in
-            subcription.select { state in
-                let bms = CategoryReducer.allBookmarks(state: state.category)
-                let b = bms.first { $0.uid == self?.bookmark.uid }
-                return Subscribe(bookmark: b, currentUser: state.currentUser)
-            }
-        }
-    }
-
-    deinit {
-        store.unsubscribe(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +59,8 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         if navigationController?.isToolbarHidden == true {
             navigationController?.setToolbarHidden(false, animated: true)
         }
+
+        viewModel.startSubscribe()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,12 +72,14 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         if navigationController?.isToolbarHidden == false {
             navigationController?.setToolbarHidden(true, animated: true)
         }
+
+        viewModel.stopSubscribe()
     }
 
-    func set(bookmark: Bookmark) {
-        self.bookmark = bookmark
+    func set(viewModel: WebViewModel) {
+        self.viewModel = viewModel
 
-        guard let url = URL(string: bookmark.url) else {
+        guard let url = URL(string: viewModel.bookmark.url) else {
             assert(false)
             return
         }
@@ -120,10 +103,10 @@ private extension WebViewController {
 
     private func setupNavigation() {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
-        setNavigationTitle()
+        setNavigationTitle(title: viewModel.bookmark.title, url: viewModel.bookmark.url)
     }
 
-    private func setNavigationTitle() {
+    private func setNavigationTitle(title: String?, url: String?) {
         DispatchQueue.main.async {
             if self.viewIfLoaded?.window == nil {
                 return
@@ -135,12 +118,12 @@ private extension WebViewController {
             v.spacing = 4
 
             let l1 = UILabel()
-            l1.text = self.bookmark.trimmedTitle ?? "no title"
+            l1.text = title ?? "no title"
             l1.textAlignment = .center
             v.addArrangedSubview(l1)
 
             let l2 = UILabel()
-            l2.text = self.bookmark.url.replacingOccurrences(
+            l2.text = url?.replacingOccurrences(
                 of: "^https?://(.+)$",
                 with: "$1",
                 options: .regularExpression,
@@ -166,7 +149,7 @@ private extension WebViewController {
             let b = UIButton()
             updateCommentButton(button: b, isShowComment: false)
             b.addTarget(self, action: #selector(tapCommentButton(_:)), for: .touchUpInside)
-            if let count = bookmark.comment_count {
+            if let count = viewModel.bookmark.comment_count {
                 commentBadge.text = String(count)
                 b.addSubview(commentBadge)
                 commentBadge.centerXAnchor.constraint(equalTo: b.trailingAnchor).isActive = true
@@ -218,12 +201,12 @@ private extension WebViewController {
 
     @objc
     private func tapCommentButton(_ sender: UIButton) {
-        guard !bookmark.uid.isEmpty else {
+        guard !viewModel.bookmark.uid.isEmpty else {
             showAlert(title: nil, message: "コメントが取得できませんでした")
             return
         }
 
-        if isShowComment {
+        if viewModel.isShowComment {
             hideCommentView()
             commentBadge.isHidden = false
         } else {
@@ -231,7 +214,7 @@ private extension WebViewController {
             commentBadge.isHidden = true
         }
 
-        updateCommentButton(button: sender, isShowComment: isShowComment)
+        updateCommentButton(button: sender, isShowComment: viewModel.isShowComment)
     }
 
     @objc
@@ -253,7 +236,7 @@ private extension WebViewController {
         ) { _ in self.saveAsPdf() }
 
         let mode = UIAlertAction(
-            title: viewMode == .online ? "PDFで読む" : "WEBサイトを読み込む",
+            title: viewModel.viewMode == .online ? "PDFで読む" : "WEBサイトを読み込む",
             style: .default
         ) { _ in self.tapModeButton() }
 
@@ -270,8 +253,8 @@ private extension WebViewController {
     }
 
     private func tapWriteButton() {
-        guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
-        guard !bookmark.uid.isEmpty else {
+        guard let uid = viewModel.currentUser?.firebaseAuthUser?.uid else { return }
+        guard !viewModel.bookmark.uid.isEmpty else {
             showAlert(title: nil, message: "メモの読み込みに失敗しました")
             return
         }
@@ -283,7 +266,7 @@ private extension WebViewController {
         let param = MemoViewController.Param(
             db: TwibuFirebase.shared.firestore,
             userUid: uid,
-            bookmarkUid: bookmark.uid
+            bookmarkUid: viewModel.bookmark.uid
         )
         vc.setParam(param: param)
 
@@ -291,18 +274,18 @@ private extension WebViewController {
     }
 
     private func saveAsPdf() {
-        if viewMode == .offline {
+        if viewModel.viewMode == .offline {
             showAlert(title: nil, message: "WEBサイトとして閲覧中でないとPDFは保存できません")
             return
         }
 
         HUD.show(.progress)
-        WebArchiveDispatcher.save(webView: webview, bookmarkUid: bookmark.uid) { [weak self] result in
+        WebArchiveDispatcher.save(webView: webview, bookmarkUid: viewModel.bookmark.uid) { [weak self] result in
             switch result {
             case .success:
                 HUD.flash(.success)
                 self?.loadPageOffline()
-                self?.viewMode = .offline
+                self?.viewModel.viewMode = .offline
             case .failure(let error):
                 HUD.flash(.labeledError(title: nil, subtitle: error.displayMessage))
             case .progress(_):
@@ -312,27 +295,27 @@ private extension WebViewController {
     }
 
     private func tapModeButton() {
-        switch viewMode {
+        switch viewModel.viewMode {
         case .online:
             if localFileUrl() == nil {
                 showAlert(title: nil, message: "PDFが保存されていません")
                 return
             }
             loadPageOffline()
-            viewMode = .offline
+            viewModel.viewMode = .offline
 
         case .offline:
-            guard let url = URL(string: bookmark.url) else {
+            guard let url = URL(string: viewModel.bookmark.url) else {
                 showAlert(title: nil, message: "URLが取得できませんでした")
                 return
             }
             loadPageOnline(url: url)
-            viewMode = .online
+            viewModel.viewMode = .online
         }
     }
 
     private func showCommentView() {
-        isShowComment = true
+        viewModel.isShowComment = true
         webview.scrollView.scrollsToTop = false
         UIView.transition(
             with: view,
@@ -351,15 +334,15 @@ private extension WebViewController {
         AnalyticsDispatcer.logging(
             .commentShow,
             param: [
-                "buid": bookmark.uid,
-                "url": bookmark.url,
-                "comment_count": bookmark.comment_count ?? -1
+                "buid": viewModel.bookmark.uid,
+                "url": viewModel.bookmark.url,
+                "comment_count": viewModel.bookmark.comment_count ?? -1
             ]
         )
     }
 
     private func hideCommentView() {
-        isShowComment = false
+        viewModel.isShowComment = false
         webview.scrollView.scrollsToTop = true
         UIView.transition(
             with: view,
@@ -385,16 +368,16 @@ private extension WebViewController {
 
     @objc
     private func tapShareButton() {
-        guard let url = URL(string: bookmark.url) else { return }
+        guard let url = URL(string: viewModel.bookmark.url) else { return }
         let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         present(vc, animated: true)
 
         AnalyticsDispatcer.logging(
             .share,
             param: [
-                "buid": bookmark.uid,
-                "url": bookmark.url,
-                "comment_count": bookmark.comment_count ?? -1
+                "buid": viewModel.bookmark.uid,
+                "url": viewModel.bookmark.url,
+                "comment_count": viewModel.bookmark.comment_count ?? -1
             ]
         )
     }
@@ -405,7 +388,7 @@ private extension WebViewController {
     }
 
     private func localFileUrl() -> URL? {
-        if let localFileUrl = WebArchiver.buildLocalFileUrl(bookmarkUid: bookmark.uid),
+        if let localFileUrl = WebArchiver.buildLocalFileUrl(bookmarkUid: viewModel.bookmark.uid),
             FileManager.default.fileExists(atPath: localFileUrl.path) {
                 return localFileUrl
         }
@@ -478,7 +461,7 @@ extension WebViewController: UIScrollViewDelegate {
         }
 
         let delta = currentPoint.y - lastContentOffset
-        if 0 < delta, delta < WebViewController.humanScrollOffset, isShowComment == false {
+        if 0 < delta, delta < WebViewController.humanScrollOffset, viewModel.isShowComment == false {
             // print("Scrolled down")
 //            if navigationController?.isNavigationBarHidden == false {
 //                self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -513,23 +496,12 @@ extension WebViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension WebViewController: StoreSubscriber {
-    struct Subscribe {
-        var bookmark: Bookmark?
-        var currentUser: TwibuUser
+extension WebViewController: WebViewModelDelegate {
+    func updateNavigation(title: String?, url: String?) {
+        setNavigationTitle(title: title, url: url)
     }
 
-    typealias StoreSubscriberStateType = Subscribe
-
-    func newState(state: Subscribe) {
-        currentUser = state.currentUser
-        guard let b = state.bookmark else { return }
-
-        self.bookmark = b
-        setNavigationTitle()
-
-        if let c = b.comment_count {
-            setBadgeCount(count: c)
-        }
+    func renderBadgeCount(count: Int) {
+        setBadgeCount(count: count)
     }
 }

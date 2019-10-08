@@ -102,7 +102,8 @@ final class SettingsViewController: UIViewController, StoryboardInstantiatable {
             url: url,
             category: .unknown
         )
-        vc.set(bookmark: b)
+        let vm = WebViewModel(bookmark: b, delegate: vc)
+        vc.set(viewModel: vm)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
