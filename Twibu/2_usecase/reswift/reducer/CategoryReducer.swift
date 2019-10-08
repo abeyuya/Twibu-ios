@@ -58,8 +58,8 @@ enum CategoryReducer {
         case let a as Actions.AddBookmarks:
             let old = state.result[a.category]?.item ?? []
             let add = a.result.item
-            let newBookmarks: [Bookmark] = Bookmark
-                .merge(base: old, add: add)
+            let newBookmarks: [Bookmark] = old
+                .merge(add: add) { $0.uid == $1.uid }
                 .sorted { $0.created_at ?? 0 > $1.created_at ?? 0 }
             state.result[a.category] = .init(
                 item: newBookmarks,

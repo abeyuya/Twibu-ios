@@ -49,26 +49,26 @@ class BookmarkTests: XCTestCase {
     func testMerge() {
         let a = [buildBookmark(key: "1"), buildBookmark(key: "2")]
         do {
-            let result = Bookmark.merge(base: a, add: a)
+            let result = a.merge(add: a) { $0.uid == $1.uid }
             assert(result == a)
         }
 
         let b = [buildBookmark(key: "3"), buildBookmark(key: "4")]
         do {
-            let result = Bookmark.merge(base: a, add: b)
+            let result = a.merge(add: b) { $0.uid == $1.uid }
             assert(result == (a + b))
         }
 
         do {
-            let a2 = Bookmark.merge(base: a, add: b)
-            let result = Bookmark.merge(base: a2, add: b)
+            let a2 = a.merge(add: b) { $0.uid == $1.uid }
+            let result = a2.merge(add: b) { $0.uid == $1.uid }
             assert(result == a2)
         }
 
         do {
-            let a2 = Bookmark.merge(base: a, add: b)
+            let a2 = a.merge(add: b) { $0.uid == $1.uid }
             let strong = buildBookmark(key: "1", strongTitle: "title-strong-1")
-            let result = Bookmark.merge(base: a2, add: [strong])
+            let result = a2.merge(add: [strong]) { $0.uid == $1.uid }
             assert(result.map { $0.uid } == ["uid-1", "uid-2", "uid-3", "uid-4"])
             assert(result.map { $0.title } == ["title-strong-1", "title-2", "title-3", "title-4"])
         }

@@ -35,8 +35,8 @@ enum CommentReducer {
         case let a as Actions.Add:
             let old = state[a.bookmarkUid]?.result.item ?? []
             let add = a.comments.item
-            let newComments = Comment
-                .merge(base: old, add: add)
+            let newComments = old
+                .merge(add: add) { $0.id == $1.id }
                 .sorted { $0.favorite_count > $1.favorite_count }
 
             state[a.bookmarkUid] = {

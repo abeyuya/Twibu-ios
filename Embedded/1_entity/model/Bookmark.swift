@@ -66,23 +66,6 @@ public extension Bookmark {
 }
 
 public extension Bookmark {
-    // 古いものを新しいもので置き換えつつ合体する
-    static func merge(base: [Bookmark], add: [Bookmark]) -> [Bookmark] {
-        var result = base
-
-        add.forEach { b in
-            if let i = result.firstIndex(where: { $0.uid == b.uid }) {
-                result[i] = b
-                return
-            }
-            result.append(b)
-        }
-
-        return result
-    }
-}
-
-public extension Bookmark {
     static func buildFirestoreDebugLink(buid: String) -> URL {
         let str = "https://console.firebase.google.com/project/twibu-c4d5a/database/firestore/data~2Fbookmarks~2F\(buid)"
 

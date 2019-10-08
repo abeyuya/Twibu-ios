@@ -64,26 +64,26 @@ class CommentTests: XCTestCase {
     func testMerge() {
         let a = [buildComment(key: "1"), buildComment(key: "2")]
         do {
-            let result = Comment.merge(base: a, add: a)
+            let result = a.merge(add: a) { $0.id == $1.id }
             assert(result == a)
         }
 
         let b = [buildComment(key: "3"), buildComment(key: "4")]
         do {
-            let result = Comment.merge(base: a, add: b)
+            let result = a.merge(add: b) { $0.id == $1.id }
             assert(result == (a + b))
         }
 
         do {
-            let a2 = Comment.merge(base: a, add: b)
-            let result = Comment.merge(base: a2, add: b)
+            let a2 = a.merge(add: b) { $0.id == $1.id }
+            let result = a2.merge(add: b) { $0.id == $1.id }
             assert(result == a2)
         }
 
         do {
-            let a2 = Comment.merge(base: a, add: b)
+            let a2 = a.merge(add: b) { $0.id == $1.id }
             let strong = buildComment(key: "1", strongText: "text-strong-1")
-            let result = Comment.merge(base: a2, add: [strong])
+            let result = a2.merge(add: [strong]) { $0.id == $1.id }
             assert(result.map { $0.id } == ["id-1", "id-2", "id-3", "id-4"])
             assert(result.map { $0.text } == ["text-strong-1", "text-2", "text-3", "text-4"])
         }

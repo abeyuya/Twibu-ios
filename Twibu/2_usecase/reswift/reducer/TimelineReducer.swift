@@ -48,7 +48,7 @@ enum TimelineReducer {
         case let a as Actions.AddTimelines:
             let old = state.result?.item ?? []
             let add = a.result.item
-            let uniqued = merge(base: old, add: add)
+            let uniqued = old.merge(add: add) { $0.bookmark.uid == $1.bookmark.uid }
             let sorted = uniqued.sorted { a, b in
                 return a.timeline.post_at > b.timeline.post_at
             }
@@ -76,20 +76,5 @@ enum TimelineReducer {
         }
 
         return state
-    }
-
-    // 古いものを新しいもので置き換えつつ合体する
-    static func merge(base: [Info], add: [Info]) -> [Info] {
-        var result = base
-
-        add.forEach { b in
-            if let i = result.firstIndex(where: { $0.bookmark.uid == b.bookmark.uid }) {
-                result[i] = b
-                return
-            }
-            result.append(b)
-        }
-
-        return result
     }
 }

@@ -64,23 +64,6 @@ public struct Comment: Codable, Equatable {
 }
 
 public extension Comment {
-    // 古いものを新しいもので置き換えつつ合体する
-    static func merge(base: [Comment], add: [Comment]) -> [Comment] {
-        var result = base
-
-        add.forEach { b in
-            if let i = result.firstIndex(where: { $0.id == b.id }) {
-                result[i] = b
-                return
-            }
-            result.append(b)
-        }
-
-        return result
-    }
-}
-
-public extension Comment {
     static func buildFirestoreDebugLink(buid: String, cuid: String) -> URL {
         let str = "https://console.firebase.google.com/project/twibu-c4d5a/database/firestore/data~2Fbookmarks~2F\(buid)~2Fcomments~2F\(cuid)"
 
