@@ -158,13 +158,26 @@ extension CommentViewController: CommentListDelegate {
             preferredStyle: .actionSheet
         )
 
-        let share = UIAlertAction(title: "firestoreリンク", style: .default) { _ in
+        let shareC = UIAlertAction(title: "firestore:commentリンク", style: .default) { _ in
             let items: [Any] = {
-                guard let buid = self.viewModel.bookmark?.uid,
-                    let furl = Comment.buildFirestoreDebugLink(buid: buid, cuid: comment.id) else {
-                        return ["\(comment)"]
+                guard let buid = self.viewModel.bookmark?.uid else {
+                    return ["\(comment)"]
                 }
-                return [furl, "```\n\(comment)\n```"]
+                let furl = Comment.buildFirestoreDebugLink(buid: buid, cuid: comment.id)
+                return [furl]
+            }()
+
+            let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            self.present(vc, animated: true)
+        }
+
+        let shareB = UIAlertAction(title: "firestore:bookmarkリンク", style: .default) { _ in
+            let items: [Any] = {
+                guard let buid = self.viewModel.bookmark?.uid else {
+                    return ["エラー"]
+                }
+                let furl = Bookmark.buildFirestoreDebugLink(buid: buid)
+                return [furl]
             }()
 
             let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
@@ -177,7 +190,8 @@ extension CommentViewController: CommentListDelegate {
 
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel) { _ in }
 
-        sheet.addAction(share)
+        sheet.addAction(shareC)
+        sheet.addAction(shareB)
         sheet.addAction(normal)
         sheet.addAction(cancel)
         present(sheet, animated: true)

@@ -81,3 +81,12 @@ public extension Bookmark {
         return result
     }
 }
+
+public extension Bookmark {
+    static func buildFirestoreDebugLink(buid: String) -> URL {
+        let str = "https://console.firebase.google.com/project/twibu-c4d5a/database/firestore/data~2Fbookmarks~2F\(buid)"
+
+        return URL(string: str)!
+    }
+}
+
