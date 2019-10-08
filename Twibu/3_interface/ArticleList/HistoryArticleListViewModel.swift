@@ -12,7 +12,9 @@ import ReSwift
 final class HistoryArticleListViewModel: ArticleList {
     internal weak var delegate: ArticleListDelegate?
 
-    var type: ArticleListType = .history
+    var type: ArticleListType {
+        return .history
+    }
     var currentUser: TwibuUser?
     var bookmarks: [Bookmark] = []
     var hasMore = true
@@ -20,7 +22,6 @@ final class HistoryArticleListViewModel: ArticleList {
 
     init(delegate: ArticleListDelegate, type: ArticleListType) {
         self.delegate = delegate
-        self.type = type
     }
 }
 
