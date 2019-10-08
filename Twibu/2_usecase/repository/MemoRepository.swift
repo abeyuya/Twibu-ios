@@ -109,7 +109,6 @@ enum MemoRepository {
     }
 
     public static func fetchMemo(
-        db: Firestore,
         userUid: String,
         bookmarkUid: String,
         completion: @escaping (Result<Memo>) -> Void
@@ -140,7 +139,6 @@ enum MemoRepository {
     }
 
     public static func saveMemo(
-        db: Firestore,
         userUid: String,
         bookmarkUid: String,
         memo: String,

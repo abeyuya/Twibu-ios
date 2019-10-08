@@ -20,18 +20,8 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
     private let underKeyboardLayoutConstraint = UnderKeyboardLayoutConstraint()
     private var oldMemo: Memo?
 
-    public struct Param {
-        public init(db: Firestore, userUid: String, bookmarkUid: String) {
-            self.db = db
-            self.userUid = userUid
-            self.bookmarkUid = bookmarkUid
-        }
-        public let db: Firestore
-        public let userUid: String
-        public let bookmarkUid: String
-    }
-
-    private var param: Param!
+    private var userUid: String!
+    private var bookmarkUid: String!
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +32,7 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
         blurView.layer.cornerRadius = 8
         blurView.clipsToBounds = true
 
-        MemoRepository.fetchMemo(
-            db: param.db,
-            userUid: param.userUid,
-            bookmarkUid: param.bookmarkUid
-        ) { [weak self] result in
+        MemoRepository.fetchMemo(userUid: userUid, bookmarkUid: bookmarkUid) { [weak self] result in
             switch result {
             case .failure(let e):
                 Logger.print(e)
@@ -80,8 +66,9 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
         textView.textContainerInset = .init(top: 12, left: 12, bottom: 12, right: 12)
     }
 
-    public func setParam(param: Param) {
-        self.param = param
+    public func setParam(userUid: String, bookmarkUid: String) {
+        self.userUid = userUid
+        self.bookmarkUid = bookmarkUid
     }
 
     @objc
@@ -94,9 +81,8 @@ final public class MemoViewController: UIViewController, StoryboardInstantiatabl
     private func tapSaveButton() {
         textView.resignFirstResponder()
         MemoRepository.saveMemo(
-            db: param.db,
-            userUid: param.userUid,
-            bookmarkUid: param.bookmarkUid,
+            userUid: userUid,
+            bookmarkUid: bookmarkUid,
             memo: textView.text,
             isNew: oldMemo == nil
         ) { result in

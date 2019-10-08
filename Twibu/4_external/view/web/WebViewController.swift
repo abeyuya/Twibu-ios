@@ -262,14 +262,7 @@ private extension WebViewController {
         let vc = MemoViewController.initFromStoryBoard()
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext
-
-        let param = MemoViewController.Param(
-            db: TwibuFirebase.shared.firestore,
-            userUid: uid,
-            bookmarkUid: viewModel.bookmark.uid
-        )
-        vc.setParam(param: param)
-
+        vc.setParam(userUid: uid, bookmarkUid: viewModel.bookmark.uid)
         present(vc, animated: true)
     }
 
