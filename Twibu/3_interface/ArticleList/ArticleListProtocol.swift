@@ -35,8 +35,9 @@ protocol ArticleList {
     var type: ArticleListType { get }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] { get }
 
+    init(delegate: ArticleListDelegate, type: ArticleListType)
+
     // input
-    func set(delegate: ArticleListDelegate, type: ArticleListType)
     func startSubscribe()
     func stopSubscribe()
     func fetchBookmark()

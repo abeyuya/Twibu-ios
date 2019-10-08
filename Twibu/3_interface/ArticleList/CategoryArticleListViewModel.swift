@@ -31,15 +31,15 @@ final class CategoryArticleListViewModel: ArticleList {
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
     var twitterMaxId: String?
     var lastRefreshCheckAt: Date?
+
+    init(delegate: ArticleListDelegate, type: ArticleListType) {
+        self.delegate = delegate
+        self.type = type
+    }
 }
 
 // input
 extension CategoryArticleListViewModel {
-    func set(delegate: ArticleListDelegate, type: ArticleListType) {
-        self.delegate = delegate
-        self.type = type
-    }
-
     func startSubscribe() {
         store.subscribe(self) { [weak self] subcription in
             subcription.select { state in

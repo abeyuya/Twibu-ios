@@ -22,14 +22,14 @@ final class MemoArticleListViewModel: ArticleList {
         return responseData?.item.compactMap { $0.bookmark } ?? []
     }
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
+
+    init(delegate: ArticleListDelegate, type: ArticleListType) {
+        self.delegate = delegate
+    }
 }
 
 // input
 extension MemoArticleListViewModel {
-    func set(delegate: ArticleListDelegate, type: ArticleListType) {
-        self.delegate = delegate
-    }
-
     func startSubscribe() {
         store.subscribe(self) { subcription in
             subcription.select { state in

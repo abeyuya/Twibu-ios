@@ -202,16 +202,14 @@ extension SettingsViewController: UITableViewDelegate {
         switch menu {
         case .memo:
             let vc = CategoryViewController.initFromStoryBoard()
-            let vm = MemoArticleListViewModel()
-            vm.set(delegate: vc, type: .memo)
+            let vm = MemoArticleListViewModel(delegate: vc, type: .memo)
             vc.set(vm: vm)
             MemoDispatcher.fetchMemos(userUid: uid, type: .new(limit: 30))
             navigationController?.pushViewController(vc, animated: true)
         case .history:
             HistoryDispatcher.fetchHistory(offset: 0)
             let vc = CategoryViewController.initFromStoryBoard()
-            let vm = HistoryArticleListViewModel()
-            vm.set(delegate: vc, type: .history)
+            let vm = HistoryArticleListViewModel(delegate: vc, type: .history)
             vc.set(vm: vm)
             navigationController?.pushViewController(vc, animated: true)
         case .twitter:

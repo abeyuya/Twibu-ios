@@ -27,14 +27,14 @@ final class TimelineArticleListViewModel: ArticleList {
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
     var twitterMaxId: String?
     var lastRefreshCheckAt: Date?
+
+    init(delegate: ArticleListDelegate, type: ArticleListType) {
+        self.delegate = delegate
+    }
 }
 
 // input
 extension TimelineArticleListViewModel {
-    func set(delegate: ArticleListDelegate, type: ArticleListType) {
-        self.delegate = delegate
-    }
-
     func startSubscribe() {
         store.subscribe(self) { subcription in
             subcription.select { state in

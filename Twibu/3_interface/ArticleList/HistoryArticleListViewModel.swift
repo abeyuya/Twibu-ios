@@ -17,15 +17,15 @@ final class HistoryArticleListViewModel: ArticleList {
     var bookmarks: [Bookmark] = []
     var hasMore = true
     var webArchiveResults: [(String, WebArchiver.SaveResult)] = []
+
+    init(delegate: ArticleListDelegate, type: ArticleListType) {
+        self.delegate = delegate
+        self.type = type
+    }
 }
 
 // input
 extension HistoryArticleListViewModel {
-    func set(delegate: ArticleListDelegate, type: ArticleListType) {
-        self.delegate = delegate
-        self.type = type
-    }
-
     func startSubscribe() {
         store.subscribe(self) { subcription in
             subcription.select { state in
