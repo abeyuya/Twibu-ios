@@ -1,8 +1,8 @@
 //
-//  CommentTableViewCell.swift
-//  Twibu
+//  CommentContentView.swift
+//  Embedded
 //
-//  Created by abeyuya on 2019/06/20.
+//  Created by abeyuya on 2019/10/09.
 //  Copyright © 2019 abeyuya. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ import Kingfisher
 
 private let iconProcessor = DownsamplingImageProcessor(size: .init(width: 36 * 3, height: 36 * 3))
 
-final class CommentTableViewCell: UITableViewCell {
+final class CommentContentView: UIView {
     @IBOutlet private weak var profileImageView: UIImageView! {
         didSet {
             profileImageView.clipsToBounds = true
@@ -27,6 +27,32 @@ final class CommentTableViewCell: UITableViewCell {
     @IBOutlet private weak var tweetAtLabel: UILabel!
     @IBOutlet private weak var verifiedLabel: UILabel!
 
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+
+    private func commonInit() {
+        translatesAutoresizingMaskIntoConstraints = false
+        guard let v = UINib(nibName: "\(Self.self)", bundle: Bundle(for: Self.self))
+            .instantiate(withOwner: self, options: nil)
+            .first as? UIView else { return }
+
+        v.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(v)
+        NSLayoutConstraint.activate([
+            v.topAnchor.constraint(equalTo: topAnchor),
+            v.leftAnchor.constraint(equalTo: leftAnchor),
+            v.rightAnchor.constraint(equalTo: rightAnchor),
+            v.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
+
     func set(bookmark: Bookmark?, comment: Comment) {
         if let p = comment.parsed_comment {
             commentLabel.attributedText = buildAttr(parsedText: p)
@@ -38,7 +64,7 @@ final class CommentTableViewCell: UITableViewCell {
         if let url = URL(string: comment.user.profile_image_url) {
             profileImageView.kf.setImage(with: url, options: [.processor(iconProcessor)])
         } else {
-//            profileImageView.kf.setImage(with: url)
+            //            profileImageView.kf.setImage(with: url)
         }
 
         displayNameLabel.text = comment.user.name
