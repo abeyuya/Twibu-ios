@@ -57,6 +57,10 @@ final class TimelineCell: UITableViewCell, ArticleCellProtocol {
             verifiedLabel.isHidden = false
         }
 
-        commentLabel.text = c.text
+        commentLabel.isHidden = true
+        if let hasComment = c.has_comment, hasComment {
+            commentLabel.isHidden = false
+            commentLabel.text = c.text
+        }
     }
 }

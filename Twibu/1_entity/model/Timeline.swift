@@ -27,10 +27,7 @@ public struct Timeline: Equatable {
 
         self.comment = {
             guard let d = dictionary["comment"] as? [String: Any] else { return nil }
-            return try? JSONDecoder().decode(
-                Comment.self,
-                from: JSONSerialization.data(withJSONObject: d)
-            )
+            return Comment(dictionary: d)
         }()
     }
 }
