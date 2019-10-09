@@ -96,11 +96,13 @@ final public class CategoryContentView: UIView {
 
         thumbnailImageView.image = nil
         if showImage {
-            thumbnailWidthConstraint.constant = 70
             if let imageUrl = bookmark.image_url, !imageUrl.isEmpty, let url = URL(string: imageUrl) {
+                thumbnailWidthConstraint.constant = 70
                 thumbnailImageView.kf.setImage(with: url, options: [.processor(thumbProcessor)])
                 thumbnailImageView.isHidden = false
             } else {
+                thumbnailWidthConstraint.constant = 0
+                thumbnailImageView.isHidden = true
             }
         } else {
             thumbnailWidthConstraint.constant = 0
