@@ -66,17 +66,19 @@ final class CategoryViewController: UIViewController, StoryboardInstantiatable {
     }
 
     private func setupTableView() {
+        tableView.register(
+            UINib(nibName: "\(ArticleCell.self)", bundle: Bundle(for: ArticleCell.self)),
+            forCellReuseIdentifier: "\(ArticleCell.self)"
+        )
+
         switch viewModel.type {
         case .timeline:
             tableView.register(
                 UINib(nibName: "\(TimelineCell.self)", bundle: Bundle(for: TimelineCell.self)),
                 forCellReuseIdentifier: "\(TimelineCell.self)"
             )
-        default:
-            tableView.register(
-                UINib(nibName: "\(ArticleCell.self)", bundle: Bundle(for: ArticleCell.self)),
-                forCellReuseIdentifier: "\(ArticleCell.self)"
-            )
+        case .category, .history, .memo:
+            break
         }
     }
 
@@ -135,20 +137,23 @@ extension CategoryViewController: UITableViewDataSource {
         let cell: ArticleCellProtocol? = {
             switch viewModel.type {
             case .timeline:
+                guard let vm = viewModel as? TimelineArticleListViewModel else {
+                    return setupNormalCell(tableView: tableView, cellForRowAt: indexPath)
+                }
+                guard let c = vm.timelines[indexPath.row].comment else {
+                    return setupNormalCell(tableView: tableView, cellForRowAt: indexPath)
+                }
+
                 guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: "\(TimelineCell.self)"
-                    ) as? TimelineCell else { return nil }
-
-                guard let vm = viewModel as? TimelineArticleListViewModel else { return cell }
-                let c = vm.timelines[indexPath.row].comment
+                ) as? TimelineCell else {
+                    return setupNormalCell(tableView: tableView, cellForRowAt: indexPath)
+                }
                 cell.set(comment: c)
                 return cell
 
-            default:
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: "\(ArticleCell.self)"
-                    ) as? ArticleCell else { return nil }
-                return cell
+            case .category, .memo, .history:
+                return setupNormalCell(tableView: tableView, cellForRowAt: indexPath)
             }
         }()
 
@@ -180,6 +185,12 @@ extension CategoryViewController: UITableViewDataSource {
 
         articleCell.set(saveState: .none)
         return articleCell
+    }
+
+    private func setupNormalCell(tableView: UITableView, cellForRowAt indexPath: IndexPath) -> ArticleCellProtocol? {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(ArticleCell.self)") as? ArticleCell else { return nil
+        }
+        return cell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

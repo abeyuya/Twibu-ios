@@ -34,11 +34,8 @@ final class TimelineCell: UITableViewCell, ArticleCellProtocol {
         categoryContentView.set(saveState: saveState)
     }
 
-    public func set(comment: Comment?) {
-        userArea.isHidden = true
-        guard let c = comment else { return }
-
-        userArea.isHidden = false
+    public func set(comment: Comment) {
+        let c = comment
         iconImageView.image = nil
         if let url = URL(string: c.user.profile_image_url) {
             iconImageView.kf.setImage(with: url, options: [.processor(iconProcessor)])
