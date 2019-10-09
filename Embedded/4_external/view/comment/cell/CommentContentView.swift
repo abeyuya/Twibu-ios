@@ -12,7 +12,7 @@ import Kingfisher
 
 private let iconProcessor = DownsamplingImageProcessor(size: .init(width: 36 * 3, height: 36 * 3))
 
-final class CommentContentView: UIView {
+public final class CommentContentView: UIView {
     @IBOutlet private weak var profileImageView: UIImageView! {
         didSet {
             profileImageView.clipsToBounds = true
@@ -53,7 +53,7 @@ final class CommentContentView: UIView {
         ])
     }
 
-    func set(bookmark: Bookmark?, comment: Comment) {
+    public func set(bookmark: Bookmark?, comment: Comment) {
         if let p = comment.parsed_comment {
             commentLabel.attributedText = buildAttr(parsedText: p)
         } else {

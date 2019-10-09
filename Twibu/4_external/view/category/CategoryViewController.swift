@@ -149,7 +149,7 @@ extension CategoryViewController: UITableViewDataSource {
                 ) as? TimelineCell else {
                     return setupNormalCell(tableView: tableView, cellForRowAt: indexPath)
                 }
-                cell.set(comment: c)
+                cell.set(bookmark: vm.bookmarks[indexPath.row], comment: c)
                 return cell
 
             case .category, .memo, .history:

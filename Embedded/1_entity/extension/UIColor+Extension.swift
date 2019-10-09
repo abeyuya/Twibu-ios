@@ -85,4 +85,11 @@ public extension UIColor {
         }
         return .darkGray
     }
+
+    class var originTertiaryLabel: UIColor {
+        if #available(iOS 13, *) {
+            return .tertiaryLabel
+        }
+        return .rgba(red: 60, green: 60, blue: 67, alpha: 0.3)
+    }
 }
