@@ -52,7 +52,7 @@ extension HistoryArticleListViewModel {
         }
     }
 
-    func deleteBookmark(bookmarkUid: String, completion: (Result<Void>) -> Void) {
+    func deleteBookmark(bookmarkUid: String, completion: (Result<Void, TwibuError>) -> Void) {
         HistoryDispatcher.deleteHistory(bookmarkUid: bookmarkUid)
         completion(.success(Void()))
     }

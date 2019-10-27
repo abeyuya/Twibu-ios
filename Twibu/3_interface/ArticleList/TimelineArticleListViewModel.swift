@@ -135,7 +135,7 @@ extension TimelineArticleListViewModel {
         }
     }
 
-    func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void) {
+    func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void, TwibuError>) -> Void) {
         assertionFailure("来ないはず")
     }
 

@@ -102,7 +102,7 @@ final class ActionViewController: UIViewController {
         navigationItem.setRightBarButton(b, animated: false)
     }
 
-    private func getUrlItem(completion: @escaping (Result<String>) -> Void) {
+    private func getUrlItem(completion: @escaping (Result<String, TwibuError>) -> Void) {
         guard let inputItems = extensionContext?.inputItems as? [NSExtensionItem] else {
             completion(.failure(TwibuError.unknown("inputItemsがない")))
             return

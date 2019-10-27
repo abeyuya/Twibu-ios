@@ -43,7 +43,7 @@ extension CommentRepositoryApi {
 
     func fetchBookmarkAndCommentsApi(
         bookmarkUrl: String,
-        completion: @escaping (Result<ApiResponse>) -> Void
+        completion: @escaping (Result<ApiResponse, TwibuError>) -> Void
     ) {
         guard var components = URLComponents(string: CommentRepositoryApi.endpoint) else {
             completion(.failure(.apiError("endpoint予期せぬエラー")))

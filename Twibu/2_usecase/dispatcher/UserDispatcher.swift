@@ -16,7 +16,7 @@ import Crashlytics
 import Embedded
 
 enum UserDispatcher {
-    static func setupUser(completion: @escaping (Result<Void>) -> Void) {
+    static func setupUser(completion: @escaping (Result<Void, TwibuError>) -> Void) {
         if let user = Auth.auth().currentUser {
             updateFirebaseUser(firebaseUser: user)
             completion(.success(Void()))
@@ -44,7 +44,7 @@ enum UserDispatcher {
     static func loginAsTwitterAccount(
         anonymousFirebaseUser: User,
         session: Credential.OAuthAccessToken,
-        completion: @escaping (Result<Void>) -> Void
+        completion: @escaping (Result<Void, TwibuError>) -> Void
     ) {
         //
         // TODO: ログアウトする前に、現在ログイン中の匿名ユーザのメモとかの情報をTwitterアカウントの方に移植したい
@@ -96,7 +96,7 @@ enum UserDispatcher {
     static func linkTwitterAccount(
         firebaseUser: User,
         session: Credential.OAuthAccessToken,
-        completion: @escaping (Result<Void>) -> Void
+        completion: @escaping (Result<Void, TwibuError>) -> Void
     ) {
         let cred = TwitterAuthProvider.credential(
             withToken: session.key,
@@ -180,7 +180,7 @@ enum UserDispatcher {
         }
     }
 
-    static func unlinkTwitter(firebaseUser: User, completion: @escaping (Result<Void>) -> Void) {
+    static func unlinkTwitter(firebaseUser: User, completion: @escaping (Result<Void, TwibuError>) -> Void) {
         firebaseUser.unlink(fromProvider: "twitter.com") { newUser, error in
             if let error = error {
                 completion(.failure(TwibuError.signOut(error.localizedDescription)))
@@ -201,7 +201,7 @@ enum UserDispatcher {
     static func kickTwitterTimelineScrape(
         uid: String,
         maxId: String?,
-        completion: @escaping (Result<Void>) -> Void
+        completion: @escaping (Result<Void, TwibuError>) -> Void
     ) {
         UserRepository.kickScrapeTimeline(uid: uid, maxId: maxId) { result in
             switch result {

@@ -16,7 +16,7 @@ enum TimelineRepository {
     static func fetchTimeline(
         userUid: String,
         type: Repository.FetchType,
-        completion: @escaping (Result<Repository.Result<[TimelineReducer.Info]>>) -> Void
+        completion: @escaping (Result<Repository.Result<[TimelineReducer.Info]>, TwibuError>) -> Void
     ) {
         let query: Query = {
             switch type {

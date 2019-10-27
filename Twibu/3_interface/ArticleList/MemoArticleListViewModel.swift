@@ -79,7 +79,7 @@ extension MemoArticleListViewModel {
         }
     }
 
-    func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void>) -> Void) {
+    func deleteBookmark(bookmarkUid: String, completion: @escaping (Result<Void, TwibuError>) -> Void) {
         guard let uid = currentUser?.firebaseAuthUser?.uid else { return }
         MemoDispatcher.deleteMemo(userUid: uid, bookmarkUid: bookmarkUid, completion: completion)
     }

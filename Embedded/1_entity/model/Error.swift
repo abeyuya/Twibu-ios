@@ -20,6 +20,7 @@ public enum TwibuError: Error, Equatable {
     case firebaseFunctionsError(String?)
     case webArchiveError(String?)
     case apiError(String?)
+    case notificationPermissionError(String?)
 
     public static let alreadyExistTwitterAccountErrorCode = 17025
     private static let twitterApiRateLimitErrorMessage = "Rate limit exceeded"
@@ -66,6 +67,7 @@ public enum TwibuError: Error, Equatable {
         case .firebaseFunctionsError(_): return "通信に失敗しました"
         case .webArchiveError(_): return "予期せぬエラーが発生しました"
         case .apiError(_): return "通信に失敗しました"
+        case .notificationPermissionError(_): return "通知の許可がありません"
         }
     }
 
@@ -82,6 +84,7 @@ public enum TwibuError: Error, Equatable {
         case .firebaseFunctionsError(let message): return message
         case .webArchiveError(let message): return message
         case .apiError(let message): return message
+        case .notificationPermissionError(let message): return message
         }
     }
 }

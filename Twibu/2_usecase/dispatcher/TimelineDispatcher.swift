@@ -12,7 +12,7 @@ enum TimelineDispatcher {
     static func fetchTimeline(
         userUid: String,
         type: Repository.FetchType,
-        completion: @escaping (Result<[Bookmark]>) -> Void
+        completion: @escaping (Result<[Bookmark], TwibuError>) -> Void
     ) {
         switch type {
         case .add:

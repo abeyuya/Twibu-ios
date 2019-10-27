@@ -18,7 +18,7 @@ enum BookmarkRepository {
         uid: String,
         type: Repository.FetchType,
         commentCountOffset: Int,
-        completion: @escaping (Result<Repository.Result<[Bookmark]>>) -> Void
+        completion: @escaping (Result<Repository.Result<[Bookmark]>, TwibuError>) -> Void
     ) {
         buildQuery(category: category, type: type).getDocuments() { snapshot, error in
             if let error = error {

@@ -53,6 +53,11 @@ public enum HistoryRepository {
         completion(histories)
     }
 
+    static func fetchHistory(bookmarkUid: String, completion: @escaping (History?) -> Void) {
+        let h = realm.objects(History.self).filter("bookmarkUid == %@", bookmarkUid).first
+        completion(h)
+    }
+
     static func isExist(bookmarkUid: String) -> Bool {
         let h = realm.objects(History.self).filter("bookmarkUid == %@", bookmarkUid).first
         if h == nil {

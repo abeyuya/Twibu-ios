@@ -32,7 +32,7 @@ enum MemoDispatcher {
     static func deleteMemo(
         userUid: String,
         bookmarkUid: String,
-        completion: @escaping (Result<Void>) -> Void
+        completion: @escaping (Result<Void, TwibuError>) -> Void
     ) {
         MemoRepository.deleteMemo(userUid: userUid, bookmarkUid: bookmarkUid) { result in
             switch result {

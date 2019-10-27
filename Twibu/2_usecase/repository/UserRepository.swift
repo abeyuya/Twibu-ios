@@ -20,7 +20,7 @@ enum UserRepository {
         userId: String,
         accessToken: String,
         secretToken: String,
-        completion: @escaping (Result<Void>) -> Void
+        completion: @escaping (Result<Void, TwibuError>) -> Void
     ) {
         let data: [String: Any] = [
             "uid": uid,
@@ -47,7 +47,7 @@ enum UserRepository {
     static func kickScrapeTimeline(
         uid: String,
         maxId: String?,
-        completion: @escaping (Result<String>) -> Void
+        completion: @escaping (Result<String, TwibuError>) -> Void
     ) {
         var data: [String: String] = ["uid": uid]
         if let m = maxId {

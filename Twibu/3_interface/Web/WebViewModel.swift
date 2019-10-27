@@ -14,7 +14,7 @@ protocol WebViewModelDelegate: class {
     func renderBadgeCount(count: Int)
 }
 
-class WebViewModel {
+final class WebViewModel {
     enum ViewMode {
         case online, offline
     }
@@ -48,6 +48,10 @@ extension WebViewModel {
 
     func stopSubscribe() {
         store.unsubscribe(self)
+    }
+
+    func goBackground() {
+        HistoryDispatcher.setLocalNotificationIfNeeded(bookmarkUid: bookmark.uid)
     }
 }
 

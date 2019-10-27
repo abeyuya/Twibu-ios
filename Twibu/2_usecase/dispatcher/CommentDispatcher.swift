@@ -14,7 +14,7 @@ public enum CommentDispatcher {
         bookmarkUid: String,
         title: String,
         url: String,
-        completion: @escaping (Result<[Comment]>) -> Void
+        completion: @escaping (Result<[Comment], TwibuError>) -> Void
     ) {
         updateState(buid: bookmarkUid, s: .loading)
         CommentRepositoryFirestore.execUpdateBookmarkComment(

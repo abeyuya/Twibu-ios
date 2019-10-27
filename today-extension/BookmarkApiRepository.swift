@@ -31,7 +31,7 @@ public enum BookmarkApiRepository {
         }
     }
 
-    public static func fetchBookmarks(completion: @escaping (Result<[Bookmark]>) -> Void) {
+    public static func fetchBookmarks(completion: @escaping (Result<[Bookmark], TwibuError>) -> Void) {
         guard let url = URL(string: endpoint) else {
             completion(.failure(TwibuError.apiError("不正なURLです: \(endpoint)")))
             return

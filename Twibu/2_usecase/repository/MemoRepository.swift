@@ -16,7 +16,7 @@ enum MemoRepository {
     static func fetchMemoBookmarks(
         userUid: String,
         type: Repository.FetchType,
-        completion: @escaping (Result<Repository.Result<[MemoReducer.Info]>>) -> Void
+        completion: @escaping (Result<Repository.Result<[MemoReducer.Info]>, TwibuError>) -> Void
     ) {
         let query: Query = {
             switch type {
@@ -111,7 +111,7 @@ enum MemoRepository {
     public static func fetchMemo(
         userUid: String,
         bookmarkUid: String,
-        completion: @escaping (Result<Memo>) -> Void
+        completion: @escaping (Result<Memo, TwibuError>) -> Void
     ) {
         db.collection("users")
             .document(userUid)
@@ -143,7 +143,7 @@ enum MemoRepository {
         bookmarkUid: String,
         memo: String,
         isNew: Bool,
-        completion: @escaping (Result<Void>) -> Void
+        completion: @escaping (Result<Void, TwibuError>) -> Void
     ) {
         let ref = db.collection("users")
             .document(userUid)
@@ -184,7 +184,7 @@ enum MemoRepository {
     public static func deleteMemo(
         userUid: String,
         bookmarkUid: String,
-        completion: @escaping (Result<Void>) -> Void
+        completion: @escaping (Result<Void, TwibuError>) -> Void
     ) {
         let ref = TwibuFirebase.shared.firestore
             .collection("users")

@@ -87,7 +87,6 @@
 		4D72CF1322E2FC3900E6AA66 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092E22BE213400BB0959 /* Error.swift */; };
 		4D72CF1422E2FC3D00E6AA66 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11154822B69E15000817BA /* Bookmark.swift */; };
 		4D72CF1522E2FC4200E6AA66 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65092C22BE01D500BB0959 /* Category.swift */; };
-		4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D11153122B547F8000817BA /* Result.swift */; };
 		4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF34EF722D78D6F00E9AE80 /* Logger.swift */; };
 		4D72CF1D22E2FDE200E6AA66 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65093022BE25CA00BB0959 /* Env.swift */; };
 		4D72CF2522E34BDF00E6AA66 /* GoogleService-Info-release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D72CF2322E316BC00E6AA66 /* GoogleService-Info-release.plist */; };
@@ -109,6 +108,7 @@
 		4DC5AD492337A744002BFE0D /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5AD482337A744002BFE0D /* ActionViewController.swift */; };
 		4DC5AD4C2337A745002BFE0D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5AD4A2337A745002BFE0D /* MainInterface.storyboard */; };
 		4DC5AD502337A745002BFE0D /* action-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4DC5AD442337A744002BFE0D /* action-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4DC5EDC22365CC3A0008B3E2 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5EDC12365CC3A0008B3E2 /* Notification.swift */; };
 		4DC913CC23483BC400734863 /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B423483BC300734863 /* FirebaseAuth.framework */; };
 		4DC913CD23483BC400734863 /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B523483BC300734863 /* FIRAnalyticsConnector.framework */; };
 		4DC913CE23483BC400734863 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC913B623483BC300734863 /* FirebaseInstanceID.framework */; };
@@ -268,7 +268,6 @@
 		4D11152722B524C0000817BA /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		4D11152B22B531E8000817BA /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4D11152E22B545FF000817BA /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		4D11153122B547F8000817BA /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		4D11153422B570A3000817BA /* PagingRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingRootViewController.swift; sourceTree = "<group>"; };
 		4D11153722B57697000817BA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		4D11153C22B58091000817BA /* CategoryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoryViewController.storyboard; sourceTree = "<group>"; };
@@ -365,6 +364,7 @@
 		4DC5AD482337A744002BFE0D /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		4DC5AD4B2337A745002BFE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4DC5AD4D2337A745002BFE0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DC5EDC12365CC3A0008B3E2 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		4DC913B423483BC300734863 /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAuth.framework; path = Carthage/Build/iOS/FirebaseAuth.framework; sourceTree = "<group>"; };
 		4DC913B523483BC300734863 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Carthage/Build/iOS/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
 		4DC913B623483BC300734863 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Build/iOS/FirebaseInstanceID.framework; sourceTree = "<group>"; };
@@ -884,6 +884,7 @@
 				4D65092922BBDCC400BB0959 /* CommentRepositoryFirestore.swift */,
 				4DD2685822C4E6FA007A9E68 /* Firebase.swift */,
 				4DFC605A22FDFEAB00C7CFE7 /* WebArchiver.swift */,
+				4DC5EDC12365CC3A0008B3E2 /* Notification.swift */,
 			);
 			path = client;
 			sourceTree = "<group>";
@@ -1000,7 +1001,6 @@
 				4D65092C22BE01D500BB0959 /* Category.swift */,
 				4D65092522BBDB5800BB0959 /* Comment.swift */,
 				4D65093022BE25CA00BB0959 /* Env.swift */,
-				4D11153122B547F8000817BA /* Result.swift */,
 				4DDB8DDD22C4F57400916F72 /* Repository.swift */,
 			);
 			path = model;
@@ -1522,6 +1522,7 @@
 				4DA1E5E022CB5F7A00320895 /* SettingsViewController.swift in Sources */,
 				4DD079C12322A02C00D62B0B /* WebArchiveDispatcher.swift in Sources */,
 				4D11154C22B6A648000817BA /* WebViewController.swift in Sources */,
+				4DC5EDC22365CC3A0008B3E2 /* Notification.swift in Sources */,
 				4D11152F22B545FF000817BA /* UserRepository.swift in Sources */,
 				4DD369E02337730300D2D10D /* TwibuFirebaseCodable.swift in Sources */,
 				4D28F55322E494D000156445 /* Router.swift in Sources */,
@@ -1603,7 +1604,6 @@
 				4D72CF1A22E2FC5B00E6AA66 /* Logger.swift in Sources */,
 				4D3D26772338F82600BFD408 /* CommentViewController.swift in Sources */,
 				4D3D267B2338F90A00BFD408 /* String+Extension.swift in Sources */,
-				4D72CF1822E2FC5100E6AA66 /* Result.swift in Sources */,
 				4D3059542338A40D001F0605 /* Repository.swift in Sources */,
 				4DFFDBC6233BB5B90037AA8A /* CategoryContentView.swift in Sources */,
 				4D3059322337FE75001F0605 /* Comment.swift in Sources */,
