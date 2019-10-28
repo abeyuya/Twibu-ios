@@ -11,9 +11,15 @@ import WebKit
 import SwiftIcons
 import BadgeSwift
 import PKHUD
+import Kingfisher
 import Embedded
 
 private let iconSize: CGFloat = 25
+
+private let thumbProcessor = ResizingImageProcessor(
+    referenceSize: .init(width: 210, height: 210),
+    mode: .aspectFit
+)
 
 final class WebViewController: UIViewController, StoryboardInstantiatable {
     private let webview = WKWebView()
@@ -53,6 +59,13 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
         setupWebview()
         setupNavigation()
         setupToolbar()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(setLocalNotification),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -407,6 +420,41 @@ private extension WebViewController {
     private func setBadgeCount(count: Int) {
         DispatchQueue.main.async {
             self.commentBadge.text = String(count)
+        }
+    }
+
+    @objc
+    private func setLocalNotification() {
+        guard let s = viewModel.bookmark.image_url, let url = URL(string: s) else {
+            viewModel.setLocalNotificationIfNeeded(image: nil) { result in
+                switch result {
+                case .failure(let e):
+                    Logger.print(e)
+                case .success:
+                    break
+                }
+            }
+            return
+        }
+
+        let r = ImageResource(downloadURL: url)
+        KingfisherManager.shared.retrieveImage(
+            with: r,
+            options: nil // [.processor(thumbProcessor)]
+        ) { [weak self] result in
+            switch result {
+            case .failure(let e):
+                Logger.print(e)
+            case .success(let r):
+                self?.viewModel.setLocalNotificationIfNeeded(image: r.image) { result in
+                    switch result {
+                    case .failure(let e):
+                        Logger.print(e)
+                    case .success:
+                        break
+                    }
+                }
+            }
         }
     }
 }

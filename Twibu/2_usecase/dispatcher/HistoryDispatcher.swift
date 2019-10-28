@@ -35,13 +35,4 @@ enum HistoryDispatcher {
         let a = HistoryReducer.Actions.Delete(bookmarkUid: bookmarkUid)
         store.mDispatch(a)
     }
-
-    static func setLocalNotificationIfNeeded(bookmarkUid: String) {
-        HistoryRepository.fetchHistory(bookmarkUid: bookmarkUid) { h in
-            guard let h = h else {
-                assertionFailure("通らないはず。履歴がないのにリマインド設定しようとしている")
-                return
-            }
-        }
-    }
 }

@@ -50,8 +50,36 @@ extension WebViewModel {
         store.unsubscribe(self)
     }
 
-    func goBackground() {
-        HistoryDispatcher.setLocalNotificationIfNeeded(bookmarkUid: bookmark.uid)
+    func setLocalNotificationIfNeeded(
+        image: UIImage?,
+        completion: @escaping (Result<Void, TwibuError>) -> Void
+    ) {
+        HistoryRepository.fetchHistory(bookmarkUid: bookmark.uid) { h in
+            guard let h = h else {
+                assertionFailure("通らないはず。履歴がないのにリマインド設定しようとしている")
+                return
+            }
+
+            guard let b = h.decodedBookmark() else {
+                assertionFailure("通らないはず。変な履歴が保存されている")
+                return
+            }
+
+            let date: DateComponents = {
+                var d = DateComponents()
+                d.second = d.second ?? 0 + 5
+                return d
+            }()
+
+            Notification.setLocalNotification(
+                bookmarkUid: b.uid,
+                title: b.title ?? "タイトルが取得できませんでした",
+                message: b.description ?? "",
+                image: image,
+                date: date,
+                completion: completion
+            )
+        }
     }
 }
 

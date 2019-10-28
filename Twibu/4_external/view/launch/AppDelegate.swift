@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import Firebase
 import Embedded
-import Fabric
 import SwifteriOS
+import Fabric
 import Crashlytics
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -29,6 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Router.shared.showLauncingView() {}
         UserDispatcher.setupUser() { result in
             Router.shared.showPagingRootView() {}
+        }
+
+        Notification.requestPermission { result in
+            switch result {
+            case .failure(let e):
+                Logger.print(e)
+            case .success:
+                break
+            }
         }
 
         return true
@@ -89,5 +97,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let i = response.notification.request.content.userInfo
+        guard let type = i["type"] as? String else {
+            Logger.print("通知のNoticeTypeが取得できない")
+            return
+        }
+
+        switch type {
+        case Notification.NoticeType.localRemind.rawValue:
+            guard let buid = i["bookmarkUid"] as? String else {
+                Logger.print("通知のNoticeTypeが取得できない")
+                return
+            }
+            HistoryRepository.fetchHistory(bookmarkUid: buid) { h in
+                guard let b = h?.decodedBookmark() else {
+                    Logger.print("履歴が存在しない")
+                    return
+                }
+
+                let vc = WebViewController.initFromStoryBoard()
+                let vm = WebViewModel(bookmark: b, delegate: vc)
+                vc.set(viewModel: vm)
+                Router.shared.openBookmarkWebFromUrlScheme(vc: vc)
+            }
+        default:
+            assertionFailure("通らないはず")
+        }
+    }
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.sound, .alert])
     }
 }
