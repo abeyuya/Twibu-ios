@@ -17,12 +17,12 @@ final class RootViewController: UIViewController {
 
     func replace(vc: UIViewController, completion: @escaping () -> Void) {
         DispatchQueue.main.async {
-            if let childViewController = self.children.first {
-                childViewController.willMove(toParent: nil)
-                childViewController.view.subviews.forEach { $0.removeFromSuperview() }
-                childViewController.view.removeFromSuperview()
-                childViewController.children.forEach { $0.removeFromParent() }
-                childViewController.removeFromParent()
+            if let childVc = self.children.first {
+                childVc.willMove(toParent: nil)
+                childVc.view.subviews.forEach { $0.removeFromSuperview() }
+                childVc.view.removeFromSuperview()
+                childVc.children.forEach { $0.removeFromParent() }
+                childVc.removeFromParent()
             }
 
             self.view.subviews.forEach { $0.removeFromSuperview() }
@@ -31,16 +31,14 @@ final class RootViewController: UIViewController {
     }
 
     private func set(vc: UIViewController, completion: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            self.addChild(vc)
-            self.view.addSubview(vc.view)
-            vc.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            vc.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-            vc.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-            vc.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-            vc.didMove(toParent: self)
-            completion()
-        }
+        self.addChild(vc)
+        self.view.addSubview(vc.view)
+        vc.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        vc.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        vc.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        vc.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        vc.didMove(toParent: self)
+        completion()
     }
 
     private func setupView() {
