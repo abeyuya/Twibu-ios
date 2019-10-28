@@ -31,14 +31,19 @@ final class WebViewController: UIViewController, StoryboardInstantiatable {
 
     private lazy var commentContainerView: UIView = {
         let vc = CommentRootViewController<FirestoreCommentListViewModel>.build(bookmark: viewModel.bookmark)
+        addChild(vc)
+        vc.didMove(toParent: self)
+
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
-
-        addChild(vc)
-        vc.view.frame = container.frame
-
         container.addSubview(vc.view)
-        vc.didMove(toParent: self)
+        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            vc.view.topAnchor.constraint(equalTo: container.topAnchor),
+            vc.view.leftAnchor.constraint(equalTo: container.leftAnchor),
+            vc.view.rightAnchor.constraint(equalTo: container.rightAnchor),
+            vc.view.bottomAnchor.constraint(equalTo: container.bottomAnchor)
+        ])
 
         return container
     }()
@@ -316,10 +321,12 @@ private extension WebViewController {
             options: .transitionCurlDown,
             animations: {
                 self.view.addSubview(self.commentContainerView)
-                self.commentContainerView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-                self.commentContainerView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-                self.commentContainerView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-                self.commentContainerView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+                NSLayoutConstraint.activate([
+                    self.commentContainerView.topAnchor.constraint(equalTo: self.view.topAnchor),
+                    self.commentContainerView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+                    self.commentContainerView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+                    self.commentContainerView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+                ])
             },
             completion: { _ in }
         )
