@@ -23,16 +23,6 @@ jobs:
           key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gem-
-      - name: Setup
-        env:
-          PERSONAL_ACCESS_TOKEN_GITHUB: ${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} # In case of using match
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }} # In case of using match
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }} # In case of using carthage
-        run: |
-          sudo xcode-select -s /Applications/Xcode_11.app
-          gem install bundler:1.17.2
-          bundle install --path .bundle
-          bundle exec fastlane install_library
       - name: Cache carthage
         uses: actions/cache@preview
         with:
@@ -47,6 +37,16 @@ jobs:
           key: ${{ runner.os }}-cocoapod-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-cocoapod-
+      - name: Setup
+        env:
+          PERSONAL_ACCESS_TOKEN_GITHUB: ${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} # In case of using match
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }} # In case of using match
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }} # In case of using carthage
+        run: |
+          sudo xcode-select -s /Applications/Xcode_11.app
+          gem install bundler:1.17.2
+          bundle install --path .bundle
+          bundle exec fastlane install_library
       - name: Run Unittest
         env:
           PERSONAL_ACCESS_TOKEN_GITHUB: ${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} # In case of using match
