@@ -20,7 +20,7 @@ jobs:
         uses: actions/cache@preview
         with:
           path: .bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('./Gemfile.lock') }}
+          key: ${{ runner.os }}-gem-${{ hashFiles('Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gem-
       - name: Setup
@@ -37,14 +37,14 @@ jobs:
         uses: actions/cache@preview
         with:
           path: ./Carthage/Build/iOS
-          key: ${{ runner.os }}-carthage-${{ hashFiles('./Cartfile.resolved') }}
+          key: ${{ runner.os }}-carthage-${{ hashFiles('Cartfile.resolved') }}
           restore-keys: |
             ${{ runner.os }}-carthage-
       - name: Cache cocoapod
         uses: actions/cache@preview
         with:
           path: ./Pods
-          key: ${{ runner.os }}-cocoapod-${{ hashFiles('./Podfile.lock') }}
+          key: ${{ runner.os }}-cocoapod-${{ hashFiles('Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-cocoapod-
       - name: Run Unittest
