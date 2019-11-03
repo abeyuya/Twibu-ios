@@ -66,8 +66,19 @@ extension WebViewModel {
             }
 
             let date: DateComponents = {
+                // 翌朝9時
                 var d = DateComponents()
-                d.second = d.second ?? 0 + 5
+                d.hour = 9
+                d.minute = 0
+                d.second = 0
+                d.day = {
+                    let now = DateComponents()
+                    guard let hour = now.hour, let day = now.day else { return now.day }
+                    if hour <= 3 {
+                        return day
+                    }
+                    return day + 1
+                }()
                 return d
             }()
 

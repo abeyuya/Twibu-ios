@@ -65,7 +65,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             let vm = WebViewModel.init(bookmark: b, delegate: vc)
             vc.set(viewModel: vm)
 
-            Router.shared.openBookmarkWebFromUrlScheme(vc: vc)
+            Router.shared.push(vc: vc)
             return true
         }
 
@@ -127,7 +127,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 let vc = WebViewController.initFromStoryBoard()
                 let vm = WebViewModel(bookmark: b, delegate: vc)
                 vc.set(viewModel: vm)
-                Router.shared.openBookmarkWebFromUrlScheme(vc: vc)
+                Router.shared.push(vc: vc)
             }
         default:
             assertionFailure("通らないはず")

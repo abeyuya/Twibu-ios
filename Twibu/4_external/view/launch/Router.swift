@@ -43,7 +43,7 @@ final class Router {
         return n as? UINavigationController
     }
 
-    func openBookmarkWebFromUrlScheme(vc: UIViewController) {
+    func push(vc: UIViewController) {
         UserDispatcher.setupUser() { _ in
             DispatchQueue.main.async {
                 if let navi = self.getPresentingNavigation() {

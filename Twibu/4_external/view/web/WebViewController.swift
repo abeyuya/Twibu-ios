@@ -16,11 +16,6 @@ import Embedded
 
 private let iconSize: CGFloat = 25
 
-private let thumbProcessor = ResizingImageProcessor(
-    referenceSize: .init(width: 210, height: 210),
-    mode: .aspectFit
-)
-
 final class WebViewController: UIViewController, StoryboardInstantiatable {
     private let webview = WKWebView()
     private var lastContentOffset: CGFloat = 0
@@ -438,10 +433,7 @@ private extension WebViewController {
         }
 
         let r = ImageResource(downloadURL: url)
-        KingfisherManager.shared.retrieveImage(
-            with: r,
-            options: nil // [.processor(thumbProcessor)]
-        ) { [weak self] result in
+        KingfisherManager.shared.retrieveImage(with: r) { [weak self] result in
             switch result {
             case .failure(let e):
                 Logger.print(e)
