@@ -57,7 +57,6 @@
 		4D556FA5234852EB00A4CA35 /* BadgeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA4234852EB00A4CA35 /* BadgeSwift.framework */; };
 		4D556FA72348532E00A4CA35 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA62348532E00A4CA35 /* PKHUD.framework */; };
 		4D556FAA2348544600A4CA35 /* Parchment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FA82348540500A4CA35 /* Parchment.framework */; };
-		4D556FAD234854E900A4CA35 /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FAC234854E800A4CA35 /* SwiftIcons.framework */; };
 		4D556FB72348594400A4CA35 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FB0234856F600A4CA35 /* Kingfisher.framework */; };
 		4D556FB923485B2D00A4CA35 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FB823485B2D00A4CA35 /* ReSwift.framework */; };
 		4D556FBC23485D1500A4CA35 /* Promises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D556FBB23485D1500A4CA35 /* Promises.framework */; };
@@ -491,7 +490,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D556FB72348594400A4CA35 /* Kingfisher.framework in Frameworks */,
-				4D556FAD234854E900A4CA35 /* SwiftIcons.framework in Frameworks */,
 				4D556FAA2348544600A4CA35 /* Parchment.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2060,7 +2058,6 @@
 		4D5145C92347CA45008DB7BD /* Adhoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2229,7 +2226,6 @@
 		4D72CF0222E2E07B00E6AA66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2266,7 +2262,6 @@
 		4D72CF0322E2E07B00E6AA66 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";

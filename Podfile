@@ -12,6 +12,7 @@ abstract_target 'All' do
 
     pod 'UITextView+Placeholder'
     pod 'LicensePlist'
+    pod 'SwiftIcons'
 
     target 'TwibuTests' do
       inherit! :search_paths

@@ -3,12 +3,14 @@ PODS:
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
   - LicensePlist (2.9.0)
+  - SwiftIcons (2.3.2)
   - "UITextView+Placeholder (1.3.3)"
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
   - LicensePlist
+  - SwiftIcons
   - "UITextView+Placeholder"
 
 SPEC REPOS:
@@ -16,14 +18,16 @@ SPEC REPOS:
     - Crashlytics
     - Fabric
     - LicensePlist
+    - SwiftIcons
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   LicensePlist: 94c2f54bb9cc5427797addaeb716cfaba3544e89
+  SwiftIcons: e652cfd2676441c462ad57b6e92977faf577e590
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: 7020593cd9f177af76fa0f25c0ad1d1bf4415b61
+PODFILE CHECKSUM: 8c04a4a73add8cf8a61a4ca62c8633025df4ae93
 
 COCOAPODS: 1.8.4

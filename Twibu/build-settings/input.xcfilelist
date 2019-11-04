@@ -4,7 +4,7 @@ $(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework
 $(SRCROOT)/Carthage/Build/iOS/BadgeSwift.framework
 $(SRCROOT)/Carthage/Build/iOS/PKHUD.framework
 $(SRCROOT)/Carthage/Build/iOS/Parchment.framework
-$(SRCROOT)/Carthage/Build/iOS/SwiftIcons.framework
+# $(SRCROOT)/Carthage/Build/iOS/SwiftIcons.framework
 $(SRCROOT)/Carthage/Build/iOS/ReSwift.framework
 $(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework
 $(SRCROOT)/Carthage/Build/iOS/Promises.framework

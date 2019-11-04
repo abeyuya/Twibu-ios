@@ -12,6 +12,10 @@ body: MIT License
 Copyrig…
 version: 2.9.0
 
+name: SwiftIcons, nameSpecified: 
+body: The MIT License (MIT…
+version: 2.3.2
+
 name: UITextView+Placeholder, nameSpecified: 
 body: The MIT License (MIT…
 version: 
